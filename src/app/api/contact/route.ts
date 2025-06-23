@@ -1,29 +1,39 @@
 // app/api/contact/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import nodemailer from "nodemailer";
 
-const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
-
-export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const { name, email, message } = body;
-
+export async function POST(req: Request) {
   try {
-    const data = await resend.emails.send({
-      from: 'onboarding@resend.dev', // ✅ use this for testing
-      to: 'supermint1290@gmail.com',
-      subject: 'New Contact Form Submission',
-      html: `
-      <h1>New Contact Form Submission</h1>  
-      <h1> From the NSTQB Contact For</h1>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong><br/>${message}</p>
-      `,
+    const { name, email, message } = await req.json();
+
+    if (!name || !email || !message) {
+      return new Response("Missing required fields", { status: 400 });
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
     });
 
-    return NextResponse.json({ success: true, data });
+    const mailOptions = {
+      from: `"${name}" <${email}>`,
+      to: process.env.ADMIN_EMAIL,
+      subject: `New contact form submission from ${name}`,
+      text: `
+You have a new message from your website:
+
+Name: ${name}
+Email: ${email}
+Message: ${message}
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    return new Response("Email sent successfully", { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to send email.' }, { status: 500 });
+    console.error("Failed to send email:", error);
+    return new Response("Something went wrong", { status: 500 });
   }
 }

@@ -43,9 +43,13 @@ export default function ContactUs() {
       //   body: JSON.stringify(formData),
       // });
 
-      const res=await axios.post("/api/contact",formData);
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-      if (!res.data.success) throw new Error("Failed to send message.");
+      if (!res.ok) throw new Error("Failed to send message.");
 
       toast.success("Your message has been sent successfully!");
       setFormData({ name: "", email: "", subject: "", message: "" });
