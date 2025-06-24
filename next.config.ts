@@ -2,7 +2,18 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images:{
-    domains:["images.pexels.com","nstqb.org","www.istqb.org"]
+    remotePatterns:[
+      {
+        protocol:'https',
+        hostname:'**'
+      },
+      {
+        protocol: 'http',
+        hostname: '**', // optionally allow all HTTP domains
+      },
+    ]
+      
+    
   }
   /* config options here */
 };

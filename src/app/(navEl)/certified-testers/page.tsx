@@ -55,7 +55,7 @@ export default function CertifiedTestersPage() {
               <th className="border px-2 py-1">Certification</th>
               <th className="border px-2 py-1">Country</th>
               <th className="border px-2 py-1">Certification Date</th>
-              <th className="border px-2 py-1">Created At</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -70,9 +70,9 @@ export default function CertifiedTestersPage() {
                 <td className="border px-2 py-1">
                   {new Date(tester.certificationDate).toLocaleDateString()}
                 </td>
-                <td className="border px-2 py-1">
+                {/* <td className="border px-2 py-1">
                   {new Date(tester.createdAt).toLocaleString()}
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

@@ -39,3 +39,10 @@ model nstqbExamDate{
   id String @id @default(uuid())
   examDate DateTime
 }
+
+model carouselImage{
+  id String @id @default(uuid())
+  url String
+  title       String   @default("")
+  description String   @default("")
+}

@@ -7,6 +7,7 @@ import Image from "next/image";
 import HeroCarousel from "./CarouselComp";
 import { useRouter } from "next/navigation";
 
+
 export default function LandingPage() {
   const router = useRouter();
   return (
