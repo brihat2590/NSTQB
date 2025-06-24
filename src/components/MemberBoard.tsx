@@ -4,71 +4,72 @@ import { Linkedin } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
-const boardMembers = [
+ const boardMembers = [
   {
     id: 1,
-    name: "Dr. Rajesh Sharma",
-    role: "Chairman & CEO",
-    image: "/temple.jpg",
-    linkedIn: "https://linkedin.com/in/rajesh-sharma",
+    name: "Ms. Sangeeta Rayamajhi",
+    role: "President",
+    image: "https://nstqb.org/wp-content/uploads/2020/07/Sangeeta-e1595139163767.jpg",
+    linkedIn: "", // Add if available
   },
   {
     id: 2,
-    name: "Ms. Priya Thapa",
-    role: "Vice Chairman",
-    image: "https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg",
-    linkedIn: "https://linkedin.com/in/priya-thapa",
+    name: "Ms. Saluja Bhandari",
+    role: "Ex-President",
+    image: "https://nstqb.org/wp-content/uploads/2020/07/Saluja-Bhandari-Portrait.jpg",
+    linkedIn: "https://linkedin.com/in/saluja-bhandari", // Use actual if known
   },
   {
     id: 3,
-    name: "Mr. Amit Gurung",
-    role: "Technical Director",
-    image: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
-    linkedIn: "https://linkedin.com/in/amit-gurung"
+    name: "Mr. Raunak Maskay",
+    role: "Treasurer",
+    image: "https://nstqb.org/wp-content/uploads/2020/06/Raunak-Maskay-e1595138923951.jpg",
+    linkedIn: "",
   },
   {
     id: 4,
-    name: "Dr. Sunita Maharjan",
-    role: "Academic Director",
-    image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
-    linkedIn: "https://linkedin.com/in/sunita-maharjan"
+    name: "Mr. Prashan Vaidya",
+    role: "Accreditation Officer",
+    image: "https://nstqb.org/wp-content/uploads/2020/07/Prashan-Vaidya.jpg",
+    linkedIn: "",
   },
   {
     id: 5,
-    name: "Mr. Kamal Shrestha",
-    role: "Operations Manager",
-    image: "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg",
-    linkedIn: "https://linkedin.com/in/kamal-shrestha"
+    name: "Mr. Hempal Shrestha",
+    role: "Board Member",
+    image: "https://nstqb.org/wp-content/uploads/2020/07/Hempal.jpg",
+    linkedIn: "",
   },
   {
     id: 6,
-    name: "Ms. Anita Poudel",
-    role: "Quality Assurance Head",
-    image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
-    linkedIn: "https://linkedin.com/in/anita-poudel"
+    name: "Mr. Chandra Paudel",
+    role: "Board Member",
+    image: "https://nstqb.org/wp-content/uploads/2020/07/Chandra-Paudel.jpg",
+    linkedIn: "",
   },
   {
     id: 7,
-    name: "Mr. Dipesh Karki",
-    role: "Training Coordinator",
-    image: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg",
-    linkedIn: "https://linkedin.com/in/dipesh-karki"
+    name: "Mr. Ananta Bhadra Lamichhanne",
+    role: "Board Member",
+    image: "https://nstqb.org/wp-content/uploads/2020/07/Ananta-Bhadra-Lamichhanne.jpg",
+    linkedIn: "",
   },
   {
     id: 8,
-    name: "Ms. Roshani Adhikari",
-    role: "Certification Manager",
-    image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
-    linkedIn: "https://linkedin.com/in/roshani-adhikari"
+    name: "Mr. Deepak Thapa",
+    role: "Board Member",
+    image: "https://nstqb.org/wp-content/uploads/2020/07/Deepak-Thapa.jpg",
+    linkedIn: "",
   },
   {
     id: 9,
-    name: "Mr. Bikash Tamang",
-    role: "International Relations",
-    image: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg",
-    linkedIn: "https://linkedin.com/in/bikash-tamang"
+    name: "Mr. Ramesh Adhikari",
+    role: "Board Member",
+    image: "https://nstqb.org/wp-content/uploads/2020/06/Ramesh-Adhikari-2-e1595138657439.jpg",
+    linkedIn: "",
   }
 ];
+
 
 export default function MemberBoards() {
   const [hoveredMember, setHoveredMember] = useState<number | null>(null);

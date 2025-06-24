@@ -199,7 +199,7 @@
   }
 }
 
-/* Flowing headline animation */
+/* Horizontal scroll animation */
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -210,7 +210,7 @@
 }
 
 .animate-scroll {
-  animation: scroll 40s linear infinite;
+  animation: scroll 60s linear infinite; /* slower: 60s instead of 40s */
 }
 
 /* Pause animation on hover */
@@ -218,7 +218,14 @@
   animation-play-state: paused;
 }
 
-/* Flowing headline animations */
+/* Make scroll slightly faster on small screens, but still slower than before */
+@media (max-width: 768px) {
+  .animate-scroll {
+    animation-duration: 45s !important; /* slower but a bit faster than desktop */
+  }
+}
+
+/* Optional if you're using marquee variants */
 @keyframes marquee {
   0% {
     transform: translateX(100%);
@@ -229,14 +236,13 @@
 }
 
 .animate-marquee {
-  animation: marquee 45s linear infinite;
+  animation: marquee 60s linear infinite; /* slower: 60s */
 }
 
-.pause-marquee:hover {
+.animate-marquee:hover {
   animation-play-state: paused;
 }
 
-/* Alternative faster version */
 @keyframes marquee-fast {
   0% {
     transform: translateX(100%);
@@ -247,10 +253,5 @@
 }
 
 .animate-marquee-fast {
-  animation: marquee-fast 25s linear infinite;
-}
-@media (max-width: 768px) {
-  .animate-scroll {
-    animation-duration: 7s !important;
-  }
+  animation: marquee-fast 35s linear infinite; /* slower than 25s */
 }

@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "sonner";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -31,14 +32,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      
-      <body
-        className={`${poppins.className}`}
-      >
-        <Toaster/>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${poppins.className}`}>
         
-
         {children}
+        <Toaster position="bottom-right" />
+        
+        
       </body>
     </html>
   );
