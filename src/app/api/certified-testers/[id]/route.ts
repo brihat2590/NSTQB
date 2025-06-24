@@ -16,7 +16,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
       where: { id: params.id },
       data: updateData,
     });
-    return NextResponse.json(updated);
+    return NextResponse.json(updated);  
   } catch (err) {
     return NextResponse.json({ error: 'Update failed' }, { status: 500 });
   }

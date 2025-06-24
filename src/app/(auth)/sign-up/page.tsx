@@ -4,21 +4,21 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
-export default function AdminLoginPage() {
+export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleLogin = async () => {
+  const handleSignup = async () => {
     if (!email || !password) {
-      toast.error('Please enter both email and password');
+      toast.error('Email and password are required');
       return;
     }
 
     setLoading(true);
     try {
-      const res = await fetch('/api/signin', {
+      const res = await fetch('/api/signup', {
         method: 'POST',
         body: JSON.stringify({ email: email.trim(), password: password.trim() }),
         headers: { 'Content-Type': 'application/json' },
@@ -27,11 +27,10 @@ export default function AdminLoginPage() {
       const data = await res.json();
 
       if (res.ok) {
-        localStorage.setItem('token', data.token);
-        toast.success('Login successful!');
-        router.push('/admin');
+        toast.success('Signup successful! Please login.');
+        router.push('/sign-in');
       } else {
-        toast.error(data.error || 'Login failed');
+        toast.error(data.error || 'Signup failed');
       }
     } catch (err) {
       toast.error('Something went wrong');
@@ -42,7 +41,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="max-w-sm mx-auto mt-20 p-4 border rounded space-y-3 shadow">
-      <h2 className="text-xl font-bold text-center">Admin Login</h2>
+      <h2 className="text-xl font-bold text-center">Sign Up</h2>
       <input
         type="email"
         placeholder="Email"
@@ -60,11 +59,11 @@ export default function AdminLoginPage() {
         disabled={loading}
       />
       <button
-        onClick={handleLogin}
+        onClick={handleSignup}
         disabled={loading}
-        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+        className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 disabled:opacity-50"
       >
-        {loading ? 'Logging in...' : 'Login'}
+        {loading ? 'Signing up...' : 'Sign Up'}
       </button>
     </div>
   );

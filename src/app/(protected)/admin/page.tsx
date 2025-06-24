@@ -1,7 +1,7 @@
-import AdminCertifiedTesters from "@/components/adminComponents/certifiedTesters";
-
 export default function page(){
   return(
-    <AdminCertifiedTesters/>
+    <div>
+      this is the admin page
+    </div>
   )
 }
