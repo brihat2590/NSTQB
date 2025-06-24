@@ -117,8 +117,9 @@ const benefits = [
 export default function CTFL() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-red-50">
-      {/* Header Section */}
-      <section className="bg-gray-50 text-gray-600 py-16">
+      
+      
+      {/* <section className="bg-gray-50 text-gray-600 py-16">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center">
             <Badge className="bg-white/20 text-white border-white/30 mb-4">
@@ -134,21 +135,21 @@ export default function CTFL() {
                 <Calendar className="mr-2 h-5 w-5" />
                 View Exam Schedule
               </Button></Link>
-              {/* <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-red-600">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-red-600">
                 <Download className="mr-2 h-5 w-5" />
                 Download Syllabus
-              </Button> */}
+              </Button>
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Quick Facts */}
         <section className="mb-12">
           <Card className="shadow-lg">
             <CardHeader className="bg-gradient-to-r from-red-50 to-blue-50">
-              <CardTitle className="text-2xl text-center">Exam Quick Facts</CardTitle>
+              <CardTitle className="text-2xl text-center">CTFL Exam Quick Facts</CardTitle>
             </CardHeader>
             <CardContent className="pt-6">
               <div className="grid md:grid-cols-4 gap-6">
