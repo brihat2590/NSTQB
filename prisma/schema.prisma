@@ -43,7 +43,7 @@ model carouselImage{
   title       String   @default("")
   description String   @default("")
 }
-model ExamSchedule {
+model examSchedule {
   id                   String   @id @default(uuid())
   examTitle            String
   examDate             DateTime
