@@ -1,83 +1,101 @@
-"use client"; // Needed for client-side interactivity
+'use client';
 
-import { useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import certifiedTesters from "@/data/nstqb.json";
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
-type certifiedTesterType={
-    name:string,
-    examType:string,    
-    data:Date
-}
+type Tester = {
+  id: string;
+  name: string;
+  certificateNumber: string;
+  certificateBody: string;
+  examProvider: string;
+  certification: string;
+  countryOfIssue: string;
+  certificationDate: string;
+  createdAt: string;
+};
 
 export default function CertifiedTestersPage() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [testers, setTesters] = useState<Tester[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const filteredTesters = certifiedTesters.filter((tester) =>
-    tester.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const fetchTesters = async () => {
+    try {
+      const res = await fetch(`/api/certified-testers?page=${page}&limit=10`);
+      const data = await res.json();
+
+      if (res.ok) {
+        setTesters(data.data);
+        setTotalPages(data.totalPages);
+      } else {
+        toast.error(data.error || 'Failed to fetch testers');
+      }
+    } catch (error) {
+      toast.error('Failed to connect to server');
+    }
+  };
+
+  useEffect(() => {
+    fetchTesters();
+  }, [page]);
 
   return (
-    <div className="container mx-auto py-12 ">
-      <Card>
-        <CardHeader>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <CardTitle className="text-3xl font-bold text-gray-600">
-              ISTQB Certified Testers
-              <Badge variant="secondary" className="ml-2">
-                CTFL
-              </Badge>
-            </CardTitle>
-            <div className="w-full md:w-64">
-              <Input
-                placeholder="Search by name..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableCaption>
-              {filteredTesters.length === certifiedTesters.length
-                ? <span>"A list of our ISTQB Certified Testers."</span>
-                : `Showing ${filteredTesters.length} of ${certifiedTesters.length} testers`}
-            </TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">S.N.</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Date of Exam</TableHead>
-                <TableHead className="text-right">Exam Type</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredTesters.length > 0 ? (
-                filteredTesters.map((tester) => (
-                  <TableRow key={tester.id}>
-                    <TableCell className="font-medium">{tester.id}</TableCell>
-                    <TableCell>{tester.name}</TableCell>
-                    <TableCell>{tester.date}</TableCell>
-                    <TableCell className="text-right">
-                      <Badge variant="outline">{tester.examType}</Badge>
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={4} className="h-24 text-center">
-                    No matching testers found.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+    <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4">Certified Testers</h2>
+
+      <div className="overflow-x-auto">
+        <table className="w-full table-auto border border-gray-300 text-sm">
+          <thead className="bg-gray-100 text-left">
+            <tr>
+              <th className="border px-2 py-1">Name</th>
+              <th className="border px-2 py-1">Certificate Number</th>
+              <th className="border px-2 py-1">Certificate Body</th>
+              <th className="border px-2 py-1">Exam Provider</th>
+              <th className="border px-2 py-1">Certification</th>
+              <th className="border px-2 py-1">Country</th>
+              <th className="border px-2 py-1">Certification Date</th>
+              <th className="border px-2 py-1">Created At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {testers.map((tester) => (
+              <tr key={tester.id} className="border-t">
+                <td className="border px-2 py-1">{tester.name}</td>
+                <td className="border px-2 py-1">{tester.certificateNumber}</td>
+                <td className="border px-2 py-1">{tester.certificateBody}</td>
+                <td className="border px-2 py-1">{tester.examProvider}</td>
+                <td className="border px-2 py-1">{tester.certification}</td>
+                <td className="border px-2 py-1">{tester.countryOfIssue}</td>
+                <td className="border px-2 py-1">
+                  {new Date(tester.certificationDate).toLocaleDateString()}
+                </td>
+                <td className="border px-2 py-1">
+                  {new Date(tester.createdAt).toLocaleString()}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="flex justify-between items-center mt-4">
+        <button
+          onClick={() => setPage((p) => Math.max(p - 1, 1))}
+          disabled={page === 1}
+          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+        >
+          Prev
+        </button>
+        <span>Page {page} of {totalPages}</span>
+        <button
+          onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+          disabled={page === totalPages}
+          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
