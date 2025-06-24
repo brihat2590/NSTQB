@@ -35,14 +35,18 @@ model certifiedTesters{
 
 
 }
-model nstqbExamDate{
-  id String @id @default(uuid())
-  examDate DateTime
-}
+
 
 model carouselImage{
   id String @id @default(uuid())
   url String
   title       String   @default("")
   description String   @default("")
+}
+model ExamSchedule {
+  id                   String   @id @default(uuid())
+  examTitle            String
+  examDate             DateTime
+  applicationPeriod    DateTime
+  location             String
 }
