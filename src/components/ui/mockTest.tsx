@@ -601,6 +601,595 @@ const mockQuestions = [
       "Risk-based testing is an approach where testing activities are prioritized based on the analysis of risk.",
   },
 ]
+const mockQuestions2 = [
+    {
+      id: 1,
+      chapter: "Fundamentals of Testing",
+      type: "single",
+      question: "Which of the following is a fundamental principle of testing?",
+      options: [
+        "Testing shows the absence of defects",
+        "Testing can be started only after development",
+        "Exhaustive testing is possible",
+        "Defect clustering",
+      ],
+      correctAnswer: 3,
+      correctAnswers: [],
+      explanation: "Defect clustering states that most defects are typically found in a small number of modules.",
+    },
+    {
+      id: 2,
+      chapter: "Fundamentals of Testing",
+      type: "single",
+      question: "What is the main objective of testing?",
+      options: [
+        "To detect software failures",
+        "To ensure 100% defect-free software",
+        "To prove code correctness",
+        "To reduce project duration",
+      ],
+      correctAnswer: 0,
+      correctAnswers: [],
+      explanation: "Testing's main goal is to find failures so that defects can be identified and fixed.",
+    },
+    {
+      id: 3,
+      chapter: "Testing Throughout the SDLC",
+      type: "single",
+      question: "Which test level focuses on verifying the entire system against requirements?",
+      options: ["Unit testing", "Integration testing", "System testing", "Acceptance testing"],
+      correctAnswer: 2,
+      correctAnswers: [],
+      explanation: "System testing verifies that the complete integrated system meets specified requirements.",
+    },
+    {
+      id: 4,
+      chapter: "Testing Throughout the SDLC",
+      type: "single",
+      question: "In which SDLC model are testing activities carried out in parallel with development?",
+      options: ["V-model", "Waterfall", "Iterative", "Agile"],
+      correctAnswer: 3,
+      correctAnswers: [],
+      explanation: "Agile promotes continuous testing and development simultaneously.",
+    },
+    {
+      id: 5,
+      chapter: "Static Testing",
+      type: "single",
+      question: "What is the main purpose of static testing?",
+      options: [
+        "To execute the software code",
+        "To find defects in runtime",
+        "To review work products without executing code",
+        "To perform performance testing",
+      ],
+      correctAnswer: 2,
+      correctAnswers: [],
+      explanation: "Static testing involves reviews, walkthroughs, and inspections without code execution.",
+    },
+    {
+      id: 6,
+      chapter: "Static Testing",
+      type: "single",
+      question: "Which role is responsible for moderating a review meeting?",
+      options: ["Author", "Scribe", "Moderator", "Manager"],
+      correctAnswer: 2,
+      correctAnswers: [],
+      explanation: "The moderator facilitates the review meeting and ensures that the process is followed.",
+    },
+    {
+      id: 7,
+      chapter: "Test Analysis and Design",
+      type: "single",
+      question: "Which test technique is based on the software's internal structure?",
+      options: ["Black-box", "White-box", "Behavioral", "Exploratory"],
+      correctAnswer: 1,
+      correctAnswers: [],
+      explanation: "White-box testing is based on the internal structure and logic of the software.",
+    },
+    {
+      id: 8,
+      chapter: "Test Analysis and Design",
+      type: "single",
+      question: "What does equivalence partitioning help with?",
+      options: [
+        "Maximizing test coverage with fewer test cases",
+        "Testing user interfaces",
+        "Improving code readability",
+        "Reducing code complexity",
+      ],
+      correctAnswer: 0,
+      correctAnswers: [],
+      explanation: "Equivalence partitioning reduces the number of test cases while maintaining test coverage.",
+    },
+    {
+      id: 9,
+      chapter: "Managing the Test Activities",
+      type: "single",
+      question: "What is the purpose of entry criteria in test planning?",
+      options: [
+        "To define when a test level is complete",
+        "To specify when testing can begin",
+        "To assign responsibilities to testers",
+        "To define testing tools",
+      ],
+      correctAnswer: 1,
+      correctAnswers: [],
+      explanation: "Entry criteria define the conditions that must be met to start testing.",
+    },
+    {
+      id: 10,
+      chapter: "Managing the Test Activities",
+      type: "single",
+      question: "Which document outlines the overall test approach and schedule?",
+      options: [
+        "Test case",
+        "Test summary report",
+        "Test plan",
+        "Defect report",
+      ],
+      correctAnswer: 2,
+      correctAnswers: [],
+      explanation: "The test plan outlines the scope, approach, resources, and schedule of testing.",
+    },
+  
+    // 11–20
+    {
+      id: 11,
+      chapter: "Test Tools",
+      type: "single",
+      question: "Which tool helps evaluate the non-functional behavior of software?",
+      options: ["Test management", "Defect tracking", "Performance testing", "Static analysis"],
+      correctAnswer: 2,
+      correctAnswers: [],
+      explanation: "Performance testing tools evaluate response time, load handling, etc.",
+    },
+    {
+      id: 12,
+      chapter: "Test Tools",
+      type: "single",
+      question: "What is the main use of a static analysis tool?",
+      options: [
+        "To track defects",
+        "To execute performance tests",
+        "To analyze code without executing it",
+        "To measure user satisfaction",
+      ],
+      correctAnswer: 2,
+      correctAnswers: [],
+      explanation: "Static analysis tools help detect defects early by analyzing code structure.",
+    },
+    {
+      id: 13,
+      chapter: "Fundamentals of Testing",
+      type: "single",
+      question: "Which testing principle addresses repeating the same tests and no longer finding new defects?",
+      options: [
+        "Early testing",
+        "Exhaustive testing",
+        "Defect clustering",
+        "Pesticide paradox",
+      ],
+      correctAnswer: 3,
+      correctAnswers: [],
+      explanation: "The pesticide paradox suggests updating test cases to find new defects.",
+    },
+    {
+      id: 14,
+      chapter: "Fundamentals of Testing",
+      type: "single",
+      question: "Which principle suggests that a small number of modules contain most defects?",
+      options: [
+        "Defect clustering",
+        "Early testing",
+        "Exhaustive testing",
+        "Risk-based testing",
+      ],
+      correctAnswer: 0,
+      correctAnswers: [],
+      explanation: "Defect clustering aligns with the Pareto principle (80/20 rule).",
+    },
+    {
+      id: 15,
+      chapter: "Testing Throughout the SDLC",
+      type: "multiple",
+      question: "Which of the following are typical exit criteria? (Select all that apply)",
+      options: [
+        "All test cases passed",
+        "No defects found",
+        "Test coverage reached 90%",
+        "All planned tests executed",
+      ],
+      correctAnswer: -1,
+      correctAnswers: [0, 2, 3],
+      explanation: "Exit criteria are based on test coverage, execution, and defect resolution.",
+    },
+    {
+      id: 16,
+      chapter: "Testing Throughout the SDLC",
+      type: "single",
+      question: "Which testing level focuses on individual components?",
+      options: [
+        "Unit testing",
+        "Integration testing",
+        "System testing",
+        "Acceptance testing",
+      ],
+      correctAnswer: 0,
+      correctAnswers: [],
+      explanation: "Unit testing tests individual modules or functions in isolation.",
+    },
+    {
+      id: 17,
+      chapter: "Static Testing",
+      type: "single",
+      question: "Which of the following is a benefit of static testing?",
+      options: [
+        "It detects memory leaks",
+        "It prevents all bugs",
+        "It finds defects early in the lifecycle",
+        "It replaces the need for reviews",
+      ],
+      correctAnswer: 2,
+      correctAnswers: [],
+      explanation: "Static testing is effective early, before code execution starts.",
+    },
+    {
+      id: 18,
+      chapter: "Static Testing",
+      type: "single",
+      question: "What type of review is typically led by the author?",
+      options: ["Walkthrough", "Inspection", "Technical review", "Formal review"],
+      correctAnswer: 0,
+      correctAnswers: [],
+      explanation: "In walkthroughs, the author guides participants through the product.",
+    },
+    {
+      id: 19,
+      chapter: "Test Analysis and Design",
+      type: "single",
+      question: "Which technique is most useful for validating logic paths?",
+      options: [
+        "Boundary value analysis",
+        "State transition testing",
+        "Decision table testing",
+        "Statement coverage",
+      ],
+      correctAnswer: 3,
+      correctAnswers: [],
+      explanation: "Statement coverage validates whether each statement has been executed.",
+    },
+    {
+      id: 20,
+      chapter: "Test Analysis and Design",
+      type: "single",
+      question: "Which testing technique is most appropriate for business rules?",
+      options: [
+        "Equivalence partitioning",
+        "Decision table testing",
+        "State transition testing",
+        "Error guessing",
+      ],
+      correctAnswer: 1,
+      correctAnswers: [],
+      explanation: "Decision tables are ideal for complex business rules with multiple conditions.",
+    },
+    {
+        id: 21,
+        chapter: "Managing the Test Activities",
+        type: "single",
+        question: "What is the main purpose of a test summary report?",
+        options: [
+          "To provide detailed test case steps",
+          "To summarize testing activities and results",
+          "To log defects found during testing",
+          "To define the test environment",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "A test summary report provides an overview of testing activities, coverage, and outcomes.",
+      },
+      {
+        id: 22,
+        chapter: "Managing the Test Activities",
+        type: "single",
+        question: "Which activity is part of configuration management in testing?",
+        options: [
+          "Tracking defects",
+          "Controlling changes to test artifacts",
+          "Executing test cases",
+          "Performing risk analysis",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Configuration management controls and tracks changes to test documents and tools.",
+      },
+      {
+        id: 23,
+        chapter: "Test Tools",
+        type: "single",
+        question: "Which test tool type helps automate regression testing?",
+        options: [
+          "Static analysis tool",
+          "Test execution tool",
+          "Test management tool",
+          "Defect tracking tool",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Test execution tools automate running tests and comparing actual vs expected results.",
+      },
+      {
+        id: 24,
+        chapter: "Test Tools",
+        type: "single",
+        question: "What is a key consideration before adopting test automation?",
+        options: [
+          "Automate all tests immediately",
+          "ROI (Return on Investment)",
+          "Replacing all manual testers",
+          "Using only open-source tools",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Test automation should be evaluated based on return on investment and test suitability.",
+      },
+      {
+        id: 25,
+        chapter: "Fundamentals of Testing",
+        type: "single",
+        question: "Which statement best describes the 'absence-of-errors fallacy'?",
+        options: [
+          "If no errors are found, the software is ready for release",
+          "Absence of defects means high quality",
+          "Finding no defects does not mean the software meets user needs",
+          "Errors will always be present",
+        ],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation:
+          "The absence-of-errors fallacy highlights that no defects does not guarantee fitness for purpose.",
+      },
+      {
+        id: 26,
+        chapter: "Testing Throughout the SDLC",
+        type: "single",
+        question: "What is maintenance testing?",
+        options: [
+          "Testing a system after deployment",
+          "Testing new functionality",
+          "Testing during development",
+          "Testing migration and patches",
+        ],
+        correctAnswer: 3,
+        correctAnswers: [],
+        explanation:
+          "Maintenance testing is performed after modifications, such as patches or migrations.",
+      },
+      {
+        id: 27,
+        chapter: "Static Testing",
+        type: "single",
+        question: "What is the role of the scribe during a review?",
+        options: [
+          "Author of the document",
+          "Facilitator of the meeting",
+          "Recorder of defects and decisions",
+          "Reviewer of the content",
+        ],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation: "The scribe documents defects found and decisions made during reviews.",
+      },
+      {
+        id: 28,
+        chapter: "Test Analysis and Design",
+        type: "single",
+        question: "Which technique helps test systems with multiple input combinations?",
+        options: [
+          "Decision table testing",
+          "Boundary value analysis",
+          "Equivalence partitioning",
+          "Exploratory testing",
+        ],
+        correctAnswer: 0,
+        correctAnswers: [],
+        explanation:
+          "Decision table testing systematically covers combinations of inputs and their expected outputs.",
+      },
+      {
+        id: 29,
+        chapter: "Managing the Test Activities",
+        type: "single",
+        question: "Why is risk-based testing important?",
+        options: [
+          "It tests all components equally",
+          "It prioritizes testing based on risk impact",
+          "It removes the need for planning",
+          "It focuses only on security testing",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Risk-based testing helps focus efforts on the most critical and risky parts of the software.",
+      },
+      {
+        id: 30,
+        chapter: "Test Tools",
+        type: "single",
+        question: "What can be a risk of over-reliance on test automation?",
+        options: [
+          "Reduced testing costs",
+          "Missing defects that require human intuition",
+          "Faster test execution",
+          "More consistent test results",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Automation may miss defects that exploratory or manual testing can detect through intuition.",
+      },
+      {
+        id: 31,
+        chapter: "Fundamentals of Testing",
+        type: "single",
+        question: "What does the principle 'Testing is context dependent' mean?",
+        options: [
+          "Testing methods are the same for all projects",
+          "Testing must adapt based on project context and risks",
+          "Testing is optional for small projects",
+          "Testing always finds the same number of defects",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Testing approaches vary based on factors such as project type, risks, and technology.",
+      },
+      {
+        id: 32,
+        chapter: "Testing Throughout the SDLC",
+        type: "single",
+        question: "What is the main goal of system testing?",
+        options: [
+          "Testing individual modules",
+          "Testing interfaces between modules",
+          "Validating the complete integrated system",
+          "User acceptance testing",
+        ],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation: "System testing verifies that the fully integrated system meets requirements.",
+      },
+      {
+        id: 33,
+        chapter: "Static Testing",
+        type: "single",
+        question: "What is the benefit of using checklists in reviews?",
+        options: [
+          "They guarantee defect-free products",
+          "They provide systematic guidance for reviewers",
+          "They eliminate the need for training",
+          "They automate review processes",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Checklists help reviewers focus on common defect types and ensure consistency.",
+      },
+      {
+        id: 34,
+        chapter: "Test Analysis and Design",
+        type: "single",
+        question: "State transition testing is most useful for testing?",
+        options: [
+          "Systems with multiple states and transitions",
+          "Database connections",
+          "User interface only",
+          "Network protocols",
+        ],
+        correctAnswer: 0,
+        correctAnswers: [],
+        explanation: "State transition testing is used for systems where behavior depends on current state.",
+      },
+      {
+        id: 35,
+        chapter: "Managing the Test Activities",
+        type: "single",
+        question: "What should a test summary report contain?",
+        options: [
+          "Test design details",
+          "Defect status and test results summary",
+          "Test tool configurations",
+          "Only passed test cases",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "It includes test results, defects found, coverage, and recommendations for next steps.",
+      },
+      {
+        id: 36,
+        chapter: "Test Tools",
+        type: "single",
+        question: "What is the main purpose of a defect management tool?",
+        options: [
+          "Execute tests automatically",
+          "Track and manage defects through their lifecycle",
+          "Measure code quality",
+          "Manage test cases",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Defect management tools help log, track, and report defects.",
+      },
+      {
+        id: 37,
+        chapter: "Fundamentals of Testing",
+        type: "single",
+        question: "What is the 'absence-of-errors fallacy'?",
+        options: [
+          "No errors means software is perfect",
+          "No defects found doesn't mean software is ready",
+          "Errors always exist in software",
+          "Testing can prove software is error-free",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Finding no defects does not guarantee the software meets business needs.",
+      },
+      {
+        id: 38,
+        chapter: "Testing Throughout the SDLC",
+        type: "single",
+        question: "What triggers maintenance testing?",
+        options: [
+          "System deployment",
+          "New development",
+          "Modifications to existing software",
+          "User acceptance",
+        ],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation: "Maintenance testing is done after software changes such as fixes or enhancements.",
+      },
+      {
+        id: 39,
+        chapter: "Test Analysis and Design",
+        type: "single",
+        question: "What is the goal of test case design techniques?",
+        options: [
+          "To automate test execution",
+          "To systematically derive effective test cases",
+          "To design test environments",
+          "To write test reports",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Test case design techniques help derive test cases from test conditions to meet test objectives.",
+      },
+      {
+        id: 40,
+        chapter: "Managing the Test Activities",
+        type: "single",
+        question: "What does risk-based testing prioritize?",
+        options: [
+          "Test cases with the lowest cost",
+          "Testing based on areas of highest risk",
+          "Only functional requirements",
+          "All requirements equally",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Risk-based testing focuses on areas with higher risk to improve test efficiency and effectiveness.",
+      },
+    
+  
+    // 21–40 (continued in next message due to space limits)
+  ];
+  
 
 type QuizState = "not-started" | "in-progress" | "completed"
 
@@ -611,6 +1200,8 @@ export default function MockTest() {
   const [timeLeft, setTimeLeft] = useState(60 * 60) // 60 minutes in seconds
   const [score, setScore] = useState(0)
   const [showExplanations, setShowExplanations] = useState(false)
+  const[selectedSet,setSelectedSet]=useState("set1");
+  const questionToRender=selectedSet==="set1"?mockQuestions:mockQuestions2;
 
   // Timer effect
   useEffect(() => {
@@ -802,8 +1393,42 @@ export default function MockTest() {
                   you have a stable internet connection and won't be interrupted.
                 </AlertDescription>
               </Alert>
+              <div className="flex  items-center justify-center ">
+              <h2 className="pr-4">Choose Question Set:</h2>
+                                <button
+                    onClick={() => setSelectedSet("set1")}
+                    className={`mr-4 px-6 py-2 rounded-md font-semibold transition-colors duration-300
+                        ${
+                        selectedSet === "set1"
+                            ? "bg-blue-600 text-white shadow-lg"
+                            : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
+                        }`}
+                    >
+                    Set 1
+                    </button>
+
+                    <button
+                    onClick={() => setSelectedSet("set2")}
+                    className={`px-6 py-2 rounded-md font-semibold transition-colors duration-300
+                        ${
+                        selectedSet === "set2"
+                            ? "bg-blue-600 text-white shadow-lg"
+                            : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
+                        }`}
+                    >
+                    Set 2
+                    </button>
+
+              
+
+              
+
+                
+              </div>
+              
 
               <div className="text-center pt-4">
+                
                 <Button
                   size="lg"
                   onClick={startQuiz}
@@ -820,7 +1445,7 @@ export default function MockTest() {
   }
 
   if (quizState === "in-progress") {
-    const question = mockQuestions[currentQuestion]
+    const question = questionToRender[currentQuestion]
     const progress = ((currentQuestion + 1) / 40) * 100
 
     return (
@@ -866,8 +1491,8 @@ export default function MockTest() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-5 gap-2">
-                    {mockQuestions.map((_, index) => {
-                      const question = mockQuestions[index]
+                    {questionToRender.map((_, index) => {
+                      const question = questionToRender[index]
                       const hasAnswer =
                         question.type === "single"
                           ? answers[index] !== -1
@@ -1039,10 +1664,10 @@ export default function MockTest() {
                 "Managing the Test Activities",
                 "Test Tools",
               ].map((chapter) => {
-                const chapterQuestions = mockQuestions.filter((q) => q.chapter === chapter)
+                const chapterQuestions = questionToRender.filter((q) => q.chapter === chapter)
                 const chapterCorrect = chapterQuestions.filter((q, index) => {
-                  const questionIndex = mockQuestions.findIndex((mq) => mq.id === q.id)
-                  const question = mockQuestions[questionIndex]
+                  const questionIndex = questionToRender.findIndex((mq) => mq.id === q.id)
+                  const question = questionToRender[questionIndex]
                   if (question.type === "single") {
                     return answers[questionIndex] === q.correctAnswer
                   } else {
@@ -1086,7 +1711,7 @@ export default function MockTest() {
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
-              {mockQuestions.map((question, index) => {
+              {questionToRender.map((question, index) => {
                 const userAnswer = answers[index]
                 let isCorrectOverall = false
 

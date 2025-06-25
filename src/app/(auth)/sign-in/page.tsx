@@ -61,7 +61,7 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="mx-auto bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mb-4" />
+          <div className='flex items-center justify-center'><img src={'/whiteImage.png'}  alt="Logo" className="w-30 h-20 mb-4" /></div>
           <h1 className="text-3xl font-bold text-gray-800">NSTQB Admin Portal</h1>
           <p className="text-gray-600 mt-2">Enter your credentials to continue</p>
         </div>
@@ -91,13 +91,7 @@ export default function AdminLoginPage() {
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Password
               </label>
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="text-sm text-blue-600 hover:text-blue-800"
-              >
-                {showPassword ? 'Hide' : 'Show'}
-              </button>
+              
             </div>
             <div className="relative">
               <input
@@ -112,9 +106,9 @@ export default function AdminLoginPage() {
               />
               <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                 {showPassword ? (
-                  <EyeOff className="h-5 w-5 text-gray-400" />
+                  <EyeOff className="h-5 w-5 text-gray-400" onClick={() => setShowPassword(false)} />
                 ) : (
-                  <Eye className="h-5 w-5 text-gray-400" />
+                  <Eye className="h-5 w-5 text-gray-400" onClick={() => setShowPassword(true)} />
                 )}
               </div>
             </div>
@@ -131,9 +125,7 @@ export default function AdminLoginPage() {
                 Remember me
               </label>
             </div>
-            <a href="#" className="text-sm text-blue-600 hover:text-blue-800">
-              Forgot password?
-            </a>
+            
           </div>
           
           <button

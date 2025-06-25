@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { HelpCircle, BookOpen, Award, Users } from "lucide-react"
-import { TracingBeam } from "@/components/ui/tracing-beam"
+
 
 const faqData = [
   {
@@ -80,7 +80,7 @@ export default function FAQ() {
           <div className="min-h-screen bg-gradient-to-br from-blue-50 to-red-50 py-12 px-4">
             <div className="max-w-5xl mx-auto">
               {/* Header Section */}
-              <div className="text-center mb-12  text-gray-600 py-12 px-6 rounded-2xl shadow-lg">
+              <div className="text-center mb-12  text-gray-800 py-12 px-6 rounded-2xl shadow-lg">
                 <h1 className="text-4xl font-bold mb-4">Frequently Asked Questions</h1>
                 <p className="text-xl max-w-2xl mx-auto opacity-95">Nepal Software Testing Qualifications Body</p>
                 <p className="mt-2 opacity-90">Find answers to common questions about our certifications and services</p>

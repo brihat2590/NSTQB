@@ -42,7 +42,7 @@ export default function CertifiedTestersPage() {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Certified Testers</h2>
+      <h2 className="text-3xl font-semibold mb-4 text-center p-2">NSTQB Certified Testers</h2>
 
       <div className="overflow-x-auto">
         <table className="w-full table-auto border border-gray-300 text-sm">

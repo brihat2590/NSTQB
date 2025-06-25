@@ -64,7 +64,7 @@ export default function ContactUs() {
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-800 to-red-800 text-transparent bg-clip-text pb-2 mb-4">
+          <h1 className="text-5xl font-bold text-gray-800 pb-2 mb-4">
             Contact Us
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -136,7 +136,7 @@ export default function ContactUs() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full h-11 text-base font-medium bg-gradient-to-r from-red-500 to-blue-500"
+                  className="w-full h-11 text-base font-medium bg-white text-blue-800 border border-blue-800 hover:bg-white "
                 >
                   {loading ? "Sending..." : "Submit Message"}
                 </Button>
