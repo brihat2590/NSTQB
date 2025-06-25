@@ -1,5 +1,5 @@
 import AboutSection from "@/components/AboutSection";
-import  CalendarPage from "@/components/DatePicker";
+
 import LandingPage from "@/components/firstPage";
 import FlowingHeadline from "@/components/flowingHeadline";
 import Footer from "@/components/footer";
