@@ -127,15 +127,16 @@ export default function CarouselAdminPage() {
             <div className="p-6">
               <div className="flex flex-col md:flex-row gap-6 items-start">
                 <div className="flex-shrink-0">
-                  <div className="bg-gray-200 border-2 border-dashed rounded-xl w-40 h-24 overflow-hidden">
+                <div className="bg-gray-100 border border-gray-300 rounded-xl overflow-hidden flex items-center justify-center w-48 h-28">
                     {img.url && (
-                      <img 
-                        src={img.url} 
-                        alt={img.title} 
-                        className="w-full h-full object-cover"
+                      <img
+                        src={img.url}
+                        alt={img.title}
+                        className="max-w-full max-h-full object-contain"
                       />
                     )}
                   </div>
+
                 </div>
 
                 <div className="flex-1 w-full space-y-4">

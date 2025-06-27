@@ -2,8 +2,9 @@ import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 // UPDATE tester
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const body = await req.json();
+  const {id}=await params
   const updateData = {
     ...body,
     ...(body.certificationDate && { 
@@ -13,7 +14,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 
   try {
     const updated = await prisma.certifiedTesters.update({
-      where: { id: params.id },
+      where: { id: id },
       data: updateData,
     });
     return NextResponse.json(updated);  
@@ -23,10 +24,11 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // DELETE tester
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const {id}=await params;
     await prisma.certifiedTesters.delete({
-      where: { id: params.id },
+      where: { id: id },
     });
     return NextResponse.json({ message: 'Deleted' });
   } catch (err) {

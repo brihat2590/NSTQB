@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff, Loader2 } from 'lucide-react';
+import Link from 'next/link';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
@@ -62,7 +63,7 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className='flex items-center justify-center'><img src={'/whiteImage.png'}  alt="Logo" className="w-30 h-20 mb-4" /></div>
-          <h1 className="text-3xl font-bold text-gray-800">NSTQB Admin Portal</h1>
+          <h1 className="text-3xl font-bold text-gray-800"><Link href='/'><ArrowLeft/></Link>NSTQB Admin Portal</h1>
           <p className="text-gray-600 mt-2">Enter your credentials to continue</p>
         </div>
         

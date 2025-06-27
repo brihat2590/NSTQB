@@ -24,7 +24,7 @@ import { useState } from "react";
     name: "Mr. Raunak Maskay",
     role: "Treasurer",
     image: "https://nstqb.org/wp-content/uploads/2020/06/Raunak-Maskay-e1595138923951.jpg",
-    linkedIn: "",
+    linkedIn: "https://www.linkedin.com/in/raunak-maskay/",
   },
   {
     id: 4,
@@ -66,7 +66,7 @@ import { useState } from "react";
     name: "Mr. Ramesh Adhikari",
     role: "Board Member",
     image: "https://nstqb.org/wp-content/uploads/2020/06/Ramesh-Adhikari-2-e1595138657439.jpg",
-    linkedIn: "",
+    linkedIn: "https://www.linkedin.com/in/ramesh-adhikari/",
   }
 ];
 

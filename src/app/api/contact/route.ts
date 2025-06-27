@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       to: process.env.ADMIN_EMAIL,
       subject: `New contact form submission from ${name}`,
       text: `
-You have a new message from your website:
+You have a new message from NSTQB Website:
 
 Name: ${name}
 Email: ${email}

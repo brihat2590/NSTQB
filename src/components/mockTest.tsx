@@ -256,40 +256,42 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
               </Alert>
               <div className="flex  items-center justify-center ">
               <h2 className="pr-4">Choose Question Set:</h2>
-                                <button
-                    onClick={() => setSelectedSet("set1")}
-                    className={`mr-4 px-6 py-2 rounded-md font-semibold transition-colors duration-300
-                        ${
-                        selectedSet === "set1"
-                            ? "bg-blue-600 text-white shadow-lg"
-                            : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
-                        }`}
-                    >
-                    Set 1
-                    </button>
+                  <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                      <button
+                      onClick={() => setSelectedSet("set1")}
+                      className={`mr-4 px-6 py-2 rounded-md font-semibold transition-colors duration-300
+                          ${
+                          selectedSet === "set1"
+                              ? "bg-blue-600 text-white shadow-lg"
+                              : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
+                          }`}
+                      >
+                      Set 1
+                      </button>
 
-                    <button
-                    onClick={() => setSelectedSet("set2")}
-                    className={`px-6 mr-4 py-2 rounded-md font-semibold transition-colors duration-300
-                        ${
-                        selectedSet === "set2"
-                            ? "bg-blue-600 text-white shadow-lg"
-                            : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
-                        }`}
-                    >
-                    Set 2
-                    </button>
-                    <button
-                    onClick={() => setSelectedSet("set3")}
-                    className={`px-6 py-2 rounded-md font-semibold transition-colors duration-300
-                        ${
-                        selectedSet === "set3"
-                            ? "bg-blue-600 text-white shadow-lg"
-                            : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
-                        }`}
-                    >
-                    Set 3
-                    </button>
+                      <button
+                      onClick={() => setSelectedSet("set2")}
+                      className={`px-6 mr-4 py-2 rounded-md font-semibold transition-colors duration-300
+                          ${
+                          selectedSet === "set2"
+                              ? "bg-blue-600 text-white shadow-lg"
+                              : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
+                          }`}
+                      >
+                      Set 2
+                      </button>
+                      <button
+                      onClick={() => setSelectedSet("set3")}
+                      className={`px-6 mr-4 py-2 rounded-md font-semibold transition-colors duration-300
+                          ${
+                          selectedSet === "set3"
+                              ? "bg-blue-600 text-white shadow-lg"
+                              : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
+                          }`}
+                      >
+                      Set 3
+                      </button>
+                    </div>
 
               
 
