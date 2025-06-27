@@ -2,11 +2,11 @@ import { Target, Eye, Heart, Globe, Users, Award, CheckCircle } from 'lucide-rea
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-20 bg-white">
+    <section  className="py-20 bg-white bg-scroll " id='about' >
       <div className="container max-w-[1400px] mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">
+        <div className="text-center mb-16"  >
+          <h2 className="text-4xl font-bold text-gray-800 mb-4" >
             About <span className="text-red-600">NSTQB</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">

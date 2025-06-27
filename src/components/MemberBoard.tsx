@@ -10,14 +10,14 @@ import { useState } from "react";
     name: "Ms. Sangeeta Rayamajhi",
     role: "President",
     image: "https://nstqb.org/wp-content/uploads/2020/07/Sangeeta-e1595139163767.jpg",
-    linkedIn: "", // Add if available
+    linkedIn: "https://www.linkedin.com/in/sangeeta-rayamajhi/", // Add if available
   },
   {
     id: 2,
     name: "Ms. Saluja Bhandari",
     role: "Ex-President",
     image: "https://nstqb.org/wp-content/uploads/2020/07/Saluja-Bhandari-Portrait.jpg",
-    linkedIn: "https://linkedin.com/in/saluja-bhandari", // Use actual if known
+    linkedIn: "https://www.linkedin.com/in/salujab/", // Use actual if known
   },
   {
     id: 3,
@@ -31,35 +31,35 @@ import { useState } from "react";
     name: "Mr. Prashan Vaidya",
     role: "Accreditation Officer",
     image: "https://nstqb.org/wp-content/uploads/2020/07/Prashan-Vaidya.jpg",
-    linkedIn: "",
+    linkedIn: "https://www.linkedin.com/in/prashan-vaidya/",
   },
   {
     id: 5,
     name: "Mr. Hempal Shrestha",
     role: "Board Member",
     image: "https://nstqb.org/wp-content/uploads/2020/07/Hempal.jpg",
-    linkedIn: "",
+    linkedIn: "https://www.linkedin.com/in/hempalshrestha/",
   },
   {
     id: 6,
     name: "Mr. Chandra Paudel",
     role: "Board Member",
     image: "https://nstqb.org/wp-content/uploads/2020/07/Chandra-Paudel.jpg",
-    linkedIn: "",
+    linkedIn: "https://www.linkedin.com/in/chandrapaudel/",
   },
   {
     id: 7,
     name: "Mr. Ananta Bhadra Lamichhanne",
     role: "Board Member",
     image: "https://nstqb.org/wp-content/uploads/2020/07/Ananta-Bhadra-Lamichhanne.jpg",
-    linkedIn: "",
+    linkedIn: "https://www.linkedin.com/in/anantal/",
   },
   {
     id: 8,
     name: "Mr. Deepak Thapa",
     role: "Board Member",
-    image: "https://nstqb.org/wp-content/uploads/2020/07/Deepak-Thapa.jpg",
-    linkedIn: "",
+    image: "/memberBoards/deepakSir.jpg",
+    linkedIn: "https://www.linkedin.com/in/deepak-thapa-83059482/",
   },
   {
     id: 9,

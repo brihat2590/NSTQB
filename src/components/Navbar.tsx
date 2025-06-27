@@ -90,6 +90,7 @@ const Navbar = () => {
               {isExamsOpen && (
                 <DropdownMenu>
                   <DropdownItem href="/CTFL" onClick={() => setIsExamsOpen(false)}>CTFL</DropdownItem>
+                  <DropdownItem href="/mock-test" onClick={() => setIsExamsOpen(false)}>Mock Exam</DropdownItem>
                   <DropdownItem href="/exam-schedule" onClick={() => setIsExamsOpen(false)}>Exam Schedule</DropdownItem>
                   <DropdownItem href="/certified-testers" onClick={() => setIsExamsOpen(false)}>Certified Testers</DropdownItem>
                   <DropdownItem href="/registration-process" onClick={() => setIsExamsOpen(false)}>Registration Process</DropdownItem>

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+
 import {
   Clock,
   CheckCircle,
@@ -21,8 +22,20 @@ import {
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { mockQuestions,mockQuestions2 } from "@/lib/mockQuestions"
+import { mockQuestions,mockQuestions2,mockQuestions3 } from "@/lib/mockQuestions"
+import { useRouter } from "next/navigation"
 // Add question type and update the structure
+type Question = {
+  id: number;
+  chapter: string;
+  type: string;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  correctAnswers: number[];
+  explanation: string;
+};
+
 
   
 
@@ -36,7 +49,18 @@ export default function MockTest() {
   const [score, setScore] = useState(0)
   const [showExplanations, setShowExplanations] = useState(false)
   const[selectedSet,setSelectedSet]=useState("set1");
-  const questionToRender=selectedSet==="set1"?mockQuestions:mockQuestions2;
+  type SetKey = "set1" | "set2" | "set3";
+  const router=useRouter();
+
+const questionSets: Record<SetKey, Question[]> = {
+  set1: mockQuestions,
+  set2: mockQuestions2,
+  set3: mockQuestions3
+};
+
+const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["set1"];
+
+  
 
   // Timer effect
   useEffect(() => {
@@ -63,6 +87,7 @@ export default function MockTest() {
     setScore(0)
     setShowExplanations(false)
   }
+  
 
   const selectAnswer = (answerIndex: number) => {
     const newAnswers = [...answers]
@@ -169,6 +194,7 @@ export default function MockTest() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12 bg-gradient-to-r bg-gray-50 text-gray-800 py-12 px-6 rounded-2xl shadow-lg">
+            <Link href={'/'}><ArrowLeft/></Link>
             <h1 className="text-4xl font-bold mb-4">ISTQB CTFL Mock Exam</h1>
             <p className="text-xl max-w-2xl mx-auto opacity-95">
               Test your knowledge with our comprehensive Foundation Level practice exam
@@ -244,7 +270,7 @@ export default function MockTest() {
 
                     <button
                     onClick={() => setSelectedSet("set2")}
-                    className={`px-6 py-2 rounded-md font-semibold transition-colors duration-300
+                    className={`px-6 mr-4 py-2 rounded-md font-semibold transition-colors duration-300
                         ${
                         selectedSet === "set2"
                             ? "bg-blue-600 text-white shadow-lg"
@@ -252,6 +278,17 @@ export default function MockTest() {
                         }`}
                     >
                     Set 2
+                    </button>
+                    <button
+                    onClick={() => setSelectedSet("set3")}
+                    className={`px-6 py-2 rounded-md font-semibold transition-colors duration-300
+                        ${
+                        selectedSet === "set3"
+                            ? "bg-blue-600 text-white shadow-lg"
+                            : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
+                        }`}
+                    >
+                    Set 3
                     </button>
 
               
@@ -457,7 +494,7 @@ export default function MockTest() {
         <Card className="shadow-lg mb-8">
             {/* <div className="flex items-start "><ArrowLeftFromLineIcon/></div> */}
           <CardHeader>
-            <Link href="/" className="flex items-start"><ArrowLeft/></Link>
+            <a href="/mock-test" className="flex items-start"><ArrowLeft/></a>
             <CardTitle className="text-center text-2xl ">Your Score</CardTitle>
           </CardHeader>
           <CardContent className="text-center space-y-6">
@@ -485,7 +522,7 @@ export default function MockTest() {
         </Card>
 
         {/* Chapter-wise Performance */}
-        <Card className="shadow-lg mb-8">
+        {/* <Card className="shadow-lg mb-8">
           <CardHeader>
             <CardTitle>Chapter-wise Performance</CardTitle>
           </CardHeader>
@@ -528,7 +565,7 @@ export default function MockTest() {
               })}
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
 
         {/* Review Answers */}
         <Card className="shadow-lg mb-8">
