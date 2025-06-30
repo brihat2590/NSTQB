@@ -24,6 +24,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { mockQuestions,mockQuestions2,mockQuestions3 } from "@/lib/mockQuestions"
 import { useRouter } from "next/navigation"
+import { mockQuestions4 } from "@/lib/mockQuestion4"
 // Add question type and update the structure
 type Question = {
   id: number;
@@ -49,13 +50,14 @@ export default function MockTest() {
   const [score, setScore] = useState(0)
   const [showExplanations, setShowExplanations] = useState(false)
   const[selectedSet,setSelectedSet]=useState("set1");
-  type SetKey = "set1" | "set2" | "set3";
+  type SetKey = "set1" | "set2" | "set3"|"set4";
   const router=useRouter();
 
 const questionSets: Record<SetKey, Question[]> = {
   set1: mockQuestions,
   set2: mockQuestions2,
-  set3: mockQuestions3
+  set3: mockQuestions3,
+  set4:mockQuestions4
 };
 
 const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["set1"];
@@ -290,6 +292,17 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
                           }`}
                       >
                       Set 3
+                      </button>
+                      <button
+                      onClick={() => setSelectedSet("set4")}
+                      className={`px-6 mr-4 py-2 rounded-md font-semibold transition-colors duration-300
+                          ${
+                          selectedSet === "set4"
+                              ? "bg-blue-600 text-white shadow-lg"
+                              : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
+                          }`}
+                      >
+                      Set 4
                       </button>
                     </div>
 
