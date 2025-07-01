@@ -146,6 +146,7 @@ const Navbar = () => {
               {isExamsOpen && (
                 <MobileDropdownMenu>
                   <MobileDropdownItem href="/CTFL" onClick={closeAllMenus}>CTFL</MobileDropdownItem>
+                  <MobileDropdownItem href='/mock-test' onClick={closeAllMenus}>Mock Exam</MobileDropdownItem>
                   <MobileDropdownItem href="/exam-schedule" onClick={closeAllMenus}>Exam Schedule</MobileDropdownItem>
                   <MobileDropdownItem href="/certified-testers" onClick={closeAllMenus}>Certified Testers</MobileDropdownItem>
                   <MobileDropdownItem href="/registration-process" onClick={closeAllMenus}>Registration Process</MobileDropdownItem>

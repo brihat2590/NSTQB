@@ -1,11 +1,11 @@
-// app/api/contact/route.ts
 import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
-    const { name, email, message } = await req.json();
+    const { name, email, subject, message } = await req.json();
 
-    if (!name || !email || !message) {
+    // Validate all fields
+    if (!name || !email || !subject || !message) {
       return new Response("Missing required fields", { status: 400 });
     }
 
@@ -19,18 +19,21 @@ export async function POST(req: Request) {
 
     const mailOptions = {
       from: `"${name}" <${email}>`,
-      to: process.env.ADMIN_EMAIL,
-      subject: `New contact form submission from ${name}`,
+      to: process.env.ADMIN_USER, // Use EMAIL_RECEIVER or ADMIN_EMAIL
+      subject: `NSTQB Contact: ${subject}`, // Use subject from form
       text: `
 You have a new message from NSTQB Website:
 
 Name: ${name}
 Email: ${email}
-Message: ${message}
+Subject: ${subject}
+Message:
+${message}
       `,
     };
 
     await transporter.sendMail(mailOptions);
+
     return new Response("Email sent successfully", { status: 200 });
   } catch (error) {
     console.error("Failed to send email:", error);

@@ -110,6 +110,18 @@ export default function ContactUs() {
                       className="h-12 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
+                                    <div className="space-y-3">
+                    <Label htmlFor="subject" className="text-gray-700 font-medium">Subject *</Label>
+                    <Input
+                      id="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder="Enter the subject of your message"
+                      required
+                      className="h-12 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                    />
+                  </div>
+
 
                   
 
