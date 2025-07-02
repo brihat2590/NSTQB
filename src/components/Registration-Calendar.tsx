@@ -8,8 +8,8 @@ import { format } from 'date-fns';
 type Exam = {
   id: string;
   examTitle: string;
-  examDate: string;          // ISO string from backend
-  applicationPeriod: string; // ISO string from backend
+  examDate: string;
+  applicationPeriod: string;
   location: string;
 };
 
@@ -71,8 +71,8 @@ export default function ExamCalendar() {
         <h1 className="text-3xl font-bold ml-3">NSTQB Exam Calendar</h1>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-10">
-        {/* Calendar */}
+      <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+        {/* Calendar on the left */}
         <div className="w-full lg:w-[55%] bg-white rounded-lg shadow-md p-6">
           <div className="flex justify-between items-center mb-5">
             <button
@@ -128,8 +128,8 @@ export default function ExamCalendar() {
           </div>
         </div>
 
-        {/* Exam Cards */}
-        <div className="w-full lg:w-[40%] space-y-6">
+        {/* Cards on the right */}
+        <div className="w-full lg:w-[45%] space-y-6">
           <h2 className="text-xl font-semibold mb-4">Upcoming Exams</h2>
           {exams.map((exam) => (
             <div

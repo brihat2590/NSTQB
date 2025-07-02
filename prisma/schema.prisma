@@ -50,3 +50,13 @@ model examSchedule {
   applicationPeriod    DateTime
   location             String
 }
+model BoardMembers{
+  id String @id @default(cuid())
+  name String @unique
+  title String
+  linkedInUrl String
+  imageUrl String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+}
