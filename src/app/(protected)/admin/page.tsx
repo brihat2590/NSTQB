@@ -5,6 +5,7 @@ import CertifiedTestersAdmin from "@/components/adminComponents/certifiedTesters
 import ExamAdminPanel from "@/components/adminComponents/ExamDateComponent";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import AdminBoardMembersPage from "@/components/adminComponents/boardMemberComp";
 
 export default function Page() {
   const router = useRouter();
@@ -40,6 +41,9 @@ export default function Page() {
 
         <div className="bg-white p-6 rounded-lg shadow-md">
           <ExamAdminPanel />
+        </div>
+        <div>
+          <AdminBoardMembersPage/>
         </div>
       </div>
     </div>

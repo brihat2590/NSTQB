@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 import {prisma} from "@/lib/prisma"
 
 export async function GET(){
-    const boardMembers=await prisma.boardMembers.findMany()
-    return NextResponse.json(boardMembers)
+ const memebers=await prisma.boardMembers.findMany()
+    return NextResponse.json(memebers)
 }
 
 export async function POST(req:Request){
