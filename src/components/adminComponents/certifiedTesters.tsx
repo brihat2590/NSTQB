@@ -270,13 +270,14 @@ export default function CertifiedTestersAdmin() {
             <p className="text-gray-600">Manage certified testers and their credentials</p>
           </div>
           <div className="mt-4 sm:mt-0 flex items-center space-x-3">
-            <button
+          <button
               onClick={startCreate}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="inline-flex items-center px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="h-4 w-4 mr-1 sm:mr-2" />
               Add New Tester
             </button>
+
             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
               {filteredTesters.length} Total Testers
             </span>

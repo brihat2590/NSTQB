@@ -1,17 +1,28 @@
-import { NextResponse } from "next/server";
+import { prisma } from '@/lib/prisma';
+import { NextResponse } from 'next/server';
 
+export async function GET() {
+  const members = await prisma.boardMembers.findMany({
+    orderBy: { order: 'asc' }, // 👈 sort by order
+  });
 
-import {prisma} from "@/lib/prisma"
-
-export async function GET(){
- const memebers=await prisma.boardMembers.findMany()
-    return NextResponse.json(memebers)
+  return NextResponse.json(members);
 }
 
-export async function POST(req:Request){
-    const body=await req.json();
-    const boardMembers=await prisma.boardMembers.create({
-        data:body
-    })
-    return NextResponse.json({message:"board member added sucressfully"})
+export async function POST(req: Request) {
+  const body = await req.json();
+
+  const count = await prisma.boardMembers.count();
+
+  const newMember = await prisma.boardMembers.create({
+    data: {
+      name: body.name,
+      title: body.title,
+      linkedInUrl: body.linkedInUrl,
+      imageUrl: body.imageUrl,
+      order: count, 
+    },
+  });
+
+  return NextResponse.json(newMember, { status: 201 });
 }

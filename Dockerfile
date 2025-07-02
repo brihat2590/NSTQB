@@ -4,14 +4,17 @@ FROM node:18-alpine
 # Set working directory
 WORKDIR /app
 
-# Install dependencies
+# Copy Prisma schema BEFORE npm install
+COPY prisma ./prisma
+
+# Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install
-COPY prisma ./prisma
-# Copy source files
+
+# Copy the rest of your app
 COPY . .
 
-# Generate Prisma client
+# Generate Prisma client (in case postinstall didn't run)
 RUN npx prisma generate
 
 # Build Next.js app

@@ -109,6 +109,7 @@ const Navbar = () => {
                 <DropdownMenu>
                   <DropdownItem href="/FAQ" onClick={() => setIsResourcesOpen(false)}>FAQs</DropdownItem>
                   <DropdownItem href="/code-of-conduct" onClick={() => setIsResourcesOpen(false)}>Code of Conduct</DropdownItem>
+                  <DropdownItem href="/blogs" onClick={() => setIsResourcesOpen(false)}>blogs</DropdownItem>
                 </DropdownMenu>
               )}
             </div>
@@ -164,6 +165,7 @@ const Navbar = () => {
               {isResourcesOpen && (
                 <MobileDropdownMenu>
                   <MobileDropdownItem href="/FAQ" onClick={closeAllMenus}>FAQs</MobileDropdownItem>
+                  <MobileDropdownItem href="/blogs" onClick={closeAllMenus}>blogs</MobileDropdownItem>
                   <MobileDropdownItem href="/code-of-conduct" onClick={closeAllMenus}>Code of Conduct</MobileDropdownItem>
                 </MobileDropdownMenu>
               )}

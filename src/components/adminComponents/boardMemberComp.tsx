@@ -1,7 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { toast } from 'sonner';
 
 type BoardMember = {
   id: string;
@@ -11,10 +27,124 @@ type BoardMember = {
   imageUrl: string;
 };
 
+function SortableItem({
+  member,
+  onDelete,
+  onEdit,
+}: {
+  member: BoardMember;
+  onDelete: (id: string) => void;
+  onEdit: (updated: BoardMember) => void;
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: member.id });
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [editData, setEditData] = useState(member);
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    cursor: 'grab',
+  };
+
+  const handleSave = () => {
+    onEdit(editData);
+    setIsEditing(false);
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="bg-white p-4 md:p-6 rounded-xl shadow border flex flex-col md:flex-row items-center gap-4"
+    >
+      <img
+        src={editData.imageUrl}
+        alt={editData.name}
+        className="w-20 h-20 rounded-full object-cover border"
+      />
+      <div className="flex-1 space-y-1 w-full">
+        {isEditing ? (
+          <>
+            <input
+              value={editData.name}
+              onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+              className="w-full border px-2 py-1 rounded"
+            />
+            <input
+              value={editData.title}
+              onChange={(e) => setEditData({ ...editData, title: e.target.value })}
+              className="w-full border px-2 py-1 rounded"
+            />
+            <input
+              value={editData.linkedInUrl}
+              onChange={(e) => setEditData({ ...editData, linkedInUrl: e.target.value })}
+              className="w-full border px-2 py-1 rounded"
+            />
+            <input
+              value={editData.imageUrl}
+              onChange={(e) => setEditData({ ...editData, imageUrl: e.target.value })}
+              className="w-full border px-2 py-1 rounded"
+            />
+          </>
+        ) : (
+          <>
+            <h3 className="text-xl font-bold">{member.name}</h3>
+            <p className="text-gray-600">{member.title}</p>
+            <a
+              href={member.linkedInUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 underline"
+            >
+              LinkedIn
+            </a>
+          </>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-2">
+        {isEditing ? (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSave();
+            }}
+            className="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700 text-sm"
+          >
+            Save
+          </button>
+        ) : (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsEditing(true);
+            }}
+            className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
+          >
+            Edit
+          </button>
+        )}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(member.id);
+          }}
+          className="px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function BoardMemberAdminPage() {
   const [members, setMembers] = useState<BoardMember[]>([]);
-  const [editIndex, setEditIndex] = useState<number | null>(null);
-  const [editData, setEditData] = useState<Partial<BoardMember>>({});
   const [newMember, setNewMember] = useState({
     name: '',
     title: '',
@@ -22,15 +152,19 @@ export default function BoardMemberAdminPage() {
     imageUrl: '',
   });
 
+  const sensors = useSensors(useSensor(PointerSensor));
+
   useEffect(() => {
     fetchMembers();
   }, []);
 
   const fetchMembers = async () => {
-    const res = await axios.get('/api/board-members');
-    setMembers(res.data);
-    setEditIndex(null);
-    setEditData({});
+    try {
+      const res = await axios.get('/api/board-members');
+      setMembers(res.data);
+    } catch {
+      toast.error('Failed to fetch members');
+    }
   };
 
   const handleAdd = async () => {
@@ -39,65 +173,91 @@ export default function BoardMemberAdminPage() {
     try {
       await axios.post('/api/board-members', newMember);
       setNewMember({ name: '', title: '', linkedInUrl: '', imageUrl: '' });
+      toast.success('Member added');
       fetchMembers();
-    } catch (err) {
-      console.error('Failed to add member:', err);
-    }
-  };
-
-  const handleUpdate = async (id: string) => {
-    try {
-      await axios.put(`/api/board-members/${id}`, editData);
-      fetchMembers();
-    } catch (err) {
-      console.error('Failed to update member:', err);
+    } catch {
+      toast.error('Failed to add member');
     }
   };
 
   const handleDelete = async (id: string) => {
     try {
       await axios.delete(`/api/board-members/${id}`);
+      toast.success('Member deleted');
       fetchMembers();
-    } catch (err) {
-      console.error('Failed to delete member:', err);
+    } catch {
+      toast.error('Failed to delete member');
+    }
+  };
+
+  const handleEdit = async (updated: BoardMember) => {
+    try {
+      await axios.put(`/api/board-members/${updated.id}`, updated);
+      toast.success('Member updated');
+      fetchMembers();
+    } catch {
+      toast.error('Failed to update member');
+    }
+  };
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = members.findIndex((m) => m.id === active.id);
+      const newIndex = members.findIndex((m) => m.id === over.id);
+
+      const newMembers = arrayMove(members, oldIndex, newIndex);
+      setMembers(newMembers);
+
+      try {
+        await axios.post('/api/board-members/reorder', {
+          ids: newMembers.map((m) => m.id),
+        });
+        toast.success('Order updated');
+      } catch {
+        toast.error('Failed to update order');
+      }
     }
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-8 min-h-screen">
-      <h1 className="text-4xl font-bold mb-8 text-center text-indigo-700">Board Members Admin</h1>
+    <div className="max-w-4xl mx-auto p-6">
+      <h2 className="text-3xl font-bold mb-6 text-center text-indigo-700">
+        Board Members Admin (Drag to Reorder)
+      </h2>
 
       {/* Add New Member */}
-      <div className="bg-white p-6 rounded-xl shadow mb-10 border border-gray-200">
-        <h2 className="text-2xl font-semibold mb-4">Add New Member</h2>
+      <div className="bg-white p-6 rounded-xl shadow mb-8 border border-gray-200">
+        <h3 className="text-xl font-semibold mb-4">Add New Member</h3>
         <div className="grid md:grid-cols-2 gap-4">
           <input
             type="text"
             placeholder="Name"
             value={newMember.name}
             onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-xl"
           />
           <input
             type="text"
             placeholder="Title"
             value={newMember.title}
             onChange={(e) => setNewMember({ ...newMember, title: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-xl"
           />
           <input
             type="url"
             placeholder="LinkedIn URL"
             value={newMember.linkedInUrl}
             onChange={(e) => setNewMember({ ...newMember, linkedInUrl: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-xl"
           />
           <input
             type="url"
             placeholder="Image URL"
             value={newMember.imageUrl}
             onChange={(e) => setNewMember({ ...newMember, imageUrl: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-xl"
           />
         </div>
         <button
@@ -113,134 +273,25 @@ export default function BoardMemberAdminPage() {
         </button>
       </div>
 
-      {/* Members List */}
-      <div className="space-y-6">
-        {members.map((member, index) => (
-          <div key={member.id} className="bg-white p-6 rounded-xl shadow border border-gray-200">
-            <div className="flex flex-col md:flex-row gap-6 items-start">
-              <img
-                src={member.imageUrl}
-                alt={member.name}
-                className="w-32 h-32 object-cover rounded-full border"
+      {/* Drag and Drop List */}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={members.map((m) => m.id)} strategy={verticalListSortingStrategy}>
+          <div className="space-y-6">
+            {members.map((member) => (
+              <SortableItem
+                key={member.id}
+                member={member}
+                onDelete={handleDelete}
+                onEdit={handleEdit}
               />
-              <div className="flex-1 space-y-2 w-full">
-                {editIndex === index ? (
-                  <div className="space-y-4 w-full">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                      <input
-                        type="text"
-                        value={editData.name ?? member.name}
-                        onChange={(e) =>
-                          setEditData((prev) => ({ ...prev, name: e.target.value }))
-                        }
-                        className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                      <input
-                        type="text"
-                        value={editData.title ?? member.title}
-                        onChange={(e) =>
-                          setEditData((prev) => ({ ...prev, title: e.target.value }))
-                        }
-                        className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">LinkedIn URL</label>
-                      <input
-                        type="url"
-                        placeholder="https://linkedin.com/in/username"
-                        value={editData.linkedInUrl ?? member.linkedInUrl}
-                        onChange={(e) =>
-                          setEditData((prev) => ({ ...prev, linkedInUrl: e.target.value }))
-                        }
-                        className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
-                      <input
-                        type="url"
-                        placeholder="https://example.com/photo.jpg"
-                        value={editData.imageUrl ?? member.imageUrl}
-                        onChange={(e) =>
-                          setEditData((prev) => ({ ...prev, imageUrl: e.target.value }))
-                        }
-                        className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      />
-                      {(editData.imageUrl ?? member.imageUrl) && (
-                        <img
-                          src={editData.imageUrl ?? member.imageUrl}
-                          alt="Preview"
-                          className="mt-2 w-24 h-24 rounded-full object-cover border border-gray-300"
-                        />
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <h3 className="text-xl font-bold">{member.name}</h3>
-                    <p className="text-gray-600">{member.title}</p>
-                    <a
-                      href={member.linkedInUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 underline"
-                    >
-                      LinkedIn
-                    </a>
-                  </>
-                )}
-              </div>
-            </div>
-            <div className="mt-4 flex justify-end gap-3">
-              {editIndex === index ? (
-                <>
-                  <button
-                    onClick={() => {
-                      setEditIndex(null);
-                      setEditData({});
-                    }}
-                    className="px-4 py-2 border rounded-xl hover:bg-gray-100 transition"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={() => handleUpdate(member.id)}
-                    className="px-4 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition"
-                  >
-                    Save
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    onClick={() => {
-                      setEditIndex(index);
-                      setEditData({ ...member });
-                    }}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(member.id)}
-                    className="px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition"
-                  >
-                    Delete
-                  </button>
-                </>
-              )}
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </SortableContext>
+      </DndContext>
     </div>
   );
 }
