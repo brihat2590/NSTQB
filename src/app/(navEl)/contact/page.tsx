@@ -146,7 +146,7 @@ export default function ContactUs() {
                   <Button
                     type="submit"
                     disabled={loading}
-                    className="w-full h-14 text-base font-bold rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-800 text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+                    className="w-full h-14 text-base font-bold rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-800 text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] mt-5"
                   >
                     {loading ? (
                       <span className="flex items-center justify-center">

@@ -6,6 +6,7 @@ import { Award, Users, Globe, BookOpen, Calendar, TrendingUp } from "lucide-reac
 import Image from "next/image";
 import HeroCarousel from "./CarouselComp";
 import { useRouter } from "next/navigation";
+import VideoComponent from "./YoutubeComp";
 
 
 export default function LandingPage() {
@@ -89,7 +90,7 @@ export default function LandingPage() {
         </div>
 
         {/* Bottom Stats Section */}
-        <div className="relative max-w-[1400px] mx-auto px-6 lg:px-8 pb-20">
+        {/* <div className="relative max-w-[1400px] mx-auto px-6 lg:px-8 pb-20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white border rounded-xl p-6 shadow-sm">
             {[
               { icon: <Award className="w-8 h-8 text-blue-600" />, value: "98%", label: "Pass Rate" },
@@ -106,8 +107,9 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </section>
+      <VideoComponent/>
     </div>
   );
 }

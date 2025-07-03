@@ -66,8 +66,8 @@ export default function ExamCalendar() {
   };
 
   return (
-    <div className="max-w-[1400px] mx-auto p-6">
-      <div className="flex justify-between items-center mb-8">
+    <div className="max-w-[1400px] mx-auto p-6 ">
+      <div className="flex justify-between items-center mt-10 mb-8">
         <h1 className="text-3xl font-bold ml-3">NSTQB Exam Calendar</h1>
       </div>
 
