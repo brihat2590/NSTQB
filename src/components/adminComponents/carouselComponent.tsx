@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { toast } from 'sonner';
 
 type CarouselImage = {
   id: string;
@@ -32,20 +33,42 @@ export default function CarouselAdminPage() {
   };
 
   const handleAdd = async () => {
-    if (!newImage.url.trim()) return;
-    await axios.post('/api/carousel', newImage);
-    setNewImage({ url: '', title: '', description: '' });
-    fetchImages();
+    try{
+          if (!newImage.url.trim()) return;
+        await axios.post('/api/carousel', newImage);
+        setNewImage({ url: '', title: '', description: '' });
+        toast.success("Image added successfully");
+        fetchImages();
+
+    }
+    catch(err){
+      toast.error("failed to add image")
+    }
   };
 
   const handleUpdate = async (id: string) => {
-    await axios.put(`/api/carousel/${id}`, editData);
-    fetchImages();
+    try{
+          await axios.put(`/api/carousel/${id}`, editData);
+        toast.success("Image updated successfully");
+        fetchImages();
+    
+    }
+    catch(err){
+      toast.error("failed to update image")
+    }
   };
 
   const handleDelete = async (id: string) => {
-    await axios.delete(`/api/carousel/${id}`);
-    fetchImages();
+    try{
+          await axios.delete(`/api/carousel/${id}`);
+        toast.success("Image deleted successfully");
+        fetchImages();
+
+    }
+    catch(err){
+      toast.error("failed to delete image")
+
+    }
   };
 
   return (

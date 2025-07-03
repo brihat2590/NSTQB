@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Delete, Edit } from "lucide-react";
+import { toast } from "sonner";
 
 type Exam = {
   id: string;
@@ -38,21 +39,40 @@ export default function ExamAdminPanel() {
   };
 
   const handleAdd = async () => {
-    await axios.post("/api/exam-date", newExam);
-    setNewExam({ examTitle: "", examDate: "", applicationPeriod: "", location: "" });
-    fetchExams();
+    try{
+      await axios.post("/api/exam-date", newExam);
+      toast.success("Exam added sucessfully")
+      setNewExam({ examTitle: "", examDate: "", applicationPeriod: "", location: "" });
+      fetchExams();
+
+    }
+    catch(err){
+      toast.error("failed to add exam")
+    }
   };
 
   const handleUpdate = async (id: string) => {
-    await axios.put(`/api/exam-date/${id}`, editData);
-    setEditId(null);
-    setEditData({ examTitle: "", examDate: "", applicationPeriod: "", location: "" });
-    fetchExams();
+    try{
+      await axios.put(`/api/exam-date/${id}`, editData);
+      toast.success("Exam updated successfully")
+      setEditId(null);
+      setEditData({ examTitle: "", examDate: "", applicationPeriod: "", location: "" });
+      fetchExams();
+    }
+    catch(err){
+      toast.error("failed to update exam")
+    }
   };
 
   const handleDelete = async (id: string) => {
-    await axios.delete(`/api/exam-date/${id}`);
-    fetchExams();
+    try{
+      await axios.delete(`/api/exam-date/${id}`);
+      toast.success("Exam deleted successfully")
+      fetchExams();
+    }
+    catch(err){
+      toast.error("failed to delete exam")
+    }
   };
 
   return (
