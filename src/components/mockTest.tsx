@@ -342,6 +342,7 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
           <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-4">
+                <a href="/mock-test"><ArrowLeft/></a>
                 <h1 className="text-2xl font-bold text-gray-900">ISTQB CTFL Mock Exam</h1>
                 <Badge variant="outline" className="text-blue-600">
                   Question {currentQuestion + 1} of 40
