@@ -341,16 +341,19 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
         <div className="max-w-6xl mx-auto">
           {/* Header with Timer and Progress */}
           <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 flex-wrap">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full sm:w-auto">
                 <a href="/mock-test"><ArrowLeft/></a>
-                <h1 className="text-2xl font-bold text-gray-900">ISTQB CTFL Mock Exam</h1>
-                <Badge variant="outline" className="text-blue-600">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 text-center sm:text-left flex-shrink">
+                    ISTQB CTFL Mock Exam
+                  </h1>
+
+                <Badge variant="outline" className="text-blue-600 text-center sm:text-left ">
                   Question {currentQuestion + 1} of 40
                 </Badge>
               </div>
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full sm:w-auto">
+                <div className="flex items-center gap-2 justify-center sm:justify-start whitespace-nowrap">
                   <Clock className="h-5 w-5 text-red-600" />
                   <span className={`font-mono text-lg font-bold ${timeLeft < 300 ? "text-red-600" : "text-gray-900"}`}>
                     {formatTime(timeLeft)}
@@ -363,12 +366,13 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
                           <div>
                 {/* Submit Button */}
                 <button
-                  onClick={() => setShowConfirmation(true)}
-                  className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors border border-transparent focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                >
-                  <Flag className="h-4 w-4 mr-2" />
-                  Submit Exam
-                </button>
+                    onClick={() => setShowConfirmation(true)}
+                    className="w-full sm:w-auto flex items-center justify-center px-3 sm:px-4 py-2 text-sm sm:text-base bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors border border-transparent focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                  >
+                    <Flag className="h-4 w-4 mr-2 shrink-0" />
+                    <span className="truncate">Submit Exam</span>
+                  </button>
+
 
                 {/* Confirmation Popup */}
                 {showConfirmation && (
