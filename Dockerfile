@@ -23,5 +23,5 @@ RUN npm run build
 # Expose Next.js port
 EXPOSE 3000
 
-# Start Next.js app
-CMD ["npm", "start"]
+# Run migration and then start the Next.js app
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
