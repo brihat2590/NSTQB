@@ -195,7 +195,7 @@ export default function ContactUs() {
                 <ContactInfo 
                   icon={<Mail className="h-6 w-6 text-blue-600" />} 
                   title="Email" 
-                  lines={["info@nstqb.org.np", "support@nstqb.org.np"]} 
+                  lines={["info@nstqb.org", "support@nstqb.org"]} 
                 />
                 <ContactInfo 
                   icon={<Phone className="h-6 w-6 text-green-600" />} 

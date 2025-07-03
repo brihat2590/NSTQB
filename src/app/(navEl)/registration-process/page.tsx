@@ -146,22 +146,31 @@ export default function RegistrationProcess() {
 
             {/* Bank Details */}
             <div className="bg-gray-50 rounded-lg p-6 mb-6">
-              <h4 className="font-semibold text-gray-900 mb-4">Bank Details</h4>
-              <div className="space-y-3">
-                {bankDetails.map((detail, index) => (
-                  <div key={index} className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="text-gray-500">{detail.icon}</div>
-                      <span className="text-sm font-medium text-gray-700">{detail.label}:</span>
+                <h4 className="font-semibold text-gray-900 mb-4 text-center">Bank Details</h4>
+                {/* Use only vertical spacing between rows here */}
+                <div className="space-y-5 max-w-[800px] w-full mx-auto">
+                  {bankDetails.map((detail, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between"
+                      // Removed space-x-2 here to avoid extra horizontal gap inside this flex container
+                    >
+                      {/* Left side: icon and label */}
+                      <div className="flex items-center gap-2">
+                        <div className="text-gray-500">{detail.icon}</div>
+                        <span className="text-sm font-medium text-gray-700">{detail.label}:</span>
+                      </div>
+
+                      {/* Right side: value and optional copy button */}
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-gray-900 font-medium">{detail.value}</span>
+                        {detail.label === "Account Number" && <CopyButton text={detail.value} />}
+                      </div>
                     </div>
-                    <div className="flex items-center">
-                      <span className="text-sm text-gray-900 font-medium">{detail.value}</span>
-                      {detail.label === "Account Number" && <CopyButton text={detail.value} />}
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+
 
             {/* Remarks Format */}
             <Alert className="mb-6 border-blue-200 bg-blue-50">
@@ -174,30 +183,27 @@ export default function RegistrationProcess() {
             </Alert>
 
             {/* Digital Payment Option */}
-            <div className="border-t pt-6">
-              <div className="flex items-center gap-4 mb-4">
-                <span className="text-gray-700 text-center font-medium">OR</span>
-                <div className="flex-1 border-t border-gray-200"></div>
-              </div>
-              <div className="text-center">
-                <h4 className="font-semibold text-gray-900 mb-3">Scan and Pay</h4>
-                <div className="inline-flex items-center gap-2 bg-purple-100 px-4 py-2 rounded-lg">
-
-                  {/* <Smartphone className="h-5 w-5 text-purple-600" />
-                  <span className="text-purple-800 font-medium">fonepay</span> */}
-                </div>
-                {/* <Image src='/fonepay.png' alt="fonepay" width={200} height={200} /> */}
-                <div className="flex items-center justify-center">
-
-                <a href="/image.png" target="_blank" rel="noopener noreferrer">
-  <img src="/image.png" alt="Sample" className="w-64 " />
-</a>
-                </div>
-
-                <p className="text-sm text-gray-600 mt-2">Scan QR code to pay via FonePay</p>
-                
-              </div>
+          <div className="border-t pt-6">
+            <div className="flex items-center mb-4">
+              <div className="flex-grow border-t border-gray-200"></div>
+              <span className="mx-4 text-gray-700 font-medium">OR</span>
+              <div className="flex-grow border-t border-gray-200"></div>
             </div>
+
+            <div className="text-center">
+              <h4 className="font-semibold text-gray-900 mb-3">Scan and Pay</h4>
+              
+
+              <div className="flex items-center justify-center">
+                <a href="/image.png" target="_blank" rel="noopener noreferrer">
+                  <img src="/image.png" alt="Sample" className="w-64" />
+                </a>
+              </div>
+
+              <p className="text-sm text-gray-600 mt-2">Scan QR code to pay via FonePay</p>
+            </div>
+          </div>
+
           </CardContent>
         </Card>
 
