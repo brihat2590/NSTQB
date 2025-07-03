@@ -95,7 +95,7 @@ const syllabusChapters = [
 const benefits = [
   {
     title: "Global Recognition",
-    description: "Recognized by employers worldwide in 50+ countries",
+    description: "Recognized by employers worldwide in 130+ countries",
     icon: <Globe className="h-6 w-6" />,
   },
   {
@@ -120,63 +120,10 @@ export default function CTFL() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-red-50">
       
       
-      {/* <section className="bg-gray-50 text-gray-600 py-16">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center">
-            <Badge className="bg-white/20 text-white border-white/30 mb-4">
-              ISTQB® Certified Tester Foundation Level
-            </Badge>
-            <h1 className="text-5xl font-bold mb-6">CTFL Certification</h1>
-            <p className="text-xl opacity-90 max-w-3xl mx-auto leading-relaxed">
-              The ISTQB® Certified Tester Foundation Level (CTFL) is the gateway certification for software testing
-              professionals. It provides essential knowledge and skills needed to excel in software testing.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Link href="/exam-schedule"><Button size="lg" className="bg-white text-red-600 hover:bg-gray-100 font-semibold">
-                <Calendar className="mr-2 h-5 w-5" />
-                View Exam Schedule
-              </Button></Link>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-red-600">
-                <Download className="mr-2 h-5 w-5" />
-                Download Syllabus
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section> */}
+      
 
       <div className="max-w-6xl mx-auto px-4 py-12">
-        {/* Quick Facts */}
-        {/* <section className="mb-12">
-          <Card className="shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-red-50 to-blue-50">
-              <CardTitle className="text-2xl text-center">CTFL Exam Quick Facts</CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="grid md:grid-cols-4 gap-6">
-                {Object.entries(examDetails).map(([key, value], index) => (
-                  <div key={index} className="text-center">
-                    <div className="bg-gradient-to-r from-red-100 to-blue-100 p-3 rounded-full w-12 h-12 mx-auto mb-3 flex items-center justify-center">
-                      {key === "duration" && <Clock className="h-6 w-6 text-red-600" />}
-                      {key === "questions" && <FileText className="h-6 w-6 text-blue-600" />}
-                      {key === "passingScore" && <Target className="h-6 w-6 text-red-600" />}
-                      {key === "format" && <CheckCircle className="h-6 w-6 text-blue-600" />}
-                      {key === "language" && <Globe className="h-6 w-6 text-red-600" />}
-                      {key === "delivery" && <Users className="h-6 w-6 text-blue-600" />}
-                      {key === "fee" && <Award className="h-6 w-6 text-red-600" />}
-                      {key === "validity" && <Star className="h-6 w-6 text-blue-600" />}
-                    </div>
-                    <h3 className="font-semibold text-gray-900 capitalize">{key.replace(/([A-Z])/g, " $1").trim()}</h3>
-                    <p className="text-gray-600 text-sm">{value}</p>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </section> */}
-
-        {/* <Image src='/luminious.svg' alt="CTFL Quick Facts" width={1200} height={1200} className="w-full"/>
-           */}
+        
         <div className="relative w-full h-[400px] overflow-hidden rounded-xl shadow-xl mb-12">
   <img
     src="/luminious.svg"
@@ -344,25 +291,7 @@ export default function CTFL() {
               ))}
             </div>
 
-            <Card className="shadow-lg bg-gradient-to-r from-red-50 to-blue-50">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-center text-gray-900 mb-6">Career Impact</h3>
-                <div className="grid md:grid-cols-3 gap-6 text-center">
-                  <div>
-                    <h4 className="text-3xl font-bold text-red-600 mb-2">25%</h4>
-                    <p className="text-gray-700">Average salary increase</p>
-                  </div>
-                  <div>
-                    <h4 className="text-3xl font-bold text-blue-600 mb-2">130+</h4>
-                    <p className="text-gray-700">Countries recognize ISTQB</p>
-                  </div>
-                  <div>
-                    <h4 className="text-3xl font-bold text-red-600 mb-2">1M+</h4>
-                    <p className="text-gray-700">Certified professionals worldwide</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            
           </TabsContent>
 
           {/* Preparation Tab */}
