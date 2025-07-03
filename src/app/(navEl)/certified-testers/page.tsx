@@ -20,11 +20,13 @@ export default function CertifiedTestersPage() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchTesters = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/certified-testers?page=${page}&limit=20`);
+      const searchParam = searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : '';
+      const res = await fetch(`/api/certified-testers?page=${page}&limit=20${searchParam}`);
       const data = await res.json();
 
       if (res.ok) {
@@ -42,7 +44,18 @@ export default function CertifiedTestersPage() {
 
   useEffect(() => {
     fetchTesters();
-  }, [page]);
+  }, [page, searchTerm]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    setPage(1); // Reset to first page when searching
+    fetchTesters();
+  };
+
+  const clearSearch = () => {
+    setSearchTerm('');
+    setPage(1);
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -53,6 +66,38 @@ export default function CertifiedTestersPage() {
         <p className="text-gray-600 max-w-3xl mx-auto">
           Verified professionals holding internationally recognized software testing certifications
         </p>
+      </div>
+
+      {/* Search Section */}
+      <div className="mb-6">
+        <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3">
+          <div className="flex-1">
+            <input
+              type="text"
+              placeholder="Search by name, certificate number, certification, or country..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            />
+          </div>
+          <div className="flex gap-2">
+            <button
+              type="submit"
+              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+            >
+              Search
+            </button>
+            {searchTerm && (
+              <button
+                type="button"
+                onClick={clearSearch}
+                className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+        </form>
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -93,6 +138,14 @@ export default function CertifiedTestersPage() {
                     <p className="mt-2 text-gray-600">Loading certified testers...</p>
                   </td>
                 </tr>
+              ) : testers.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="py-8 text-center">
+                    <p className="text-gray-600">
+                      {searchTerm ? 'No testers found matching your search.' : 'No certified testers found.'}
+                    </p>
+                  </td>
+                </tr>
               ) : (
                 testers.map((tester) => (
                   <tr key={tester.id} className="hover:bg-gray-50 transition-colors">
@@ -123,6 +176,11 @@ export default function CertifiedTestersPage() {
         <div className="flex flex-col sm:flex-row items-center justify-between px-6 py-4 border-t border-gray-100 bg-gray-50">
           <div className="text-sm text-gray-600 mb-4 sm:mb-0">
             Page <span className="font-medium">{page}</span> of <span className="font-medium">{totalPages}</span>
+            {searchTerm && (
+              <span className="ml-2">
+                (searching for: <span className="font-medium">"{searchTerm}"</span>)
+              </span>
+            )}
           </div>
           <div className="flex space-x-2">
             <button
