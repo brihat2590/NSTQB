@@ -83,7 +83,7 @@ export default function RegistrationProcess() {
           <p className="mt-2 opacity-90">Step-by-step guide for CTFL examination registration</p>
         </div>
 
-        {/* Process Overview */}
+        {/* Process Overview
         <div className=" hidden md:grid md:grid-cols-4 gap-4 mb-12">
           {steps.map((step, index) => (
             <Card key={index} className="shadow-lg text-center">
@@ -98,7 +98,7 @@ export default function RegistrationProcess() {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </div> */}
 
         {/* Step 1: Registration Form */}
         <Card className="shadow-lg mb-8">

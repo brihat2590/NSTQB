@@ -18,6 +18,7 @@ import {
   ArrowRight,
   Download,
 } from "lucide-react"
+import Image from "next/image"
 
 const examDetails = {
   duration: "60 minutes",
@@ -146,7 +147,7 @@ export default function CTFL() {
 
       <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Quick Facts */}
-        <section className="mb-12">
+        {/* <section className="mb-12">
           <Card className="shadow-lg">
             <CardHeader className="bg-gradient-to-r from-red-50 to-blue-50">
               <CardTitle className="text-2xl text-center">CTFL Exam Quick Facts</CardTitle>
@@ -172,7 +173,19 @@ export default function CTFL() {
               </div>
             </CardContent>
           </Card>
-        </section>
+        </section> */}
+
+        {/* <Image src='/luminious.svg' alt="CTFL Quick Facts" width={1200} height={1200} className="w-full"/>
+           */}
+        <div className="relative w-full h-[400px] overflow-hidden rounded-xl shadow-xl mb-12">
+  <img
+    src="/luminious.svg"
+    alt="CTFL Overview"
+    className="w-full h-full object-cover scale-110 transition-transform duration-700"
+  />
+</div>
+
+
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="overview" className="space-y-8">
