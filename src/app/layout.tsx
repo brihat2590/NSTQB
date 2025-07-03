@@ -23,9 +23,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "NSTQB | Nepal Software Testing Qualitative Body",
   description: "Official website of NSTQB (Nepal Software Testing Qualitative Body). Register for ISTQB exams, access certified resources, and join Nepal's leading software testing community.",
-  // icons:{
-  //   icon:"",
-  // }
+  icons:{
+    icon:"/favicon1.ico",
+  }
 };
 
 export default function RootLayout({

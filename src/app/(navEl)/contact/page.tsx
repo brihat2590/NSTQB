@@ -26,7 +26,6 @@ export default function ContactUs() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Frontend validation
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
       toast.error("Please fill out all required fields.");
       return;
@@ -55,9 +54,7 @@ export default function ContactUs() {
     <div className="min-h-screen bg-white py-16 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight pb-2 mb-4">
-            Contact Us
-          </h1>
+          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight pb-2 mb-4">Contact Us</h1>
           <div className="w-24 h-1 bg-gradient-to-r from-red-600 to-blue-600 mx-auto mb-6"></div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Nepal Software Testing Qualifications Body
@@ -110,7 +107,8 @@ export default function ContactUs() {
                       className="h-12 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
-                                    <div className="space-y-3">
+
+                  <div className="space-y-3">
                     <Label htmlFor="subject" className="text-gray-700 font-medium">Subject *</Label>
                     <Input
                       id="subject"
@@ -121,9 +119,6 @@ export default function ContactUs() {
                       className="h-12 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
-
-
-                  
 
                   <div className="space-y-3">
                     <Label htmlFor="message" className="text-gray-700 font-medium">Your Message *</Label>
@@ -146,9 +141,25 @@ export default function ContactUs() {
                   >
                     {loading ? (
                       <span className="flex items-center justify-center">
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        <svg
+                          className="animate-spin mr-2 h-5 w-5 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                          ></path>
                         </svg>
                         Sending...
                       </span>
@@ -192,12 +203,12 @@ export default function ContactUs() {
                   lines={["+977-9851055879", "+977-9841126820", "+977 9801879216"]} 
                 />
               </div>
-              
+
               <div className="mt-8 pt-4 border-t border-gray-100">
                 <div className="bg-blue-50 rounded-xl p-6">
                   <h3 className="font-bold text-gray-900 text-lg mb-3">Response Time</h3>
                   <p className="text-gray-700">
-                    We typically respond to inquiries within 1-2 business days. For urgent matters, please call us directly.
+                    We typically respond to inquiries within 1–2 business days. For urgent matters, please call us directly.
                   </p>
                 </div>
               </div>
@@ -209,7 +220,11 @@ export default function ContactUs() {
   );
 }
 
+// Updated hover color and mailto/tel links
 function ContactInfo({ icon, title, lines }: { icon: React.ReactNode; title: string; lines: string[] }) {
+  const isEmail = title.toLowerCase().includes("email");
+  const isPhone = title.toLowerCase().includes("phone");
+
   return (
     <div className="flex items-start gap-5">
       <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
@@ -217,11 +232,18 @@ function ContactInfo({ icon, title, lines }: { icon: React.ReactNode; title: str
       </div>
       <div>
         <h3 className="font-bold text-gray-900 text-lg mb-2">{title}</h3>
-        {lines.map((line, index) => (
-          <p key={index} className="text-gray-700 mb-1 last:mb-0">
-            {line}
-          </p>
-        ))}
+        {lines.map((line, index) => {
+          const href = isEmail ? `mailto:${line}` : isPhone ? `tel:${line.replace(/ /g, "")}` : "#";
+          return (
+            <a
+              key={index}
+              href={href}
+              className="text-blue-600 hover:text-red-600 block mb-1 last:mb-0 transition-colors duration-200"
+            >
+              {line}
+            </a>
+          );
+        })}
       </div>
     </div>
   );

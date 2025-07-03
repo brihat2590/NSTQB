@@ -196,7 +196,7 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12 bg-gradient-to-r bg-gray-50 text-gray-800 py-12 px-6 rounded-2xl shadow-lg">
-            <Link href={'/'}><ArrowLeft/></Link>
+            {/* <Link href={'/'}><ArrowLeft/></Link> */}
             <h1 className="text-4xl font-bold mb-4">ISTQB CTFL Mock Exam</h1>
             <p className="text-xl max-w-2xl mx-auto opacity-95">
               Test your knowledge with our comprehensive Foundation Level practice exam

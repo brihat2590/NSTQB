@@ -177,16 +177,16 @@ export default function CTFL() {
         {/* Main Content Tabs */}
         <Tabs defaultValue="overview" className="space-y-8">
           <TabsList className="grid w-full grid-cols-4 bg-gray-100">
-            <TabsTrigger value="overview" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">
+            <TabsTrigger value="overview" className=" border-gray-300 data-[state=active]:bg-red-600 data-[state=active]:text-white">
               Overview
             </TabsTrigger>
-            <TabsTrigger value="syllabus" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">
+            <TabsTrigger value="syllabus" className=" border-gray-300 data-[state=active]:bg-blue-600 data-[state=active]:text-white">
               Syllabus
             </TabsTrigger>
-            <TabsTrigger value="benefits" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">
+            <TabsTrigger value="benefits" className=" border-gray-300 data-[state=active]:bg-red-600 data-[state=active]:text-white">
               Benefits
             </TabsTrigger>
-            <TabsTrigger value="preparation" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">
+            <TabsTrigger value="preparation" className=" border-gray-300 data-[state=active]:bg-blue-600 data-[state=active]:text-white">
               Preparation
             </TabsTrigger>
           </TabsList>
