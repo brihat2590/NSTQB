@@ -91,7 +91,7 @@ const Navbar = () => {
                 <DropdownMenu>
                   <DropdownItem href="/CTFL" onClick={() => setIsExamsOpen(false)}>CTFL</DropdownItem>
                   <DropdownItem href="/mock-test" onClick={() => setIsExamsOpen(false)}>Mock Exam</DropdownItem>
-                  <DropdownItem href="/exam-schedule" onClick={() => setIsExamsOpen(false)}>Exam Schedule</DropdownItem>
+                  {/* <DropdownItem href="/exam-schedule" onClick={() => setIsExamsOpen(false)}>Exam Schedule</DropdownItem> */}
                   <DropdownItem href="/certified-testers" onClick={() => setIsExamsOpen(false)}>Certified Testers</DropdownItem>
                   <DropdownItem href="/registration-process" onClick={() => setIsExamsOpen(false)}>Registration Process</DropdownItem>
                 </DropdownMenu>
@@ -148,7 +148,7 @@ const Navbar = () => {
                 <MobileDropdownMenu>
                   <MobileDropdownItem href="/CTFL" onClick={closeAllMenus}>CTFL</MobileDropdownItem>
                   <MobileDropdownItem href='/mock-test' onClick={closeAllMenus}>Mock Exam</MobileDropdownItem>
-                  <MobileDropdownItem href="/exam-schedule" onClick={closeAllMenus}>Exam Schedule</MobileDropdownItem>
+                  {/* <MobileDropdownItem href="/exam-schedule" onClick={closeAllMenus}>Exam Schedule</MobileDropdownItem> */}
                   <MobileDropdownItem href="/certified-testers" onClick={closeAllMenus}>Certified Testers</MobileDropdownItem>
                   <MobileDropdownItem href="/registration-process" onClick={closeAllMenus}>Registration Process</MobileDropdownItem>
                 </MobileDropdownMenu>

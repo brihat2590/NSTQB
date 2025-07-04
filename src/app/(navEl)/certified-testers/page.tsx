@@ -109,7 +109,7 @@ export default function CertifiedTestersPage() {
                   Name
                 </th>
                 <th className="py-4 px-6 text-left font-semibold text-gray-700 uppercase tracking-wider text-sm">
-                  Certificate #
+                  Certificate No
                 </th>
                 <th className="py-4 px-6 text-left font-semibold text-gray-700 uppercase tracking-wider text-sm">
                   Certifying Body
