@@ -63,8 +63,10 @@ const AboutSection = () => {
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-4">Our Mission</h3>
             <p className="text-gray-600">
-              To enhance the quality of software testing in Nepal and provide IT professionals 
-              with international-level competency through world-class certifications.
+            NSTQB promotes the value of software testing by empowering professionals with recognized certifications and ethical standards. We support career growth through a structured certification path and ensure quality by advancing industry knowledge and setting global standards for training and evaluation.
+
+
+              
             </p>
           </div>
 
@@ -74,8 +76,9 @@ const AboutSection = () => {
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-4">Our Vision</h3>
             <p className="text-gray-600">
-              To be the leading authority in software testing education and certification in Nepal, 
-              recognized globally for excellence and contributing to Nepal's digital transformation.
+            To continually improve and advance the software testing profession by
+
+            defining and maintaining a Body of Knowledge which allows testers to be certified based on best practices, connecting the international software testing community, and encouraging research.
             </p>
           </div>
 
@@ -85,8 +88,7 @@ const AboutSection = () => {
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-4">Our Values</h3>
             <p className="text-gray-600">
-              Excellence, Integrity, Innovation, and Commitment to advancing Nepal's software 
-              testing community through world-class education and professional development.
+            We are guided by integrity, inclusivity, and innovation. With a passion for testing, we work collaboratively across borders to uphold quality, embrace diverse perspectives, and continuously evolve to meet global industry needs.
             </p>
           </div>
         </div>

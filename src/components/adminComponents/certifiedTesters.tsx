@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Edit, Trash2, Save, X, Plus, Search, AlertCircle, CheckCircle } from 'lucide-react';
-import {  } from 'sonner';
+import { Edit, Trash2, Save, X, Plus, Search, AlertCircle, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+
 type Tester = {
   id: string;
   name: string;
@@ -11,6 +11,7 @@ type Tester = {
   certification: string;
   countryOfIssue: string;
   certificationDate: string;
+  createdAt: string;
 };
 
 type AlertType = 'success' | 'error' | 'info';
@@ -22,7 +23,6 @@ interface Alert {
 
 export default function CertifiedTestersAdmin() {
   const [testers, setTesters] = useState<Tester[]>([]);
-  const [filteredTesters, setFilteredTesters] = useState<Tester[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -38,52 +38,49 @@ export default function CertifiedTestersAdmin() {
     certificationDate: '',
   });
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+
   // Show alert with auto-dismiss
   const showAlert = (type: AlertType, message: string) => {
     setAlert({ type, message });
     setTimeout(() => setAlert(null), 5000);
   };
 
-  // Fetch testers list on mount
-  useEffect(() => {
-    async function fetchTesters() {
-      try {
-        setLoading(true);
-        const res = await fetch('/api/certified-testers');
-        if (!res.ok) throw new Error('Failed to fetch testers');
-        const response = await res.json();
-        
-        // Handle your API response format: { data: testers, totalPages, currentPage }
-        const testersArray = Array.isArray(response.data) ? response.data : [];
-        setTesters(testersArray);
-        setFilteredTesters(testersArray);
-        showAlert('success', `Loaded ${testersArray.length} certified testers`);
-      } catch (error: any) {
-        console.error('Fetch error:', error);
-        showAlert('error', error.message || 'Failed to load testers');
-        // Set empty arrays on error to prevent map errors
-        setTesters([]);
-        setFilteredTesters([]);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchTesters();
-  }, []);
-
-  // Filter testers based on search term
-  useEffect(() => {
-    if (!searchTerm) {
-      setFilteredTesters(testers);
-    } else {
-      const filtered = testers.filter(tester =>
-        Object.values(tester).some(value =>
-          value && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-        )
+  // Fetch testers list
+  const fetchTesters = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `/api/certified-testers?page=${currentPage}&limit=${itemsPerPage}&search=${encodeURIComponent(searchTerm)}`
       );
-      setFilteredTesters(filtered);
+      
+      if (!res.ok) throw new Error('Failed to fetch testers');
+      
+      const response = await res.json();
+      const testersArray = Array.isArray(response.data) ? response.data : [];
+      
+      setTesters(testersArray);
+      setTotalItems(response.total);
+      setTotalPages(response.totalPages);
+      
+      showAlert('success', `Loaded ${testersArray.length} of ${response.total} certified testers`);
+    } catch (error: any) {
+      console.error('Fetch error:', error);
+      showAlert('error', error.message || 'Failed to load testers');
+      setTesters([]);
+    } finally {
+      setLoading(false);
     }
-  }, [searchTerm, testers]);
+  };
+
+  // Fetch testers on mount and when pagination/search changes
+  useEffect(() => {
+    fetchTesters();
+  }, [currentPage, itemsPerPage, searchTerm]);
 
   const startEdit = (tester: Tester) => {
     setEditingId(tester.id);
@@ -135,11 +132,11 @@ export default function CertifiedTestersAdmin() {
     }
 
     try {
-      // Prepare data with proper date formatting
       const createData = {
         ...formData,
-        // Convert date string to ISO format if provided
-        certificationDate: formData.certificationDate ? new Date(formData.certificationDate).toISOString() : new Date().toISOString()
+        certificationDate: formData.certificationDate 
+          ? new Date(formData.certificationDate).toISOString() 
+          : new Date().toISOString()
       };
 
       const res = await fetch('/api/certified-testers', {
@@ -150,15 +147,10 @@ export default function CertifiedTestersAdmin() {
 
       if (!res.ok) {
         const err = await res.json();
-        console.error('Create error:', err);
         throw new Error(err.error || 'Failed to create tester');
       }
 
-      const response = await res.json();
-      // Handle your API response format: { message: newTester }
-      const newTester = response.message || response;
-      
-      setTesters(prev => [newTester, ...prev]);
+      // Reset form and refetch data
       setIsCreating(false);
       setFormData({
         name: '',
@@ -169,6 +161,9 @@ export default function CertifiedTestersAdmin() {
         countryOfIssue: '',
         certificationDate: '',
       });
+      
+      // Reset to first page after creation
+      setCurrentPage(1);
       showAlert('success', 'New tester added successfully');
     } catch (error: any) {
       console.error('Create error:', error);
@@ -190,11 +185,11 @@ export default function CertifiedTestersAdmin() {
     }
 
     try {
-      // Prepare data with proper date formatting
       const updateData = {
         ...formData,
-        // Convert date string to ISO format if provided
-        certificationDate: formData.certificationDate ? new Date(formData.certificationDate).toISOString() : formData.certificationDate
+        certificationDate: formData.certificationDate 
+          ? new Date(formData.certificationDate).toISOString() 
+          : formData.certificationDate
       };
 
       const res = await fetch(`/api/certified-testers/${editingId}`, {
@@ -205,14 +200,11 @@ export default function CertifiedTestersAdmin() {
 
       if (!res.ok) {
         const err = await res.json();
-        console.error('Update error:', err);
         throw new Error(err.error || 'Update failed');
       }
 
-      const updatedTester = await res.json();
-      setTesters(prev =>
-        prev.map(t => (t.id === editingId ? updatedTester : t))
-      );
+      // Refetch data to get updated list
+      fetchTesters();
       setEditingId(null);
       showAlert('success', 'Tester updated successfully');
     } catch (error: any) {
@@ -234,7 +226,8 @@ export default function CertifiedTestersAdmin() {
         throw new Error(err.error || 'Delete failed');
       }
 
-      setTesters(prev => prev.filter(t => t.id !== id));
+      // Refetch data to get updated list
+      fetchTesters();
       showAlert('success', `${name} deleted successfully`);
     } catch (error: any) {
       showAlert('error', error.message || 'Failed to delete tester');
@@ -249,6 +242,20 @@ export default function CertifiedTestersAdmin() {
     }
   };
 
+  // Handle page change
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  // Handle items per page change
+  const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = parseInt(e.target.value);
+    setItemsPerPage(value);
+    setCurrentPage(1); // Reset to first page when changing page size
+  };
+
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto p-6">
@@ -261,7 +268,7 @@ export default function CertifiedTestersAdmin() {
   }
 
   return (
-    <div className="max-w-8xl mx-auto p-6  min-h-screen">
+    <div className="max-w-8xl mx-auto p-6 min-h-screen">
       {/* Header */}
       <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -270,7 +277,7 @@ export default function CertifiedTestersAdmin() {
             <p className="text-gray-600">Manage certified testers and their credentials</p>
           </div>
           <div className="mt-4 sm:mt-0 flex items-center space-x-3">
-          <button
+            <button
               onClick={startCreate}
               className="inline-flex items-center px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
@@ -279,7 +286,7 @@ export default function CertifiedTestersAdmin() {
             </button>
 
             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-              {filteredTesters.length} Total Testers
+              {totalItems} Total Testers
             </span>
           </div>
         </div>
@@ -300,17 +307,69 @@ export default function CertifiedTestersAdmin() {
         </div>
       )}
 
-      {/* Search */}
+      {/* Search and Pagination Controls */}
       <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Search testers by name, certificate number, or any field..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Search Input */}
+          {/* <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search testers by name, certificate number, or any field..."
+              value={searchTerm}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPage(1); // Reset to first page when searching
+              }}
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+           */}
+          {/* Pagination Controls */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
+            {/* Items per page selector */}
+            <div className="flex items-center">
+              <span className="mr-2 text-gray-700 text-sm">Show:</span>
+              <select
+                value={itemsPerPage}
+                onChange={handleItemsPerPageChange}
+                className="border border-gray-300 rounded-md px-2 py-1 text-sm focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+              </select>
+              <span className="ml-2 text-gray-700 text-sm">per page</span>
+            </div>
+            
+            {/* Page navigation */}
+            <div className="flex items-center">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`p-2 rounded-md ${currentPage === 1 
+                  ? 'text-gray-400 cursor-not-allowed' 
+                  : 'text-gray-700 hover:bg-gray-100'}`}
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              
+              <span className="mx-2 text-gray-700">
+                Page {currentPage} of {totalPages}
+              </span>
+              
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`p-2 rounded-md ${currentPage === totalPages 
+                  ? 'text-gray-400 cursor-not-allowed' 
+                  : 'text-gray-700 hover:bg-gray-100'}`}
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -321,7 +380,7 @@ export default function CertifiedTestersAdmin() {
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Certificate #</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Certificate No</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Certificate Body</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Exam Provider</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Certification</th>
@@ -424,14 +483,14 @@ export default function CertifiedTestersAdmin() {
                 </tr>
               )}
 
-              {!Array.isArray(filteredTesters) || filteredTesters.length === 0 ? (
+              {testers.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="px-6 py-12 text-center text-gray-500">
                     {searchTerm ? 'No testers found matching your search.' : 'No certified testers found.'}
                   </td>
                 </tr>
               ) : (
-                filteredTesters.map(tester =>
+                testers.map(tester =>
                   editingId === tester.id ? (
                     <tr key={tester.id} className="bg-blue-50">
                       <td className="px-6 py-4">
@@ -571,6 +630,89 @@ export default function CertifiedTestersAdmin() {
           </table>
         </div>
       </div>
+
+      {/* Bottom Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between bg-white rounded-lg shadow-sm p-4">
+          <div className="text-sm text-gray-700 mb-4 sm:mb-0">
+            Showing <span className="font-medium">{(currentPage - 1) * itemsPerPage + 1}</span> to{' '}
+            <span className="font-medium">{Math.min(currentPage * itemsPerPage, totalItems)}</span> of{' '}
+            <span className="font-medium">{totalItems}</span> testers
+          </div>
+          
+          <div className="flex space-x-2">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={`px-4 py-2 border rounded-md text-sm font-medium ${
+                currentPage === 1 
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                  : 'bg-white text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              Previous
+            </button>
+            
+            <div className="flex items-center">
+              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                let pageNum;
+                if (totalPages <= 5) {
+                  pageNum = i + 1;
+                } else if (currentPage <= 3) {
+                  pageNum = i + 1;
+                } else if (currentPage >= totalPages - 2) {
+                  pageNum = totalPages - 4 + i;
+                } else {
+                  pageNum = currentPage - 2 + i;
+                }
+                
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => handlePageChange(pageNum)}
+                    className={`px-3 py-1 mx-1 rounded-md text-sm ${
+                      currentPage === pageNum
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-white text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+              
+              {totalPages > 5 && currentPage < totalPages - 2 && (
+                <span className="mx-1 text-gray-500">...</span>
+              )}
+              
+              {totalPages > 5 && currentPage < totalPages - 2 && (
+                <button
+                  onClick={() => handlePageChange(totalPages)}
+                  className={`px-3 py-1 mx-1 rounded-md text-sm ${
+                    currentPage === totalPages
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  {totalPages}
+                </button>
+              )}
+            </div>
+            
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className={`px-4 py-2 border rounded-md text-sm font-medium ${
+                currentPage === totalPages
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-white text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

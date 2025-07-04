@@ -50,7 +50,7 @@ export async function GET(req: Request) {
         where,
         skip,
         take: limit,
-        orderBy: { createdAt: 'desc' },
+        orderBy: { createdAt: 'asc' },
       }),
       prisma.certifiedTesters.count({ where }),
     ]);
