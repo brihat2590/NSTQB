@@ -56,7 +56,7 @@ const faqData = [
       {
         question: "How can I contact NSTQB for support?",
         answer:
-          "You can reach us through our contact form, email us at support@nstqb.org.np, or call our helpline during business hours. We also have a live chat feature on our website.",
+          "You can reach us through our contact form, email us at support@nstqb.org, or call our helpline during business hours",
       },
       {
         question: "What if I fail the exam?",

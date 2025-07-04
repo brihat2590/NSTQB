@@ -69,24 +69,30 @@ export default function LandingPage() {
             </div>
 
             {/* Partner Logos */}
-            <div className="pt-8">
-              <p className="text-gray-500 text-sm mb-4">Authorized Partner of:</p>
-              <Image
-                src="/istqb.png"
-                alt="ISTQB Logo"
-                width={120}
-                height={40}
-                className="h-13 w-auto"
-              />
-            </div>
+            <div className="pt-2 md:pt-8">
+  <p className="text-gray-500 text-sm mb-0 md:mb-4">Authorized Partner of:</p>
+  <div className="flex justify-start items-center mt-0">
+    <Image
+      src="/istqb.png"
+      alt="ISTQB Logo"
+      width={120}
+      height={40}
+      className="h-10 w-auto"
+      priority
+    />
+  </div>
+</div>
+
+            
           </div>
 
           {/* Right Content - Hero Carousel */}
           <div className="flex-1 mt-10 md:mt-0 flex justify-end">
-            <div className="w-full max-w-2xl rounded-2xl overflow-hidden shadow-lg">
+            <div className="w-full max-w-2xl rounded-2xl overflow-hidden shadow-lg hidden md:block">
               <HeroCarousel />
             </div>
           </div>
+
         </div>
 
         {/* Bottom Stats Section */}

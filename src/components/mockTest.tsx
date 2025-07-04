@@ -25,6 +25,7 @@ import Link from "next/link"
 import { mockQuestions,mockQuestions2,mockQuestions3 } from "@/lib/mockQuestions"
 import { useRouter } from "next/navigation"
 import { mockQuestions4 } from "@/lib/mockQuestion4"
+import ExamGuard from "./ExamGuard"
 // Add question type and update the structure
 type Question = {
   id: number;
@@ -339,6 +340,7 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-red-50 py-8 px-4">
         <div className="max-w-6xl mx-auto">
+          <ExamGuard/>
           {/* Header with Timer and Progress */}
           <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 flex-wrap">
