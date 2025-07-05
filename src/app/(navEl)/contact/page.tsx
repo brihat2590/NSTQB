@@ -82,7 +82,7 @@ export default function ContactUs() {
               </div>
             </CardHeader>
             <form onSubmit={handleSubmit} className="bg-white">
-              <CardContent className="p-8 space-y-6">
+              <CardContent className="py-8 space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-gray-700 font-medium flex items-center gap-2">
@@ -186,7 +186,7 @@ export default function ContactUs() {
 
           {/* Contact Information Card */}
           <Card className="shadow-lg rounded-xl overflow-hidden border border-gray-200 bg-white">
-            <CardHeader className="bg-gradient-to-r from-gray-50 to-white p-8">
+            <CardHeader className="bg-gradient-to-r from-gray-50 to-white ">
               <div className="flex items-center gap-4">
                 <div className="bg-gradient-to-r from-blue-100 to-purple-100 p-3 rounded-xl">
                   <Phone className="h-8 w-8 text-blue-600" />

@@ -68,9 +68,9 @@ const Navbar = () => {
               <Image
                 src={'/whiteImage.png'}
                 alt="Company Logo"
-                width={100}
-                height={100}
-                className="h-auto w-auto"
+                width={80}
+                height={80}
+                className=""
                 priority
               />
             </Link>

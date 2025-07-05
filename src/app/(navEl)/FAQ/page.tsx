@@ -99,7 +99,7 @@ export default function FAQ() {
                       </CardTitle>
                       <CardDescription>Common questions about {category.category.toLowerCase()}</CardDescription>
                     </CardHeader>
-                    <CardContent className="pt-6">
+                    <CardContent className="pt-2">
                       <Accordion type="single" collapsible className="w-full">
                         {category.questions.map((faq, faqIndex) => (
                           <AccordionItem key={faqIndex} value={`item-${categoryIndex}-${faqIndex}`}>

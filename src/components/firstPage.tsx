@@ -8,20 +8,18 @@ import HeroCarousel from "./CarouselComp";
 import { useRouter } from "next/navigation";
 import VideoComponent from "./YoutubeComp";
 
-
 export default function LandingPage() {
   const router = useRouter();
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-white text-gray-900 sm:mt-10">
+      <section className="relative overflow-hidden bg-white text-gray-900 sm:mt-10 border ">
         {/* Background Geometric Shapes */}
         <div className="absolute inset-0">
-          
           <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-gradient-to-r from-blue-50 to-transparent transform -skew-x-12 -translate-x-1/4" />
         </div>
 
-        <div className="relative max-w-[1400px] mx-auto px-6 lg:px-8 py-20 md:flex md:items-center md:justify-between gap-10">
+        <div className="relative max-w-[1400px] mx-auto px-6 lg:px-8 pt-20 md:py-20 md:flex md:items-center md:justify-between gap-10">
           {/* Left Content */}
           <div className="flex-1 max-w-2xl space-y-8">
             <div className="space-y-6">
@@ -69,18 +67,18 @@ export default function LandingPage() {
             </div>
 
             {/* Partner Logos */}
-            <div className="pt-2 md:pt-8">
-  <p className="text-gray-500 text-sm mb-0 md:mb-4">Authorized Partner of:</p>
-  <div className="flex justify-start items-center mt-0">
-    <Image
-      src="/istqb.png"
-      alt="ISTQB Logo"
-      width={120}
-      height={40}
-      className="h-10 w-auto"
-      priority
-    />
-  </div>
+            <div className="md:pt-8">
+            <p className="text-gray-500 text-sm mb-0 md:mb-4">Authorized Partner of:</p>
+            <div className="flex justify-start items-center mt-0">
+              <Image
+                src="/istqb.png"
+                alt="ISTQB Logo"
+                width={80}
+                height={80}
+                className=""
+                priority
+              />
+            </div>
 </div>
 
             

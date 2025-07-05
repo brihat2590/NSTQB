@@ -30,7 +30,7 @@ export default function HeroCarousel() {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === carouselImages.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3500);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, [carouselImages]);
