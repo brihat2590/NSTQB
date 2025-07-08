@@ -113,6 +113,7 @@ const Navbar = () => {
                 </DropdownMenu>
               )}
             </div>
+            <NavLink href='/blogs'>Blogs</NavLink>
 
             <NavLink href="/contact">Contact Us</NavLink>
           </div>
@@ -170,6 +171,7 @@ const Navbar = () => {
                 </MobileDropdownMenu>
               )}
             </div>
+            <NavLink href='/blogs' onClick={closeAllMenus}>Blogs</NavLink>
 
             <MobileNavLink href="/contact" onClick={closeAllMenus}>Contact Us</MobileNavLink>
           </div>
