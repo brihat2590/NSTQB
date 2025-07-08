@@ -60,3 +60,14 @@ model boardMembers{
   
 
 }
+
+model Blog{
+  id String @id @default(uuid())
+  title String
+  slug String @unique
+  imageUrl String
+  content String
+  summary String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}

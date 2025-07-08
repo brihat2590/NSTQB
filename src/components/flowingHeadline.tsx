@@ -24,13 +24,7 @@ const flowingAnnouncements = [
     icon: <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />,
     href: "/CTFL", // internal
   },
-  {
-    id: 3,
-    text: "🎓 NSTQB meet and greet, July 5 2025",
-    type: "event",
-    icon: <Users className="h-4 w-4 sm:h-5 sm:w-5" />,
-    href: "https://forms.office.com/pages/responsepage.aspx?id=_i1yLTh780Kq2qRWX0KI5Ypde1Zxo_hFuus0JMw15PJUNVBPNFNSNkkxM1VCV1pIREJaVUsyWDUxUC4u&route=shorturl", // external
-  },
+  
 ];
 
 export default function FlowingHeadline() {
