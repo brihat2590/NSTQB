@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "Event" ADD COLUMN     "isPaid" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "price" INTEGER;
+
+-- AlterTable
+ALTER TABLE "Registration" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

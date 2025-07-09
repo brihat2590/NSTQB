@@ -1,7 +1,8 @@
+'use client';
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { HelpCircle, BookOpen, Award, Users } from "lucide-react"
-
 
 const faqData = [
   {
@@ -25,8 +26,6 @@ const faqData = [
       },
     ],
   },
-  
-    
   {
     category: "Exam Preparation",
     icon: <BookOpen className="h-5 w-5" />,
@@ -36,7 +35,6 @@ const faqData = [
         answer:
           "NSTQB provides official study materials to help you prepare for the ISTQB exam. You can read the official documentation, explore the detailed syllabus under the CTFL section, and access downloadable resources such as the syllabus PDF, sample questions, and glossary of testing terms.",
       },
-      
       {
         question: "How should I prepare for the exam?",
         answer:
@@ -68,76 +66,70 @@ const faqData = [
         answer:
           "Exam fees can be refunded if you cancel at least 48 hours before the scheduled exam time. A processing fee of 10% will be deducted from the refund amount.",
       },
-      
     ],
   },
 ]
 
 export default function FAQ() {
   return (
-
-    
-          <div className="min-h-screen bg-gradient-to-br from-blue-50 to-red-50 py-12 px-4">
-            <div className="max-w-5xl mx-auto">
-              {/* Header Section */}
-              <div className="text-center mb-12  text-gray-800 py-12 px-6 rounded-2xl shadow-lg">
-                <h1 className="text-4xl font-bold mb-4">Frequently Asked Questions</h1>
-                <p className="text-xl max-w-2xl mx-auto opacity-95">Nepal Software Testing Qualifications Body</p>
-                <p className="mt-2 opacity-90">Find answers to common questions about our certifications and services</p>
-              </div>
-
-              {/* FAQ Sections */}
-              <div className="space-y-8">
-                {faqData.map((category, categoryIndex) => (
-                  <Card key={categoryIndex} className="shadow-lg">
-                    <CardHeader className="bg-gradient-to-r from-red-50 to-blue-50">
-                      <CardTitle className="flex items-center gap-3 text-2xl text-gray-900">
-                        <div className="bg-gradient-to-r from-red-600 to-blue-600 p-2 rounded-full text-white">
-                          {category.icon}
-                        </div>
-                        {category.category}
-                      </CardTitle>
-                      <CardDescription>Common questions about {category.category.toLowerCase()}</CardDescription>
-                    </CardHeader>
-                    <CardContent className="pt-2">
-                      <Accordion type="single" collapsible className="w-full">
-                        {category.questions.map((faq, faqIndex) => (
-                          <AccordionItem key={faqIndex} value={`item-${categoryIndex}-${faqIndex}`}>
-                            <AccordionTrigger className="text-left hover:text-red-600">{faq.question}</AccordionTrigger>
-                            <AccordionContent className="text-gray-600 leading-relaxed">{faq.answer}</AccordionContent>
-                          </AccordionItem>
-                        ))}
-                      </Accordion>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {/* Contact Section
-              <Card className="mt-12 shadow-lg bg-gradient-to-r from-red-600 to-blue-600 text-white">
-                <CardContent className="pt-6 text-center">
-                  <h3 className="text-2xl font-bold mb-4">Still have questions?</h3>
-                  <p className="mb-6 opacity-90">
-                    Can't find the answer you're looking for? Our support team is here to help.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a
-                      href="mailto:support@nstqb.org.np"
-                      className="bg-white text-red-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
-                    >
-                      Email Support
-                    </a>
-                    <a
-                      href="/contact"
-                      className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-red-600 transition-colors"
-                    >
-                      Contact Us
-                    </a>
-                  </div>
-                </CardContent>
-              </Card> */}
-            </div>
+    <div className="min-h-screen  py-16 px-4">
+      <div className="max-w-4xl mx-auto">
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-500 to-blue-500 rounded-2xl mb-6">
+            <HelpCircle className="w-8 h-8 text-white" />
           </div>
-    
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            Frequently Asked Questions
+          </h1>
+          <p className="text-xl bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent max-w-2xl mx-auto leading-relaxed font-semibold">
+            Nepal Software Testing Qualifications Body
+          </p>
+          <p className="text-gray-500 mt-2">
+            Find answers to common questions about our certifications and services
+          </p>
+        </div>
+
+        {/* FAQ Sections */}
+        <div className="space-y-6">
+          {faqData.map((category, categoryIndex) => (
+            <Card key={categoryIndex} className="border-0 shadow-sm bg-white hover:shadow-lg transition-all duration-300 hover:scale-[1.01]">
+              <CardHeader className="pb-4">
+                <CardTitle className="flex items-center gap-4 text-xl text-gray-900">
+                  <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-red-500 to-blue-500 rounded-xl text-white shadow-sm">
+                    {category.icon}
+                  </div>
+                  <span className="font-semibold">{category.category}</span>
+                </CardTitle>
+                <CardDescription className="text-gray-500 ml-14">
+                  Common questions about {category.category.toLowerCase()}
+                </CardDescription>
+              </CardHeader>
+              
+              <CardContent className="pt-0">
+                <Accordion type="single" collapsible className="w-full">
+                  {category.questions.map((faq, faqIndex) => (
+                    <AccordionItem 
+                      key={faqIndex} 
+                      value={`item-${categoryIndex}-${faqIndex}`}
+                      className="border-gray-100 last:border-b-0"
+                    >
+                      <AccordionTrigger className="text-left hover:text-red-600 transition-colors duration-200 py-4 text-gray-900 font-medium hover:no-underline">
+                        <span className="pr-4">{faq.question}</span>
+                      </AccordionTrigger>
+                      <AccordionContent className="text-gray-600 leading-relaxed pb-4 pt-0">
+                        <div className="bg-white rounded-lg p-4 border-l-4 border-red-500 shadow-sm">
+                          {faq.answer}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }
