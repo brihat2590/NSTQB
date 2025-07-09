@@ -35,7 +35,7 @@ export default function BlogList() {
               {blogs.map(blog => (
                 <article key={blog.id} className="bg-white border border-gray-200 h-full flex flex-col">
                   <Link href={`/blogs/${blog.slug}`}>
-                    <div className="aspect-square h-48 w-full rounded-sm  overflow-hidden">
+                    <div className="aspect-square h-48 w-full   overflow-hidden">
                       <img 
                         src={blog.imageUrl} 
                         alt={blog.title} 
@@ -74,7 +74,7 @@ export default function BlogList() {
           <aside className="lg:col-span-1">
             <div className="sticky top-8">
               <div className="bg-white border-l-2 border-gray-200 pl-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-6">
+                <h2 className="text-lg font-semibold text-gray-900 mb-6 pt-2">
                   Recent Posts
                 </h2>
                 <div className="space-y-4">
@@ -86,7 +86,7 @@ export default function BlogList() {
                             <img 
                               src={blog.imageUrl} 
                               alt={blog.title} 
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-cover "
                             />
                           </div>
                           <div className="flex-1 min-w-0">
