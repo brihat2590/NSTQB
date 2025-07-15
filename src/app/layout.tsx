@@ -20,13 +20,56 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "NSTQB | Nepal Software Testing Qualitative Body",
-  description: "Official website of NSTQB (Nepal Software Testing Qualitative Body). Register for ISTQB exams, access certified resources, and join Nepal's leading software testing community.",
-  icons:{
-    icon:"/favicon1.ico",
+export const metadata = {
+  title: 'NSTQB – Nepal Software Testing Qualitative Body',
+  description: 'Official ISTQB® accredited body. Register for exams, explore events, read blogs, and take mock CTFL exams with NSTQB.',
+  applicationName: 'NSTQB',
+  keywords: [
+    'NSTQB', 'ISTQB', 'software testing', 'certification', 
+    'CTFL', 'Nepal', 'mock exams', 'events', 'blogs'
+  ],
+  authors: [
+    { name: 'NSTQB Team', url: 'https://nstqb.org.np' }
+  ],
+  openGraph: {
+    title: 'NSTQB – Nepal Software Testing Qualitative Body',
+    description: 'Get certified in software testing through the Nepal Software Testing Qualitative Body (NSTQB), accredited by ISTQB®.',
+    url: 'https://nstqb.org.np',
+    siteName: 'NSTQB',
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dlrpmew9d/image/upload/v1752574371/whiteImage_yydkc6.png',
+        width: 1200,
+        height: 630,
+        alt: 'NSTQB - Nepal Software Testing Certification'
+      }
+    ],
+    locale: 'en_US',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'NSTQB – Nepal Software Testing Qualitative Body',
+    description: 'Register for software testing exams and learn with NSTQB, recognized by ISTQB®.',
+    images: ['https://res.cloudinary.com/dlrpmew9d/image/upload/v1752574371/whiteImage_yydkc6.png']
+  },
+  verification: {
+    google: 'YOUR-GOOGLE-SITE-VERIFICATION',
+    // Add other verifications as needed
+  },
+  alternates: {
+    canonical: 'https://nstqb.org.np',
+    languages: {
+      'en-US': 'https://nstqb.org.np/en-US'
+      // Add other languages if available
+    }
+  },
+  robots: {
+    index: true,
+    follow: true
   }
-};
+}
+
 
 export default function RootLayout({
   children,
