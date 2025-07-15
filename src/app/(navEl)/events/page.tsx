@@ -156,6 +156,7 @@ function EventCard({ event }: { event: Event }) {
             </div>
           )}
         </div>
+        <div className="text-center text-yel">Register</div>
       </div>
     </div>
     </Link>

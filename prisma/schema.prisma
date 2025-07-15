@@ -81,14 +81,28 @@ model Event {
   imageUrl String 
   isPaid Boolean @default(false)
   price Int?
+  registrations Registration[]
+  createdAt  DateTime       @default(now())
   
 }
 
-// model Registration {
-//   id      Int    @id @default(autoincrement())
-//   name    String
-//   email   String
-//   event   Event  @relation(fields: [eventId], references: [id])
-//   eventId Int
-//   createdAt DateTime @default(now())
-// }
+model Registration {
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String
+  event       Event    @relation(fields: [eventId], references: [id])
+  eventId     Int
+  
+  transactionUuid String?  @unique// eSewa transaction ID
+   // eSewa reference ID
+  createdAt   DateTime @default(now())
+}
+
+model Intent{
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  eventId Int
+  amount Int
+  
+}

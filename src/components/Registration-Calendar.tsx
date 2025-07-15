@@ -129,7 +129,7 @@ export default function ExamCalendar() {
         </div>
 
         {/* Cards on the right */}
-        <div className="w-full lg:w-[45%] space-y-6">
+        <div className="w-full lg:w-[35%] space-y-6">
           <h2 className="text-xl font-semibold mb-4">Upcoming Exams</h2>
           {exams.map((exam) => (
             <div
@@ -153,7 +153,7 @@ export default function ExamCalendar() {
               </p>
               <div className="flex gap-2 mt-4">
                 <Button
-                  className="w-full bg-gradient-to-r from-red-600 to-blue-600 text-white hover:from-red-700 hover:to-blue-700"
+                  className="w-full bg-gradient-to-r from-red-600 to-blue-600 text-white hover:bg-red-700 hover:to-blue-700 transition-colors "
                   disabled={isRegistrationClosed(exam) || isExamCompleted(exam)}
                   onClick={() => router.push('/registration-process')}
                 >

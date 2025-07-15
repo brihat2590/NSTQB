@@ -27,7 +27,8 @@ export default function LandingPage() {
                 🇳🇵 Authorized by ISTQB
               </Badge>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-800">
+              <h1 className="text-4xl tracking-tight
+               md:text-5xl lg:text-6xl font-bold leading-tight text-gray-800 ">
                 International Certifications
                 <span className="block text-3xl md:text-4xl lg:text-5xl text-blue-600">
                   in Software Testing
@@ -55,7 +56,7 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold px-8 py-6 rounded-lg"
+                  className="border-blue-600 text-blue-600  font-semibold px-8 py-6 rounded-lg hover:bg-blue-600 hover:text-white"
                   onClick={()=>{
                     router.push("/registration-process")
                   }}

@@ -22,9 +22,7 @@ export default function CodeOfConduct() {
       <div className="max-w-5xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-500 to-blue-500 rounded-2xl mb-6 shadow-lg">
-            <Shield className="w-8 h-8 text-white" />
-          </div>
+          
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
             Code of Conduct [e-Exam]
           </h1>

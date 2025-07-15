@@ -1,13 +1,15 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { HelpCircle, BookOpen, Award, Users } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { HelpCircle, BookOpen, Users } from "lucide-react";
 
 const faqData = [
   {
     category: "General Information",
-    icon: <HelpCircle className="h-5 w-5" />,
+    icon: <HelpCircle className="h-5 w-5" aria-hidden="true" />,
+    bgColor: "bg-blue-100",
+    iconColor: "text-blue-600",
     questions: [
       {
         question: "What is Nepal Software Testing Qualifications Body (NSTQB)?",
@@ -28,7 +30,9 @@ const faqData = [
   },
   {
     category: "Exam Preparation",
-    icon: <BookOpen className="h-5 w-5" />,
+    icon: <BookOpen className="h-5 w-5" aria-hidden="true" />,
+    bgColor: "bg-green-100",
+    iconColor: "text-green-600",
     questions: [
       {
         question: "What study materials are available?",
@@ -49,7 +53,9 @@ const faqData = [
   },
   {
     category: "Support & Services",
-    icon: <Users className="h-5 w-5" />,
+    icon: <Users className="h-5 w-5" aria-hidden="true" />,
+    bgColor: "bg-red-100",
+    iconColor: "text-red-600",
     questions: [
       {
         question: "How can I contact NSTQB for support?",
@@ -68,17 +74,14 @@ const faqData = [
       },
     ],
   },
-]
+];
 
 export default function FAQ() {
   return (
-    <div className="min-h-screen  py-16 px-4">
+    <div className="min-h-screen py-16 px-4 bg-gray-50">
       <div className="max-w-4xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-500 to-blue-500 rounded-2xl mb-6">
-            <HelpCircle className="w-8 h-8 text-white" />
-          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
             Frequently Asked Questions
           </h1>
@@ -91,12 +94,18 @@ export default function FAQ() {
         </div>
 
         {/* FAQ Sections */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           {faqData.map((category, categoryIndex) => (
-            <Card key={categoryIndex} className="border-0 shadow-sm bg-white hover:shadow-lg transition-all duration-300 hover:scale-[1.01]">
+            <Card
+              key={categoryIndex}
+              className="border-0 shadow-sm bg-white hover:shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+            >
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-4 text-xl text-gray-900">
-                  <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-red-500 to-blue-500 rounded-xl text-white shadow-sm">
+                  <div
+                    className={`flex items-center justify-center w-10 h-10 rounded-full ${category.bgColor} ${category.iconColor}`}
+                    aria-hidden="true"
+                  >
                     {category.icon}
                   </div>
                   <span className="font-semibold">{category.category}</span>
@@ -105,12 +114,12 @@ export default function FAQ() {
                   Common questions about {category.category.toLowerCase()}
                 </CardDescription>
               </CardHeader>
-              
+
               <CardContent className="pt-0">
                 <Accordion type="single" collapsible className="w-full">
                   {category.questions.map((faq, faqIndex) => (
-                    <AccordionItem 
-                      key={faqIndex} 
+                    <AccordionItem
+                      key={faqIndex}
                       value={`item-${categoryIndex}-${faqIndex}`}
                       className="border-gray-100 last:border-b-0"
                     >
@@ -131,5 +140,5 @@ export default function FAQ() {
         </div>
       </div>
     </div>
-  )
+  );
 }

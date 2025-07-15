@@ -3,7 +3,7 @@
 const BlogHero = () => {
   const slide = {
     image:
-      "https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080",
+      "https://images.pexels.com/photos/4050315/pexels-photo-4050315.jpeg",
     title: "Welcome to Our Blog",
     subtitle: "Stories, insights, and inspiration from our journey",
   };
