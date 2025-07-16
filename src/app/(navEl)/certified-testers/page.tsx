@@ -22,6 +22,8 @@ export default function CertifiedTestersPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
+  const disablePagination = searchTerm !== '' && testers.length === 0;
+
   const fetchTesters = async () => {
     setLoading(true);
     try {
@@ -185,9 +187,9 @@ export default function CertifiedTestersPage() {
           <div className="flex space-x-2">
             <button
               onClick={() => setPage((p) => Math.max(p - 1, 1))}
-              disabled={page === 1}
+              disabled={page === 1 || disablePagination}
               className={`px-4 py-2 rounded-md text-sm font-medium ${
-                page === 1
+                page === 1 || disablePagination
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300 shadow-sm'
               }`}
@@ -196,9 +198,9 @@ export default function CertifiedTestersPage() {
             </button>
             <button
               onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-              disabled={page === totalPages}
+              disabled={page === totalPages || disablePagination}
               className={`px-4 py-2 rounded-md text-sm font-medium ${
-                page === totalPages
+                page === totalPages || disablePagination
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300 shadow-sm'
               }`}

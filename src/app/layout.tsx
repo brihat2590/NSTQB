@@ -29,12 +29,12 @@ export const metadata = {
     'CTFL', 'Nepal', 'mock exams', 'events', 'blogs'
   ],
   authors: [
-    { name: 'NSTQB Team', url: 'https://nstqb.org.np' }
+    { name: 'NSTQB Team', url: 'https://nstqb.org' }
   ],
   openGraph: {
     title: 'NSTQB – Nepal Software Testing Qualitative Body',
     description: 'Get certified in software testing through the Nepal Software Testing Qualitative Body (NSTQB), accredited by ISTQB®.',
-    url: 'https://nstqb.org.np',
+    url: 'https://nstqb.org',
     siteName: 'NSTQB',
     images: [
       {
@@ -58,9 +58,9 @@ export const metadata = {
     // Add other verifications as needed
   },
   alternates: {
-    canonical: 'https://nstqb.org.np',
+    canonical: 'https://nstqb.org',
     languages: {
-      'en-US': 'https://nstqb.org.np/en-US'
+      'en-US': 'https://nstqb.org'
       // Add other languages if available
     }
   },
