@@ -57,7 +57,7 @@ const Navbar = () => {
   return (
     <nav
       ref={navRef}
-      className="bg-gray-50 shadow-lg sticky top-0 z-50 font-sans"
+      className="bg-gray-50 shadow-sm sticky top-0 z-50 font-sans"
       aria-label="Main navigation"
     >
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">

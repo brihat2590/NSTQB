@@ -47,12 +47,18 @@ export default function ExamGuard() {
   }, [router]);
 
   const confirmLeave = () => {
-    window.removeEventListener('beforeunload', () => {});
-    if (pendingAction === 'pop') {
-      window.history.back();
-    } else if (pendingAction === 'route' && nextHref.current) {
-      router.push(nextHref.current);
-    }
+    setShowModal(false);
+
+  // Allow reload without unload confirmation
+  window.removeEventListener('beforeunload', () => {});
+
+  // Force redirect to /mock-exam
+  window.location.href = '/mock-test';
+
+  // Optional: Reset state
+  setPendingAction(null);
+  nextHref.current = null;
+    
   };
 
   const cancelLeave = () => {

@@ -26,6 +26,7 @@ import { mockQuestions,mockQuestions2,mockQuestions3 } from "@/lib/mockQuestions
 import { useRouter } from "next/navigation"
 import { mockQuestions4 } from "@/lib/mockQuestion4"
 import ExamGuard from "./ExamGuard"
+import { set } from "date-fns"
 // Add question type and update the structure
 type Question = {
   id: number;
@@ -53,6 +54,7 @@ export default function MockTest() {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const[selectedSet,setSelectedSet]=useState("set1");
   type SetKey = "set1" | "set2" | "set3"|"set4";
+  const[examStarted,setExamStarted]=useState(false);
   const router=useRouter();
 
 const questionSets: Record<SetKey, Question[]> = {
@@ -95,7 +97,7 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
 
   const selectAnswer = (answerIndex: number) => {
     const newAnswers = [...answers]
-    const question = mockQuestions[currentQuestion]
+    const question = questionToRender[currentQuestion]
 
     if (question.type === "single") {
       newAnswers[currentQuestion] = answerIndex
@@ -133,7 +135,7 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
   const calculateScore = () => {
     let correctAnswers = 0
     answers.forEach((answer, index) => {
-      const question = mockQuestions[index]
+      const question = questionToRender[index]
 
       if (question.type === "single") {
         if (answer === question.correctAnswer) {
@@ -320,11 +322,50 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
                 
                 <Button
                   size="lg"
-                  onClick={startQuiz}
+                  // onClick={startQuiz}
+                  onClick={()=>setExamStarted(!examStarted)}
                   className="bg-gradient-to-r from-red-600 to-blue-600 text-white hover:from-red-700 hover:to-blue-700 px-8 py-6 text-lg"
                 >
                   Start Exam
                 </Button>
+                {examStarted&&(
+                  <div>
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full mx-4">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Confirm Exam Start</h2>
+            <p className="text-gray-600 mb-6">
+              Are you ready to begin? Once started, the timer will begin counting down immediately.
+            </p>
+            
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={() => setExamStarted(false)}
+                className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={startQuiz}
+                className="px-6 py-3 bg-gradient-to-r from-red-600 to-blue-600 text-white rounded-lg hover:from-red-700 hover:to-blue-700 transition-all"
+              >
+                Start Exam
+              </button>
+            </div>
+          </div>
+        </div>
+                    
+
+
+
+
+
+                  </div>
+
+                  
+
+
+                )}
+                
               </div>
             </CardContent>
           </Card>
@@ -707,9 +748,12 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
                                 <span className="font-medium mr-2">{String.fromCharCode(65 + optionIndex)}.</span>
                                 {option}
                                 {isCorrect && <span className="ml-2 text-green-600 font-medium">(Correct)</span>}
-                                {isUserAnswer && !isCorrect && (
-                                  <span className="ml-2 text-red-600 font-medium">(Your answer)</span>
-                                )}
+{isUserAnswer && (
+  <span className={`ml-2 font-medium ${isCorrect ? "text-blue-600" : "text-red-600"}`}>
+    (Your answer)
+  </span>
+)}
+
                               </div>
                             )
                           })}

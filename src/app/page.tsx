@@ -12,23 +12,23 @@ export default function Home(){
     const dburl=process.env.DATABASE_URL;
     console.log(dburl)
     return(
-        // <>
-        // <Navbar/>
-        // <FlowingHeadline/>
-        // <LandingPage/>
-        // <ExamCalendar/>
-        
-
-        // <AboutSection/>
-        // <MemberBoards/>
-        
-        // <Footer/>
-        // </>
-
         <>
-
-        <UnderConstruction/>
+        <Navbar/>
+        <FlowingHeadline/>
+        <LandingPage/>
+        <ExamCalendar/>
         
+
+        <AboutSection/>
+        <MemberBoards/>
+        
+        <Footer/>
         </>
+
+        
+
+        
+        
+        
     )   
 }
