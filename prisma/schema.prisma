@@ -106,3 +106,16 @@ model Intent{
   amount Int
   
 }
+
+model ExamRegistration{
+  id String @id @default(cuid())
+  name String
+  email String
+  transaction_uuid String @unique
+  amount Float
+  status String @default("pending") // pending, completed, failed
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+}

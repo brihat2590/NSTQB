@@ -19,6 +19,7 @@ import {
   Download,
 } from "lucide-react"
 import Image from "next/image"
+import CTFLMindMap from "@/components/CtflMindMap"
 
 const examDetails = {
   duration: "60 minutes",
@@ -123,14 +124,33 @@ export default function CTFL() {
       
 
       <div className="max-w-6xl mx-auto px-4 py-12">
-        
-        <div className="relative w-full h-[400px] overflow-hidden rounded-xl shadow-xl mb-12">
-  <img
-    src="/luminious.svg"
-    alt="CTFL Overview"
-    className="w-full h-full object-cover scale-110 transition-transform duration-700"
-  />
+      <div className="bg-white py-16 px-6 rounded-xl shadow-sm mb-12 text-center">
+  <h1 className="text-4xl font-bold text-gray-900 mb-4">ISTQB® Certified Tester Foundation Level (CTFL)</h1>
+  <p className="text-gray-700 max-w-3xl mx-auto text-lg mb-6">
+    Begin your journey into software testing with the globally recognized CTFL certification. Ideal for testers,
+    developers, and quality professionals, this certification proves your foundation in software testing principles
+    and techniques.
+  </p>
+  <p className="text-gray-700 max-w-2xl mx-auto text-base mb-8">
+    Whether you're starting your QA career or validating your knowledge, CTFL opens doors to higher roles, increased
+    credibility, and international opportunities.
+  </p>
+  <Link href="/mock-test">
+    <Button className="bg-gradient-to-r from-blue-600 to-red-600 text-white text-lg px-6 py-3 rounded-xl">
+      Give Exam <ArrowRight className="ml-2 h-5 w-5" />
+    </Button>
+  </Link>
 </div>
+
+
+        
+        
+        
+        
+        
+          
+          
+
 
 
 
@@ -157,11 +177,11 @@ export default function CTFL() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
                   <BookOpen className="h-6 w-6 text-red-600" />
-                  What is CTFL?
+                  <span className="text-gray-900">What is CTFL?</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-800 leading-relaxed">
                   The ISTQB® Certified Tester Foundation Level (CTFL) is an entry-level certification that provides a
                   solid foundation in software testing. It covers fundamental testing concepts, techniques, and
                   processes that are essential for anyone working in software testing.
@@ -186,23 +206,23 @@ export default function CTFL() {
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
-                      <span className="text-gray-700">Software testers and QA professionals</span>
+                      <span className="text-gray-800">Software testers and QA professionals</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
-                      <span className="text-gray-700">Test analysts and test engineers</span>
+                      <span className="text-gray-800">Test analysts and test engineers</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
-                      <span className="text-gray-700">Test consultants and test managers</span>
+                      <span className="text-gray-800">Test consultants and test managers</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
-                      <span className="text-gray-700">Developers interested in testing</span>
+                      <span className="text-gray-800">Developers interested in testing</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
-                      <span className="text-gray-700">Project managers and business analysts</span>
+                      <span className="text-gray-800">Project managers and business analysts</span>
                     </li>
                   </ul>
                 </CardContent>
@@ -226,7 +246,7 @@ export default function CTFL() {
                     </div>
                     <div className="space-y-2">
                       <h4 className="font-semibold text-gray-900">Recommended Experience:</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <ul className="text-sm text-gray-800 space-y-1">
                         <li>• Basic understanding of software development</li>
                         <li>• Familiarity with software applications</li>
                         <li>• Interest in quality assurance</li>

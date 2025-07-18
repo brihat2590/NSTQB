@@ -9,6 +9,7 @@ const layout=({children}:{children:React.ReactNode})=>{
             
             <Navbar/>
             {children}
+            <Footer/>
             
             
         </div>

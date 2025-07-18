@@ -46,7 +46,7 @@ const AboutSection = () => {
           <div className="relative flex justify-center items-center">
             <div className="relative">
 
-                <img src={'/map.png'} alt="Nepal Map" className="h-auto w-auto"/>
+                <img src={'/new_nepal.png'} alt="Nepal Map" className="h-auto w-auto"/>
               {/* Nepal Map SVG */}
 
               
@@ -62,7 +62,7 @@ const AboutSection = () => {
               <Target size={32} />
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-4">Our Mission</h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-left">
             NSTQB promotes the value of software testing by empowering professionals with recognized certifications and ethical standards. We support career growth through a structured certification path and ensure quality by advancing industry knowledge and setting global standards for training and evaluation.
 
 
@@ -75,10 +75,8 @@ const AboutSection = () => {
               <Eye size={32} />
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-4">Our Vision</h3>
-            <p className="text-gray-600">
-            To continually improve and advance the software testing profession by
-
-            defining and maintaining a Body of Knowledge which allows testers to be certified based on best practices, connecting the international software testing community, and encouraging research.
+            <p className="text-gray-600 text-left">
+            To continually improve and advance the software testing profession by defining and maintaining a Body of Knowledge which allows testers to be certified based on best practices, connecting the international software testing community, and encouraging research.
             </p>
           </div>
 
@@ -87,7 +85,7 @@ const AboutSection = () => {
               <Heart size={32} />
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-4">Our Values</h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-left">
             We are guided by integrity, inclusivity, and innovation. With a passion for testing, we work collaboratively across borders to uphold quality, embrace diverse perspectives, and continuously evolve to meet global industry needs.
             </p>
           </div>
