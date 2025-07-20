@@ -1,41 +1,28 @@
-// "use client"
+"use client"
+import { useRouter, useSearchParams } from "next/navigation";
 
-// import { useState, useEffect } from "react"
-// import { useSearchParams } from "next/navigation"
 
-// export default function Page() {
-//   const [name, setName] = useState("")
-//   const [email, setEmail] = useState("")
-  
-
-//   const searchParams = useSearchParams()
-//   const transaction_uuid = searchParams.get("transaction_uuid")
-//   const nameP = searchParams.get("name")
-//   const emailP = searchParams.get("email")
-  
-
-//   useEffect(() => {
-//     if (transaction_uuid && nameP && emailP) {
-//       console.log("Transaction UUID:", transaction_uuid)
-//       console.log("Name from URL:", nameP)
-//       console.log("Email from URL:", emailP)
-//       setName(nameP)
-//       setEmail(emailP)
-//     }
-//   }, [transaction_uuid, nameP, emailP]) // ✅ use nameP and emailP here
-
-//   return (
-//     <div className="p-6">
-//       <h1 className="text-xl font-semibold text-green-600">Payment Success</h1>
-//       <p className="text-gray-800 mt-2">The name is: {name}</p>
-//       <p className="text-gray-800">The email is: {email}</p>
-//       <p className="text-gray-800">The transaction UUID is: {transaction_uuid}</p>
-      
-//     </div>
-//   )
-// }
 export default function page(){
+    const params=useSearchParams();
+    const router=useRouter();
+    const transaction_uuid=params.get("transaction_uuid");
+    if(!transaction_uuid){
+        return(
+            <div>
+                <h1>Payment Failed</h1>
+                <p>Transaction UUID is missing. Please try again.</p>
+                <button onClick={() => router.push('/esewa/failure')}>Go Back</button>
+            </div>
+        )
+        
+    }
+
     return(
-        <div>this is the sucess page</div>
+        <div>
+            <h1>Payment Successful</h1>
+            <p>Your payment has been successfully processed.</p>
+            <p>Transaction UUID: {transaction_uuid}</p>
+            <p>Thank you for your payment!</p>
+        </div>
     )
 }

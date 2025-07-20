@@ -19,6 +19,7 @@ export async function GET(req:Request){
                 email:true,
                 amount:true,
                 status:true,}})
+        return NextResponse.json(   registration, {status:200});
 
     }
     catch(error){

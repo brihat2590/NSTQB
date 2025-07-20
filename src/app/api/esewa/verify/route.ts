@@ -223,6 +223,8 @@ export async function GET(req: NextRequest) {
         })
         return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/esewa/failure?reason=payment_not_complete`);
     }
+    console.log("generated signature", generatedSignature);
+    console.log("received signature", signature);
     //aba update registration to store completed
 
     await prisma.examRegistration.update({
@@ -232,8 +234,9 @@ export async function GET(req: NextRequest) {
         }
 
     })
-    console.log("generated signature", generatedSignature);
-    console.log("received signature", signature);
+    console.log('prisma status complete done')
+    
+    console.log("the signature has been verified")
     return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/esewa/success?transaction_uuid=${parsedData.transaction_uuid}`);
 
     // Signature verified, redirect success page with transaction_uuid

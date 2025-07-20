@@ -111,6 +111,7 @@ model ExamRegistration{
   id String @id @default(cuid())
   name String
   email String
+  
   transaction_uuid String @unique
   amount Float
   status String @default("pending") // pending, completed, failed
@@ -118,4 +119,12 @@ model ExamRegistration{
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
+}
+model flowingHeadlines{
+  id String @id @default(cuid())
+  text String
+  icon String //Calendar Users 
+  href String
+  type String //info, urgent
+  createdAt DateTime @default(now())
 }

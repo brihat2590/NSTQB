@@ -1,602 +1,578 @@
-export  const mockQuestions4 = [
-  {
-    id: 1,
-    chapter: "Fundamentals of Testing",
-    type: "single",
-    question: "Which of the following statements describe a valid test objective?",
-    options: [
-      "To prove that there are no unfixed defects in the system under test",
-      "To prove that there will be no failures after the implementation of the system into production",
-      "To reduce the risk level of the test object and to build confidence in the quality level",
-      "To verify that there are no untested combinations of inputs"
-    ],
-    correctAnswer: 2,
-    correctAnswers: [],
-    explanation: "A valid test objective is to reduce risk and build confidence in quality, not to prove the absence of defects or failures."
-  },
-  {
-    id: 2,
-    chapter: "Fundamentals of Testing",
-    type: "single",
-    question: "Which of the following is a test activity?",
-    options: [
-      "Designing test data",
-      "Compiling code",
-      "Writing user documentation",
-      "Analyzing requirements"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Designing test data is a specific test activity. The others are development or analysis activities."
-  },
-  {
-    id: 3,
-    chapter: "Fundamentals of Testing",
-    type: "single",
-    question: "Which of the following is a valid reason for testing?",
-    options: [
-      "To demonstrate that the software is perfect",
-      "To find defects and increase software quality",
-      "To prove the absence of defects",
-      "To ensure that all requirements are implemented"
-    ],
-    correctAnswer: 1,
-    correctAnswers: [],
-    explanation: "Testing is performed to find defects and increase software quality, not to prove perfection or total absence of defects."
-  },
-  {
-    id: 4,
-    chapter: "Fundamentals of Testing",
-    type: "single",
-    question: "Which of the following is a fundamental principle of testing?",
-    options: [
-      "Testing can show the presence of defects, but not their absence",
-      "Testing can prove that software is correct",
-      "Testing should be done only after the software is implemented",
-      "Testing is only necessary if defects are suspected"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Testing can show the presence of defects, but cannot prove their absence."
-  },
-  {
-    id: 5,
-    chapter: "Fundamentals of Testing",
-    type: "single",
-    question: "Which of the following is NOT a fundamental principle of testing?",
-    options: [
-      "Testing shows the presence of defects",
-      "Exhaustive testing is possible",
-      "Defects cluster together",
-      "Absence-of-errors is a fallacy"
-    ],
-    correctAnswer: 1,
-    correctAnswers: [],
-    explanation: "Exhaustive testing is impossible, not possible."
-  },
-  {
-    id: 6,
-    chapter: "Fundamentals of Testing",
-    type: "single",
-    question: "Which of the following statements is true?",
-    options: [
-      "Testing can prove that software is error-free",
-      "Testing reduces the risk of defects",
-      "Testing is not necessary if the software is developed by experienced developers",
-      "Testing should be done only by the development team"
-    ],
-    correctAnswer: 1,
-    correctAnswers: [],
-    explanation: "Testing reduces risk, but cannot prove software is error-free."
-  },
-  {
-    id: 7,
-    chapter: "Testing Throughout the Software Development Lifecycle",
-    type: "single",
-    question: "Which of the following is a benefit of early testing?",
-    options: [
-      "It increases the cost of defect fixing",
-      "It reduces the cost of defect fixing",
-      "It delays the project schedule",
-      "It increases the number of defects"
-    ],
-    correctAnswer: 1,
-    correctAnswers: [],
-    explanation: "Early testing reduces the cost of fixing defects."
-  },
-  {
-    id: 8,
-    chapter: "Testing Throughout the Software Development Lifecycle",
-    type: "single",
-    question: "Which of the following is a test level?",
-    options: [
-      "Component testing",
-      "Integration testing",
-      "System testing",
-      "All of the above"
-    ],
-    correctAnswer: 3,
-    correctAnswers: [],
-    explanation: "All listed options are test levels."
-  },
-  {
-    id: 9,
-    chapter: "Testing Throughout the Software Development Lifecycle",
-    type: "single",
-    question: "Which test level focuses on interactions between components?",
-    options: [
-      "Component testing",
-      "Integration testing",
-      "System testing",
-      "Acceptance testing"
-    ],
-    correctAnswer: 1,
-    correctAnswers: [],
-    explanation: "Integration testing focuses on interactions between components."
-  },
-  {
-    id: 10,
-    chapter: "Testing Throughout the Software Development Lifecycle",
-    type: "single",
-    question: "What is the main objective of acceptance testing?",
-    options: [
-      "To verify that the system meets business requirements",
-      "To test individual components",
-      "To test the integration of components",
-      "To find as many defects as possible"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Acceptance testing verifies the system meets business requirements."
-  },
-  {
-    id: 11,
-    chapter: "Static Testing",
-    type: "single",
-    question: "Which of the following is a static testing technique?",
-    options: [
-      "Code review",
-      "System testing",
-      "Integration testing",
-      "Acceptance testing"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Code review is a static testing technique."
-  },
-  {
-    id: 12,
-    chapter: "Static Testing",
-    type: "single",
-    question: "Which of the following is NOT a benefit of static testing?",
-    options: [
-      "Early detection of defects",
-      "Reduced development costs",
-      "Increased defect fixing costs",
-      "Improved software quality"
-    ],
-    correctAnswer: 2,
-    correctAnswers: [],
-    explanation: "Static testing reduces, not increases, defect fixing costs."
-  },
-  {
-    id: 13,
-    chapter: "Static Testing",
-    type: "single",
-    question: "Which of the following is a type of static analysis tool?",
-    options: [
-      "Code complexity measurement tool",
-      "Test execution tool",
-      "Performance testing tool",
-      "Load testing tool"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Code complexity measurement tools are static analysis tools."
-  },
-  {
-    id: 14,
-    chapter: "Static Testing",
-    type: "single",
-    question: "Which activity is part of a formal review?",
-    options: [
-      "Planning",
-      "Test execution",
-      "Defect fixing",
-      "System deployment"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Planning is part of a formal review process."
-  },
-  {
-    id: 15,
-    chapter: "Static Testing",
-    type: "single",
-    question: "Which of the following roles is typically present in a formal review?",
-    options: [
-      "Moderator",
-      "Developer",
-      "Tester",
-      "All of the above"
-    ],
-    correctAnswer: 3,
-    correctAnswers: [],
-    explanation: "All listed roles can be present in a formal review."
-  },
-  {
-    id: 16,
-    chapter: "Test Techniques",
-    type: "single",
-    question: "Which of the following is a black-box test technique?",
-    options: [
-      "Equivalence partitioning",
-      "Statement testing",
-      "Decision testing",
-      "Path testing"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Equivalence partitioning is a black-box test technique."
-  },
-  {
-    id: 17,
-    chapter: "Test Techniques",
-    type: "single",
-    question: "Which of the following is a white-box test technique?",
-    options: [
-      "Boundary value analysis",
-      "Decision testing",
-      "State transition testing",
-      "Use case testing"
-    ],
-    correctAnswer: 1,
-    correctAnswers: [],
-    explanation: "Decision testing is a white-box test technique."
-  },
-  {
-    id: 18,
-    chapter: "Test Techniques",
-    type: "single",
-    question: "Which of the following is a black-box test technique?",
-    options: [
-      "State transition testing",
-      "Statement testing",
-      "Branch testing",
-      "Condition testing"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "State transition testing is a black-box test technique."
-  },
-  {
-    id: 19,
-    chapter: "Test Techniques",
-    type: "single",
-    question: "Which of the following is a white-box test technique?",
-    options: [
-      "Decision table testing",
-      "Boundary value analysis",
-      "Statement testing",
-      "Equivalence partitioning"
-    ],
-    correctAnswer: 2,
-    correctAnswers: [],
-    explanation: "Statement testing is a white-box test technique."
-  },
-  {
-    id: 20,
-    chapter: "Test Techniques",
-    type: "single",
-    question: "Which of the following is a black-box test technique?",
-    options: [
-      "Decision table testing",
-      "Statement testing",
-      "Path testing",
-      "Condition testing"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Decision table testing is a black-box test technique."
-  },
-  {
-    id: 21,
-    chapter: "Test Management",
-    type: "single",
-    question: "Which of the following is a test management activity?",
-    options: [
-      "Test planning",
-      "Test execution",
-      "Test design",
-      "Test case specification"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Test planning is a test management activity."
-  },
-  {
-    id: 22,
-    chapter: "Test Management",
-    type: "single",
-    question: "Which of the following is a test monitoring activity?",
-    options: [
-      "Measuring test progress",
-      "Writing test cases",
-      "Executing test cases",
-      "Designing test data"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Measuring test progress is a test monitoring activity."
-  },
-  {
-    id: 23,
-    chapter: "Test Management",
-    type: "single",
-    question: "Which of the following is a test control activity?",
-    options: [
-      "Taking corrective actions based on test results",
-      "Writing test scripts",
-      "Executing test cases",
-      "Designing test data"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Test control involves taking corrective actions based on test results."
-  },
-  {
-    id: 24,
-    chapter: "Test Management",
-    type: "single",
-    question: "Which of the following is a test planning activity?",
-    options: [
-      "Defining test objectives",
-      "Executing test cases",
-      "Measuring test progress",
-      "Taking corrective actions"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Defining test objectives is part of test planning."
-  },
-  {
-    id: 25,
-    chapter: "Test Management",
-    type: "single",
-    question: "Which of the following is a test monitoring activity?",
-    options: [
-      "Measuring test progress",
-      "Writing test cases",
-      "Executing test cases",
-      "Designing test data"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Measuring test progress is a test monitoring activity."
-  },
-  {
-    id: 26,
-    chapter: "Test Management",
-    type: "single",
-    question: "Which of the following is a test control activity?",
-    options: [
-      "Taking corrective actions based on test results",
-      "Writing test scripts",
-      "Executing test cases",
-      "Designing test data"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Test control involves taking corrective actions based on test results."
-  },
-  {
-    id: 27,
-    chapter: "Test Management",
-    type: "single",
-    question: "Which of the following is a test planning activity?",
-    options: [
-      "Defining test objectives",
-      "Executing test cases",
-      "Measuring test progress",
-      "Taking corrective actions"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Defining test objectives is part of test planning."
-  },
-  {
-    id: 28,
-    chapter: "Test Management",
-    type: "single",
-    question: "Which of the following is a test monitoring activity?",
-    options: [
-      "Measuring test progress",
-      "Writing test cases",
-      "Executing test cases",
-      "Designing test data"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Measuring test progress is a test monitoring activity."
-  },
-  {
-    id: 29,
-    chapter: "Test Management",
-    type: "single",
-    question: "Which of the following is a test control activity?",
-    options: [
-      "Taking corrective actions based on test results",
-      "Writing test scripts",
-      "Executing test cases",
-      "Designing test data"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Test control involves taking corrective actions based on test results."
-  },
-  {
-    id: 30,
-    chapter: "Test Management",
-    type: "single",
-    question: "Which of the following is a test planning activity?",
-    options: [
-      "Defining test objectives",
-      "Executing test cases",
-      "Measuring test progress",
-      "Taking corrective actions"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Defining test objectives is part of test planning."
-  },
-  {
-    id: 31,
-    chapter: "Test Tools",
-    type: "single",
-    question: "Which of the following is a test tool?",
-    options: [
-      "Test management tool",
-      "Requirement management tool",
-      "Configuration management tool",
-      "Project management tool"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Test management tool is a test tool."
-  },
-  {
-    id: 32,
-    chapter: "Test Tools",
-    type: "single",
-    question: "Which of the following is a benefit of using test tools?",
-    options: [
-      "Increased repeatability of tests",
-      "Increased manual effort",
-      "Reduced test coverage",
-      "Increased defect fixing costs"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Test tools increase repeatability of tests."
-  },
-  {
-    id: 33,
-    chapter: "Test Tools",
-    type: "single",
-    question: "Which of the following is a risk of using test tools?",
-    options: [
-      "Over-reliance on the tool",
-      "Increased manual effort",
-      "Reduced test coverage",
-      "Increased defect fixing costs"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Over-reliance on the tool is a risk of using test tools."
-  },
-  {
-    id: 34,
-    chapter: "Test Tools",
-    type: "single",
-    question: "Which of the following is a test tool?",
-    options: [
-      "Test management tool",
-      "Requirement management tool",
-      "Configuration management tool",
-      "Project management tool"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Test management tool is a test tool."
-  },
-  {
-    id: 35,
-    chapter: "Test Tools",
-    type: "single",
-    question: "Which of the following is a benefit of using test tools?",
-    options: [
-      "Increased repeatability of tests",
-      "Increased manual effort",
-      "Reduced test coverage",
-      "Increased defect fixing costs"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Test tools increase repeatability of tests."
-  },
-  {
-    id: 36,
-    chapter: "Test Tools",
-    type: "single",
-    question: "Which of the following is a risk of using test tools?",
-    options: [
-      "Over-reliance on the tool",
-      "Increased manual effort",
-      "Reduced test coverage",
-      "Increased defect fixing costs"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Over-reliance on the tool is a risk of using test tools."
-  },
-  {
-    id: 37,
-    chapter: "Test Tools",
-    type: "single",
-    question: "Which of the following is a test tool?",
-    options: [
-      "Test management tool",
-      "Requirement management tool",
-      "Configuration management tool",
-      "Project management tool"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Test management tool is a test tool."
-  },
-  {
-    id: 38,
-    chapter: "Test Tools",
-    type: "single",
-    question: "Which of the following is a benefit of using test tools?",
-    options: [
-      "Increased repeatability of tests",
-      "Increased manual effort",
-      "Reduced test coverage",
-      "Increased defect fixing costs"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Test tools increase repeatability of tests."
-  },
-  {
-    id: 39,
-    chapter: "Test Tools",
-    type: "single",
-    question: "Which of the following is a risk of using test tools?",
-    options: [
-      "Over-reliance on the tool",
-      "Increased manual effort",
-      "Reduced test coverage",
-      "Increased defect fixing costs"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Over-reliance on the tool is a risk of using test tools."
-  },
-  {
-    id: 40,
-    chapter: "Test Tools",
-    type: "single",
-    question: "Which of the following is a test tool?",
-    options: [
-      "Test management tool",
-      "Requirement management tool",
-      "Configuration management tool",
-      "Project management tool"
-    ],
-    correctAnswer: 0,
-    correctAnswers: [],
-    explanation: "Test management tool is a test tool."
-  }
+export const mockQuestions4=[
+    {
+        id: 1,
+        chapter: "Fundamentals of Testing",
+        type: "single", // or "multiple"
+        question: "Which of the following is NOT a fundamental principle of testing?",
+        options: [
+          "Testing shows the presence of defects",
+          "Exhaustive testing is possible",
+          "Early testing saves time and money",
+          "Testing is context dependent",
+        ],
+        correctAnswer: 1, // for single choice
+        correctAnswers: [], // for multiple choice
+        explanation: "Exhaustive testing is not possible due to the infinite number of test cases that would be required.",
+      },
+      {
+        id: 2,
+        chapter: "Fundamentals of Testing",
+        type: "single",
+        question: "What is the primary objective of testing?",
+        options: [
+          "To prove that the software works correctly",
+          "To find as many defects as possible",
+          "To provide information about the quality of the software",
+          "To ensure 100% code coverage",
+        ],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation:
+          "The primary objective of testing is to provide information about the quality of the software to stakeholders.",
+      },
+      {
+        id: 3,
+        chapter: "Testing Throughout the SDLC",
+        type: "single",
+        question: "In which development model are the development phases and testing phases most clearly separated?",
+        options: ["Agile model", "V-model", "Iterative model", "Spiral model"],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "The V-model clearly shows the relationship between development phases and corresponding testing phases.",
+      },
+      {
+        id: 4,
+        chapter: "Testing Throughout the SDLC",
+        type: "single",
+        question: "Which test level focuses on testing the interactions between integrated components?",
+        options: ["Unit testing", "Integration testing", "System testing", "Acceptance testing"],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Integration testing focuses on testing the interfaces and interactions between integrated components.",
+      },
+      {
+        id: 5,
+        chapter: "Static Testing",
+        type: "single",
+        question: "Which of the following is a benefit of static testing?",
+        options: [
+          "It can only find defects in code",
+          "It requires test execution",
+          "It can find defects early in the development lifecycle",
+          "It is only applicable to functional testing",
+        ],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation: "Static testing can find defects early in the development lifecycle without executing the code.",
+      },
+      {
+        id: 6,
+        chapter: "Static Testing",
+        type: "single",
+        question: "What is the main difference between static and dynamic testing?",
+        options: [
+          "Static testing is automated, dynamic testing is manual",
+          "Static testing examines code without execution, dynamic testing requires execution",
+          "Static testing is cheaper than dynamic testing",
+          "Static testing finds more defects than dynamic testing",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Static testing examines the code, requirements, and design documents without executing the software, while dynamic testing requires execution.",
+      },
+      {
+        id: 7,
+        chapter: "Test Analysis and Design",
+        type: "single",
+        question: "Which black-box test technique is based on the specification of the component or system?",
+        options: ["Statement coverage", "Equivalence partitioning", "Branch coverage", "Path coverage"],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Equivalence partitioning is a black-box technique that divides input data into equivalent partitions based on the specification.",
+      },
+      {
+        id: 8,
+        chapter: "Test Analysis and Design",
+        type: "single",
+        question: "What is boundary value analysis?",
+        options: [
+          "Testing at the boundaries of equivalence partitions",
+          "Testing the system boundaries",
+          "Testing network boundaries",
+          "Testing database boundaries",
+        ],
+        correctAnswer: 0,
+        correctAnswers: [],
+        explanation:
+          "Boundary value analysis focuses on testing at the boundaries of equivalence partitions where defects are more likely to occur.",
+      },
+      {
+        id: 9,
+        chapter: "Managing the Test Activities",
+        type: "single",
+        question: "What is the purpose of test planning?",
+        options: [
+          "To write test cases",
+          "To define the scope, approach, resources, and schedule of testing activities",
+          "To execute tests",
+          "To report defects",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Test planning defines the scope, approach, resources, and schedule of intended test activities.",
+      },
+      {
+        id: 10,
+        chapter: "Managing the Test Activities",
+        type: "single",
+        question: "Which of the following is a test exit criterion?",
+        options: [
+          "All test cases have been designed",
+          "All planned tests have been executed",
+          "All testers are available",
+          "All requirements are documented",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Test exit criteria define when to stop testing. 'All planned tests have been executed' is a common exit criterion.",
+      },
+      {
+        id: 11,
+        chapter: "Test Tools",
+        type: "single",
+        question: "What is the primary benefit of test automation?",
+        options: [
+          "It eliminates the need for manual testing",
+          "It finds more defects than manual testing",
+          "It enables efficient execution of repetitive tests",
+          "It reduces the cost of testing to zero",
+        ],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation: "Test automation enables efficient execution of repetitive tests, especially for regression testing.",
+      },
+      {
+        id: 12,
+        chapter: "Test Tools",
+        type: "single",
+        question: "Which type of tool would be most appropriate for managing test cases and test execution?",
+        options: ["Static analysis tool", "Performance testing tool", "Test management tool", "Coverage measurement tool"],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation:
+          "Test management tools are specifically designed for managing test cases, test execution, and test results.",
+      },
+      {
+        id: 13,
+        chapter: "Fundamentals of Testing",
+        type: "single",
+        question: "What does the pesticide paradox principle state?",
+        options: [
+          "Testing can prove the absence of defects",
+          "The same tests repeated over and over will eventually find no new defects",
+          "More testing always leads to better quality",
+          "Defects cluster together in certain modules",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "The pesticide paradox states that if the same tests are repeated, they will eventually stop finding new defects.",
+      },
+      {
+        id: 14,
+        chapter: "Fundamentals of Testing",
+        type: "single",
+        question: "Which statement about defect clustering is correct?",
+        options: [
+          "Defects are evenly distributed across all modules",
+          "A small number of modules usually contain most of the defects",
+          "Defect clustering only occurs in large systems",
+          "Defect clustering is not a recognized testing principle",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "The Pareto principle applies to defect distribution - a small number of modules usually contain most of the defects.",
+      },
+      {
+        id: 15,
+        chapter: "Testing Throughout the SDLC",
+        type: "multiple",
+        question: "Which of the following are characteristics of good testing? (Select all that apply)",
+        options: [
+          "Testing should start as early as possible",
+          "Testing should be exhaustive to find all defects",
+          "Testing should be risk-based",
+          "Testing should provide feedback about quality",
+        ],
+        correctAnswer: -1, // not used for multiple choice
+        correctAnswers: [0, 2, 3], // indices of correct answers
+        explanation:
+          "Good testing starts early, is risk-based, and provides quality feedback. Exhaustive testing is not possible.",
+      },
+      {
+        id: 16,
+        chapter: "Testing Throughout the SDLC",
+        type: "single",
+        question: "Which testing type focuses on testing the system's ability to handle expected load?",
+        options: ["Functional testing", "Performance testing", "Security testing", "Usability testing"],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Performance testing evaluates the system's ability to handle expected load and response times.",
+      },
+      {
+        id: 17,
+        chapter: "Static Testing",
+        type: "single",
+        question: "Which of the following can be reviewed using static testing techniques?",
+        options: [
+          "Only source code",
+          "Only test cases",
+          "Requirements, design documents, code, and test cases",
+          "Only design documents",
+        ],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation:
+          "Static testing can be applied to requirements, design documents, source code, test cases, and other work products.",
+      },
+      {
+        id: 18,
+        chapter: "Static Testing",
+        type: "single",
+        question: "What is the main purpose of a formal review?",
+        options: [
+          "To find defects and improve quality",
+          "To approve the document",
+          "To train new team members",
+          "To satisfy audit requirements",
+        ],
+        correctAnswer: 0,
+        correctAnswers: [],
+        explanation: "The main purpose of formal reviews is to find defects and improve the quality of work products.",
+      },
+      {
+        id: 19,
+        chapter: "Test Analysis and Design",
+        type: "single",
+        question: "Which white-box testing technique measures the percentage of decision outcomes tested?",
+        options: ["Statement coverage", "Branch coverage", "Path coverage", "Condition coverage"],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Branch coverage measures the percentage of decision outcomes (true/false) that have been tested.",
+      },
+      {
+        id: 20,
+        chapter: "Test Analysis and Design",
+        type: "single",
+        question: "What is exploratory testing?",
+        options: [
+          "Testing without any preparation",
+          "Simultaneous learning, test design, and test execution",
+          "Testing only the user interface",
+          "Automated testing",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Exploratory testing is an approach where learning, test design, and test execution happen simultaneously.",
+      },
+      {
+        id: 21,
+        chapter: "Managing the Test Activities",
+        type: "single",
+        question: "What is a test oracle?",
+        options: ["A testing tool", "A source to determine expected results", "A test manager", "A type of test case"],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "A test oracle is a source to determine whether test execution results are pass or fail.",
+      },
+      {
+        id: 22,
+        chapter: "Managing the Test Activities",
+        type: "single",
+        question: "Which factor should be considered when estimating test effort?",
+        options: [
+          "Only the number of test cases",
+          "Characteristics of the product, process, and people",
+          "Only the project timeline",
+          "Only the budget available",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Test effort estimation should consider product characteristics, development process, and people involved.",
+      },
+      {
+        id: 23,
+        chapter: "Test Tools",
+        type: "single",
+        question: "What is a key consideration when introducing test automation?",
+        options: [
+          "Automate everything immediately",
+          "Consider the return on investment",
+          "Replace all manual testers",
+          "Use the most expensive tools",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Return on investment should be carefully considered when introducing test automation.",
+      },
+      {
+        id: 24,
+        chapter: "Test Tools",
+        type: "single",
+        question: "Which tool would be most appropriate for measuring code coverage?",
+        options: ["Test management tool", "Static analysis tool", "Coverage measurement tool", "Performance testing tool"],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation:
+          "Coverage measurement tools are specifically designed to measure how much of the code has been exercised by tests.",
+      },
+      {
+        id: 25,
+        chapter: "Fundamentals of Testing",
+        type: "single",
+        question: "What is the relationship between testing and quality assurance?",
+        options: [
+          "They are the same thing",
+          "Testing is part of quality assurance",
+          "Quality assurance is part of testing",
+          "They are completely unrelated",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Testing is one of the activities within quality assurance, which encompasses the entire software development process.",
+      },
+      {
+        id: 26,
+        chapter: "Testing Throughout the SDLC",
+        type: "single",
+        question: "What is regression testing?",
+        options: [
+          "Testing new functionality",
+          "Testing to confirm that recent changes haven't adversely affected existing features",
+          "Testing the user interface",
+          "Testing performance",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Regression testing confirms that recent program or code changes haven't adversely affected existing features.",
+      },
+      {
+        id: 27,
+        chapter: "Static Testing",
+        type: "single",
+        question: "Which role is responsible for recording defects found during a review?",
+        options: ["Author", "Moderator", "Scribe", "Reviewer"],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation:
+          "The scribe is responsible for recording defects found during reviews and documenting review decisions.",
+      },
+      {
+        id: 28,
+        chapter: "Test Analysis and Design",
+        type: "single",
+        question: "What is the main advantage of decision table testing?",
+        options: [
+          "It's easy to automate",
+          "It systematically covers complex business rules",
+          "It requires no documentation",
+          "It's the fastest technique",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Decision table testing systematically covers complex business rules and their combinations.",
+      },
+      {
+        id: 29,
+        chapter: "Managing the Test Activities",
+        type: "single",
+        question: "What is the purpose of configuration management in testing?",
+        options: [
+          "To manage test tools",
+          "To control and track changes to test work products",
+          "To manage the test team",
+          "To configure test environments",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Configuration management controls and tracks changes to test work products and maintains their integrity.",
+      },
+      {
+        id: 30,
+        chapter: "Test Tools",
+        type: "single",
+        question: "What is the main risk of over-reliance on test automation?",
+        options: [
+          "Increased costs",
+          "Reduced test coverage",
+          "Missing defects that manual testing might find",
+          "Slower test execution",
+        ],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation:
+          "Over-reliance on automation might miss defects that human intuition and exploratory testing could find.",
+      },
+      {
+        id: 31,
+        chapter: "Fundamentals of Testing",
+        type: "single",
+        question: "Which testing principle suggests that testing should start as early as possible?",
+        options: [
+          "Testing shows presence of defects",
+          "Early testing saves time and money",
+          "Exhaustive testing is impossible",
+          "Testing is context dependent",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Early testing saves time and money by finding defects when they are cheaper to fix.",
+      },
+      {
+        id: 32,
+        chapter: "Testing Throughout the SDLC",
+        type: "single",
+        question: "What is the main focus of system testing?",
+        options: [
+          "Testing individual components",
+          "Testing component interactions",
+          "Testing the complete integrated system",
+          "Testing user acceptance",
+        ],
+        correctAnswer: 2,
+        correctAnswers: [],
+        explanation: "System testing focuses on testing the behavior of the complete integrated system.",
+      },
+      {
+        id: 33,
+        chapter: "Static Testing",
+        type: "single",
+        question: "What is the main benefit of using checklists in reviews?",
+        options: [
+          "They guarantee finding all defects",
+          "They provide systematic guidance for reviewers",
+          "They eliminate the need for training",
+          "They automate the review process",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Checklists provide systematic guidance to help reviewers focus on important aspects and common defect types.",
+      },
+      {
+        id: 34,
+        chapter: "Test Analysis and Design",
+        type: "single",
+        question: "What is state transition testing used for?",
+        options: [
+          "Testing database transactions",
+          "Testing systems that exhibit different behavior based on current state",
+          "Testing network connections",
+          "Testing user interfaces only",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "State transition testing is used for systems that exhibit different behavior depending on their current state.",
+      },
+      {
+        id: 35,
+        chapter: "Managing the Test Activities",
+        type: "single",
+        question: "What should be included in a test summary report?",
+        options: [
+          "Only the number of test cases executed",
+          "Test results, defects found, and recommendations",
+          "Only failed test cases",
+          "Only performance metrics",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "A test summary report should include test results, defects found, test coverage achieved, and recommendations.",
+      },
+      {
+        id: 36,
+        chapter: "Test Tools",
+        type: "single",
+        question: "Which type of tool helps in managing defects throughout their lifecycle?",
+        options: ["Test execution tool", "Defect management tool", "Performance testing tool", "Static analysis tool"],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Defect management tools help track, manage, and control defects throughout their lifecycle.",
+      },
+      {
+        id: 37,
+        chapter: "Fundamentals of Testing",
+        type: "single",
+        question: "What does 'absence-of-errors fallacy' mean?",
+        options: [
+          "Testing can prove software is error-free",
+          "Finding no defects doesn't mean the software is ready for release",
+          "Errors are always present in software",
+          "Testing is not necessary if no errors are expected",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "The absence-of-errors fallacy means that finding no defects doesn't prove the software meets user needs and expectations.",
+      },
+      {
+        id: 38,
+        chapter: "Testing Throughout the SDLC",
+        type: "single",
+        question: "What is maintenance testing?",
+        options: [
+          "Testing during system maintenance",
+          "Testing triggered by modifications to deployed software",
+          "Testing the maintenance procedures",
+          "Testing backup and recovery",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation: "Maintenance testing is triggered by modifications, migration, or retirement of deployed software.",
+      },
+      {
+        id: 39,
+        chapter: "Test Analysis and Design",
+        type: "single",
+        question: "What is the main purpose of test case design techniques?",
+        options: [
+          "To automate test execution",
+          "To systematically derive test cases from test conditions",
+          "To manage test data",
+          "To report test results",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Test case design techniques help systematically derive test cases from test conditions to achieve specific test objectives.",
+      },
+      {
+        id: 40,
+        chapter: "Managing the Test Activities",
+        type: "single",
+        question: "What is risk-based testing?",
+        options: [
+          "Testing only high-risk areas",
+          "An approach where testing is prioritized based on risk analysis",
+          "Testing without any planning",
+          "Testing that focuses only on security risks",
+        ],
+        correctAnswer: 1,
+        correctAnswers: [],
+        explanation:
+          "Risk-based testing is an approach where testing activities are prioritized based on the analysis of risk.",
+      },
 ]

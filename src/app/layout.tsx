@@ -38,24 +38,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // <html lang="en">
-    //   <body className={`${geistSans.variable} ${geistMono.variable} ${poppins.className}`}>
-        
-    //     {children}
-    //     <Toaster position="bottom-right" />
-        
-        
-    //   </body>
-    // </html>
     <html lang="en">
-      <body className="">
-
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-            <h1 className="text-4xl font-bold mb-4">Under Maintence</h1>
-            <p className="text-lg text-gray-600">The Website is currently under maintenence. Please check back later.</p>
-        </div>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${poppins.className}`}>
+        
+        {children}
+        <Toaster position="bottom-right" />
+        
         
       </body>
     </html>
+    // <html lang="en">
+    //   <body className="">
+
+    //   <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+    //         <h1 className="text-4xl font-bold mb-4">Under Maintence</h1>
+    //         <p className="text-lg text-gray-600">The Website is currently under maintenence. Please check back later.</p>
+    //     </div>
+        
+    //   </body>
+    // </html>
   );
 }

@@ -1225,7 +1225,7 @@ export const mockQuestions3=[
       ],
       correctAnswer: 2,
       correctAnswers: [],
-      explanation: "Component testing is typically performed by developers, not dedicated testers."
+      explanation: "Component testing is typically performed by testers"
     },
     {
       id: 5,

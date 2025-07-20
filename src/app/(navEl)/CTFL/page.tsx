@@ -136,8 +136,8 @@ export default function CTFL() {
     credibility, and international opportunities.
   </p>
   <Link href="/mock-test">
-    <Button className="bg-gradient-to-r from-blue-600 to-red-600 text-white text-lg px-6 py-3 rounded-xl">
-      Give Exam <ArrowRight className="ml-2 h-5 w-5" />
+    <Button className="bg-gradient-to-r from-blue-600 to-red-600 text-white text-sm px-6 py-4 rounded-xl">
+      Give Exam <ArrowRight className=" h-5 w-5" />
     </Button>
   </Link>
 </div>

@@ -1,18 +1,9 @@
-import HeroCarousel from "@/components/CarouselComp";
-import MemberBoards from "@/components/MemberBoard";
-import Portfolio from "@/components/Porfolio";
-import MockTest from "@/components/mockTest";
+import AnnouncementsAdminPage from "@/components/adminComponents/flowingHealines";
 
-export default async function page(){
-   
+export default function page(){
     return(
         <div>
-            <MockTest/>
-            
-        
-
-    
+            <AnnouncementsAdminPage/>
         </div>
-    
     )
 }

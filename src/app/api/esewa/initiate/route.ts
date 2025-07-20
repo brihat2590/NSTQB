@@ -52,6 +52,8 @@ export async function POST(req: Request) {
 
 
     })
+    console.log("intent created");
+    console.log("registration has been created with pending");
     console.log({
       paymentUrl: `${process.env.ESEWA_BASE_URL}/api/epay/main/v2/form`,
       params: {

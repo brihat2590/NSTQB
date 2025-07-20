@@ -6,6 +6,7 @@ import ExamAdminPanel from "@/components/adminComponents/ExamDateComponent";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import AdminBoardMembersPage from "@/components/adminComponents/boardMemberComp";
+import FlowingAdminPage from "@/components/adminComponents/flowingHealines";
 
 export default function Page() {
   const router = useRouter();
@@ -44,6 +45,9 @@ export default function Page() {
         </div>
         <div>
           <AdminBoardMembersPage/>
+        </div>
+        <div>
+          <FlowingAdminPage/>
         </div>
       </div>
     </div>

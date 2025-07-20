@@ -2,36 +2,39 @@
 
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import {
-  Calendar,
-  BookOpen,
-  Users,
-  Bell,
-} from "lucide-react";
+import * as Icons from "lucide-react"; // import all icons as a map
+import { useEffect, useState } from "react";
 
-const flowingAnnouncements = [
-  {
-    id: 1,
-    text: "🔥 CTFL v4.0 Exam Registration Open - Next Exam: Aug 30, 2025",
-    type: "urgent",
-    icon: <Calendar className="h-4 w-4 sm:h-5 sm:w-5" />,
-    href: "/registration-process", // internal
-  },
-  {
-    id: 2,
-    text: "📚 New Study Materials Available - Download CTFL v4.0 Syllabus & Sample Questions",
-    type: "info",
-    icon: <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />,
-    href: "/CTFL", // internal
-  },
-  
-];
+type Announcement = {
+  id: string | number;
+  text: string;
+  type: string;
+  icon: string; // icon name string from backend
+  href: string;
+};
 
 export default function FlowingHeadline() {
-  const duplicatedAnnouncements = [
-    ...flowingAnnouncements,
-    ...flowingAnnouncements,
-  ];
+  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch("/api/headlines");
+        if (!res.ok) {
+          console.error("Failed to fetch headlines");
+          return;
+        }
+        const data: Announcement[] = await res.json();
+        setAnnouncements(data);
+      } catch (error) {
+        console.error("Error fetching headlines:", error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  // Duplicate announcements for marquee effect
+  const duplicatedAnnouncements = [...announcements, ...announcements];
 
   return (
     <div className="fixed top-20 w-full z-40 bg-gradient-to-r from-gray-900 via-blue-900 to-red-900 text-white border-b border-gray-700 overflow-hidden">
@@ -43,7 +46,8 @@ export default function FlowingHeadline() {
         {/* Header label */}
         <div className="absolute left-0 top-0 bg-gradient-to-r from-red-600 to-red-700 px-3 sm:px-4 py-2 z-20">
           <div className="flex items-center space-x-2">
-            <Bell className="h-4 w-4 sm:h-5 sm:w-5 animate-pulse" />
+            {/* Bell icon hardcoded here */}
+            <Icons.Bell className="h-4 w-4 sm:h-5 sm:w-5 animate-pulse" />
             <span className="font-bold text-xs sm:text-sm uppercase tracking-wide">
               Latest Updates
             </span>
@@ -55,10 +59,16 @@ export default function FlowingHeadline() {
           <div className="flex animate-scroll whitespace-nowrap w-max gap-4 sm:gap-6">
             {duplicatedAnnouncements.map((announcement, index) => {
               const isExternal = announcement.href.startsWith("http");
+              const IconComponent = (Icons as any)[announcement.icon] || Icons.Calendar; // fallback icon
 
               const content = (
-                <div className="flex items-center min-w-max space-x-2 sm:space-x-3 text-xs sm:text-sm font-medium hover:underline">
-                  <div className="text-yellow-400">{announcement.icon}</div>
+                <div
+                  className="flex items-center min-w-max space-x-2 sm:space-x-3 text-xs sm:text-sm font-medium hover:underline"
+                  key={`${announcement.id}-${index}`}
+                >
+                  <div className="text-yellow-400">
+                    <IconComponent className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </div>
                   <span>{announcement.text}</span>
                   <Badge
                     variant="outline"
@@ -82,7 +92,7 @@ export default function FlowingHeadline() {
 
               return isExternal ? (
                 <a
-                  key={`${announcement.id}-${index}`}
+                  key={`${announcement.id}-${index}-external`}
                   href={announcement.href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -90,7 +100,7 @@ export default function FlowingHeadline() {
                   {content}
                 </a>
               ) : (
-                <Link key={`${announcement.id}-${index}`} href={announcement.href}>
+                <Link key={`${announcement.id}-${index}-internal`} href={announcement.href}>
                   {content}
                 </Link>
               );
