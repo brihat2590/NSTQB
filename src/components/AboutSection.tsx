@@ -7,7 +7,7 @@ const AboutSection = () => {
         {/* Header */}
         <div className="text-center mb-16"  >
           <h2 className="text-4xl font-bold text-gray-800 mb-4" >
-            About <span className="text-red-600">NSTQB</span>
+            About <span className="text-blue-600">NSTQB</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Nepal Software Testing Qualifications Board (NSTQB) is the leading organization 
