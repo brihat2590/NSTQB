@@ -1,11 +1,10 @@
 'use client';
 
-import React, { use, useEffect, useState } from 'react';
+import React, {use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Calendar, Clock } from 'lucide-react';
-import { toast } from 'sonner';
+import { ArrowLeft, Calendar, Clock, Loader2 } from 'lucide-react';
+import { toast, Toaster } from 'sonner';
 import axios from 'axios';
-
 
 type Event = {
   id: number;
@@ -18,64 +17,63 @@ type Event = {
   price?: number;
 };
 
-
-
-
-
 export default function EventDetail({ params }: { params: Promise<{ slug: string }> }) {
   const router = useRouter();
   const { slug } = use(params);
 
   const [event, setEvent] = useState<Event | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [pageLoading, setPageLoading] = useState(true);
   const [form, setForm] = useState({ name: '', email: '' });
   const [success, setSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    setPageLoading(true);
     fetch('/api/events')
       .then(res => res.json())
       .then((data: Event[]) => {
         const matched = data.find(ev => ev.slug === slug);
         setEvent(matched || null);
-        setLoading(false);
+        setPageLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => setPageLoading(false));
   }, [slug]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!event) return;
 
-    setLoading(true);
+    setIsSubmitting(true);
     const { name, email } = form;
     const { isPaid, price, id: eventId } = event;
-    
-    
 
     try {
       if (isPaid && price) {
-        try{
-          // Paid event: initiate eSewa payment
-          //save the intent first if paid event
-          const response=await axios.post('/api/esewa/intent',{
-            name,
-            email,eventId,amount:price
-          })
-          if(response.status!==200){  
-            toast.error("Failed to create intent, please try again later");
-            
-          }
-      
-          toast.success("the intent is successfully created")
+        try {
+          // Save intent for paid event
+          // const response = await axios.post('/api/event-registration', {
+          //   name,
+          //   email,
+          //   eventId,
+          //   amount: price,
+          //   status: "PENDING"
+          // });
+
+          // if (response.status !== 200) {
+          //   toast.error("Failed to create intent, please try again later");
+          //   return;
+          // }
+
+          toast.success("Payment process initiated");
           const res = await fetch('/api/esewa/initiate', {
             method: 'POST',
-            body: JSON.stringify({ name, email, eventId:Number(eventId), amount: Number(price.toFixed(2)) }),
+            body: JSON.stringify({ name, email, eventId: eventId, amount: Number(price).toFixed(2) }),
             headers: { 'Content-Type': 'application/json' },
           });
 
           if (!res.ok) throw new Error('Failed to initiate payment');
 
-          const{paymentUrl,params}=await res.json()
+          const { paymentUrl, params } = await res.json();
           const form = document.createElement('form');
           form.method = 'POST';
           form.action = paymentUrl;
@@ -104,48 +102,40 @@ export default function EventDetail({ params }: { params: Promise<{ slug: string
 
           document.body.appendChild(form);
           form.submit();
-          
-
-          
-
-
-          
-
-        }
-        catch(error){
+        } catch (error) {
           console.log(error);
           toast.error('Failed to initiate payment. Please try again later.');
         }
-        
-
-
-        
       } else {
-        // Free event: register directly
-        const res = await fetch('/api/register', {
+        // Free event registration
+        const res = await fetch('/api/event-registration', {
           method: 'POST',
           body: JSON.stringify({ name, email, eventId }),
           headers: { 'Content-Type': 'application/json' },
         });
 
-        if (!res.ok) throw new Error('Registration failed');
-
-        setSuccess(true);
-        setForm({ name: '', email: '' });
+        if (res.status === 409) {
+          toast.error("You have already registered for the event. Thank you!");
+        } else if (res.ok) {
+          toast.success('Successfully registered for the event!');
+          setSuccess(true);
+          setForm({ name: '', email: '' });
+        } else {
+          throw new Error('Registration failed');
+        }
       }
     } catch (error) {
-      alert('Error: ' + (error instanceof Error ? error.message : 'Unknown error'));
+      toast.error('Error: ' + (error instanceof Error ? error.message : 'Unknown error'));
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   }
-  
 
-  if (loading) {
+  if (pageLoading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-blue-600 mb-6"></div>
+          <Loader2 className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-blue-600 mb-6" />
           <p className="text-gray-600 text-lg">Loading event details...</p>
         </div>
       </div>
@@ -285,14 +275,23 @@ export default function EventDetail({ params }: { params: Promise<{ slug: string
                     />
                     <button
                       type="submit"
-                      disabled={!form.name || !form.email || loading}
-                      className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-                        !form.name || !form.email
+                      disabled={!form.name || !form.email || isSubmitting}
+                      className={`px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center ${
+                        !form.name || !form.email || isSubmitting
                           ? 'bg-gray-400 text-white cursor-not-allowed'
                           : 'bg-blue-600 text-white hover:bg-blue-700'
                       }`}
                     >
-                      {event.isPaid ? 'Pay with eSewa' : 'Join Event'}
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="animate-spin mr-2 h-5 w-5" />
+                          {event.isPaid ? 'Processing Payment...' : 'Registering...'}
+                        </>
+                      ) : event.isPaid ? (
+                        'Pay with eSewa'
+                      ) : (
+                        'Join Event'
+                      )}
                     </button>
                     {success && (
                       <p className="text-green-600 text-sm mt-1">Successfully registered!</p>

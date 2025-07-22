@@ -629,51 +629,7 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
           </CardContent>
         </Card>
 
-        {/* Chapter-wise Performance */}
-        {/* <Card className="shadow-lg mb-8">
-          <CardHeader>
-            <CardTitle>Chapter-wise Performance</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {[
-                "Fundamentals of Testing",
-                "Testing Throughout the SDLC",
-                "Static Testing",
-                "Test Analysis and Design",
-                "Managing the Test Activities",
-                "Test Tools",
-              ].map((chapter) => {
-                const chapterQuestions = questionToRender.filter((q) => q.chapter === chapter)
-                const chapterCorrect = chapterQuestions.filter((q, index) => {
-                  const questionIndex = questionToRender.findIndex((mq) => mq.id === q.id)
-                  const question = questionToRender[questionIndex]
-                  if (question.type === "single") {
-                    return answers[questionIndex] === q.correctAnswer
-                  } else {
-                    const userAnswers = Array.isArray(answers[questionIndex]) ? answers[questionIndex].sort() : []
-                    const correctAnswersArray = question.correctAnswers.sort()
-                    return JSON.stringify(userAnswers) === JSON.stringify(correctAnswersArray)
-                  }
-                }).length
-                const chapterTotal = chapterQuestions.length
-                const percentage = Math.round((chapterCorrect / chapterTotal) * 100)
-
-                return (
-                  <div key={chapter} className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="font-medium">{chapter}</span>
-                      <span className="text-gray-600">
-                        {chapterCorrect}/{chapterTotal} ({percentage}%)
-                      </span>
-                    </div>
-                    <Progress value={percentage} className="h-2" />
-                  </div>
-                )
-              })}
-            </div>
-          </CardContent>
-        </Card> */}
+        
 
         {/* Review Answers */}
         <Card className="shadow-lg mb-8">
@@ -775,17 +731,7 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
           </CardContent>
         </Card>
 
-        {/* Action Buttons */}
-        {/* <div className="text-center space-x-4">
-          <Button
-            onClick={restartQuiz}
-            className="bg-gradient-to-r from-red-600 to-blue-600 text-white hover:from-red-700 hover:to-blue-700"
-          >
-            <RotateCcw className="h-4 w-4 mr-2" />
-            Take Another Exam
-          </Button>
-          <Button variant="outline">Download Certificate</Button>
-        </div> */}
+        
       </div>
     </div>
   )

@@ -103,7 +103,7 @@ export default function FAQ() {
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-4 text-xl text-gray-900">
                   <div
-                    className={`flex items-center justify-center w-10 h-10 rounded-full ${category.bgColor} ${category.iconColor}`}
+                    className={`flex items-center justify-center w-10 h-10 rounded-full bg-white ${category.iconColor} ring-2 ring-current`}
                     aria-hidden="true"
                   >
                     {category.icon}

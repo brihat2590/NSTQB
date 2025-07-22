@@ -28,6 +28,7 @@ export default function EsewaPayment() {
           name: formData.name,
           email: formData.email,
           amount: Number(formData.amount.toFixed(2)),
+          eventId:16
           
         })
       });

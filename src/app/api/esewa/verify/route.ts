@@ -207,7 +207,7 @@ export async function GET(req: NextRequest) {
 
     // Compare signatures
     if (generatedSignature !== signature) {
-        await prisma.examRegistration.update({
+        await prisma.eventRegistration.update({
             where:{transaction_uuid},
             data:{
                 status: "FAILED"}
@@ -215,7 +215,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/esewa/failure?reason=invalid_signature`);
     }
     if(status!=="COMPLETE"){
-        await prisma.examRegistration.update({
+        await prisma.eventRegistration.update({
             where:{transaction_uuid},
             data:{
                 status: "FAILED"}
@@ -227,7 +227,7 @@ export async function GET(req: NextRequest) {
     console.log("received signature", signature);
     //aba update registration to store completed
 
-    await prisma.examRegistration.update({
+    await prisma.eventRegistration.update({
         where:{transaction_uuid},
         data:{
             status:"COMPLETED"

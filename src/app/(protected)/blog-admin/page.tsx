@@ -1,5 +1,7 @@
 'use client';
 
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -121,7 +123,8 @@ export default function AdminBlogs() {
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">Blog Management</h1>
+            <Link href={"/admin"}><ArrowLeft/></Link>
+            <h1 className="text-3xl font-bold text-gray-800 mt-2">Blog Management</h1>
             <p className="text-gray-600 mt-1">
               {editingId ? 'Editing an existing blog' : 'Create and manage your blog posts'}
             </p>

@@ -9,7 +9,7 @@ import {  generateEsewaSignature } from "@/lib/esewa/verifySignature";
 
 export async function POST(req: Request) {
   try {
-    const { amount, name, email } = await req.json();
+    const { amount, name, email,eventId } = await req.json();
 
     // Validate inputs
     if (!amount || !name || !email) {
@@ -41,10 +41,11 @@ export async function POST(req: Request) {
     ].join(',');
 
     const signature = generateEsewaSignature(message);
-    await prisma.examRegistration.create({
+    await prisma.eventRegistration.create({
       data:{
         name,
         email,
+        eventId:Number(eventId),
         amount:totalAmount,
         transaction_uuid: transactionUuid,
         status:"PENDING"

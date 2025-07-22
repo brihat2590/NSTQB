@@ -81,50 +81,46 @@ model Event {
   imageUrl String 
   isPaid Boolean @default(false)
   price Int?
-  registrations Registration[]
+  registrations EventRegistration[]
   createdAt  DateTime       @default(now())
   
 }
 
-model Registration {
+model EventRegistration {
   id          Int      @id @default(autoincrement())
   name        String
   email       String
   event       Event    @relation(fields: [eventId], references: [id])
   eventId     Int
+  amount      Int?
+  status     String   @default("pending") // pending, completed, failed
   
-  transactionUuid String?  @unique// eSewa transaction ID
+  transaction_uuid String?  @unique// eSewa transaction ID
    // eSewa reference ID
   createdAt   DateTime @default(now())
 }
 
-model Intent{
-  id Int @id @default(autoincrement())
-  name String
-  email String
-  eventId Int
-  amount Int
-  
-}
 
-model ExamRegistration{
-  id String @id @default(cuid())
-  name String
-  email String
-  
-  transaction_uuid String @unique
-  amount Float
-  status String @default("pending") // pending, completed, failed
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
 
-}
 model flowingHeadlines{
   id String @id @default(cuid())
   text String
   icon String //Calendar Users 
   href String
   type String //info, urgent
+  createdAt DateTime @default(now())
+}
+model ExamRegistration{
+  id Int @id @default(autoincrement())
+  firstName String
+  lastName String
+  email String
+  designation String
+  screenShot String
+  phone String
+  citizenshipNumber String
+  status String @default("PENDING")
+  remarks String?
   createdAt DateTime @default(now())
 }
