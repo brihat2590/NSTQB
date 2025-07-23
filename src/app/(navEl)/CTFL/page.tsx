@@ -135,11 +135,21 @@ export default function CTFL() {
     Whether you're starting your QA career or validating your knowledge, CTFL opens doors to higher roles, increased
     credibility, and international opportunities.
   </p>
-  <Link href="/mock-test">
-    <Button className="bg-gradient-to-r from-blue-600 to-red-600 text-white text-sm px-6 py-4 rounded-xl">
+  {/* <Link href="/mock-test">
+    <Button className="bg-gradient-to-r from-blue-600 to-red-600 text-white text-sm px-6 py-4 hover:bg-blue-700 transition-colors">
       Give Exam <ArrowRight className=" h-5 w-5" />
     </Button>
   </Link>
+  <Link href="/register">
+    <Button className=" mx-3  text-black text-sm px-6 py-4  bg-white border border-gray-300 hover:bg-gray-300">
+      Register  <ArrowRight className=" h-5 w-5" />
+    </Button>
+  </Link> */}
+ 
+
+
+
+  
 </div>
 
 

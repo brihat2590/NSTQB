@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { markAsComplete, rejectRegistration } from './action'
+import { markAsComplete, rejectRegistration } from '../../../lib/actions/RegistrationAction'
 import { CheckCircle, XCircle, FileImage, User, Phone, Mail, Calendar, MapPin, MoveLeft, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 

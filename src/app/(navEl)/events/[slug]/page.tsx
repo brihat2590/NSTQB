@@ -3,8 +3,7 @@
 import React, {use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Calendar, Clock, Loader2 } from 'lucide-react';
-import { toast, Toaster } from 'sonner';
-import axios from 'axios';
+import { toast } from 'sonner';
 
 type Event = {
   id: number;
@@ -21,9 +20,15 @@ export default function EventDetail({ params }: { params: Promise<{ slug: string
   const router = useRouter();
   const { slug } = use(params);
 
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    amount: 0,
+    eventId: 0
+  });
+
   const [event, setEvent] = useState<Event | null>(null);
   const [pageLoading, setPageLoading] = useState(true);
-  const [form, setForm] = useState({ name: '', email: '' });
   const [success, setSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -44,73 +49,63 @@ export default function EventDetail({ params }: { params: Promise<{ slug: string
     if (!event) return;
 
     setIsSubmitting(true);
-    const { name, email } = form;
     const { isPaid, price, id: eventId } = event;
+
+    const updatedFormData = {
+      ...formData,
+      eventId,
+      amount: price || 0,
+    };
+    setFormData(updatedFormData);
 
     try {
       if (isPaid && price) {
-        try {
-          // Save intent for paid event
-          // const response = await axios.post('/api/event-registration', {
-          //   name,
-          //   email,
-          //   eventId,
-          //   amount: price,
-          //   status: "PENDING"
-          // });
+        toast.success("Payment process initiated");
 
-          // if (response.status !== 200) {
-          //   toast.error("Failed to create intent, please try again later");
-          //   return;
-          // }
+        const res = await fetch('/api/esewa/initiate', {
+          method: 'POST',
+          body: JSON.stringify(updatedFormData),
+          headers: { 'Content-Type': 'application/json' },
+        });
 
-          toast.success("Payment process initiated");
-          const res = await fetch('/api/esewa/initiate', {
-            method: 'POST',
-            body: JSON.stringify({ name, email, eventId: eventId, amount: Number(price).toFixed(2) }),
-            headers: { 'Content-Type': 'application/json' },
-          });
+        if (!res.ok) throw new Error('Failed to initiate payment');
 
-          if (!res.ok) throw new Error('Failed to initiate payment');
+        const { paymentUrl, params } = await res.json();
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = paymentUrl;
+        form.style.display = 'none';
 
-          const { paymentUrl, params } = await res.json();
-          const form = document.createElement('form');
-          form.method = 'POST';
-          form.action = paymentUrl;
-          form.style.display = 'none';
+        const addField = (name: string, value: string) => {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = name;
+          input.value = value;
+          form.appendChild(input);
+        };
 
-          // Add fields in required order
-          const addField = (name: string, value: string) => {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = name;
-            input.value = value;
-            form.appendChild(input);
-          };
+        addField('amount', params.total_amount);
+        addField('tax_amount', params.tax_amount);
+        addField('total_amount', params.total_amount);
+        addField('transaction_uuid', params.transaction_uuid);
+        addField('product_code', params.product_code);
+        addField('product_service_charge', params.product_service_charge);
+        addField('product_delivery_charge', params.product_delivery_charge);
+        addField('signed_field_names', params.signed_field_names);
+        addField('signature', params.signature);
+        addField('success_url', params.success_url);
+        addField('failure_url', params.failure_url);
 
-          addField('amount', params.total_amount);
-          addField('tax_amount', params.tax_amount);
-          addField('total_amount', params.total_amount);
-          addField('transaction_uuid', params.transaction_uuid);
-          addField('product_code', params.product_code);
-          addField('product_service_charge', params.product_service_charge);
-          addField('product_delivery_charge', params.product_delivery_charge);
-          addField('signed_field_names', params.signed_field_names);
-          addField('signature', params.signature);
-          addField('success_url', params.success_url);
-          addField('failure_url', params.failure_url);
-
-          document.body.appendChild(form);
-          form.submit();
-        } catch (error) {
-          console.log(error);
-          toast.error('Failed to initiate payment. Please try again later.');
-        }
+        document.body.appendChild(form);
+        form.submit();
       } else {
-        // Free event registration
         const res = await fetch('/api/event-registration', {
           method: 'POST',
-          body: JSON.stringify({ name, email, eventId }),
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            eventId
+          }),
           headers: { 'Content-Type': 'application/json' },
         });
 
@@ -119,7 +114,7 @@ export default function EventDetail({ params }: { params: Promise<{ slug: string
         } else if (res.ok) {
           toast.success('Successfully registered for the event!');
           setSuccess(true);
-          setForm({ name: '', email: '' });
+          setFormData({ name: '', email: '', amount: 0, eventId: 0 });
         } else {
           throw new Error('Registration failed');
         }
@@ -129,7 +124,7 @@ export default function EventDetail({ params }: { params: Promise<{ slug: string
     } finally {
       setIsSubmitting(false);
     }
-  }
+  };
 
   if (pageLoading) {
     return (
@@ -200,39 +195,35 @@ export default function EventDetail({ params }: { params: Promise<{ slug: string
           </div>
 
           <div className="p-8 md:p-12">
-            <div className="mb-8">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
-                {event.title}
-              </h1>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
+              {event.title}
+            </h1>
 
-              <div className="flex flex-wrap items-center gap-6 text-gray-600">
-                <div className="flex items-center">
-                  <Calendar className="w-5 h-5 mr-2 text-blue-600" />
-                  <span className="font-medium">
-                    {eventDate.toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </span>
-                </div>
+            <div className="flex flex-wrap items-center gap-6 text-gray-600 mb-8">
+              <div className="flex items-center">
+                <Calendar className="w-5 h-5 mr-2 text-blue-600" />
+                <span className="font-medium">
+                  {eventDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </span>
+              </div>
 
-                <div className="flex items-center">
-                  <Clock className="w-5 h-5 mr-2 text-blue-600" />
-                  <span className="font-medium">
-                    {eventDate.toLocaleTimeString('en-US', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </span>
-                </div>
+              <div className="flex items-center">
+                <Clock className="w-5 h-5 mr-2 text-blue-600" />
+                <span className="font-medium">
+                  {eventDate.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
+                </span>
               </div>
             </div>
 
-            <div className="mb-8">
-              <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                <div className="whitespace-pre-wrap">{event.description}</div>
-              </div>
+            <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed mb-8 whitespace-pre-wrap">
+              {event.description}
             </div>
 
             <div className="bg-gray-50 rounded-xl p-6 mb-8">
@@ -261,23 +252,23 @@ export default function EventDetail({ params }: { params: Promise<{ slug: string
                       type="text"
                       placeholder="Your Name"
                       className="border px-4 py-2 rounded-md"
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       required
                     />
                     <input
                       type="email"
                       placeholder="Your Email"
                       className="border px-4 py-2 rounded-md"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       required
                     />
                     <button
                       type="submit"
-                      disabled={!form.name || !form.email || isSubmitting}
+                      disabled={!formData.name.trim() || !formData.email.trim() || isSubmitting}
                       className={`px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center ${
-                        !form.name || !form.email || isSubmitting
+                        !formData.name.trim() || !formData.email.trim() || isSubmitting
                           ? 'bg-gray-400 text-white cursor-not-allowed'
                           : 'bg-blue-600 text-white hover:bg-blue-700'
                       }`}
@@ -298,23 +289,6 @@ export default function EventDetail({ params }: { params: Promise<{ slug: string
                     )}
                   </form>
                 )}
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-blue-50 rounded-xl p-6">
-                <h4 className="font-semibold text-gray-900 mb-2">Event Details</h4>
-                <p className="text-gray-600 text-sm">
-                  This is a {event.isPaid ? 'paid' : 'free'} event.
-                  {event.isPaid && ` Registration fee: ₹${event.price}`}
-                </p>
-              </div>
-
-              <div className="bg-green-50 rounded-xl p-6">
-                <h4 className="font-semibold text-gray-900 mb-2">Status</h4>
-                <p className="text-gray-600 text-sm">
-                  {isUpcoming ? 'Registration is open' : 'This event has ended'}
-                </p>
               </div>
             </div>
           </div>

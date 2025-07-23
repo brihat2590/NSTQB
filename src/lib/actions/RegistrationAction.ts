@@ -2,12 +2,21 @@
 
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
+import { sendExamRegistrationSuccessEmail } from '@/lib/mailer'
 
 export async function markAsComplete(id: number) {
-  await prisma.examRegistration.update({
+  const updated=await prisma.examRegistration.update({
     where: { id },
     data: { status: 'COMPLETE' },
+    select:{
+      email:true,
+      firstName:true,
+      lastName:true
+      
+    }
+
   })
+  await sendExamRegistrationSuccessEmail(updated.email, updated.firstName, updated.lastName)
 
   revalidatePath('/registration-admin') // Refresh UI
 }
