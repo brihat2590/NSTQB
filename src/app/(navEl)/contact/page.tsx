@@ -60,9 +60,65 @@ export default function ContactUs() {
 
   return (
     <div className="min-h-screen bg-white py-12 px-4 sm:px-6">
+      <style jsx>{`
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+        
+        @keyframes pulse-glow {
+          0%, 100% {
+            box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+          }
+        }
+        
+        .animate-fade-in-up {
+          animation: fade-in-up 0.8s ease-out forwards;
+        }
+        
+        .animation-delay-200 {
+          animation-delay: 0.2s;
+          opacity: 0;
+        }
+        
+        .animation-delay-400 {
+          animation-delay: 0.4s;
+          opacity: 0;
+        }
+        
+        .animation-delay-200 {
+          animation-delay: 0.2s;
+        }
+        
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-pulse-glow {
+          animation: pulse-glow 2s ease-in-out infinite;
+        }
+      `}</style>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight animate-fade-in-up animation-delay-200 transition-all duration-300">
             Contact Us
           </h1>
           <div className="flex justify-center my-6">
@@ -70,17 +126,17 @@ export default function ContactUs() {
             <div className="w-4 h-1 bg-gradient-to-r from-purple-600 to-red-500 rounded-full mx-1"></div>
             <div className="w-24 h-1 bg-gradient-to-r from-red-500 to-blue-600 rounded-full"></div>
           </div>
-          <p className="text-xl text-gray-800 font-medium max-w-2xl mx-auto">
+          <p className="text-xl text-gray-800 font-medium max-w-2xl mx-auto animate-fade-in-up animation-delay-200 transition-all duration-300">
             Nepal Software Testing Qualifications Body
           </p>
-          <p className="text-gray-700 mt-4 max-w-3xl mx-auto">
+          <p className="text-gray-700 mt-4 max-w-3xl mx-auto animate-fade-in-up animation-delay-200 transition-all duration-300">
             Get in touch with us for any inquiries about software testing certifications and qualifications
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+        <div className="grid lg:grid-cols-2 gap-8 items-stretch animate-fade-in-up animation-delay-200 transition-all duration-300">
           {/* Contact Form Card */}
-          <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+          <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-400 ease-in">
             <CardHeader className="pb-6">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">

@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import { Download, FileText, BookOpen, Clock, Users, Award, ChevronRight, Target, Zap, Shield, Sparkles, Infinity } from 'lucide-react';
+import { Download, FileText, BookOpen, Clock, Users, Award, ChevronRight, Target, Zap, Shield, Sparkles, Infinity, MoveLeft } from 'lucide-react';
 import Link from 'next/link';
 
 
@@ -138,7 +138,7 @@ export default function page(){
       <main className="max-w-7xl mx-auto px-6 py-12 transition-all duration-300">
         {/* Hero Section */}
         <div className="text-center mb-16 transition-all duration-300">
-          <h1 className="text-5xl font-semibold text-gray-900 mb-4 animate-fade-in-up transition-all duration-300">
+          <h1 className="text-6xl font-semibold text-gray-900 mb-4 animate-fade-in-up transition-all duration-300">
             CTFL Certification
           </h1>
           <p className="text-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-red-500 mb-2 animate-fade-in-up animation-delay-200 transition-all duration-300">
@@ -152,10 +152,11 @@ export default function page(){
 
         {/* About CTFL */}
         <section className="mb-16 animate-fade-in-up transition-all duration-300">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 transition-colors duration-300">About CTFL Exam</h2>
-          <div className="grid md:grid-cols-2 gap-8 transition-all duration-300">
+          <div className=''>
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 transition-colors duration-300 ">{"->"}About CTFL Exam</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-300">
             <div className="space-y-6 transition-all duration-300">
-              <p className="text-gray-700 leading-relaxed transition-colors duration-300">
+              <p className="text-gray-700 leading-relaxed transition-colors duration-300 mt-3">
                 The Certified Tester Foundation Level (CTFL) is an internationally recognized 
                 certification that validates your understanding of software testing fundamentals. 
                 This certification covers essential testing concepts, techniques, and practices 
@@ -167,8 +168,8 @@ export default function page(){
                 software quality assurance.
               </p>
             </div>
-            <div className="bg-gray-50 p-6 transition-all duration-300">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 transition-colors duration-300">Key Topics Covered</h3>
+            <div className="bg-gray-50 p-6 transition-all duration-300 grid items-center justify-center ">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 transition-colors duration-300 ">Key Topics Covered</h3>
               <ul className="space-y-2 text-gray-700 transition-colors duration-300">
                 <li className="flex items-start group transition-transform duration-300">
                   <ChevronRight className="w-4 h-4 text-blue-500 mt-1 mr-2 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
@@ -196,6 +197,7 @@ export default function page(){
                 </li>
               </ul>
             </div>
+          </div>
           </div>
         </section>
 
@@ -306,11 +308,11 @@ export default function page(){
             Join thousands of professionals who have advanced their careers with CTFL certification. 
             Register for the next available exam session.
           </p>
-          <div className="space-x-4 transition-all duration-300">
-            <Link href={'/registration'} className="bg-gradient-to-r from-red-700 to-blue-700 text-transparent bg-clip-text hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-xl border  px-8 py-3 border-blue-400 hover:bg-gray-50 hover:border-blue-500">
+          <div className="space-x-4 transition-all duration-300 flex items-center justify-center">
+            <Link href={'/registration'} className="bg-gradient-to-r from-red-700 to-blue-700 text-transparent bg-clip-text transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl border md:px-8 md:py-3 border-blue-400 hover:border-blue-500 hover:bg-white hover:text-blue-700 font-semibold px-5 py-1">
               Register for Exam
             </Link>
-            <Link href={'/mock-test'} className="border border-red-300 text-gray-700 px-8 py-3 font-semibold hover:bg-gray-50 hover:scale-105 hover:border-red-400 transition-all duration-300">
+            <Link href={'/mock-test'} className="border border-red-300 text-gray-700 md:px-8 md:py-3 font-semibold hover:shadow-2xl  hover:border-red-400 transition-all duration-300 ease-in-out px-5 py-1 hover:scale-105 ">
               Give Mock Exam
             </Link>
           </div>

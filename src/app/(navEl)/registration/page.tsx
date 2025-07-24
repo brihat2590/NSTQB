@@ -215,7 +215,7 @@ export default function RegistrationPage() {
   const errorClasses = "text-red-500 text-sm mt-1";
 
   return (
-    <div className="min-h-screen bg-white p-6">
+    <div className="min-h-screen bg-white p-6 transistion-all duration-300 animate-fade-in-up animate-delay-200 ">
       {toasts.map(toast => (
         <Toast
           key={toast.id}
@@ -223,7 +223,62 @@ export default function RegistrationPage() {
           type={toast.type}
           onClose={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
         />
-      ))}
+      ))}<style jsx>{`
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+        
+        @keyframes pulse-glow {
+          0%, 100% {
+            box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+          }
+        }
+        
+        .animate-fade-in-up {
+          animation: fade-in-up 0.8s ease-out forwards;
+        }
+        
+        .animation-delay-200 {
+          animation-delay: 0.2s;
+          opacity: 0;
+        }
+        
+        .animation-delay-400 {
+          animation-delay: 0.4s;
+          opacity: 0;
+        }
+        
+        .animation-delay-200 {
+          animation-delay: 0.2s;
+        }
+        
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-pulse-glow {
+          animation: pulse-glow 2s ease-in-out infinite;
+        }
+      `}</style>
       
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
