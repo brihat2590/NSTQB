@@ -13,7 +13,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-white text-gray-900 sm:mt-10 border ">
+      <section className="relative overflow-hidden bg-white text-gray-900 sm:mt-10  ">
         {/* Background Geometric Shapes */}
         <div className="absolute inset-0">
           <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-gradient-to-r from-blue-50 to-transparent transform -skew-x-12 -translate-x-1/4" />

@@ -38,7 +38,7 @@ export default function page(){
   const examDetails = [
     {
       label: 'Duration',
-      value: '75 minutes',
+      value: '60 minutes',
       icon: Clock,
       color: 'text-red-500',
       delay: '0s'

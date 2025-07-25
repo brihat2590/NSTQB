@@ -155,7 +155,7 @@ export default function ExamCalendar() {
                 <Button
                   className="w-full bg-gradient-to-r from-red-600 to-blue-600 text-white hover:bg-red-700 hover:to-blue-700 transition-colors "
                   disabled={isRegistrationClosed(exam) || isExamCompleted(exam)}
-                  onClick={() => router.push('/registration-process')}
+                  onClick={() => router.push('/registration')}
                 >
                   {isExamCompleted(exam)
                     ? 'Exam Completed'
