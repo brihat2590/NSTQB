@@ -3,63 +3,65 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import {
+  Bell,
+  Calendar,
+  BookOpen,
+  Users,
+  LucideIcon,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+
+// Type definitions
+type AnnouncementType = "urgent" | "offer" | "event" | "achievement" | "info";
+
+interface Announcement {
+  id: string;
+  text: string;
+  href: string;
+  type: AnnouncementType;
+  icon: keyof typeof iconMap;
+}
+
+// Icon mapping (you can extend this)
+const iconMap: Record<string, LucideIcon> = {
   Calendar,
   BookOpen,
   Users,
   Bell,
-} from "lucide-react";
-import { useEffect } from "react";
-
-
-
-
-const flowingAnnouncements = [
-  {
-    id: 1,
-    text: "🔥 CTFL v4.0 Exam Registration Open - Next Exam: Aug 30, 2025",
-    type: "urgent",
-    icon: <Calendar className="h-4 w-4 sm:h-5 sm:w-5" />,
-    href: "/registration-process", // internal
-  },
-  {
-    id: 2,
-    text: "📚 New Study Materials Available - Download CTFL v4.0 Syllabus & Sample Questions",
-    type: "info",
-    icon: <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />,
-    href: "/CTFL", // internal
-  },
-  
-];
+};
 
 export default function FlowingHeadline() {
-  const duplicatedAnnouncements = [
-    ...flowingAnnouncements,
-    ...flowingAnnouncements,
-  ];
+  const [flowingAnnouncements, setFlowingAnnouncements] = useState<Announcement[]>([]);
 
-  useEffect(()=>{
-    async function dataFetch(){
-      const data=await fetch("/api/headlines");
-      if(!data.ok){
-        console.error("Failed to fetch headlines");
-        return;
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("/api/headlines");
+        if (!response.ok) {
+          console.error("Failed to fetch headlines");
+          return;
+        }
+        const data: Announcement[] = await response.json();
+        setFlowingAnnouncements(data);
+      } catch (error) {
+        console.error("Error fetching headlines", error);
       }
-      const headlines=await data.json();
-      console.log(headlines)
     }
-    dataFetch();
-    
 
-  },[])
+    fetchData();
+  }, []);
+
+  // Duplicate for scrolling animation
+  const duplicatedAnnouncements = [...flowingAnnouncements, ...flowingAnnouncements];
 
   return (
     <div className="fixed top-20 w-full z-40 bg-gradient-to-r from-gray-900 via-blue-900 to-red-900 text-white border-b border-gray-700 overflow-hidden">
       <div className="relative">
-        {/* Gradient fade sides */}
+        {/* Side gradients */}
         <div className="absolute left-0 top-0 w-12 sm:w-16 h-full bg-gradient-to-r from-gray-900 to-transparent z-10" />
         <div className="absolute right-0 top-0 w-12 sm:w-16 h-full bg-gradient-to-l from-red-900 to-transparent z-10" />
 
-        {/* Header label */}
+        {/* Header Label */}
         <div className="absolute left-0 top-0 bg-gradient-to-r from-red-600 to-red-700 px-3 sm:px-4 py-2 z-20">
           <div className="flex items-center space-x-2">
             <Bell className="h-4 w-4 sm:h-5 sm:w-5 animate-pulse" />
@@ -69,15 +71,16 @@ export default function FlowingHeadline() {
           </div>
         </div>
 
-        {/* Marquee content */}
+        {/* Scrolling Marquee */}
         <div className="py-2 pl-20 sm:pl-32">
           <div className="flex animate-scroll whitespace-nowrap w-max gap-4 sm:gap-6">
             {duplicatedAnnouncements.map((announcement, index) => {
+              const Icon = iconMap[announcement.icon] || Bell;
               const isExternal = announcement.href.startsWith("http");
 
               const content = (
                 <div className="flex items-center min-w-max space-x-2 sm:space-x-3 text-xs sm:text-sm font-medium hover:underline">
-                  <div className="text-yellow-400">{announcement.icon}</div>
+                  <Icon className="text-yellow-400 h-4 w-4" />
                   <span>{announcement.text}</span>
                   <Badge
                     variant="outline"
