@@ -26,6 +26,7 @@ import { mockQuestions,mockQuestions2,mockQuestions3 } from "@/lib/mockQuestions
 import { useRouter } from "next/navigation"
 import { mockQuestions4 } from "@/lib/mockQuestion4"
 import ExamGuard from "./ExamGuard"
+import {motion} from "framer-motion"
 import { set } from "date-fns"
 // Add question type and update the structure
 type Question = {
@@ -65,6 +66,9 @@ const questionSets: Record<SetKey, Question[]> = {
 };
 
 const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["set1"];
+const [showModal, setShowModal] = useState(false);
+
+
 
   
 
@@ -196,181 +200,154 @@ const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["se
 
   if (quizState === "not-started") {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-red-50 py-12 px-4">
-        <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-12 bg-gradient-to-r bg-gray-50 text-gray-800 py-12 px-6 rounded-2xl shadow-lg">
-            {/* <Link href={'/'}><ArrowLeft/></Link> */}
-            <h1 className="text-4xl font-bold mb-4">ISTQB CTFL Mock Exam</h1>
-            <p className="text-xl max-w-2xl mx-auto opacity-95">
-              Test your knowledge with our comprehensive Foundation Level practice exam
-            </p>
+      <div className="min-h-screen bg-white">
+  <div className="max-w-4xl mx-auto px-4 py-12">
+    {/* Header with fade-in animation */}
+    <motion.div 
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="text-center mb-12"
+    >
+      <h1 className="text-5xl font-semibold text-gray-800 mb-3">ISTQB CTFL Mock Exam</h1>
+      <p className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent max-w-2xl mx-auto mt-5 mb-2" >
+        Test your knowledge with our comprehensive Foundation Level practice exam
+      </p>
+    </motion.div>
+
+    {/* Instructions with slide-up animation */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+      className="border-b pb-6 mb-8"
+    >
+      <div className="flex items-center gap-3 mb-4 md:mb-6 mt-2">
+        <BookOpen className="h-5 w-5 text-blue-600" />
+        <h2 className="text-xl  font-semibold text-gray-800">Exam Instructions</h2>
+      </div>
+      
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+            <Clock className="h-5 w-5 text-cyan-800 mt-0.5" />
+            <div>
+              <p className="font-medium text-gray-800">Duration</p>
+              <p className="text-gray-600">60 minutes</p>
+            </div>
           </div>
+          
+          <div className="flex items-start gap-3">
+            <CheckCircle className="h-5 w-5 text-green-700 mt-0.5" />
+            <div>
+              <p className="font-medium text-gray-800">Questions</p>
+              <p className="text-gray-600">40 multiple choice</p>
+            </div>
+          </div>
+          
+          <div className="flex items-start gap-3">
+            <Award className="h-5 w-5 text-yellow-600 mt-0.5" />
+            <div>
+              <p className="font-medium text-gray-800">Pass Mark</p>
+              <p className="text-gray-600">26 out of 40 (65%)</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="flex flex-col items-center space-y-4 justify-center bg-gray-50 ">
+          <p>Exam Rules::</p>
+       
+          <ul className="space-y-1 text-gray-600">
+            <li className="flex items-start">
+              <span className="mr-2">•</span> Timer starts when you begin
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span> Navigate freely between questions
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span> All questions must be answered
+            </li>
+          </ul>
+        </div>
+      </div>
+    </motion.div>
 
-          {/* Exam Instructions */}
-          <Card className="shadow-lg mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-2xl">
-                <BookOpen className="h-6 w-6 text-blue-600" />
-                Exam Instructions
-              </CardTitle>
-              <CardDescription>Please read carefully before starting the exam</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Clock className="h-5 w-5 text-red-600" />
-                    <div>
-                      <h4 className="font-semibold">Duration</h4>
-                      <p className="text-gray-600">60 minutes</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="h-5 w-5 text-blue-600" />
-                    <div>
-                      <h4 className="font-semibold">Questions</h4>
-                      <p className="text-gray-600">40 multiple choice questions</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Award className="h-5 w-5 text-green-600" />
-                    <div>
-                      <h4 className="font-semibold">Pass Mark</h4>
-                      <p className="text-gray-600">26 out of 40 (65%)</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <h4 className="font-semibold text-gray-900">Exam Rules:</h4>
-                  <ul className="space-y-2 text-sm text-gray-600">
-                    <li>• Timer starts automatically when you begin</li>
-                    <li>• You can navigate between questions freely</li>
-                    <li>• All questions must be answered</li>
-                    <li>• You can review your answers before submitting</li>
-                    <li>• Exam will auto-submit when time expires</li>
-                  </ul>
-                </div>
-              </div>
+    {/* Question Set Selection with smooth transitions */}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.4 }}
+      className="mb-8 flex flex-col items-center justify-center"
+    >
+      <p className="text-gray-800 mb-3">Choose Question Set:</p>
+      <div className="flex flex-wrap gap-2">
+        {['set1', 'set2', 'set3', 'set4'].map((set) => (
+          <motion.button
+            key={set}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setSelectedSet(set)}
+            className={`px-4 py-2 font-medium border transition-all duration-300 ${
+              selectedSet === set
+                ? 'bg-blue-600 text-white border-blue-600'
+                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+            }`}
+          >
+            {set.replace('set', 'Set ')}
+          </motion.button>
+        ))}
+      </div>
+    </motion.div>
 
-              <Alert>
-                <Timer className="h-4 w-4" />
-                <AlertDescription>
-                  <strong>Important:</strong> The timer will start immediately when you click "Start Exam". Make sure
-                  you have a stable internet connection and won't be interrupted.
-                </AlertDescription>
-              </Alert>
-              <div className="flex  items-center justify-center ">
-              <h2 className="pr-4">Choose Question Set:</h2>
-                  <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                      <button
-                      onClick={() => setSelectedSet("set1")}
-                      className={`mr-4 px-6 py-2 rounded-md font-semibold transition-colors duration-300
-                          ${
-                          selectedSet === "set1"
-                              ? "bg-blue-600 text-white shadow-lg"
-                              : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
-                          }`}
-                      >
-                      Set 1
-                      </button>
-
-                      <button
-                      onClick={() => setSelectedSet("set2")}
-                      className={`px-6 mr-4 py-2 rounded-md font-semibold transition-colors duration-300
-                          ${
-                          selectedSet === "set2"
-                              ? "bg-blue-600 text-white shadow-lg"
-                              : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
-                          }`}
-                      >
-                      Set 2
-                      </button>
-                      <button
-                      onClick={() => setSelectedSet("set3")}
-                      className={`px-6 mr-4 py-2 rounded-md font-semibold transition-colors duration-300
-                          ${
-                          selectedSet === "set3"
-                              ? "bg-blue-600 text-white shadow-lg"
-                              : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
-                          }`}
-                      >
-                      Set 3
-                      </button>
-                      <button
-                      onClick={() => setSelectedSet("set4")}
-                      className={`px-6 mr-4 py-2 rounded-md font-semibold transition-colors duration-300
-                          ${
-                          selectedSet === "set4"
-                              ? "bg-blue-600 text-white shadow-lg"
-                              : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-100"
-                          }`}
-                      >
-                      Set 4
-                      </button>
-                    </div>
-
-              
-
-              
-
-                
-              </div>
-              
-
-              <div className="text-center pt-4">
-                
-                <Button
-                  size="lg"
-                  // onClick={startQuiz}
-                  onClick={()=>setExamStarted(!examStarted)}
-                  className="bg-gradient-to-r from-red-600 to-blue-600 text-white hover:from-red-700 hover:to-blue-700 px-8 py-6 text-lg"
-                >
-                  Start Exam
-                </Button>
-                {examStarted&&(
-                  <div>
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full mx-4">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Confirm Exam Start</h2>
-            <p className="text-gray-600 mb-6">
-              Are you ready to begin? Once started, the timer will begin counting down immediately.
-            </p>
-            
-            <div className="flex justify-end space-x-4">
+    {/* Start Button with subtle animation */}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.6 }}
+      className="text-center"
+    >
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={() =>{ setExamStarted(true)
+          setShowModal(true);
+          ;
+        }}
+        className="bg-blue-600 text-white px-8 py-3 font-medium"
+      >
+        Start Exam
+      </motion.button>
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
+            <h2 className="text-lg font-semibold mb-4">Confirm Start</h2>
+            <p className="mb-6">Are you sure you want to start the exam now? You will have 60 mins to complete the exam.</p>
+            <div className="flex justify-center  gap-3">
               <button
-                onClick={() => setExamStarted(false)}
-                className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+                onClick={() => setShowModal(false)}
+                className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-lg"
               >
                 Cancel
               </button>
               <button
                 onClick={startQuiz}
-                className="px-6 py-3 bg-gradient-to-r from-red-600 to-blue-600 text-white rounded-lg hover:from-red-700 hover:to-blue-700 transition-all"
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 rounded-lg"
               >
-                Start Exam
+                Start
               </button>
             </div>
           </div>
         </div>
-                    
+      )}
 
 
 
-
-
-                  </div>
-
-                  
-
-
-                )}
-                
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+      
+    </motion.div>
+    
+  </div>
+</div>
+     
     )
   }
 

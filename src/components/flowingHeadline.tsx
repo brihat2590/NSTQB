@@ -9,6 +9,7 @@ import {
   Users,
   LucideIcon,
 } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { useEffect, useState } from "react";
 
 // Type definitions
@@ -19,7 +20,7 @@ interface Announcement {
   text: string;
   href: string;
   type: AnnouncementType;
-  icon: keyof typeof iconMap;
+  icon: keyof typeof LucideIcons;
 }
 
 // Icon mapping (you can extend this)
@@ -74,49 +75,69 @@ export default function FlowingHeadline() {
         {/* Scrolling Marquee */}
         <div className="py-2 pl-20 sm:pl-32">
           <div className="flex animate-scroll whitespace-nowrap w-max gap-4 sm:gap-6">
-            {duplicatedAnnouncements.map((announcement, index) => {
-              const Icon = iconMap[announcement.icon] || Bell;
-              const isExternal = announcement.href.startsWith("http");
-
-              const content = (
-                <div className="flex items-center min-w-max space-x-2 sm:space-x-3 text-xs sm:text-sm font-medium hover:underline">
-                  <Icon className="text-yellow-400 h-4 w-4" />
-                  <span>{announcement.text}</span>
+            {flowingAnnouncements.length === 0 ? (
+              // Show loading placeholders
+              Array.from({ length: 5 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="flex items-center min-w-max space-x-2 sm:space-x-3 text-xs sm:text-sm font-medium opacity-70 animate-pulse"
+                >
+                  <Bell className="text-yellow-300 h-4 w-4" />
+                  <div className="bg-white/20 h-4 w-40 rounded" />
                   <Badge
                     variant="outline"
-                    className={`text-[10px] sm:text-xs border-0 ${
-                      announcement.type === "urgent"
-                        ? "bg-red-500/20 text-red-200"
-                        : announcement.type === "offer"
-                        ? "bg-green-500/20 text-green-200"
-                        : announcement.type === "event"
-                        ? "bg-blue-500/20 text-blue-200"
-                        : announcement.type === "achievement"
-                        ? "bg-yellow-500/20 text-yellow-200"
-                        : "bg-gray-500/20 text-gray-200"
-                    }`}
+                    className="text-[10px] sm:text-xs bg-gray-500/20 text-gray-200 border-0"
                   >
-                    {announcement.type.toUpperCase()}
+                    LOADING
                   </Badge>
                   <div className="w-px h-4 bg-white/30 mx-2 sm:mx-4"></div>
                 </div>
-              );
+              ))
+            ) : (
+              duplicatedAnnouncements.map((announcement, index) => {
+                const Icon = iconMap[announcement.icon] || Bell;
+                const isExternal = announcement.href.startsWith("http");
 
-              return isExternal ? (
-                <a
-                  key={`${announcement.id}-${index}`}
-                  href={announcement.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {content}
-                </a>
-              ) : (
-                <Link key={`${announcement.id}-${index}`} href={announcement.href}>
-                  {content}
-                </Link>
-              );
-            })}
+                const content = (
+                  <div className="flex items-center min-w-max space-x-2 sm:space-x-3 text-xs sm:text-sm font-medium hover:underline">
+                    <Icon className="text-yellow-400 h-4 w-4" />
+                    <span>{announcement.text}</span>
+                    <Badge
+                      variant="outline"
+                      className={`text-[10px] sm:text-xs border-0 ${
+                        announcement.type === "urgent"
+                          ? "bg-red-500/20 text-red-200"
+                          : announcement.type === "offer"
+                          ? "bg-green-500/20 text-green-200"
+                          : announcement.type === "event"
+                          ? "bg-blue-500/20 text-blue-200"
+                          : announcement.type === "achievement"
+                          ? "bg-yellow-500/20 text-yellow-200"
+                          : "bg-gray-500/20 text-gray-200"
+                      }`}
+                    >
+                      {announcement.type.toUpperCase()}
+                    </Badge>
+                    <div className="w-px h-4 bg-white/30 mx-2 sm:mx-4"></div>
+                  </div>
+                );
+
+                return isExternal ? (
+                  <a
+                    key={`${announcement.id}-${index}`}
+                    href={announcement.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <Link key={`${announcement.id}-${index}`} href={announcement.href}>
+                    {content}
+                  </Link>
+                );
+              })
+            )}
           </div>
         </div>
       </div>
