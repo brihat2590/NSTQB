@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Poppins } from "next/font/google";
 import "./globals.css";
@@ -22,14 +22,41 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: 'NSTQB – Nepal Software Testing Qualitative Body',
-  description: 'Official ISTQB® accredited body. Register for exams, explore events, read blogs, and take mock CTFL exams with NSTQB.',
+  description:
+    'Official ISTQB® accredited body. Register for exams, explore events, read blogs, and take mock CTFL exams with NSTQB.',
   icons: {
     icon: '/favicon1.ico',
     apple: '/favicon1.ico',
     shortcut: '/favicon1.ico',
-  }
-  
-}
+  },
+  openGraph: {
+    title: 'NSTQB – Nepal Software Testing Qualitative Body',
+    description:
+      'Register for ISTQB exams, read blogs, take mock CTFL exams, and explore software testing events in Nepal.',
+    url: 'https://nstqb.org',
+    siteName: 'NSTQB',
+    images: [
+      {
+        url: '/whiteImage.png', // stored in public folder
+        width: 1200,
+        height: 630,
+        alt: 'NSTQB official banner',
+      },
+    ],
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'NSTQB – Nepal Software Testing Qualitative Body',
+    description:
+      'Join NSTQB to register for ISTQB exams, read software testing blogs, and practice with CTFL mock exams.',
+    images: ['/whiteImage.png'],
+    creator: '@nstqb', // optional Twitter handle
+  },
+  metadataBase: new URL('https://nstqb.org'),
+};
+
 
 
 export default function RootLayout({

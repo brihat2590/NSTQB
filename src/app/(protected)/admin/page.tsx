@@ -80,7 +80,20 @@ const AdminDashboard = () => {
             onClick={() => router.push('/registration-admin')}
             colorClass="bg-emerald-100 text-emerald-700"
           />
+          <DashboardCard 
+            title="Exam Question Admin"
+            description="Manage exam questions and answer choices ,add,update,delete"
+            icon={
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 20h9M16.5 3.5l4 4L7 21H3v-4L16.5 3.5z" />
+              </svg>
+
+            }
+            onClick={() => router.push('/exam-admin')}
+            colorClass="bg-emerald-100 text-emerald-700"
+          />
         </div>
+        
       </main>
     </div>
   );

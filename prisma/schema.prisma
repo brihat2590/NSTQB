@@ -124,3 +124,30 @@ model ExamRegistration{
   remarks String?
   createdAt DateTime @default(now())
 }
+model QuestionSet {
+  id        Int        @id @default(autoincrement())
+  title     String
+  questions Question[]
+  createdAt DateTime   @default(now())
+  
+}
+
+model Question {
+  id             Int      @id @default(autoincrement())
+  chapter        String
+  type           QuestionType
+  question       String
+  options        String[] // Exactly 4 options
+  correctAnswer  Int?      // Use -1 if not applicable
+  correctAnswers Int[]    // Use [] if not applicable
+  explanation    String
+  setId          Int
+  set            QuestionSet @relation(fields: [setId], references: [id])
+  createdAt      DateTime @default(now())
+  
+}
+
+enum QuestionType {
+  single
+  multiple
+}

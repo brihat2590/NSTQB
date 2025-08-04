@@ -13,6 +13,18 @@ type Blog = {
   createdAt: string;
   updatedAt: string;
 };
+// async function fetchBlog(slug:string):Promise<Blog|null>{
+//   const res=await fetch(`api/blogs/${slug}`,{cache:"no-store"});
+//   if(!res.ok) return null;
+//   return res.json();
+// }
+// export async function generateMetadata({params}:{params: Promise<{slug:string}>}){
+//   const {slug}=await params;
+//   const blog=await fetchBlog(slug);
+  
+
+
+// }
 
 export default function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const [blog, setBlog] = useState<Blog | null>(null);
@@ -35,6 +47,8 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
       </div>
     );
   }
+
+  
 
   return (
     <div className="min-h-screen bg-gray-50">

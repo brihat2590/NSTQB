@@ -59,7 +59,7 @@ export default function MockTest() {
   const router=useRouter();
 
 const questionSets: Record<SetKey, Question[]> = {
-  set1: mockQuestions,
+  set1: mockQuestions, 
   set2: mockQuestions2,
   set3: mockQuestions3,
   set4:mockQuestions4
@@ -571,145 +571,166 @@ const [showModal, setShowModal] = useState(false);
 
   // Results page
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-red-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        
+    <div className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header Section */}
+        <div className="relative mb-12">
+          <div className="flex items-center justify-between">
+            <a
+              href="/mock-test"
+              className="group flex items-center gap-2 text-indigo-600 hover:text-indigo-800 transition-colors duration-300"
+            >
+              <ArrowLeft className="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" />
+              <span className="font-medium">Back to Test</span>
+            </a>
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+              Your Test Results
+            </h1>
+            <div className="w-24"></div> {/* Spacer for alignment */}
+          </div>
+          <div className="absolute left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mt-4 rounded-full"></div>
+        </div>
 
-        {/* Score Summary */}
-        <Card className="shadow-lg mb-8">
-            {/* <div className="flex items-start "><ArrowLeftFromLineIcon/></div> */}
-          <CardHeader>
-            <a href="/mock-test" className="flex items-start"><ArrowLeft/></a>
-            <CardTitle className="text-center text-2xl ">Your Score</CardTitle>
-          </CardHeader>
-          <CardContent className="text-center space-y-6">
+        {/* Score Summary Section */}
+        <div className="bg-gradient-to-b from-gray-50 to-white p-8 mb-12 rounded-3xl shadow-sm">
+          <div className="text-center space-y-6">
             <div className="space-y-4">
-              <div className={`text-6xl font-bold ${getScoreColor(score)}`}>{score}/40</div>
-              <div className="text-2xl text-gray-600">{Math.round((score / 40) * 100)}%</div>
-              <div className={`text-xl font-semibold ${getScoreColor(score)}`}>{getScoreMessage(score)}</div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 pt-6 border-t">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">{score}</div>
-                <div className="text-gray-600">Correct</div>
+              <div className={`text-6xl sm:text-7xl font-extrabold ${getScoreColor(score)} tracking-tight`}>
+                {score}/40
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-red-600">{40 - score}</div>
-                <div className="text-gray-600">Incorrect</div>
+              <div className="text-2xl sm:text-3xl text-gray-500 font-medium">
+                {Math.round((score / 40) * 100)}%
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">{score >= 26 ? "PASS" : "FAIL"}</div>
-                <div className="text-gray-600">Result</div>
+              <div className={`text-xl sm:text-2xl font-semibold ${getScoreColor(score)} animate-pulse`}>
+                {getScoreMessage(score)}
               </div>
             </div>
-          </CardContent>
-        </Card>
-
-        
-
-        {/* Review Answers */}
-        <Card className="shadow-lg mb-8">
-          <CardHeader>
-            <CardTitle>Review Your Answers</CardTitle>
-            <div className="flex gap-2">
-              <Button
-                variant={showExplanations ? "default" : "outline"}
-                onClick={() => setShowExplanations(!showExplanations)}
-                size="sm"
-              >
-                {showExplanations ? "Hide" : "Show"} Explanations
-              </Button>
+            <div className="grid sm:grid-cols-3 gap-6 sm:gap-12 pt-8">
+              <div className="text-center">
+                <div className="text-3xl sm:text-4xl font-bold text-emerald-700">{score}</div>
+                <div className="text-gray-500 text-sm sm:text-base">Correct Answers</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl sm:text-4xl font-bold text-rose-600">{40 - score}</div>
+                <div className="text-gray-500 text-sm sm:text-base">Incorrect Answers</div>
+              </div>
+              <div className="text-center">
+                <div className={`text-3xl sm:text-4xl font-bold ${score >= 26 ? 'text-indigo-600' : 'text-rose-600'}`}>
+                  {score >= 26 ? 'PASS' : 'FAIL'}
+                </div>
+                <div className="text-gray-500 text-sm sm:text-base">Result</div>
+              </div>
             </div>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              {questionToRender.map((question, index) => {
-                const userAnswer = answers[index]
-                let isCorrectOverall = false
+          </div>
+        </div>
 
-                if (question.type === "single") {
-                  isCorrectOverall = userAnswer === question.correctAnswer
-                } else {
-                  const userAnswers = Array.isArray(userAnswer) ? userAnswer.sort() : []
-                  const correctAnswersArray = question.correctAnswers.sort()
-                  isCorrectOverall = JSON.stringify(userAnswers) === JSON.stringify(correctAnswersArray)
-                }
+        {/* Review Answers Section */}
+        <div className="space-y-6">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Answer Review</h2>
+            <button
+              className={`px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base font-medium transition-all duration-300 ${
+                showExplanations
+                  ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+              onClick={() => setShowExplanations(!showExplanations)}
+            >
+              {showExplanations ? 'Hide Explanations' : 'Show Explanations'}
+            </button>
+          </div>
+          {questionToRender.map((question, index) => {
+            const userAnswer = answers[index];
+            let isCorrectOverall = false;
 
-                return (
-                  <div key={question.id} className="border rounded-lg p-4">
-                    <div className="flex items-start gap-3 mb-3">
-                      <div
-                        className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                          isCorrectOverall ? "bg-green-500 text-white" : "bg-red-500 text-white"
-                        }`}
-                      >
-                        {isCorrectOverall ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="font-semibold">Question {index + 1}</span>
-                          <Badge variant="secondary" className="text-xs">
-                            {question.chapter}
-                          </Badge>
-                        </div>
-                        <p className="text-gray-900 mb-3">{question.question}</p>
+            if (question.type === 'single') {
+              isCorrectOverall = userAnswer === question.correctAnswer;
+            } else {
+              const userAnswers = Array.isArray(userAnswer) ? userAnswer.sort() : [];
+              const correctAnswersArray = question.correctAnswers.sort();
+              isCorrectOverall = JSON.stringify(userAnswers) === JSON.stringify(correctAnswersArray);
+            }
 
-                        <div className="space-y-2">
-                          {question.options.map((option, optionIndex) => {
-                            let isCorrect, isUserAnswer
+            return (
+              <div key={question.id} className="p-5 hover:bg-gray-50 transition-colors duration-200 rounded-2xl">
+                <div className="flex items-start gap-4 mb-4">
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      isCorrectOverall ? 'bg-emerald-500 text-white' : 'bg-rose-500 text-white'
+                    }`}
+                  >
+                    {isCorrectOverall ? (
+                      <CheckCircle className="h-5 w-5" />
+                    ) : (
+                      <XCircle className="h-5 w-5" />
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="font-semibold text-gray-900 text-lg">Question {index + 1}</span>
+                      <span className="bg-indigo-100 text-indigo-800 text-xs font-medium px-3 py-1 rounded-full">
+                        {question.chapter}
+                      </span>
+                    </div>
+                    <p className="text-gray-800 mb-4 font-medium text-base sm:text-lg">{question.question}</p>
+                    <div className="space-y-2">
+                      {question.options.map((option, optionIndex) => {
+                        let isCorrect, isUserAnswer;
 
-                            if (question.type === "single") {
-                              isCorrect = optionIndex === question.correctAnswer
-                              isUserAnswer = optionIndex === userAnswer
-                            } else {
-                              isCorrect = question.correctAnswers.includes(optionIndex)
-                              isUserAnswer = Array.isArray(userAnswer) && userAnswer.includes(optionIndex)
-                            }
+                        if (question.type === 'single') {
+                          isCorrect = optionIndex === question.correctAnswer;
+                          isUserAnswer = optionIndex === userAnswer;
+                        } else {
+                          isCorrect = question.correctAnswers.includes(optionIndex);
+                          isUserAnswer = Array.isArray(userAnswer) && userAnswer.includes(optionIndex);
+                        }
 
-                            return (
-                              <div
-                                key={optionIndex}
-                                className={`p-2 rounded text-sm ${
-                                  isCorrect
-                                    ? "bg-green-100 text-green-800 border border-green-300"
-                                    : isUserAnswer && !isCorrect
-                                      ? "bg-red-100 text-red-800 border border-red-300"
-                                      : "bg-gray-50"
+                        return (
+                          <div
+                            key={optionIndex}
+                            className={`p-3 rounded-lg text-sm sm:text-base flex items-center transition-colors duration-200 ${
+                              isCorrect
+                                ? 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100'
+                                : isUserAnswer && !isCorrect
+                                ? 'bg-rose-50 text-rose-800 hover:bg-rose-100'
+                                : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                            }`}
+                          >
+                            <span className="font-medium mr-2">{String.fromCharCode(65 + optionIndex)}.</span>
+                            <span className="flex-1">{option}</span>
+                            {isCorrect && (
+                              <span className="ml-2 text-emerald-600 font-medium">(Correct)</span>
+                            )}
+                            {isUserAnswer && (
+                              <span
+                                className={`ml-2 font-medium ${
+                                  isCorrect ? 'text-indigo-600' : 'text-rose-600'
                                 }`}
                               >
-                                <span className="font-medium mr-2">{String.fromCharCode(65 + optionIndex)}.</span>
-                                {option}
-                                {isCorrect && <span className="ml-2 text-green-600 font-medium">(Correct)</span>}
-{isUserAnswer && (
-  <span className={`ml-2 font-medium ${isCorrect ? "text-blue-600" : "text-red-600"}`}>
-    (Your answer)
-  </span>
-)}
-
-                              </div>
-                            )
-                          })}
-                        </div>
-
-                        {showExplanations && (
-                          <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded">
-                            <p className="text-sm text-blue-800">
-                              <strong>Explanation:</strong> {question.explanation}
-                            </p>
+                                (Your answer)
+                              </span>
+                            )}
                           </div>
-                        )}
-                      </div>
+                        );
+                      })}
                     </div>
+                    {showExplanations && (
+                      <div className="mt-4 p-4 bg-indigo-50 rounded-lg">
+                        <p className="text-sm sm:text-base text-indigo-800">
+                          <strong>Explanation:</strong> {question.explanation}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                )
-              })}
-            </div>
-          </CardContent>
-        </Card>
-
-        
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
+    
+    
+    
   )
 }
