@@ -19,7 +19,7 @@ export default function LandingPage() {
           <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-gradient-to-r from-blue-50 to-transparent transform -skew-x-12 -translate-x-1/4" />
         </div>
 
-        <div className="relative max-w-[1400px] mx-auto px-6 lg:px-8 pt-20 md:py-20 md:flex md:items-center md:justify-between gap-10">
+        <div className="relative max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 md:py-20 md:flex md:items-center md:justify-between gap-10">
           {/* Left Content */}
           <div className="flex-1 max-w-2xl space-y-8">
             <div className="space-y-6">
@@ -41,30 +41,32 @@ export default function LandingPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-red-600 to-blue-600 text-white hover:from-red-700 hover:to-blue-700 font-semibold px-8 py-6 rounded-lg"
-                  onClick={
-                    ()=>{
-                      router.push("/FAQ")
-                    }
-                  }
-                >
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  More Information
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-blue-600 text-blue-600  font-semibold px-8 py-6 rounded-lg hover:bg-blue-600 hover:text-white"
-                  onClick={()=>{
-                    router.push("/registration")
-                  }}
-                >
-                  <Calendar className="mr-2 h-5 w-5" />
-                  Reserve Seat
-                </Button>
-              </div>
+  {/* More Information Button */}
+  <Button
+    size="lg"
+    className="bg-gradient-to-r from-red-600 to-blue-600 text-white font-semibold px-8 py-6 rounded-lg shadow-lg transition-all duration-300 ease-out hover:scale-105 hover:shadow-xl hover:from-red-500 hover:to-blue-500"
+    onClick={() => {
+      router.push("/FAQ");
+    }}
+  >
+    <BookOpen className="mr-2 h-5 w-5" />
+    More Information
+  </Button>
+
+  {/* Reserve Seat Button */}
+  <Button
+    size="lg"
+    variant="outline"
+    className="border-2 border-blue-600 text-blue-600 font-semibold px-8 py-6 rounded-lg shadow-md transition-all duration-300 ease-out hover:scale-105 hover:bg-blue-600 hover:text-white hover:shadow-lg"
+    onClick={() => {
+      router.push("/registration");
+    }}
+  >
+    <Calendar className="mr-2 h-5 w-5" />
+    Reserve Seat
+  </Button>
+</div>
+
             </div>
 
             {/* Partner Logos */}

@@ -153,7 +153,7 @@ export default function ExamCalendar() {
               </p>
               <div className="flex gap-2 mt-4">
                 <Button
-                  className="w-full bg-gradient-to-r from-red-600 to-blue-600 text-white hover:bg-red-700 hover:to-blue-700 transition-colors "
+                  className="bg-gradient-to-r from-red-600 to-blue-600 text-white font-semibold px-8 py-6 rounded-lg shadow-lg transition-all duration-300 ease-out  hover:shadow-xl hover:from-red-500 hover:to-blue-500  w-full  "
                   disabled={isRegistrationClosed(exam) || isExamCompleted(exam)}
                   onClick={() => router.push('/registration')}
                 >

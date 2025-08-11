@@ -19,6 +19,7 @@ import {
   Flag,
   ArrowLeftFromLineIcon,
   ArrowLeft,
+  Infinity,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
@@ -318,27 +319,37 @@ const [showModal, setShowModal] = useState(false);
         Start Exam
       </motion.button>
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
-            <h2 className="text-lg font-semibold mb-4">Confirm Start</h2>
-            <p className="mb-6">Are you sure you want to start the exam now? You will have 60 mins to complete the exam.</p>
-            <div className="flex justify-center  gap-3">
-              <button
-                onClick={() => setShowModal(false)}
-                className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-lg"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={startQuiz}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 rounded-lg"
-              >
-                Start
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+  <div className="fixed inset-0 flex items-center justify-center bg-neutral-900/80 backdrop-blur-sm z-50">
+    <div className="bg-white rounded-xl shadow-xl p-8 max-w-lg w-full mx-4 border border-gray-100">
+      <div className="mb-6 text-center">
+        <h2 className="text-2xl font-bold text-gray-800 mb-3">Examination Confirmation</h2>
+        <div className="h-1 w-20 bg-blue-500 mx-auto rounded-full"></div>
+      </div>
+
+      <p className="text-gray-600 mb-7 text-center leading-relaxed">
+        You are about to initiate a timed assessment. The examination duration is 60 minutes and cannot be paused once started.
+      </p>
+      
+
+      
+
+      <div className="flex justify-center space-x-4">
+        <button
+          onClick={() => setShowModal(false)}
+          className="px-6 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 font-medium shadow-sm hover:shadow"
+        >
+          Return
+        </button>
+        <button
+          onClick={startQuiz}
+          className="px-6 py-2.5 text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 font-medium shadow-md hover:shadow-lg"
+        >
+          Commence Examination
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
 
 
