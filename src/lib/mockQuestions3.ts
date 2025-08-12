@@ -1,4 +1,4 @@
-export const mockQuestions4=[
+export const mockQuestions3=[
     {
         id: 1,
         chapter: "Fundamentals of Testing",
