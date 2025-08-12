@@ -1,606 +1,566 @@
 export const mockQuestions2=[
-  
     {
       id: 1,
-      chapter: "Fundamentals of Testing",
       type: "single",
-      question: "Software testing activities should start:",
+      question: "Which of the following provides the BEST description of a test case?",
       options: [
-        "as soon as the code is written",
-        "during the design stage",
-        "when the requirements have been formally documented",
-        "as soon as possible in the development life cycle"
+        "A document specifying a sequence of actions for the execution of a test. Also known as test script or manual test script.",
+        "A set of input values and expected results, with execution preconditions and execution postconditions, developed for a particular test condition.",
+        "An attribute of a system specified by requirements documentation (for example reliability, usability or design constraints) that is executed in a test.",
+        "An item or event of a system that could be verified by one or more test conditions, e.g., a function, transaction, feature, quality attribute, or structural element."
       ],
-      correctAnswer: 3,
+      correctAnswer: 1,
       correctAnswers: [],
-      explanation: "Testing should begin early in the SDLC to identify defects when they're least expensive to fix."
+      explanation: ""
     },
     {
       id: 2,
-      chapter: "Fundamentals of Testing",
       type: "single",
-      question: "Faults found by users are due to:",
+      question: "Which of the following is a major objective of testing?",
       options: [
-        "Poor quality software",
-        "Poor software and poor testing",
-        "bad luck",
-        "insufficient time for testing"
+        "To prevent defects.",
+        "To validate the project plan works as required.",
+        "To gain confidence in the development team.",
+        "To make release decisions for the system under test."
       ],
-      correctAnswer: 1,
+      correctAnswer: 0,
       correctAnswers: [],
-      explanation: "Faults found in production typically result from inadequate testing processes combined with software quality issues."
+      explanation: ""
     },
     {
       id: 3,
-      chapter: "Fundamentals of Testing",
       type: "single",
-      question: "What is the main reason for testing software before releasing it?",
+      question: "Which of the following statements correctly describes the difference between testing and debugging?",
       options: [
-        "To show that software will always work correctly",
-        "To demonstrate that no defects remain",
-        "To gain confidence in its quality",
-        "To satisfy contractual requirements"
+        "Testing identifies the source of defects; debugging analyzes the defects and proposes prevention activities.",
+        "Dynamic testing shows failures caused by defects; debugging finds, analyzes, and removes the causes of failures in the software.",
+        "Testing removes defects; debugging identifies the causes of failures.",
+        "Dynamic testing prevents the causes of failures; debugging removes the failures."
       ],
-      correctAnswer: 2,
+      correctAnswer: 1,
       correctAnswers: [],
-      explanation: "Testing provides objective information about quality to support decision-making."
+      explanation: ""
     },
     {
       id: 4,
-      chapter: "Testing Throughout the SDLC",
       type: "single",
-      question: "Which statement about component testing is FALSE?",
+      question: "Which one of the statements below describes the most common situation for a failure discovered during testing or in production?",
       options: [
-        "May cover functional and non-functional characteristics",
-        "Tests are derived from component specifications",
-        "Usually done by testers",
-        "May be done in isolation from other components"
+        "The product crashed when the user selected an option in a dialog box.",
+        "The wrong version of a compiled source code file was included in the build.",
+        "The computation algorithm used the wrong input variables.",
+        "The developer misinterpreted the requirement for the algorithm."
       ],
-      correctAnswer: 2,
+      correctAnswer: 0,
       correctAnswers: [],
-      explanation: "Component testing is typically performed by testers"
+      explanation: ""
     },
     {
       id: 5,
-      chapter: "Test Management",
       type: "single",
-      question: "Which is the BEST practice when reporting faults found during testing?",
+      question: "As a result of risk analysis, more testing is being directed to those areas of the system under test where initial testing found more defects than average. Which of the following testing principles is being applied?",
       options: [
-        "Write detailed steps including all possible data combinations",
-        "Include suggestions for fixing the fault",
-        "Write clear, concise, and factual reports",
-        "Only report faults that will definitely be fixed"
+        "Beware of the pesticide paradox.",
+        "Testing is context dependent.",
+        "Absence-of-errors is a fallacy.",
+        "Defects cluster together."
       ],
-      correctAnswer: 2,
+      correctAnswer: 3,
       correctAnswers: [],
-      explanation: "Effective incident reports should be objective, specific, and focus on reproducibility."
+      explanation: ""
     },
     {
       id: 6,
-      chapter: "Test Management",
       type: "single",
-      question: "What is the correct order of test execution?",
+      question: "In what way can testing be part of Quality Assurance?",
       options: [
-        "System, Integration, Component, Acceptance",
-        "Component, Integration, System, Acceptance",
-        "Component, System, Integration, Acceptance",
-        "Acceptance, System, Integration, Component"
+        "It ensures that requirements are detailed enough.",
+        "It contributes to the achievement of quality in a variety of ways.",
+        "It ensures that standards in the organization are followed.",
+        "It measures the quality of software in terms of number of executed test cases."
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: "Testing typically progresses from component to integration to system to acceptance levels."
+      explanation: ""
     },
     {
       id: 7,
-      chapter: "Fundamentals of Testing",
       type: "single",
-      question: "When is the cost to fix a defect typically highest?",
+      question: "Which of the following BEST describes how value is added by maintaining traceability between the test basis and test artifacts?",
       options: [
-        "During component testing",
-        "During acceptance testing",
-        "During requirements analysis",
-        "During maintenance after release"
+        "Maintenance testing can be fully automated based on changes to the initial requirements.",
+        "It is possible to determine if a new test case has increased coverage of the requirements.",
+        "Test managers can identify which testers found the highest severity defects.",
+        "Areas that may be impacted by side-effects of a change can be targeted by confirmation testing."
       ],
-      correctAnswer: 3,
+      correctAnswer: 1,
       correctAnswers: [],
-      explanation: "Defect correction costs increase exponentially through the SDLC, peaking after release."
+      explanation: ""
     },
     {
       id: 8,
-      chapter: "Test Techniques",
       type: "single",
-      question: "Which is a black box test design technique?",
+      question: "Which of the following qualities is MORE likely to be found in a tester\u2019s mindset rather than in a developer\u2019s?",
       options: [
-        "Statement testing",
-        "Branch testing",
-        "Equivalence partitioning",
-        "LCSAJ testing"
+        "Experience on which to base their efforts.",
+        "Ability to see what might go wrong.",
+        "Good communication with team members.",
+        "Attention to detail."
       ],
-      correctAnswer: 2,
+      correctAnswer: 1,
       correctAnswers: [],
-      explanation: "Equivalence partitioning uses specification-based information without internal implementation details."
+      explanation: ""
     },
     {
       id: 9,
-      chapter: "Test Management",
       type: "single",
-      question: "Which term describes test documentation?",
+      question: "Given the following statements about the relationships between software development activities and test activities in the software development lifecycle:\n1. Each development activity should have a corresponding testing activity.\n2. Reviewing should start as soon as final versions of documents become available.\n3. The design and implementation of tests should start during the corresponding development activity\n4. Testing activities should start in the early stages of the software development lifecycle.\nWhich of the following CORRECTLY shows which are true and false?",
       options: [
-        "Test policy",
-        "Test strategy",
-        "Test plan",
-        "Testware"
+        "True \u2013 1, 2; False \u2013 3, 4",
+        "True \u2013 2, 3; False \u2013 1, 2",
+        "True \u2013 1, 2, 4; False \u2013 3",
+        "True \u2013 1, 4; False \u2013 2, 3"
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: "Testware includes all artifacts produced during the test process."
+      explanation: ""
     },
     {
       id: 10,
-      chapter: "Test Management",
       type: "single",
-      question: "Which is a key purpose of configuration management?",
+      question: "Given that the testing being performed has the following attributes:\nbased on interface specifications; focused on finding failures in communication; the test approach uses both functional and structural test types. Which of the following test levels is MOST likely being performed?",
       options: [
-        "To manage test execution schedules",
-        "To track test results",
-        "To identify test procedures",
-        "To uniquely identify testware versions"
+        "Component integration testing.",
+        "Acceptance testing.",
+        "System testing.",
+        "Component testing."
       ],
-      correctAnswer: 3,
+      correctAnswer: 0,
       correctAnswers: [],
-      explanation: "Configuration management ensures version control and traceability of test artifacts."
+      explanation: ""
     },
     {
       id: 11,
-      chapter: "Test Management",
       type: "single",
-      question: "Which is a key benefit of incident logging systems?",
+      question: "Which of the following statements about test types and test levels is CORRECT?",
       options: [
-        "Automatically fix defects",
-        "Provide statistics for progress tracking",
-        "Prioritize business requirements",
-        "Generate test data"
+        "Functional and non-functional testing can be performed at system and acceptance test levels, while white-box testing is restricted to component and integration testing.",
+        "Functional testing can be performed at any test level, while white-box testing is restricted to component testing.",
+        "It is possible to perform functional, non-functional and white-box testing at any test level.",
+        "Functional and non-functional testing can be performed at any test level, while white-box testing is restricted to component and integration testing."
       ],
-      correctAnswer: 1,
+      correctAnswer: 2,
       correctAnswers: [],
-      explanation: "Incident metrics support test monitoring and control activities."
+      explanation: ""
     },
     {
       id: 12,
-      chapter: "Fundamentals of Testing",
       type: "single",
-      question: "What is the impact of poor software quality on testing time?",
+      question: "Which of the following statements BEST compares the purposes of confirmation testing and regression testing?",
       options: [
-        "Reduces testing time",
-        "Increases testing time",
-        "No impact on testing time",
-        "Eliminates need for testing"
+        "The purpose of regression testing is to ensure that all previously run tests still work correctly, while the purpose of confirmation testing is to ensure that any fixes made to one part of the system have not adversely affected other parts.",
+        "The purpose of confirmation testing is to check that a previously found defect has been fixed, while the purpose of regression testing is to ensure that no other parts of the system have been adversely affected by the fix.",
+        "The purpose of regression testing is to ensure that any changes to one part of the system have not caused another part to fail, while the purpose of confirmation testing is to check that all previously run tests still provide the same results as before.",
+        "The purpose of confirmation testing is to confirm that changes to the system were made successfully, while the purpose of regression testing is to run tests that previously failed to ensure that they now work correctly."
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: "Higher defect density requires more test execution and retesting cycles."
+      explanation: ""
     },
     {
       id: 13,
-      chapter: "Test Management",
       type: "single",
-      question: "Which is a valid coverage measure?",
+      question: "Which of the following statements CORRECTLY describes a role of impact analysis in Maintenance Testing?",
       options: [
-        "Percentage of requirements tested",
-        "Number of test cases executed",
-        "Number of defects found",
-        "Time spent testing"
+        "Impact analysis is used when deciding if a fix to a maintained system is worthwhile.",
+        "Impact analysis is used to identify how data should be migrated into the maintained system.",
+        "Impact analysis is used to decide which hot fixes are of most value to the user.",
+        "Impact analysis is used to determine the effectiveness of new maintenance test cases."
       ],
       correctAnswer: 0,
       correctAnswers: [],
-      explanation: "Requirements coverage quantifies how thoroughly requirements are tested."
+      explanation: ""
     },
     {
       id: 14,
-      chapter: "Test Techniques",
       type: "single",
-      question: "Which is a non-functional test?",
+      question: "Which of the following statements CORRECTLY reflects the value of static testing?",
       options: [
-        "Testing menu options",
-        "Testing calculation results",
-        "Testing response times",
-        "Testing boundary values"
+        "By introducing reviews, we have found that both the quality of specifications and the time required for development and testing have increased.",
+        "Using static testing means we have better control and cheaper defect management due to the ease of removing defects later in the life cycle.",
+        "Now that we require the use of static analysis, missed requirements have decreased and communication between testers and developers has improved.",
+        "Since we started using static analysis, we find coding defects that might have not been found by performing only dynamic testing."
       ],
-      correctAnswer: 2,
+      correctAnswer: 3,
       correctAnswers: [],
-      explanation: "Performance testing evaluates system characteristics like speed and scalability."
+      explanation: ""
     },
     {
       id: 15,
-      chapter: "Test Tools",
       type: "single",
-      question: "Which tool detects memory leaks?",
+      question: "Which of the following sequences BEST shows the main activities of the work product review process?",
       options: [
-        "Coverage tool",
-        "Static analyzer",
-        "Dynamic analyzer",
-        "Test comparator"
+        "Initiate review \u2013 Reviewer selection \u2013 Individual review \u2013 Issue communication and analysis \u2013 Rework",
+        "Planning & preparation \u2013 Overview meeting \u2013 Individual review \u2013 Fix\u2013 Report",
+        "Preparation \u2013 Issue Detection \u2013 Issue communication and analysis \u2013 Rework \u2013 Report",
+        "Plan \u2013 Initiate review \u2013 Individual review \u2013 Issue communication and analysis \u2013 Fix defects & report"
       ],
-      correctAnswer: 2,
+      correctAnswer: 3,
       correctAnswers: [],
-      explanation: "Dynamic analysis tools monitor runtime behavior including memory allocation."
+      explanation: ""
     },
     {
       id: 16,
-      chapter: "Test Management",
       type: "single",
-      question: "Which is a standard for software testing?",
+      question: "Which of the following CORRECTLY matches the roles and responsibilities in a formal review?",
       options: [
-        "ISO 9000",
-        "ISO 9126",
-        "IEEE 829",
-        "BS 7925-2"
+        "Manager \u2013 Decides on the execution of reviews",
+        "Review Leader - Ensures effective running of review meetings",
+        "Scribe \u2013 Fixes defects in the work product under review",
+        "Moderator \u2013 Monitors ongoing cost-effectiveness"
       ],
-      correctAnswer: 3,
+      correctAnswer: 0,
       correctAnswers: [],
-      explanation: "BS 7925-2 specifically addresses software component testing standards."
+      explanation: ""
     },
     {
       id: 17,
-      chapter: "Test Techniques",
       type: "single",
-      question: "Which test design technique uses boundary value analysis?",
+      question: "The reviews being used in your organization have the following attributes:\nThere is a role of a scribe\nThe purpose is to detect potential defects\nThe review meeting is led by the author\nReviewers find potential defects by individual review\nA review report is produced\nWhich of the following review types is MOST likely being used?",
       options: [
-        "Specification-based",
-        "Structure-based",
-        "Experience-based",
-        "Fault-based"
+        "Informal Review",
+        "Walkthrough",
+        "Technical Review",
+        "Inspection"
       ],
-      correctAnswer: 0,
+      correctAnswer: 1,
       correctAnswers: [],
-      explanation: "Boundary analysis derives tests from specification boundaries."
+      explanation: ""
     },
     {
       id: 18,
-      chapter: "Testing Throughout the SDLC",
       type: "single",
-      question: "Which is a static testing technique?",
+      question: "You have been asked to take part in a checklist-based review of the following excerpt from the requirements specification for a library system:\nLibrarians can:\n1. Register new borrowers.\n2. Return books from borrowers.\n3. Accept fines from borrowers.\n4. Add new books to the system with their ISBN, author and title.\n5. Remove books from the system.\n6. Get system responses within 5 seconds.\nBorrowers can:\n7. Borrow a maximum of 3 books at one time.\n8. View the history of books they have borrowed/reserved.\n9. Be fined for failing to return a book within 3 weeks.\n10. Get system responses within 3 seconds.\n11. Borrow a book at no cost for a maximum of 4 weeks.\n12. Reserve books (if they are on-loan).\nAll users (librarians and borrowers):\n13. Can search for books by ISBN, author, or title.\n14. Can browse the system catalogue.\n15. The system shall respond to user requests within 3 seconds.\n16. The user interface shall be easy-to-use.\nYou have been assigned the checklist entry that requires you to review the specification for inconsistencies between individual requirements (i.e. conflicts between requirements).\nWhich of the following CORRECTLY identifies inconsistencies between pairs of requirements?",
       options: [
-        "Control flow analysis",
-        "Decision table testing",
-        "Exploratory testing",
-        "Use case testing"
+        "6-10, 6-15, 7-12",
+        "6-15, 9-11",
+        "6-10, 6-15, 9-11",
+        "6-15, 7-12"
       ],
-      correctAnswer: 0,
+      correctAnswer: 1,
       correctAnswers: [],
-      explanation: "Static analysis examines code without execution."
+      explanation: ""
     },
     {
       id: 19,
-      chapter: "Test Techniques",
       type: "single",
-      question: "Which is a form of logic coverage?",
+      question: "Which of the following provides the BEST description of exploratory testing?",
       options: [
-        "Statement coverage",
-        "Path coverage",
-        "Decision coverage",
-        "Boundary value coverage"
+        "A testing practice in which an in-depth investigation of the background of the test object is used to identify potential weaknesses that are examined by test cases.",
+        "An approach to testing whereby the testers dynamically design and execute tests based on their knowledge, exploration of the test item and the results of previous tests.",
+        "An approach to test design in which test activities are planned as uninterrupted sessions of test analysis and design, often used in conjunction with checklist-based testing.",
+        "Testing based on the tester's experience, knowledge and intuition."
       ],
-      correctAnswer: 2,
+      correctAnswer: 1,
       correctAnswers: [],
-      explanation: "Decision coverage measures boolean expression evaluation completeness."
+      explanation: ""
     },
     {
       id: 20,
-      chapter: "Test Management",
       type: "single",
-      question: "Which ISO 9126 characteristic covers maintainability?",
+      question: "Which of the following BEST matches the descriptions with the different categories of test techniques?\na1. Coverage is measured based on a selected structure of the test object.\n2. The processing within the test object is checked.\n3. Tests are based on defects' likelihood and their distribution.\n4. Deviations from the requirements are checked.\n5. User stories are used as the test basis.\nBlack - Black-box test techniques\nWhite - White-box test techniques\nExperience - Experience-based test techniques",
       options: [
-        "Functionality",
-        "Reliability",
-        "Efficiency",
-        "Maintainability"
+        "Black \u2013 4, 5 White \u2013 1, 2 Experience \u2013 3",
+        "Black \u2013 3 White \u2013 1, 2 Experience \u2013 4, 5",
+        "Black \u2013 4 White \u2013 1, 2 Experience \u2013 3, 5",
+        "Black \u2013 1, 3, 5 White \u2013 2 Experience \u2013 4"
       ],
-      correctAnswer: 3,
+      correctAnswer: 0,
       correctAnswers: [],
-      explanation: "Maintainability directly addresses modifiability characteristics."
+      explanation: ""
     },
     {
       id: 21,
-      chapter: "Test Tools",
       type: "single",
-      question: "What replaces components called by the test object?",
+      question: "A fitness app measures the number of steps that are walked each day and provides feedback to encourage the user to keep fit. The feedback for different numbers of steps should be:\nUp to 1000 - Couch Potato!\nAbove 1000, up to 2000 - Lazy Bones!\nAbove 2000, up to 4000 - Getting There!\nAbove 4000, up to 6000 - Not Bad!\nAbove 6000 - Way to Go!\nWhich of the following sets of test inputs would achieve the highest equivalence partition coverage?",
       options: [
-        "Driver",
-        "Stub",
-        "Emulator",
-        "Simulator"
+        "0, 1000, 2000, 3000, 4000",
+        "1000, 2001, 4000, 4001, 6000",
+        "123, 2345, 3456, 4567, 5678",
+        "666, 999, 2222, 5555, 6666"
       ],
-      correctAnswer: 1,
+      correctAnswer: 3,
       correctAnswers: [],
-      explanation: "Stubs simulate called components during integration testing."
+      explanation: ""
     },
     {
       id: 22,
-      chapter: "Test Management",
       type: "single",
-      question: "What is the basis for acceptance test cases?",
+      question: "A daily radiation recorder for plants produces a sunshine score based on a combination of thenumber of hours a plant is exposed to the sun (below 3 hours, 3 to 6 hours or above 6 hours)and the average intensity of the sunshine (very low, low, medium, high).\n Given the following test cases:",
       options: [
-        "Technical specifications",
-        "Business requirements",
-        "Code structure",
-        "Test strategy"
+        "1",
+        "2",
+        "3",
+        "4"
       ],
+      image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754983214/Screenshot_from_2025-08-12_12-49-26_kgy08s.png",
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: "Acceptance testing validates fitness for purpose from business perspective."
+      explanation: ""
     },
     {
       id: 23,
-      chapter: "Fundamentals of Testing",
       type: "single",
-      question: "Which is a key testing principle?",
+      question: "A smart home app measures the average temperature in the house over the previous week and provides feedback to the occupants on their environmental-friendliness based on this temperature. The feedback for different average temperature ranges (to the nearest \u00b0C) should be:\nUp to 10\u00b0C - Icy Cool!\n11\u00b0C to 15\u00b0C - Chilled Out!\n16\u00b0C to 19\u00b0C - Cool Man!\n20\u00b0C to 22\u00b0C - Too Warm!\nAbove 22\u00b0C - Hot & Sweaty!\nUsing two-point BVA, which of the following sets of test inputs provides the highest level of boundary coverage?",
       options: [
-        "Testing can prove absence of defects",
-        "Exhaustive testing is possible",
-        "Testing is context-dependent",
-        "Defects cluster in untested code"
+        "0\u00b0C, 11\u00b0C, 20\u00b0C, 22\u00b0C, 23\u00b0C",
+        "9\u00b0C, 15\u00b0C, 19\u00b0C, 23\u00b0C, 100\u00b0C",
+        "10\u00b0C, 16\u00b0C, 19\u00b0C, 22\u00b0C, 23\u00b0C",
+        "14\u00b0C, 15\u00b0C, 18\u00b0C, 19\u00b0C, 21\u00b0C, 22\u00b0C"
       ],
       correctAnswer: 2,
       correctAnswers: [],
-      explanation: "Testing approaches vary based on system type and risk factors."
+      explanation: ""
     },
     {
       id: 24,
-      chapter: "Test Techniques",
       type: "single",
-      question: "Which technique uses invalid inputs?",
+      question: "Decision table testing is being performed on a speeding fine system. Two test caseshave already been generated for rules 1 and 4, which are shown below:",
       options: [
-        "Equivalence partitioning",
-        "Boundary value analysis",
-        "Decision tables",
-        "State transition"
+        "DT1, DT2",
+        "DT2, DT3",
+        "DT2, DT4",
+        "DT3, DT4"
       ],
-      correctAnswer: 0,
+      correctAnswer: 2,
       correctAnswers: [],
-      explanation: "Equivalence partitioning includes invalid input classes."
+      image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754976149/Screenshot_from_2025-08-12_10-26-58_s2dlgo.png",
+      explanation: ""
     },
     {
       id: 25,
-      chapter: "Test Management",
       type: "single",
-      question: "Which is a regression test strategy?",
+      question: "Given the following state model of a battery charger software: (diagram description: states OFF, WAIT, TRICKLE, CHARGE, HIGH, LOW with transitions)\nWhich of the following sequences of transitions provides the highest level of transition coverage for the model?",
       options: [
-        "Test all affected areas",
-        "Test only new functionality",
-        "Test everything",
-        "Test based on risk"
+        "OFF \u2192 WAIT \u2192 OFF \u2192 WAIT \u2192 TRICKLE \u2192 CHARGE \u2192 HIGH \u2192 CHARGE \u2192 LOW",
+        "WAIT \u2192 TRICKLE \u2192 WAIT \u2192 OFF \u2192 WAIT \u2192 TRICKLE \u2192 CHARGE \u2192 LOW \u2192 CHARGE",
+        "HIGH \u2192 CHARGE \u2192 LOW \u2192 CHARGE \u2192 TRICKLE \u2192 WAIT \u2192 TRICKLE \u2192 WAIT \u2192 TRICKLE",
+        "WAIT \u2192 TRICKLE \u2192 CHARGE \u2192 HIGH \u2192 CHARGE \u2192 TRICKLE \u2192 WAIT \u2192 OFF \u2192 WAIT"
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: "Risk-based regression prioritizes tests by business impact."
+      explanation: "",
+      image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754976149/Screenshot_from_2025-08-12_10-26-41_nddvnt.png"
     },
     {
       id: 26,
-      chapter: "Test Techniques",
       type: "single",
-      question: "Which is structure-based testing?",
+      question: "Which of the following statements BEST describes how test cases are derived from a use case?",
       options: [
-        "Equivalence partitioning",
-        "Boundary value analysis",
-        "Statement coverage",
-        "Decision tables"
-      ],
-      correctAnswer: 2,
-      correctAnswers: [],
-      explanation: "Code coverage metrics require internal structure knowledge."
-    },
-    {
-      id: 27,
-      chapter: "Testing Throughout the SDLC",
-      type: "single",
-      question: "When should test planning begin?",
-      options: [
-        "After coding starts",
-        "During test execution",
-        "At project inception",
-        "After requirements approval"
-      ],
-      correctAnswer: 2,
-      correctAnswers: [],
-      explanation: "Test planning should align with overall project planning phases."
-    },
-    {
-      id: 28,
-      chapter: "Test Management",
-      type: "single",
-      question: "Which metric measures test effectiveness?",
-      options: [
-        "Test cases designed/hour",
-        "Defects found/test hour",
-        "Percentage of passed tests",
-        "Requirements coverage"
-      ],
-      correctAnswer: 1,
-      correctAnswers: [],
-      explanation: "Defect detection efficiency indicates test suite effectiveness."
-    },
-    {
-      id: 29,
-      chapter: "Test Techniques",
-      type: "single",
-      question: "Which technique tests combinations?",
-      options: [
-        "Boundary value",
-        "Decision tables",
-        "Equivalence partitioning",
-        "State transition"
-      ],
-      correctAnswer: 1,
-      correctAnswers: [],
-      explanation: "Decision tables systematically combine input conditions."
-    },
-    {
-      id: 30,
-      chapter: "Test Management",
-      type: "single",
-      question: "What is a key test closure activity?",
-      options: [
-        "Writing test cases",
-        "Executing tests",
-        "Archiving testware",
-        "Reporting defects"
-      ],
-      correctAnswer: 2,
-      correctAnswers: [],
-      explanation: "Test closure includes preserving assets for future projects."
-    },
-    {
-      id: 31,
-      chapter: "Fundamentals of Testing",
-      type: "single",
-      question: "Which is a test objective?",
-      options: [
-        "Prevent defects",
-        "Fix defects",
-        "Prove correctness",
-        "Reduce development time"
+        "Test cases are created to exercise defined basic, exceptional and error behaviors performed by the system under test in collaboration with actors.",
+        "Test cases are derived by identifying the components included in the use case and creating integration tests that exercise the interactions of these components.",
+        "Test cases are generated by analyzing the interactions of the actors with the system to ensure the user interfaces are easy to use.",
+        "Test cases are derived to exercise each of the decision points in the business process flows of the use case, to achieve 100% decision coverage of these flows."
       ],
       correctAnswer: 0,
       correctAnswers: [],
-      explanation: "Early testing prevents defect propagation."
+      explanation: ""
     },
     {
-      id: 32,
-      chapter: "Test Techniques",
+      id: 27,
       type: "single",
-      question: "Which technique uses state diagrams?",
+      question: "Which of the following descriptions of statement coverage is CORRECT?",
       options: [
-        "Equivalence partitioning",
-        "Boundary value analysis",
-        "State transition",
-        "Decision tables"
+        "Statement coverage is a measure of the number of lines of source code (minus comments) exercised by tests.",
+        "Statement coverage is a measure of the proportion of executable statements in the source code exercised by tests.",
+        "Statement coverage is a measure of the percentage of lines of source code exercised by tests.",
+        "Statement coverage is a measure of the number of executable statements in the source code exercised by tests."
       ],
-      correctAnswer: 2,
+      correctAnswer: 1,
       correctAnswers: [],
-      explanation: "State transition testing models system behavior changes."
+      explanation: ""
     },
     {
-      id: 33,
-      chapter: "Test Management",
+      id: 28,
       type: "single",
-      question: "Which is a test control activity?",
+      question: "Which of the following descriptions of decision coverage is CORRECT?",
       options: [
-        "Writing test plans",
-        "Prioritizing tests",
-        "Designing test cases",
-        "Reporting test status"
+        "Decision coverage is a measure of the percentage of possible paths through the source code exercised by tests.",
+        "Decision coverage is a measure of the percentage of business flows through the component exercised by tests.",
+        "Decision coverage is a measure of the \u2018if\u2019 statements in the code that are exercised with both the true and false outcomes.",
+        "Decision coverage is a measure of the proportion of decision outcomes in the source code exercised by tests."
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: "Test control involves monitoring and reporting progress."
+      explanation: ""
+    },
+    {
+      id: 29,
+      type: "single",
+      question: "Which of the following BEST describes the concept behind error guessing?",
+      options: [
+        "Error guessing requires you to imagine you are the user of the test object and guess mistakes the user could make interacting with it.",
+        "Error guessing involves using your personal experience of development and the mistakes you made as a developer.",
+        "Error guessing involves using your knowledge and experience of defects found in the past and typical mistakes made by developers.",
+        "Error guessing requires you to rapidly duplicate the development task to identify the sort of mistakes a developer might make."
+      ],
+      correctAnswer: 2,
+      correctAnswers: [],
+      explanation: ""
+    },
+    {
+      id: 30,
+      type: "single",
+      question: "Which of the following BEST explains a benefit of independent testing?",
+      options: [
+        "The use of an independent test team allows project management to assign responsibility for the quality of the final deliverable to the test team, so ensuring everyone is aware that quality is the test team\u2019s overall responsibility.",
+        "If a test team external to the organization can be afforded, then there are distinct benefits in terms of this external team not being so easily swayed by the delivery concerns of project management and the need to meet strict delivery deadlines.",
+        "An independent test team can work totally separately from the developers, need not be distracted with changing project requirements, and can restrict communication with the developers to defect reporting through the defect management system.",
+        "When specifications contain ambiguities and inconsistencies, assumptions are made on their interpretation, and an independent tester can be useful in questioning those assumptions and the interpretation made by the developer."
+      ],
+      correctAnswer: 3,
+      correctAnswers: [],
+      explanation: ""
+    },
+    {
+      id: 31,
+      type: "single",
+      question: "Which of the following tasks is MOST LIKELY to be performed by the test manager?",
+      options: [
+        "Write test summary reports based on the information gathered during testing.",
+        "Review tests developed by others.",
+        "Create the detailed test execution schedule.",
+        "Analyze, review, and assess requirements, specifications and models for testability."
+      ],
+      correctAnswer: 0,
+      correctAnswers: [],
+      explanation: ""
+    },
+    {
+      id: 32,
+      type: "single",
+      question: "Given the following examples of entry and exit criteria:\n1. The original testing budget of $30,000 plus contingency of $7,000 has been spent.\n2. 96% of planned tests for the drawing package have been executed and the remaining tests are now out of scope.\n3. The trading performance test environment has been designed, set-up and verified.\n4. Current status is no outstanding critical defects and two high-priority ones.\n5. The autopilot design specifications have been reviewed and reworked.\n6. The tax rate calculation component has passed unit testing.\nWhich of the following BEST categorizes them as entry and exit criteria:",
+      options: [
+        "Entry criteria \u2013 5, 6 Exit criteria \u2013 1, 2, 3, 4",
+        "Entry criteria \u2013 2, 3, 6 Exit criteria \u2013 1, 4, 5",
+        "Entry criteria \u2013 1, 3 Exit criteria \u2013 2, 4, 5, 6",
+        "Entry criteria \u2013 3, 5, 6 Exit criteria \u2013 1, 2, 4"
+      ],
+      correctAnswer: 3,
+      correctAnswers: [],
+      explanation: ""
+    },
+    {
+      id: 33,
+      type: "single",
+      question: "Given the following priorities and dependencies for these test cases:\nTest Case Priority Technical Dependency on Logical Dependency on:\nTC1 High TC4\nTC2 Low\nTC3 High TC2\nTC4 Medium\nTC5 Low TC2\nTC6 Medium TC5\nWhich of the following test execution schedules BEST considers the priorities and technical and logical dependencies?",
+      options: [
+        "TC1 \u2013 TC3 \u2013 TC4 \u2013 TC6 \u2013 TC2 \u2013 TC5",
+        "TC4 \u2013 TC3 \u2013 TC1 \u2013 TC2 \u2013 TC5 \u2013 TC6",
+        "TC4 \u2013 TC1 \u2013 TC3 \u2013 TC5 \u2013 TC6 \u2013 TC2",
+        "TC4 \u2013 TC2 \u2013 TC5 \u2013 TC1 \u2013 TC3 \u2013 TC6"
+      ],
+      correctAnswer: 1,
+      correctAnswers: [],
+      explanation: "",
+      image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754983214/Screenshot_from_2025-08-12_12-49-39_ioyqmu.png"
     },
     {
       id: 34,
-      chapter: "Testing Throughout the SDLC",
       type: "single",
-      question: "Which review type is most formal?",
+      question: "Which of the following statements about test estimation approaches is CORRECT?",
       options: [
-        "Walkthrough",
-        "Technical review",
-        "Inspection",
-        "Peer review"
+        "With the metrics-based approach, the estimate is based on test measures from the project and so this estimate is only available after the testing starts.",
+        "With the expert-based approach, a group of expert users identified by the client recommends the necessary testing budget.",
+        "With the expert-based approach, the test managers responsible for the different testing activities predict the expected testing effort.",
+        "With the metrics-based approach, an average of the testing costs recorded from several past projects is used as the testing budget."
       ],
       correctAnswer: 2,
       correctAnswers: [],
-      explanation: "Inspections follow rigorous defect detection processes."
+      explanation: ""
     },
     {
       id: 35,
-      chapter: "Test Tools",
       type: "single",
-      question: "Which tool supports test execution?",
+      question: "Which of the following BEST defines risk level?",
       options: [
-        "Requirements management",
-        "Test data preparation",
-        "Test harness",
-        "Coverage measurement"
+        "Risk level is calculated by adding together the probabilities of all problem situations and the financial harm that results from them.",
+        "Risk level is estimated by multiplying the likelihood of a threat to the system by the chance that the threat will occur and will result in financial damage",
+        "Risk level is determined by a combination of the probability of an undesirable event and the expected impact of that event.",
+        "Risk level is the sum of all potential hazards to a system multiplied by the sum of all potential losses from that system."
       ],
       correctAnswer: 2,
       correctAnswers: [],
-      explanation: "Test harnesses provide execution environments for components."
+      explanation: ""
     },
     {
       id: 36,
-      chapter: "Test Techniques",
       type: "single",
-      question: "Which technique uses input partitions?",
+      question: "Which of the following is MOST likely to be an example of a PRODUCT risk?",
       options: [
-        "Statement coverage",
-        "Equivalence partitioning",
-        "Decision coverage",
-        "Condition coverage"
+        "The expected security features may not be supported by the system architecture.",
+        "The developers may not have time to fix all the defects found by the test team.",
+        "The test cases may not provide full coverage of the specified requirements.",
+        "The performance test environment may not be ready before the system is due for delivery."
       ],
-      correctAnswer: 1,
+      correctAnswer: 0,
       correctAnswers: [],
-      explanation: "Equivalence partitioning groups similar input values."
+      explanation: ""
     },
     {
       id: 37,
-      chapter: "Test Management",
       type: "single",
-      question: "Which is a test estimation technique?",
+      question: "Which of the following is LEAST likely to be an example of product risk analysis CORRECTLY influencing the testing?",
       options: [
-        "Boundary value analysis",
-        "Equivalence partitioning",
-        "Metrics-based",
-        "State transition"
+        "The potential impact of security flaws has been identified as being particularly high, so security testing has been prioritized ahead of some other testing activities.",
+        "Testing has found the quality of the network module to be higher than expected, so additional testing will now be performed in that area.",
+        "The users had problems with the user interface of the previous system, so additional usability testing is planned for the replacement system.",
+        "The time needed to load web pages is crucial to the success of the new website, so an expert in performance testing has been employed for this project."
       ],
-      correctAnswer: 2,
+      correctAnswer: 1,
       correctAnswers: [],
-      explanation: "Estimation uses historical metrics like test case productivity."
+      explanation: ""
     },
     {
       id: 38,
-      chapter: "Fundamentals of Testing",
       type: "single",
-      question: "Which testing principle is correct?",
+      question: "You are performing system testing of a train booking system and have found that occasionally the system reports that there are no available trains when you believe that there should be, based on the test cases you have run. You have provided the development manager with a summary of the defect and the version of the system you are testing. The developers recognize the urgency of the defect and are now waiting for you to provide more details so that they can fix it. Given the following pieces of information:\n1. Degree of impact (severity) of the defect.\n2. Identification of the test item.\n3. Details of the test environment.\n4. Urgency/priority to fix.\n5. Actual results.\n6. Reference to test case specification.\nApart from the description of the defect, which includes a database dump and screenshots, which of the pieces of information would be MOST useful to include in the initial defect report?",
       options: [
-        "Testing eliminates defects",
-        "Testing reduces failure probability",
-        "Testing proves correctness",
-        "Exhaustive testing is achievable"
+        "1, 2, 6",
+        "1, 4, 5, 6",
+        "2, 3, 4, 5",
+        "3, 5, 6"
       ],
-      correctAnswer: 1,
+      correctAnswer: 3,
       correctAnswers: [],
-      explanation: "Testing reduces but doesn't eliminate failure risks."
+      explanation: ""
     },
     {
       id: 39,
-      chapter: "Test Techniques",
       type: "single",
-      question: "Which technique tests invalid boundaries?",
+      question: "Given the following test activities and test tools:\n1. Performance measurement and dynamic analysis.\n2. Test execution and logging.\n3. Management of testing and testware.\n4. Test design.\nA. Requirements coverage tools.\nB. Dynamic analysis tools.\nC. Test data preparation tools.\nD. Defect management tools.\nWhich of the following BEST matches the activities and tools?",
       options: [
-        "Equivalence partitioning",
-        "Boundary value analysis",
-        "Decision tables",
-        "State transition"
+        "1 \u2013 B, 2 \u2013 C, 3 \u2013 D, 4 \u2013 A",
+        "1 \u2013 B, 2 \u2013 A, 3 \u2013 C, 4 \u2013 D",
+        "1 \u2013 B, 2 \u2013 A, 3 \u2013 D, 4 \u2013 C",
+        "1 \u2013 A, 2 \u2013 B, 3 \u2013 D, 4 \u2013 C"
       ],
-      correctAnswer: 1,
+      correctAnswer: 2,
       correctAnswers: [],
-      explanation: "Boundary analysis includes values immediately outside valid ranges."
+      explanation: ""
     },
     {
       id: 40,
-      chapter: "Test Management",
       type: "single",
-      question: "Which factor influences test effort most?",
+      question: "Which of the following is MOST likely to be used as a reason for using a pilot project to introduce a tool into an organization?",
       options: [
-        "Team experience",
-        "Defect density",
-        "Project schedule",
-        "Test tools used"
+        "The need to evaluate how the tool fits with existing processes and practices and determining what would need to change.",
+        "The need to evaluate the test automation skills and training, mentoring and coaching needs of the testers who will use the tool.",
+        "The need to evaluate whether the tool provides the required functionality and does not duplicate existing test tools.",
+        "The need to evaluate the tool vendor in terms of the training and other support they provide."
       ],
-      correctAnswer: 1,
+      correctAnswer: 0,
       correctAnswers: [],
-      explanation: "Higher defect density requires more test execution and retesting cycles."
+      explanation: ""
     }
-  
-  
-  
-]
+  ]
