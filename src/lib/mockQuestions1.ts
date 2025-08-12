@@ -371,7 +371,7 @@ export const mockQuestions1=[
     options:["Condition1 = YES, Condition2 = NO, Condition3 = YES, Action= NO","Condition1 = YES, Condition2 = YES, Condition3 = NO, Action= YES","Condition1 = NO, Condition2 = NO, Condition3 = YES, Action= NO","Condition1 = NO, Condition2 = YES, Condition3 = NO, Action= NO"],
     correctAnswer:3,
     correctAnswers: [],
-    explanation:"",
+    explanation:"Option d is correct because it’s realistic for a new employee (<1 year) to have an agreed target but fail to achieve it, resulting in no bonus.The other options are unrealistic as they imply “achieved target” without an agreed target or paying a bonus without achievement.",
     image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754980151/Screenshot_from_2025-08-12_11-58-45_loge6d.png"
 
   },

@@ -1,4 +1,4 @@
-export const mockQuestions3=[
+export const mockQuestions3 = [
   {
     id: 1,
     type: "single",
@@ -11,7 +11,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 1,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Quality is defined as the degree to which a component, system, or process meets specified requirements and satisfies user/customer needs and expectations. The other options describe quality assurance, security, and cost of quality respectively."
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 0,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Preventing defects is a fundamental test objective. Testing helps identify conditions that could lead to defects, allowing teams to address root causes early. The other options describe development or debugging activities."
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 3,
     correctAnswers: [],
-    explanation: ""
+    explanation: "The improperly coded logic is the defect (flaw in the code). The failure occurred when invalid values were accepted. The root cause was the distraction, and the error was the programmer's mistake."
   },
   {
     id: 4,
@@ -53,7 +53,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 1,
     correctAnswers: [],
-    explanation: ""
+    explanation: "The principle 'testing shows the presence of defects' explains that testing can reveal defects but cannot prove their absence. It's impossible to catch all bugs, especially within tight iteration timelines."
   },
   {
     id: 5,
@@ -67,7 +67,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 3,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Attention to detail helps programmers thoroughly validate all code paths and edge cases during unit testing, overcoming the natural bias toward one's own code."
   },
   {
     id: 6,
@@ -81,7 +81,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 3,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Traceability helps: (1) Analyze impact of changes for regression test selection (D), (2) Make testing auditable when evaluating execution completeness (B), (3) Improve status reports for defect tracking (A), and (4) Assess process quality when aligning tests with risks (C)."
   },
   {
     id: 7,
@@ -95,7 +95,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 2,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Early tester involvement in design discussions helps identify fundamental flaws before implementation, reducing risks associated with architectural decisions."
   },
   {
     id: 8,
@@ -109,7 +109,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 1,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Designing test data is a core test design activity. Defect analysis is part of development, version assignment is configuration management, and user stories are created by product owners."
   },
   {
     id: 9,
@@ -123,7 +123,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 1,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Performance testing is non-functional, and testing interfaces between components occurs during integration testing."
   },
   {
     id: 10,
@@ -137,12 +137,12 @@ export const mockQuestions3=[
     ],
     correctAnswer: 2,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Impact analysis identifies areas affected by changes, which helps determine regression test scope during maintenance. Confirmation testing verifies fixes, not regression tests."
   },
   {
     id: 11,
     type: "single",
-    question: "Consider the following types of defects that a test level might focus on: 1. Defects in separately testable modules or objects 2. Not focused on identifying defects 3. Defects in interfaces and interactions 4. Defects in the whole test object. Which of the following list correctly matches test levels from the Foundation syllabus with the defect focus options given above?",
+    question: "Consider the following types of defects that a test level might focus on: \n\n1. Defects in separately testable modules or objects \n2. Not focused on identifying defects \n3. Defects in interfaces and interactions \n4. Defects in the whole test object. \n\nWhich of the following list correctly matches test levels from the Foundation syllabus with the defect focus options given above?",
     options: [
       "1 = performance test; 2 = component test; 3 = system test; 4 = acceptance test",
       "1 = component test; 2 = acceptance test; 3 = system test; 4 = integration test",
@@ -151,7 +151,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 2,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Component testing focuses on modules (1), acceptance testing validates fitness for use rather than defect detection (2), integration testing targets interfaces (3), and system testing evaluates the entire system (4)."
   },
   {
     id: 12,
@@ -165,7 +165,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 3,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Portability testing verifies software installation and operation across different hardware environments, which matches the objective of ensuring compatibility with various PC brands."
   },
   {
     id: 13,
@@ -179,7 +179,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 3,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Change-related tests encompass both confirmation testing (for new/changed functionality) and regression testing (for potential side effects), which are both needed for this significant change."
   },
   {
     id: 14,
@@ -193,7 +193,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 0,
     correctAnswers: [],
-    explanation: ""
+    explanation: "The facilitator (or moderator) manages the review meeting, ensures adherence to process, and mediates discussions without participating in content evaluation."
   },
   {
     id: 15,
@@ -207,7 +207,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 3,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Reviewing work products (like user stories) without executing code is static testing. The key characteristic is the absence of runtime execution."
   },
   {
     id: 16,
@@ -221,7 +221,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 1,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Participants need dedicated preparation time to review materials thoroughly. Without workload adjustments, preparation will likely be insufficient during overtime periods."
   },
   {
     id: 17,
@@ -235,7 +235,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 2,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Early defect detection in user stories through static testing prevents rework during development, allowing more features to be delivered per iteration (increased velocity)."
   },
   {
     id: 18,
@@ -249,7 +249,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 1,
     correctAnswers: [],
-    explanation: ""
+    explanation: "AC3 (instant full transformation) contradicts AC5 (progressive transformation starting at contact point). These conflicting requirements must be reconciled."
   },
   {
     id: 19,
@@ -263,7 +263,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 3,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Decision coverage measures the percentage of decision outcomes (e.g., TRUE/FALSE branches) executed by tests. It differs from statement coverage (which tracks lines of code) and condition coverage (which evaluates atomic conditions)."
   },
   {
     id: 20,
@@ -277,7 +277,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 1,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Deriving tests from specifications (like user stories) without viewing internal code structures is black-box testing. This aligns with early test preparation based on requirements."
   },
   {
     id: 21,
@@ -291,7 +291,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 0,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Exploratory testing relies heavily on tester skill and domain knowledge. Experienced testers leverage their background to design more effective tests during exploration."
   },
   {
     id: 22,
@@ -305,7 +305,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 2,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Using a predefined list of best practices to systematically evaluate UI elements is checklist-based testing. This ensures consistent coverage of quality attributes."
   },
   {
     id: 23,
@@ -319,7 +319,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 3,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Decision testing validates both outcomes of boolean conditions (e.g., 'should show greeting' YES/NO). This ensures coverage for both greeting triggers and suppression cases."
   },
   {
     id: 24,
@@ -333,7 +333,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 0,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Decision testing would verify loop control logic (e.g., handling empty transactions). This could detect missing checks for empty datasets in nested loops."
   },
   {
     id: 25,
@@ -347,7 +347,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 0,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Valid partitions: 0.0 (min), 0.1-49.9 (valid middle), 50.0 (max). Invalid: <0.0 and >50.0. The set covers all partitions with min, middle, and max values."
   },
   {
     id: 26,
@@ -361,7 +361,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 2,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Two-point boundary testing requires values just below/above min/max boundaries. Min boundary: 0.4 (invalid), 0.5 (valid). Max boundary: 25.0 (valid), 25.1 (invalid). Middle values aren't needed for boundary coverage."
   },
   {
     id: 27,
@@ -373,10 +373,10 @@ export const mockQuestions3=[
       "4",
       "9"
     ],
-    image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754987016/Screenshot_from_2025-08-12_13-53-22_a5lv1k.png",
+    image: "https://res.cloudinary.com/dlrpmew9d/image/upload/v1754987016/Screenshot_from_2025-08-12_13-53-22_a5lv1k.png",
     correctAnswer: 2,
     correctAnswers: [],
-    explanation: ""
+    explanation: "" // Image provided - no explanation needed
   },
   {
     id: 28,
@@ -388,10 +388,10 @@ export const mockQuestions3=[
       "1",
       "Infinite"
     ],
+    image: "https://res.cloudinary.com/dlrpmew9d/image/upload/v1754976149/Screenshot_from_2025-08-12_10-32-42_y7ns0q.png",
     correctAnswer: 0,
     correctAnswers: [],
-    explanation: "",
-    image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754976149/Screenshot_from_2025-08-12_10-32-42_y7ns0q.png"
+    explanation: "" // Image provided - no explanation needed
   },
   {
     id: 29,
@@ -405,7 +405,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 2,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Equivalence partitions: Invalid low (<0.5), valid (0.5-25.0), invalid high (>25.0). The set includes: 0.2 (invalid low), 0.9 (valid middle), 29.5 (invalid high)."
   },
   {
     id: 30,
@@ -419,7 +419,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 3,
     correctAnswers: [],
-    explanation: ""
+    explanation: "This summary clearly describes the failure (session termination during transfers) and availability impact (reconnect delay), avoiding technical jargon while highlighting stakeholder impact."
   },
   {
     id: 31,
@@ -433,7 +433,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 1,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Dependencies: 01.001 must run before 01.002; 01.002 before 01.003/01.004/01.005. High-priority tests (1) should run first after dependencies are met: 01.003 and 01.004 both have priority 1. Option B runs them immediately after prerequisites."
   },
   {
     id: 32,
@@ -447,7 +447,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 0,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Test case status (e.g., designed/ready/executed/passed) tracks progress in both preparation (design) and execution phases. Other options focus only on execution or defects."
   },
   {
     id: 33,
@@ -461,7 +461,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 3,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Risk level is calculated based on probability (likelihood) of occurrence and severity (impact) of negative outcomes. Other pairs are unrelated to risk assessment."
   },
   {
     id: 34,
@@ -475,7 +475,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 2,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Configuration management issues during deployment (step 4) could cause fixes to be lost or overwritten between dev and test environments, explaining why tests pass in dev but fail in test."
   },
   {
     id: 35,
@@ -489,7 +489,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 1,
     correctAnswers: [],
-    explanation: ""
+    explanation: "The primary method is expert-based (team discussion), supplemented by metrics (industry data) for validation. This combines practical experience with benchmark data."
   },
   {
     id: 36,
@@ -503,7 +503,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 3,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Independent testers objectively identify ambiguities and challenge interpretations, ensuring requirements clarity before implementation."
   },
   {
     id: 37,
@@ -517,21 +517,21 @@ export const mockQuestions3=[
     ],
     correctAnswer: 1,
     correctAnswers: [],
-    explanation: ""
+    explanation: "The test approach section describes testing processes/methods, including how risk analysis will be performed. Scope defines what will be tested, metrics track results."
   },
   {
     id: 38,
     type: "single",
-    question: "Consider the following list of undesirable outcomes that could occur on a mobile app development effort: A. Incorrect totals on reports. B. Change to acceptance criteria during acceptance testing. C. Users find the soft keyboard too hard to use with your app. D. System responds too slowly to user input during search string entry. E. Testers not allowed to report test results in daily standup meetings. Which of the following properly classifies these outcomes as project and product risks?",
+    question: "Consider the following list of undesirable outcomes that could occur on a mobile app development effort:\n\n A. Incorrect totals on reports. \nB. Change to acceptance criteria during acceptance testing. \nC. Users find the soft keyboard too hard to use with your app.\n D. System responds too slowly to user input during search string entry. \nE. Testers not allowed to report test results in daily standup meetings.\n\n Which of the following properly classifies these outcomes as project and product risks?",
     options: [
-      "Product risks: B, E; Project risks: A, C, D",
-      "Product risks: A, C, D; Project risks: B, E",
-      "Product risks: A, C, D, E; Project risks: B",
-      "Product risks: A, C; Project risks: B, D, E"
+      "Product risks: B, E;  Project risks: A, C, D",
+      "Product risks: A, C, D;  Project risks: B, E",
+      "Product risks: A, C, D, E;  Project risks: B",
+      "Product risks: A, C;  Project risks: B, D, E"
     ],
     correctAnswer: 1,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Product risks affect software quality (A, C, D). Project risks affect project success (B: scope creep, E: communication issues)."
   },
   {
     id: 39,
@@ -545,7 +545,7 @@ export const mockQuestions3=[
     ],
     correctAnswer: 3,
     correctAnswers: [],
-    explanation: ""
+    explanation: "A pilot should evaluate cost/benefit ROI before full rollout. Other goals (learning, process fitting, standardization) have already been addressed per the description."
   },
   {
     id: 40,
@@ -559,6 +559,6 @@ export const mockQuestions3=[
     ],
     correctAnswer: 0,
     correctAnswers: [],
-    explanation: ""
+    explanation: "Test management tools specialize in tracking and reporting test metrics (progress, defects, coverage). Other tools focus on code analysis or security testing."
   }
-]
+];

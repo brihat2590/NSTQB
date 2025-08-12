@@ -1,4 +1,4 @@
-export const mockQuestions2=[
+export const mockQuestions2 = [
     {
       id: 1,
       type: "single",
@@ -11,7 +11,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: ""
+      explanation: "A test case is defined as a set of inputs, execution conditions, and expected results developed for a specific test objective or condition. It validates specific behaviors or requirements of the system under test."
     },
     {
       id: 2,
@@ -25,7 +25,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 0,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Testing aims to prevent defects by identifying issues early in the development lifecycle, such as during requirements or design reviews, reducing the cost and effort of fixing them later."
     },
     {
       id: 3,
@@ -39,7 +39,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Testing (especially dynamic testing) reveals failures resulting from defects, while debugging is a development activity focused on locating, analyzing, and fixing the root causes of those failures."
     },
     {
       id: 4,
@@ -53,7 +53,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 0,
       correctAnswers: [],
-      explanation: ""
+      explanation: "A failure is an observable deviation from expected behavior (e.g., a crash). This is the most direct manifestation users encounter, unlike underlying defects like code errors or misinterpretations."
     },
     {
       id: 5,
@@ -67,7 +67,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: ""
+      explanation: "The principle 'Defects cluster together' states that defects tend to aggregate in specific modules or areas. Focusing testing on these high-yield areas improves efficiency."
     },
     {
       id: 6,
@@ -81,7 +81,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Testing supports Quality Assurance by providing feedback on quality, identifying defects for improvement, verifying compliance, and ensuring the product meets stakeholder needs."
     },
     {
       id: 7,
@@ -95,7 +95,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Traceability links tests to requirements, enabling clear visibility of coverage. This allows assessment of whether new tests enhance requirement coverage and identifies gaps."
     },
     {
       id: 8,
@@ -109,7 +109,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Testers cultivate 'professional pessimism'—a focus on anticipating failures, edge cases, and potential weaknesses, whereas developers often prioritize building and creating functionality."
     },
     {
       id: 9,
@@ -123,7 +123,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Statement 1 (testing parallels development) and 4 (early testing) are true. Statement 2 is false because reviews should start on drafts, not final versions. Statement 3 is false because test implementation (e.g., scripting) often occurs after development, though design starts early."
     },
     {
       id: 10,
@@ -137,7 +137,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 0,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Component integration testing verifies interactions between components via interfaces, often using functional (interface specs) and structural (code paths) techniques to find communication failures."
     },
     {
       id: 11,
@@ -151,7 +151,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 2,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Functional, non-functional, and white-box (structural) testing techniques can be applied at any test level (component, integration, system, acceptance), depending on context and objectives."
     },
     {
       id: 12,
@@ -165,7 +165,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Confirmation testing (re-testing) verifies a specific fix. Regression testing checks for unintended side-effects in other areas due to changes, ensuring existing functionality remains intact."
     },
     {
       id: 13,
@@ -179,7 +179,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 0,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Impact analysis assesses the scope, cost, and risk of changes in maintenance. It helps decide whether a fix is justified by weighing benefits against potential disruptions and testing effort."
     },
     {
       id: 14,
@@ -193,7 +193,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Static analysis tools detect code defects (e.g., security vulnerabilities, syntax errors) early without execution. These might escape dynamic testing, especially complex or rarely executed paths."
     },
     {
       id: 15,
@@ -207,7 +207,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: ""
+      explanation: "The standard formal review process flows: Planning (scope, resources), Initiate Review (kick-off), Individual Review (preparation), Issue Communication/Analysis (meeting/discussion), Fixing & Reporting (correct defects and document outcomes)."
     },
     {
       id: 16,
@@ -221,7 +221,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 0,
       correctAnswers: [],
-      explanation: ""
+      explanation: "The Manager role approves review execution, allocates resources, and defines policies. The Review Leader (or Moderator) manages meetings, while the Scribe records issues (doesn't fix them)."
     },
     {
       id: 17,
@@ -235,7 +235,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Walkthroughs are led by the author, involve individual preparation by reviewers, use a scribe, focus on defect detection, and produce a report. They are less formal than inspections."
     },
     {
       id: 18,
@@ -249,7 +249,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Inconsistencies: 6 (librarians: 5s response) vs 15 (all users: 3s response); 9 (fine after 3 weeks) vs 11 (free borrowing for 4 weeks). Pairs 6-15 and 9-11 conflict."
     },
     {
       id: 19,
@@ -263,7 +263,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Exploratory testing combines concurrent test design, execution, and learning. Testers adapt in real-time using their skills, prior results, and interactions with the system, without predefined scripts."
     },
     {
       id: 20,
@@ -277,7 +277,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 0,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Black-box (4,5): Checks requirements (4) and uses user stories (5). White-box (1,2): Measures structural coverage (1) and examines internal processing (2). Experience-based (3): Leverages defect patterns (3)."
     },
     {
       id: 21,
@@ -291,7 +291,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Covers 4 partitions: [0-1000] (666,999), (2000-4000] (2222), (4000-6000] (5555), >6000 (6666). Only misses (1000-2000], the most coverage among options."
     },
     {
       id: 22,
@@ -303,7 +303,7 @@ export const mockQuestions2=[
         "3",
         "4"
       ],
-      image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754983214/Screenshot_from_2025-08-12_12-49-26_kgy08s.png",
+      image: "https://res.cloudinary.com/dlrpmew9d/image/upload/v1754983214/Screenshot_from_2025-08-12_12-49-26_kgy08s.png",
       correctAnswer: 1,
       correctAnswers: [],
       explanation: ""
@@ -320,7 +320,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 2,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Covers 5 boundaries: 10 (Icy Cool/Chilled Out), 16 (Chilled Out/Cool Man), 19 (Cool Man/Too Warm), 22 (Too Warm/Hot & Sweaty), 23 (Hot & Sweaty). Highest coverage among options."
     },
     {
       id: 24,
@@ -334,7 +334,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 2,
       correctAnswers: [],
-      image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754976149/Screenshot_from_2025-08-12_10-26-58_s2dlgo.png",
+      image: "https://res.cloudinary.com/dlrpmew9d/image/upload/v1754976149/Screenshot_from_2025-08-12_10-26-58_s2dlgo.png",
       explanation: ""
     },
     {
@@ -349,8 +349,8 @@ export const mockQuestions2=[
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: "",
-      image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754976149/Screenshot_from_2025-08-12_10-26-41_nddvnt.png"
+      explanation: "The sequence covers 8 unique transitions: WAIT→TRICKLE, TRICKLE→CHARGE, CHARGE→HIGH, HIGH→CHARGE, CHARGE→TRICKLE, TRICKLE→WAIT, WAIT→OFF, OFF→WAIT. This achieves the highest transition coverage.",
+      image: "https://res.cloudinary.com/dlrpmew9d/image/upload/v1754976149/Screenshot_from_2025-08-12_10-26-41_nddvnt.png"
     },
     {
       id: 26,
@@ -364,7 +364,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 0,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Use cases describe system-actor interactions. Test cases validate the main success scenario (basic flow), alternate paths (exceptional flows), and error handling (error flows) within these interactions."
     },
     {
       id: 27,
@@ -378,7 +378,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Statement coverage = (Number of executed statements / Total executable statements) * 100%. It measures the percentage of executable statements (not lines or comments) covered by tests."
     },
     {
       id: 28,
@@ -392,7 +392,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Decision coverage = (Number of exercised decision outcomes / Total decision outcomes) * 100%. Each decision (e.g., if, case) has TRUE/FALSE outcomes that must be covered."
     },
     {
       id: 29,
@@ -406,7 +406,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 2,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Error guessing leverages a tester's expertise with common defect patterns, historical failures, and developer tendencies to design tests targeting probable error areas without formal techniques."
     },
     {
       id: 30,
@@ -420,7 +420,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Independent testers provide unbiased scrutiny. They challenge assumptions in requirements/design, identify ambiguities, and offer fresh perspectives that developers or involved parties might overlook."
     },
     {
       id: 31,
@@ -434,7 +434,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 0,
       correctAnswers: [],
-      explanation: ""
+      explanation: "The test manager compiles test summary reports, synthesizing results, metrics, and risks for stakeholders. Other tasks are often delegated to test leads/analysts."
     },
     {
       id: 32,
@@ -448,7 +448,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Entry criteria (prerequisites): Test environment ready (3), specs reviewed (5), unit testing passed (6). Exit criteria (completion): Budget spent (1), tests executed/out-of-scope (2), defect levels acceptable (4)."
     },
     {
       id: 33,
@@ -463,7 +463,7 @@ export const mockQuestions2=[
       correctAnswer: 1,
       correctAnswers: [],
       explanation: "",
-      image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754983214/Screenshot_from_2025-08-12_12-49-39_ioyqmu.png"
+      image: "https://res.cloudinary.com/dlrpmew9d/image/upload/v1754983214/Screenshot_from_2025-08-12_12-49-39_ioyqmu.png"
     },
     {
       id: 34,
@@ -477,7 +477,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 2,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Expert-based estimation relies on predictions from experienced test managers/leads. They break down tasks, estimate effort for each, and aggregate based on their expertise and historical knowledge."
     },
     {
       id: 35,
@@ -491,7 +491,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 2,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Risk Level = Probability (likelihood of occurrence) × Impact (severity of consequences). This product determines the magnitude of risk for prioritization."
     },
     {
       id: 36,
@@ -505,7 +505,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 0,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Product risks relate directly to software quality (e.g., security, reliability). Here, inadequate architecture threatens security functionality—a quality attribute of the product."
     },
     {
       id: 37,
@@ -519,7 +519,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 1,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Risk-based testing focuses resources on high-risk areas. Adding tests to a low-risk area (high-quality module) contradicts this principle; effort should shift to higher-risk components."
     },
     {
       id: 38,
@@ -533,7 +533,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 3,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Critical for debugging: Test item ID (2) to locate the component, test environment (3) to replicate, priority (4) to triage, and actual results (5) to understand the failure. Severity (1) is often inferred; test case ref (6) is secondary."
     },
     {
       id: 39,
@@ -547,7 +547,7 @@ export const mockQuestions2=[
       ],
       correctAnswer: 2,
       correctAnswers: [],
-      explanation: ""
+      explanation: "Matching: 1→B (Dynamic analysis tools for performance), 2→A (Requirements tools track coverage during execution), 3→D (Defect tools manage testware/process), 4→C (Data tools aid test design)."
     },
     {
       id: 40,
@@ -561,6 +561,6 @@ export const mockQuestions2=[
       ],
       correctAnswer: 0,
       correctAnswers: [],
-      explanation: ""
+      explanation: "A pilot project assesses real-world tool integration. It evaluates process alignment, identifies necessary changes, and reveals organizational impacts before full-scale rollout."
     }
-  ]
+  ];
