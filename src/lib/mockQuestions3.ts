@@ -1,578 +1,564 @@
 export const mockQuestions3=[
-    {
-        id: 1,
-        chapter: "Fundamentals of Testing",
-        type: "single", // or "multiple"
-        question: "Which of the following is NOT a fundamental principle of testing?",
-        options: [
-          "Testing shows the presence of defects",
-          "Exhaustive testing is possible",
-          "Early testing saves time and money",
-          "Testing is context dependent",
-        ],
-        correctAnswer: 1, // for single choice
-        correctAnswers: [], // for multiple choice
-        explanation: "Exhaustive testing is not possible due to the infinite number of test cases that would be required.",
-      },
-      {
-        id: 2,
-        chapter: "Fundamentals of Testing",
-        type: "single",
-        question: "What is the primary objective of testing?",
-        options: [
-          "To prove that the software works correctly",
-          "To find as many defects as possible",
-          "To provide information about the quality of the software",
-          "To ensure 100% code coverage",
-        ],
-        correctAnswer: 2,
-        correctAnswers: [],
-        explanation:
-          "The primary objective of testing is to provide information about the quality of the software to stakeholders.",
-      },
-      {
-        id: 3,
-        chapter: "Testing Throughout the SDLC",
-        type: "single",
-        question: "In which development model are the development phases and testing phases most clearly separated?",
-        options: ["Agile model", "V-model", "Iterative model", "Spiral model"],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "The V-model clearly shows the relationship between development phases and corresponding testing phases.",
-      },
-      {
-        id: 4,
-        chapter: "Testing Throughout the SDLC",
-        type: "single",
-        question: "Which test level focuses on testing the interactions between integrated components?",
-        options: ["Unit testing", "Integration testing", "System testing", "Acceptance testing"],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "Integration testing focuses on testing the interfaces and interactions between integrated components.",
-      },
-      {
-        id: 5,
-        chapter: "Static Testing",
-        type: "single",
-        question: "Which of the following is a benefit of static testing?",
-        options: [
-          "It can only find defects in code",
-          "It requires test execution",
-          "It can find defects early in the development lifecycle",
-          "It is only applicable to functional testing",
-        ],
-        correctAnswer: 2,
-        correctAnswers: [],
-        explanation: "Static testing can find defects early in the development lifecycle without executing the code.",
-      },
-      {
-        id: 6,
-        chapter: "Static Testing",
-        type: "single",
-        question: "What is the main difference between static and dynamic testing?",
-        options: [
-          "Static testing is automated, dynamic testing is manual",
-          "Static testing examines code without execution, dynamic testing requires execution",
-          "Static testing is cheaper than dynamic testing",
-          "Static testing finds more defects than dynamic testing",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "Static testing examines the code, requirements, and design documents without executing the software, while dynamic testing requires execution.",
-      },
-      {
-        id: 7,
-        chapter: "Test Analysis and Design",
-        type: "single",
-        question: "Which black-box test technique is based on the specification of the component or system?",
-        options: ["Statement coverage", "Equivalence partitioning", "Branch coverage", "Path coverage"],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "Equivalence partitioning is a black-box technique that divides input data into equivalent partitions based on the specification.",
-      },
-      {
-        id: 8,
-        chapter: "Test Analysis and Design",
-        type: "single",
-        question: "What is boundary value analysis?",
-        options: [
-          "Testing at the boundaries of equivalence partitions",
-          "Testing the system boundaries",
-          "Testing network boundaries",
-          "Testing database boundaries",
-        ],
-        correctAnswer: 0,
-        correctAnswers: [],
-        explanation:
-          "Boundary value analysis focuses on testing at the boundaries of equivalence partitions where defects are more likely to occur.",
-      },
-      {
-        id: 9,
-        chapter: "Managing the Test Activities",
-        type: "single",
-        question: "What is the purpose of test planning?",
-        options: [
-          "To write test cases",
-          "To define the scope, approach, resources, and schedule of testing activities",
-          "To execute tests",
-          "To report defects",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation: "Test planning defines the scope, approach, resources, and schedule of intended test activities.",
-      },
-      {
-        id: 10,
-        chapter: "Managing the Test Activities",
-        type: "single",
-        question: "Which of the following is a test exit criterion?",
-        options: [
-          "All test cases have been designed",
-          "All planned tests have been executed",
-          "All testers are available",
-          "All requirements are documented",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "Test exit criteria define when to stop testing. 'All planned tests have been executed' is a common exit criterion.",
-      },
-      {
-        id: 11,
-        chapter: "Test Tools",
-        type: "single",
-        question: "What is the primary benefit of test automation?",
-        options: [
-          "It eliminates the need for manual testing",
-          "It finds more defects than manual testing",
-          "It enables efficient execution of repetitive tests",
-          "It reduces the cost of testing to zero",
-        ],
-        correctAnswer: 2,
-        correctAnswers: [],
-        explanation: "Test automation enables efficient execution of repetitive tests, especially for regression testing.",
-      },
-      {
-        id: 12,
-        chapter: "Test Tools",
-        type: "single",
-        question: "Which type of tool would be most appropriate for managing test cases and test execution?",
-        options: ["Static analysis tool", "Performance testing tool", "Test management tool", "Coverage measurement tool"],
-        correctAnswer: 2,
-        correctAnswers: [],
-        explanation:
-          "Test management tools are specifically designed for managing test cases, test execution, and test results.",
-      },
-      {
-        id: 13,
-        chapter: "Fundamentals of Testing",
-        type: "single",
-        question: "What does the pesticide paradox principle state?",
-        options: [
-          "Testing can prove the absence of defects",
-          "The same tests repeated over and over will eventually find no new defects",
-          "More testing always leads to better quality",
-          "Defects cluster together in certain modules",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "The pesticide paradox states that if the same tests are repeated, they will eventually stop finding new defects.",
-      },
-      {
-        id: 14,
-        chapter: "Fundamentals of Testing",
-        type: "single",
-        question: "Which statement about defect clustering is correct?",
-        options: [
-          "Defects are evenly distributed across all modules",
-          "A small number of modules usually contain most of the defects",
-          "Defect clustering only occurs in large systems",
-          "Defect clustering is not a recognized testing principle",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "The Pareto principle applies to defect distribution - a small number of modules usually contain most of the defects.",
-      },
-      {
-        id: 15,
-        chapter: "Testing Throughout the SDLC",
-        type: "multiple",
-        question: "Which of the following are characteristics of good testing? (Select all that apply)",
-        options: [
-          "Testing should start as early as possible",
-          "Testing should be exhaustive to find all defects",
-          "Testing should be risk-based",
-          "Testing should provide feedback about quality",
-        ],
-        correctAnswer: -1, // not used for multiple choice
-        correctAnswers: [0, 2, 3], // indices of correct answers
-        explanation:
-          "Good testing starts early, is risk-based, and provides quality feedback. Exhaustive testing is not possible.",
-      },
-      {
-        id: 16,
-        chapter: "Testing Throughout the SDLC",
-        type: "single",
-        question: "Which testing type focuses on testing the system's ability to handle expected load?",
-        options: ["Functional testing", "Performance testing", "Security testing", "Usability testing"],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation: "Performance testing evaluates the system's ability to handle expected load and response times.",
-      },
-      {
-        id: 17,
-        chapter: "Static Testing",
-        type: "single",
-        question: "Which of the following can be reviewed using static testing techniques?",
-        options: [
-          "Only source code",
-          "Only test cases",
-          "Requirements, design documents, code, and test cases",
-          "Only design documents",
-        ],
-        correctAnswer: 2,
-        correctAnswers: [],
-        explanation:
-          "Static testing can be applied to requirements, design documents, source code, test cases, and other work products.",
-      },
-      {
-        id: 18,
-        chapter: "Static Testing",
-        type: "single",
-        question: "What is the main purpose of a formal review?",
-        options: [
-          "To find defects and improve quality",
-          "To approve the document",
-          "To train new team members",
-          "To satisfy audit requirements",
-        ],
-        correctAnswer: 0,
-        correctAnswers: [],
-        explanation: "The main purpose of formal reviews is to find defects and improve the quality of work products.",
-      },
-      {
-        id: 19,
-        chapter: "Test Analysis and Design",
-        type: "single",
-        question: "Which white-box testing technique measures the percentage of decision outcomes tested?",
-        options: ["Statement coverage", "Branch coverage", "Path coverage", "Condition coverage"],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation: "Branch coverage measures the percentage of decision outcomes (true/false) that have been tested.",
-      },
-      {
-        id: 20,
-        chapter: "Test Analysis and Design",
-        type: "single",
-        question: "What is exploratory testing?",
-        options: [
-          "Testing without any preparation",
-          "Simultaneous learning, test design, and test execution",
-          "Testing only the user interface",
-          "Automated testing",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "Exploratory testing is an approach where learning, test design, and test execution happen simultaneously.",
-      },
-      {
-        id: 21,
-        chapter: "Managing the Test Activities",
-        type: "single",
-        question: "What is a test oracle?",
-        options: ["A testing tool", "A source to determine expected results", "A test manager", "A type of test case"],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation: "A test oracle is a source to determine whether test execution results are pass or fail.",
-      },
-      {
-        id: 22,
-        chapter: "Managing the Test Activities",
-        type: "single",
-        question: "Which factor should be considered when estimating test effort?",
-        options: [
-          "Only the number of test cases",
-          "Characteristics of the product, process, and people",
-          "Only the project timeline",
-          "Only the budget available",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "Test effort estimation should consider product characteristics, development process, and people involved.",
-      },
-      {
-        id: 23,
-        chapter: "Test Tools",
-        type: "single",
-        question: "What is a key consideration when introducing test automation?",
-        options: [
-          "Automate everything immediately",
-          "Consider the return on investment",
-          "Replace all manual testers",
-          "Use the most expensive tools",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation: "Return on investment should be carefully considered when introducing test automation.",
-      },
-      {
-        id: 24,
-        chapter: "Test Tools",
-        type: "single",
-        question: "Which tool would be most appropriate for measuring code coverage?",
-        options: ["Test management tool", "Static analysis tool", "Coverage measurement tool", "Performance testing tool"],
-        correctAnswer: 2,
-        correctAnswers: [],
-        explanation:
-          "Coverage measurement tools are specifically designed to measure how much of the code has been exercised by tests.",
-      },
-      {
-        id: 25,
-        chapter: "Fundamentals of Testing",
-        type: "single",
-        question: "What is the relationship between testing and quality assurance?",
-        options: [
-          "They are the same thing",
-          "Testing is part of quality assurance",
-          "Quality assurance is part of testing",
-          "They are completely unrelated",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "Testing is one of the activities within quality assurance, which encompasses the entire software development process.",
-      },
-      {
-        id: 26,
-        chapter: "Testing Throughout the SDLC",
-        type: "single",
-        question: "What is regression testing?",
-        options: [
-          "Testing new functionality",
-          "Testing to confirm that recent changes haven't adversely affected existing features",
-          "Testing the user interface",
-          "Testing performance",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "Regression testing confirms that recent program or code changes haven't adversely affected existing features.",
-      },
-      {
-        id: 27,
-        chapter: "Static Testing",
-        type: "single",
-        question: "Which role is responsible for recording defects found during a review?",
-        options: ["Author", "Moderator", "Scribe", "Reviewer"],
-        correctAnswer: 2,
-        correctAnswers: [],
-        explanation:
-          "The scribe is responsible for recording defects found during reviews and documenting review decisions.",
-      },
-      {
-        id: 28,
-        chapter: "Test Analysis and Design",
-        type: "single",
-        question: "What is the main advantage of decision table testing?",
-        options: [
-          "It's easy to automate",
-          "It systematically covers complex business rules",
-          "It requires no documentation",
-          "It's the fastest technique",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation: "Decision table testing systematically covers complex business rules and their combinations.",
-      },
-      {
-        id: 29,
-        chapter: "Managing the Test Activities",
-        type: "single",
-        question: "What is the purpose of configuration management in testing?",
-        options: [
-          "To manage test tools",
-          "To control and track changes to test work products",
-          "To manage the test team",
-          "To configure test environments",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "Configuration management controls and tracks changes to test work products and maintains their integrity.",
-      },
-      {
-        id: 30,
-        chapter: "Test Tools",
-        type: "single",
-        question: "What is the main risk of over-reliance on test automation?",
-        options: [
-          "Increased costs",
-          "Reduced test coverage",
-          "Missing defects that manual testing might find",
-          "Slower test execution",
-        ],
-        correctAnswer: 2,
-        correctAnswers: [],
-        explanation:
-          "Over-reliance on automation might miss defects that human intuition and exploratory testing could find.",
-      },
-      {
-        id: 31,
-        chapter: "Fundamentals of Testing",
-        type: "single",
-        question: "Which testing principle suggests that testing should start as early as possible?",
-        options: [
-          "Testing shows presence of defects",
-          "Early testing saves time and money",
-          "Exhaustive testing is impossible",
-          "Testing is context dependent",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation: "Early testing saves time and money by finding defects when they are cheaper to fix.",
-      },
-      {
-        id: 32,
-        chapter: "Testing Throughout the SDLC",
-        type: "single",
-        question: "What is the main focus of system testing?",
-        options: [
-          "Testing individual components",
-          "Testing component interactions",
-          "Testing the complete integrated system",
-          "Testing user acceptance",
-        ],
-        correctAnswer: 2,
-        correctAnswers: [],
-        explanation: "System testing focuses on testing the behavior of the complete integrated system.",
-      },
-      {
-        id: 33,
-        chapter: "Static Testing",
-        type: "single",
-        question: "What is the main benefit of using checklists in reviews?",
-        options: [
-          "They guarantee finding all defects",
-          "They provide systematic guidance for reviewers",
-          "They eliminate the need for training",
-          "They automate the review process",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "Checklists provide systematic guidance to help reviewers focus on important aspects and common defect types.",
-      },
-      {
-        id: 34,
-        chapter: "Test Analysis and Design",
-        type: "single",
-        question: "What is state transition testing used for?",
-        options: [
-          "Testing database transactions",
-          "Testing systems that exhibit different behavior based on current state",
-          "Testing network connections",
-          "Testing user interfaces only",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "State transition testing is used for systems that exhibit different behavior depending on their current state.",
-      },
-      {
-        id: 35,
-        chapter: "Managing the Test Activities",
-        type: "single",
-        question: "What should be included in a test summary report?",
-        options: [
-          "Only the number of test cases executed",
-          "Test results, defects found, and recommendations",
-          "Only failed test cases",
-          "Only performance metrics",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "A test summary report should include test results, defects found, test coverage achieved, and recommendations.",
-      },
-      {
-        id: 36,
-        chapter: "Test Tools",
-        type: "single",
-        question: "Which type of tool helps in managing defects throughout their lifecycle?",
-        options: ["Test execution tool", "Defect management tool", "Performance testing tool", "Static analysis tool"],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation: "Defect management tools help track, manage, and control defects throughout their lifecycle.",
-      },
-      {
-        id: 37,
-        chapter: "Fundamentals of Testing",
-        type: "single",
-        question: "What does 'absence-of-errors fallacy' mean?",
-        options: [
-          "Testing can prove software is error-free",
-          "Finding no defects doesn't mean the software is ready for release",
-          "Errors are always present in software",
-          "Testing is not necessary if no errors are expected",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "The absence-of-errors fallacy means that finding no defects doesn't prove the software meets user needs and expectations.",
-      },
-      {
-        id: 38,
-        chapter: "Testing Throughout the SDLC",
-        type: "single",
-        question: "What is maintenance testing?",
-        options: [
-          "Testing during system maintenance",
-          "Testing triggered by modifications to deployed software",
-          "Testing the maintenance procedures",
-          "Testing backup and recovery",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation: "Maintenance testing is triggered by modifications, migration, or retirement of deployed software.",
-      },
-      {
-        id: 39,
-        chapter: "Test Analysis and Design",
-        type: "single",
-        question: "What is the main purpose of test case design techniques?",
-        options: [
-          "To automate test execution",
-          "To systematically derive test cases from test conditions",
-          "To manage test data",
-          "To report test results",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "Test case design techniques help systematically derive test cases from test conditions to achieve specific test objectives.",
-      },
-      {
-        id: 40,
-        chapter: "Managing the Test Activities",
-        type: "single",
-        question: "What is risk-based testing?",
-        options: [
-          "Testing only high-risk areas",
-          "An approach where testing is prioritized based on risk analysis",
-          "Testing without any planning",
-          "Testing that focuses only on security risks",
-        ],
-        correctAnswer: 1,
-        correctAnswers: [],
-        explanation:
-          "Risk-based testing is an approach where testing activities are prioritized based on the analysis of risk.",
-      },
+  {
+    id: 1,
+    type: "single",
+    question: "What is quality?",
+    options: [
+      "Part of quality management focused on providing confidence that quality requirements will be fulfilled.",
+      "The degree to which a component, system or process meets specified requirements and/or user/customer needs and expectations.",
+      "The degree to which a component or system protects information and data so that persons or other components or systems have the degree of access appropriate to their types and levels of authorization.",
+      "The total costs incurred on quality activities and issues and often split into prevention costs, appraisal costs, internal failure costs and external failure costs."
+    ],
+    correctAnswer: 1,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 2,
+    type: "single",
+    question: "Which of the following is a typical test objective?",
+    options: [
+      "Preventing defects",
+      "Repairing defects",
+      "Comparing actual results to expected results",
+      "Analyzing the cause of failure"
+    ],
+    correctAnswer: 0,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 3,
+    type: "single",
+    question: "A phone ringing in an adjacent cubicle momentarily distracts a programmer, causing the programmer to improperly program the logic that checks the upper boundary of an input variable. Later, during system testing, a tester notices that this input field accepts invalid input values. The improperly coded logic for the upper boundary check is:",
+    options: [
+      "The root cause",
+      "The failure",
+      "The error",
+      "The defect"
+    ],
+    correctAnswer: 3,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 4,
+    type: "single",
+    question: "A product owner says that your role as a tester on an Agile team is to catch all the bugs before the end of each iteration. Which of the following is a testing principle that could be used to respond to this statement?",
+    options: [
+      "Defect clustering",
+      "Testing shows the presence of defects",
+      "Absence of error fallacy",
+      "Root cause analysis"
+    ],
+    correctAnswer: 1,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 5,
+    type: "single",
+    question: "Programmers often write and execute unit tests against code which they have written. During this self testing activity, which of the following is a tester mindset that programmers should adopt to perform this unit testing effectively?",
+    options: [
+      "Good communication skills",
+      "Code coverage",
+      "Evaluating code defects",
+      "Attention to detail"
+    ],
+    correctAnswer: 3,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 6,
+    type: "single",
+    question: "Consider the following testing activities:\n 1. Selecting regression tests \n 2. Evaluating completeness of test execution \n 3. Identifying which user stories have open defect reports \n 4. Evaluating whether the number of tests for each requirement is consistent with the level of product risk.\n\n Consider the following ways traceability can help testing:\n \nA. Improve understandability of test status reports to include status of test basis items \n B. Make testing auditable \n C. Provide information to assess process quality \n D. Analyze the impact of changes. Which of the following best matches the testing activity with how traceability can assist that activity?",
+    options: [
+      "1D, 2B, 3C, 4A",
+      "1B, 2D, 3A, 4C",
+      "1D, 2C, 3A, 4B",
+      "1D, 2B, 3A, 4C"
+    ],
+    correctAnswer: 3,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 7,
+    type: "single",
+    question: "A tester participated in a discussion about proposed database structure. The tester identified a potential performance problem related to certain common user searches. This possible problem was explained to the development team. Which of the following is a testing contribution to success that BEST matches this situation?",
+    options: [
+      "Enabling required tests to be identified at an early stage",
+      "Ensuring processes are carried out properly",
+      "Reducing the risk of fundamental design defects",
+      "Reducing the risk of untestable functionality"
+    ],
+    correctAnswer: 2,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 8,
+    type: "single",
+    question: "Which of the following is an example of a task that can be carried out as part of the test process?",
+    options: [
+      "Analyzing a defect",
+      "Designing test data",
+      "Assigning a version to a test item",
+      "Writing a user story"
+    ],
+    correctAnswer: 1,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 9,
+    type: "single",
+    question: "You are running a performance test with the objective of finding possible network bottlenecks in interfaces between components of a system. Which of the following statements describes this test?",
+    options: [
+      "A functional test during the integration test level",
+      "A non-functional test during the integration test level",
+      "A functional test during the component test level",
+      "A non-functional test during the component test level"
+    ],
+    correctAnswer: 1,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 10,
+    type: "single",
+    question: "Which of the following statements is true?",
+    options: [
+      "Impact analysis is useful for confirmation testing during maintenance testing",
+      "Confirmation testing is useful for regression testing during system design",
+      "Impact analysis is useful for regression testing during maintenance testing",
+      "Confirmation testing is useful for impact analysis during maintenance testing"
+    ],
+    correctAnswer: 2,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 11,
+    type: "single",
+    question: "Consider the following types of defects that a test level might focus on: 1. Defects in separately testable modules or objects 2. Not focused on identifying defects 3. Defects in interfaces and interactions 4. Defects in the whole test object. Which of the following list correctly matches test levels from the Foundation syllabus with the defect focus options given above?",
+    options: [
+      "1 = performance test; 2 = component test; 3 = system test; 4 = acceptance test",
+      "1 = component test; 2 = acceptance test; 3 = system test; 4 = integration test",
+      "1 = component test; 2 = acceptance test; 3 = integration test; 4 = system test",
+      "1 = integration test; 2 = system test; 3 = component test; 4 = acceptance test"
+    ],
+    correctAnswer: 2,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 12,
+    type: "single",
+    question: "A mass market operating system software product is designed to run on any PC hardware with an x86-family processor. You are running a set of tests to look for defects related to support of the various PCs that use such a processor and to build confidence that important PC brands will work. What type of test are you performing?",
+    options: [
+      "Performance test",
+      "Processor test",
+      "Functional test",
+      "Portability test"
+    ],
+    correctAnswer: 3,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 13,
+    type: "single",
+    question: "During an Agile development effort, a product owner discovers a previously-unknown regulatory requirement that applies to most of the user stories within a particular epic. The user stories are updated to provide for the necessary changes in software behavior. The programmers on the team are modifying the code appropriately. As a tester on the team, what types of tests will you run?",
+    options: [
+      "Confirmation tests",
+      "Regression tests",
+      "Functional tests",
+      "Change-related tests"
+    ],
+    correctAnswer: 3,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 14,
+    type: "single",
+    question: "In a formal review, what is the role name for the participant who runs an inspection meeting?",
+    options: [
+      "Facilitator",
+      "Programmer",
+      "Author",
+      "Project manager"
+    ],
+    correctAnswer: 0,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 15,
+    type: "single",
+    question: "You are reading a user story in the product backlog to prepare for a meeting with the product owner and a developer, noting potential defects as you go. Which of the following statements is true about this activity?",
+    options: [
+      "It is not a static test, because static testing involves execution of the test object",
+      "It is not a static test, because static testing is always performed using a tool",
+      "It is a static test, because any defects you find could be found cheaper during dynamic testing",
+      "It is a static test, because static testing does not involve execution of the test object."
+    ],
+    correctAnswer: 3,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 16,
+    type: "single",
+    question: "During a period of intensive project overtime, a system architecture document is sent to various project participants, announcing a previously-unplanned technical review to occur in one week. No adjustments are made to the participants' list of assigned tasks. Based on this information alone, which of the following is a factor for review success that is MISSING?",
+    options: [
+      "Appropriate review type",
+      "Adequate time to prepare",
+      "Sufficient metrics to evaluate the author",
+      "Well-managed review meeting"
+    ],
+    correctAnswer: 1,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 17,
+    type: "single",
+    question: "You are working as a tester on an Agile team, and have participated in over two dozen user story refinement sessions with the product owner and the developers on the team at the start of each iteration. As the reviews have gotten more effective at detecting defects in user stories and the product owner more adept at correcting those defects, you and the team notice that the team's velocity, as shown in your burndown charts, has started to increase. Which of the following is a benefit of static testing that MOST DIRECTLY applies to increased velocity?",
+    options: [
+      "Increasing total cost of quality",
+      "Reducing testing cost",
+      "Increasing development productivity",
+      "Reducing total cost of quality"
+    ],
+    correctAnswer: 2,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 18,
+    type: "single",
+    question: "You are working on a video game development project, using Agile methods. It is based on Greek mythology and history, and players can play key roles in scenarios such as the battles between the Greeks and Trojans.\n Consider the following user story and its associated acceptance criteria:\n\n As a player, I want to be able to acquire the Rod of Midas (a new magic object), so that I can turn objects and other players into gold. \nAC1: The Rod must work on any object or player, no matter what size, which can be touched anywhere by the player holding the Rod. \nAC2: Holding the Rod does not change the player holding it into gold. \nAC3: Any object or player touched by the Rod transforms completely into gold within one millisecond. \nAC4: The Rod appears as shown in Prototype O.W.RoM. \nAC5: The transformation starts at the point of contact with the Rod and moves at a rate of one meter per millisecond. \nYou are participating in a checklist-based review session of this user story.\n This user story and its associated acceptance criteria contain which of the following typical defects identified by static testing in this type of work product?",
+    options: [
+      "Deviation from standards",
+      "Contradiction",
+      "Security vulnerability",
+      "Coverage gaps"
+    ],
+    correctAnswer: 1,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 19,
+    type: "single",
+    question: "What is decision coverage?",
+    options: [
+      "The percentage of condition outcomes that have been exercised by a test suite",
+      "Decision coverage is a synonym for statement coverage",
+      "The percentage of executable statements that have been exercised by a test suite",
+      "The percentage of decision outcomes that have been exercised by a test suite"
+    ],
+    correctAnswer: 3,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 20,
+    type: "single",
+    question: "Prior to an iteration planning session, you are studying a user story and its acceptance criteria, deriving test conditions and associated test cases from the user story as a way of applying the principle of early QA and test. What test technique are you applying?",
+    options: [
+      "White-box",
+      "Black-box",
+      "Experience-based",
+      "Error guessing"
+    ],
+    correctAnswer: 1,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 21,
+    type: "single",
+    question: "Which of the following is a true statement about exploratory testing?",
+    options: [
+      "More experienced testers who have tested similar applications and technologies are likely to do better than less experienced testers at exploratory testing",
+      "Exploratory testing does not identify any additional tests beyond those that would result from formal test techniques",
+      "The time required to complete an exploratory testing session cannot be predicted in advance",
+      "Exploratory testing can involve the use of black-box techniques but not white-box techniques"
+    ],
+    correctAnswer: 0,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 22,
+    type: "single",
+    question: "You are testing a mobile app that allows customers to access and manage their bank accounts. You are running a test suite that involves evaluating each screen and each field on each screen against a general list of user interface best practices, derived from a popular book on the topic, that maximize attractiveness, ease-of-use, and accessibility for such apps. Which of the following options BEST categorizes the test technique you are using?",
+    options: [
+      "Specification-based",
+      "Exploratory",
+      "Checklist-based",
+      "Error guessing"
+    ],
+    correctAnswer: 2,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 23,
+    type: "single",
+    question: "Consider a mobile app that allows customers to access and manage their bank accounts. A user story has just been added to the set of features that checks customers' social media accounts and bank records to give personalized greetings on birthdays and other personal milestones. Which of the following test techniques could a PROGRAMMER use during a unit test of the code to ensure that coverage of situations when the greetings ARE supposed to occur and when the greetings ARE NOT supposed to occur?",
+    options: [
+      "Statement testing",
+      "Exploratory testing",
+      "State transition testing",
+      "Decision testing"
+    ],
+    correctAnswer: 3,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 24,
+    type: "single",
+    question: "A batch application has been in production unchanged for over two years. It runs overnight once a month to produce statements that will be e-mailed to customers. For each customer, the application goes through every account and lists every transaction on that account in the last month. It uses a nested-loop structure to process customers (outer loop), each customer's accounts (middle loop), and each account's transactions (inner loop). One night, the batch application terminates prematurely, failing to e-mail statements to some customers, when it encounters a customer with one account for which no transactions occurred in the last month. This is a very unusual situation and has not occurred in the years since this application was placed in production. While fixing the defect, a programmer asks you to recommend test techniques that are effective against this kind of defect. Which of the following test techniques would most likely have been able to detect the underlying defect?",
+    options: [
+      "Decision testing",
+      "Statement testing",
+      "Checklist-based testing",
+      "Error guessing"
+    ],
+    correctAnswer: 0,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 25,
+    type: "single",
+    question: "You are testing an unattended gasoline pump that only accepts credit cards. Once the credit card is validated, the pump nozzle placed into the tank, and the desired grade selected, the customer enters the desired amount of fuel in gallons using the keypad. The keypad only allows the entry of digits. Fuel is sold in tenths (0.1) of a gallon, up to 50.0 gallons. Which of the following is a minimum set of desired amounts that covers the equivalence partitions for this input?",
+    options: [
+      "0.0, 20.0, 60.0",
+      "0.0, 0.1, 50.0",
+      "0.0, 0.1, 50.0, 70.0",
+      "-0.1, 0.0, 0.1, 49.9, 50.0, 50.1"
+    ],
+    correctAnswer: 0,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 26,
+    type: "single",
+    question: "You are testing an e-commerce system that sells cooking supplies such as spices, flour, and other items in bulk. The units in which the items are sold are either grams (for spices and other expensive items) or kilograms (for flour and other inexpensive items). Regardless of the units, the smallest valid order amount is 0.5 units (e.g., half a gram of cardamom pods) and the largest valid order amount is 25.0 units (e.g., 25 kilograms of sugar). The precision of the units field is 0.1 units. Which of the following is a set of input values that cover the boundary values with two-point boundary values for this field?",
+    options: [
+      "0.3, 10.0, 28.0",
+      "0.4, 0.5, 0.6, 24.9, 25.0, 25.1",
+      "0.4, 0.5, 25.0, 25.1",
+      "0.5, 0.6, 24.9, 25.0"
+    ],
+    correctAnswer: 2,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 27,
+    type: "single",
+    question: "Consider the following decision table for the portion of an online airline reservation system that allows frequent flyers to redeem points for reward travel: ",
+    options: [
+      "2",
+      "3",
+      "4",
+      "9"
+    ],
+    image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754987016/Screenshot_from_2025-08-12_13-53-22_a5lv1k.png",
+    correctAnswer: 2,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 28,
+    type: "single",
+    question: "Consider the following state transition diagram for a credit-card only, unattended gasoline pump: ",
+    options: [
+      "4",
+      "7",
+      "1",
+      "Infinite"
+    ],
+    correctAnswer: 0,
+    correctAnswers: [],
+    explanation: "",
+    image:"https://res.cloudinary.com/dlrpmew9d/image/upload/v1754976149/Screenshot_from_2025-08-12_10-32-42_y7ns0q.png"
+  },
+  {
+    id: 29,
+    type: "single",
+    question: "You are testing an e-commerce system that sells cooking supplies such as spices, flour, and other items in bulk. The units in which the items are sold are either grams (for spices and other expensive items) or kilograms (for flour and other inexpensive items). Regardless of the units, the smallest valid order amount is 0.5 units (e.g., half a gram of cardamom pods) and the largest valid order amount is 25.0 units (e.g., 25 kilograms of sugar). The precision of the units field is 0.1 units. Which of the following is a MINIMAL set of input values that cover the equivalence partitions for this field?",
+    options: [
+      "10.0, 28.0",
+      "0.4, 0.5, 25.0, 25.1",
+      "0.2, 0.9, 29.5",
+      "12.3"
+    ],
+    correctAnswer: 2,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 30,
+    type: "single",
+    question: "You are working as a tester on an online banking system. Availability is considered one of the top product (quality) risks for the system. You find a reproducible failure that results in customers losing their connections to the bank Web site when transferring funds between common types of accounts and being unable to reconnect for between three and five minutes. Which of the following would be a good summary for a defect report for this failure, one that captures both the essence of the failure and its impact on stakeholders?",
+    options: [
+      "Web server logs show error 0x44AB27 when running test 07.005, which is not an expected error message in /tmp filesystem",
+      "Developers have introduced major availability defect which will seriously upset our customers",
+      "Performance is slow and reliability flaky under load",
+      "Typical funds-transfer transaction results in termination of customer session, with a delay in availability when attempting to reconnect"
+    ],
+    correctAnswer: 3,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 31,
+    type: "single",
+    question: "You are testing a mobile app that allows users to find a nearby restaurant, based on the type of food they want to eat. Consider the following list of test cases, priorities (smaller number is high priority), and dependencies: Test case number Test condition covered Priority Logical dependency. 01.001 Select type of food 3 none. 01.002 Select restaurant 2 01.001. 01.003 Get directions 1 01.002. 01.004 Call restaurant 1 01.002. 01.005 Make reservation 3 01.002. Which of the following is a possible test execution schedule that considers both priorities and dependencies?",
+    options: [
+      "01.001, 01.002, 01.003, 01.005, 01.004",
+      "01.001, 01.002, 01.004, 01.003, 01.005",
+      "01.003, 01.004, 01.002, 01.001, 01.002",
+      "01.001, 01.002, 01.004, 01.005, 01.003"
+    ],
+    correctAnswer: 1,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 32,
+    type: "single",
+    question: "Which of the following is a common test metric often used to monitor BOTH test preparation and test execution?",
+    options: [
+      "Test case status",
+      "Defect find/fix rates",
+      "Test environment preparation",
+      "Estimated cost to find the next defect"
+    ],
+    correctAnswer: 0,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 33,
+    type: "single",
+    question: "Which of the following are two factors that can be used to determine the level of risk?",
+    options: [
+      "Testing and development",
+      "Dynamic and reactive",
+      "Statement and decision",
+      "Likelihood and impact"
+    ],
+    correctAnswer: 3,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 34,
+    type: "single",
+    question: "You are working as a project manager on an in-house banking software project. To prevent rework and excessive find/fix/retest cycles, the following process has been put in place for resolving a defect once it is found in the test lab:\n 1. The assigned developer finds and fixes the defect, then creates an experimental build. \n2. A peer developer reviews, unit tests, and confirmation tests the defect fix on his/her desktop. \n3. A tester—usually the one who found the defect—confirmation tests the defect fix in the development environment. \n4. Once a day, a new release with all confirmed defect fixes included, is installed in the test environment. \n5. The same tester from step 3 confirmation tests the defect fix in the test environment.\n\n Nevertheless, a large number of defects which the testers confirmed as fixed in the development environment (in step 3) are somehow failing confirmation testing in the test environment, with the resulting rework and cycle time outcomes. You have the highest confidence in your testers, and have ruled out mistakes or omissions in step 3.\n\n Which of the following is the MOST likely part of the process to check next?",
+    options: [
+      "The developers, who may not be adequately testing in step 2",
+      "The testers, who may be confused about what to test in step 5",
+      "Configuration management, which may not be maintaining the integrity of the product in step 4",
+      "The developers, who may not be fixing defects properly in step 1"
+    ],
+    correctAnswer: 2,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 35,
+    type: "single",
+    question: "You are engaged in planning a test effort for a new mobile banking application. As part of estimation, you first meet with the proposed testers and others on the project. The team is well-coordinated and has already worked on similar projects. To verify the resulting estimate, you then refer to some industry averages for testing effort and costs on similar projects, published by a reputable consultant. Which statement accurately describes your estimation approach?",
+    options: [
+      "A simultaneous expert-based and metrics-based approach",
+      "Primarily an expert-based approach, augmented with a metrics-based approach",
+      "Primarily a metrics-based approach, augmented with an expert-based approach",
+      "Primarily planning poker, checked by velocity from burndown charts."
+    ],
+    correctAnswer: 1,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 36,
+    type: "single",
+    question: "During a project following Agile methods, you find a discrepancy between the developer's interpretation of an acceptance criteria and the product owner's interpretation, which you bring up during a user story refinement session. Which of the following is a benefit of test independence exemplified by this situation?",
+    options: [
+      "Recognizing different kinds of failures",
+      "Taking primary responsibility for quality",
+      "Removing a defect early",
+      "Challenging stakeholder assumptions"
+    ],
+    correctAnswer: 3,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 37,
+    type: "single",
+    question: "You are defining the process for carrying out product risk analysis as part of each iteration on an Agile project. Which of the following is the proper place to document this process in a test plan?",
+    options: [
+      "Scope of testing",
+      "Approach of testing",
+      "Metrics of testing",
+      "Configuration management of the test object"
+    ],
+    correctAnswer: 1,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 38,
+    type: "single",
+    question: "Consider the following list of undesirable outcomes that could occur on a mobile app development effort: A. Incorrect totals on reports. B. Change to acceptance criteria during acceptance testing. C. Users find the soft keyboard too hard to use with your app. D. System responds too slowly to user input during search string entry. E. Testers not allowed to report test results in daily standup meetings. Which of the following properly classifies these outcomes as project and product risks?",
+    options: [
+      "Product risks: B, E; Project risks: A, C, D",
+      "Product risks: A, C, D; Project risks: B, E",
+      "Product risks: A, C, D, E; Project risks: B",
+      "Product risks: A, C; Project risks: B, D, E"
+    ],
+    correctAnswer: 1,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 39,
+    type: "single",
+    question: "You have just completed a pilot project for a regression testing tool. You understand the tool much better, and have tailored your testing process to it. You have standardized an approach to using the tool and its associated work products. Which of the following is a typical test automation pilot project goal that remains to be carried out?",
+    options: [
+      "Learn more details about the tool",
+      "See how the tool would fit with existing processes and practices",
+      "Decide on standard ways of using, managing, storing, and maintaining the tool and the test assets",
+      "Assess whether the benefits will be achieved at reasonable cost"
+    ],
+    correctAnswer: 3,
+    correctAnswers: [],
+    explanation: ""
+  },
+  {
+    id: 40,
+    type: "single",
+    question: "Which of the following tools is most useful for reporting test metrics?",
+    options: [
+      "Test management tool",
+      "Static analysis tool",
+      "Coverage tool",
+      "Security tool"
+    ],
+    correctAnswer: 0,
+    correctAnswers: [],
+    explanation: ""
+  }
 ]
