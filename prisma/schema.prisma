@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -13,138 +7,130 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
-  id       String   @id @default(uuid())
-  
-  email    String   @unique
-  password String
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now())
 }
-model certifiedTesters{
-  id String @id @default(uuid())
-  name String
-  certificateNumber String @unique
-  certificateBody String
-  examProvider String
-  certification String
-  countryOfIssue String
+
+model certifiedTesters {
+  name              String
+  certificateNumber String   @unique
+  certificateBody   String
+  examProvider      String
+  certification     String
+  countryOfIssue    String
   certificationDate DateTime
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-
-
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+  id                String   @id @default(uuid())
 }
 
-
-model carouselImage{
-  id String @id @default(uuid())
-  url String
-  title       String   @default("")
-  description String   @default("")
+model carouselImage {
+  id          String @id @default(uuid())
+  url         String
+  description String @default("")
+  title       String @default("")
 }
+
 model examSchedule {
-  id                   String   @id @default(uuid())
-  examTitle            String
-  examDate             DateTime
-  applicationPeriod    DateTime
-  location             String
+  id                String   @id @default(uuid())
+  examTitle         String
+  examDate          DateTime
+  applicationPeriod DateTime
+  location          String
 }
-model boardMembers{
-  id String @id @default(cuid())
-  name String @unique
-  title String
+
+model boardMembers {
+  id          String @id @default(cuid())
+  name        String @unique
+  title       String
   linkedInUrl String
-  imageUrl String
-  order Int 
-  
-
+  imageUrl    String
+  order       Int
 }
 
-model Blog{
-  id String @id @default(uuid())
-  title String
-  slug String @unique
-  imageUrl String
-  content String
-  summary String?
+model Blog {
+  id        String   @id @default(uuid())
+  title     String
+  slug      String   @unique
+  content   String
+  summary   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  imageUrl  String
 }
+
 model Event {
-  id          Int            @id @default(autoincrement())
-  title       String
-  description String
-  date        DateTime
-  slug        String @unique
-  
-  imageUrl String 
-  isPaid Boolean @default(false)
-  price Int?
+  id            Int                 @id @default(autoincrement())
+  title         String
+  description   String
+  date          DateTime
+  imageUrl      String
+  isPaid        Boolean             @default(false)
+  price         Int?
+  slug          String              @unique
+  createdAt     DateTime            @default(now())
   registrations EventRegistration[]
-  createdAt  DateTime       @default(now())
-  
 }
 
 model EventRegistration {
-  id          Int      @id @default(autoincrement())
-  name        String
-  email       String
-  event       Event    @relation(fields: [eventId], references: [id])
-  eventId     Int
-  amount      Int?
-  status     String   @default("pending") // pending, completed, failed
-  
-  transaction_uuid String?  @unique// eSewa transaction ID
-   // eSewa reference ID
-  createdAt   DateTime @default(now())
+  id               Int      @id @default(autoincrement())
+  name             String
+  email            String
+  eventId          Int
+  amount           Int?
+  status           String   @default("pending")
+  createdAt        DateTime @default(now())
+  transaction_uuid String?  @unique
+  event            Event    @relation(fields: [eventId], references: [id])
 }
 
-
-
-
-model flowingHeadlines{
-  id String @id @default(cuid())
-  text String
-  icon String //Calendar Users 
-  href String
-  type String //info, urgent
+model flowingHeadlines {
+  id        String   @id @default(cuid())
+  text      String
+  icon      String
+  href      String
+  type      String
   createdAt DateTime @default(now())
 }
-model ExamRegistration{
-  id Int @id @default(autoincrement())
-  firstName String
-  lastName String
-  email String
-  designation String
-  screenShot String
-  phone String
+
+model ExamRegistration {
+  id                Int      @id @default(autoincrement())
+  firstName         String
+  lastName          String
+  email             String
+  designation       String
+  screenShot        String
+  phone             String
   citizenshipNumber String
-  status String @default("PENDING")
-  remarks String?
-  createdAt DateTime @default(now())
+  status            String   @default("PENDING")
+  createdAt         DateTime @default(now())
+  remarks           String?
+  companyName       String?
 }
+
 model QuestionSet {
   id        Int        @id @default(autoincrement())
   title     String
-  questions Question[]
   createdAt DateTime   @default(now())
-  
+  questions Question[]
 }
 
 model Question {
-  id             Int      @id @default(autoincrement())
+  id             Int          @id @default(autoincrement())
   chapter        String
-  type           QuestionType
   question       String
-  options        String[] // Exactly 4 options
-  correctAnswer  Int?      // Use -1 if not applicable
-  correctAnswers Int[]    // Use [] if not applicable
-  explanation    String
   setId          Int
-  set            QuestionSet @relation(fields: [setId], references: [id])
-  createdAt      DateTime @default(now())
-  
+  createdAt      DateTime     @default(now())
+  options        String[]
+  correctAnswer  Int?
+  correctAnswers Int[]
+  explanation    String
+  type           QuestionType
+  set            QuestionSet  @relation(fields: [setId], references: [id])
 }
 
 enum QuestionType {

@@ -10,6 +10,7 @@ interface FormData {
   lastName: string;
   email: string;
   phone: string;
+  companyName: string;
   citizenshipNumber: string;
   designation: string;
   languageConfirmed: boolean;
@@ -33,10 +34,9 @@ interface QRCodeProps {
 
 // Toast Component
 const Toast: React.FC<ToastProps> = ({ message, type, onClose }) => (
-  <div className={`fixed top-4 right-4 p-4 rounded-md shadow-lg z-50 flex items-center gap-2 ${
-    type === 'success' ? 'bg-green-600 text-white' : 
+  <div className={`fixed top-4 right-4 p-4 rounded-md shadow-lg z-50 flex items-center gap-2 ${type === 'success' ? 'bg-green-600 text-white' :
     type === 'error' ? 'bg-red-600 text-white' : 'bg-blue-600 text-white'
-  }`}>
+    }`}>
     {type === 'success' && <CheckCircle size={20} />}
     {type === 'error' && <AlertCircle size={20} />}
     <span>{message}</span>
@@ -52,36 +52,33 @@ export default function RegistrationPage() {
     lastName: '',
     email: '',
     phone: '',
+    companyName: '',
     citizenshipNumber: '',
     designation: '',
     languageConfirmed: false
   });
-  const router=useRouter();
-  
+  const router = useRouter();
+
   const [errors, setErrors] = useState<FormErrors>({});
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
-  
-  const [toasts, setToasts] = useState<{id: number, message: string, type: 'success' | 'error' | 'info'}[]>([]);
+
+  const [toasts, setToasts] = useState<{ id: number, message: string, type: 'success' | 'error' | 'info' }[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [examInfo, setExamInfo] = useState<{ examDate: string; location: string } | null>(null);
 
 
-  useEffect(()=>{
-    async function fetchData(){
-        const res=await fetch('/api/exam-date');
-        const data=await res.json();
-        console.log(data)
-        console.log(data[0].examDate)
-        
-        console.log(data[0].location)
-        if (data?.length > 0) {
-            setExamInfo({ examDate: data[0].examDate, location: data[0].location });
-        }
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch('/api/exam-date');
+      const data = await res.json();
+      if (data?.length > 0) {
+        setExamInfo({ examDate: data[0].examDate, location: data[0].location });
+      }
     }
     fetchData()
 
-  },[])
+  }, [])
   const formatExamDate = (dateStr: string) => {
     try {
       const d = new Date(dateStr);
@@ -95,32 +92,32 @@ export default function RegistrationPage() {
       return dateStr;
     }
   };
-  
 
 
-  
+
+
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
-    
+
     if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
     if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
     if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
     if (!formData.citizenshipNumber.trim()) newErrors.citizenshipNumber = 'Citizenship number is required';
+    if (!formData.companyName.trim()) newErrors.companyName = 'Company name is required';
     if (!formData.designation.trim()) newErrors.designation = 'Designation is required';
     if (!formData.languageConfirmed) newErrors.languageConfirmed = 'You must confirm language requirement';
-    if (!uploadedFile) newErrors.file = 'Payment screenshot is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    if (validateForm() && uploadedFile) {
+    if (validateForm()) {
       setLoading(true);
-  
+
       try {
         // Prepare FormData to send text fields + file
         const payload = new FormData();
@@ -128,32 +125,36 @@ export default function RegistrationPage() {
         payload.append('lastName', formData.lastName);
         payload.append('email', formData.email);
         payload.append('phone', formData.phone);
+        payload.append('companyName', formData.companyName);
         payload.append('citizenshipNumber', formData.citizenshipNumber);
         payload.append('designation', formData.designation);
         payload.append('languageConfirmed', formData.languageConfirmed ? 'true' : 'false');
-        payload.append('screenShot', uploadedFile);
-  
+        if (uploadedFile) {
+          payload.append('screenShot', uploadedFile);
+        }
+
         const response = await fetch('/api/cloudinary', {
           method: 'POST',
           body: payload,
         });
-  
+
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.message || 'Failed to register');
         }
-  
+
         setLoading(false);
         showToast('Registration successful! Your payment is under review.', 'success');
         router.push('/CTFL/thanks')
-        
-  
+
+
         // Reset form
         setFormData({
           firstName: '',
           lastName: '',
           email: '',
           phone: '',
+          companyName: '',
           citizenshipNumber: '',
           designation: '',
           languageConfirmed: false,
@@ -166,14 +167,14 @@ export default function RegistrationPage() {
       }
     }
   };
-  
 
-  
+
+
 
   const showToast = (message: string, type: 'success' | 'error' | 'info') => {
     const id = Date.now();
     setToasts(prev => [...prev, { id, message, type }]);
-    
+
     // Auto-dismiss toast after 5 seconds
     setTimeout(() => {
       setToasts(prev => prev.filter(toast => toast.id !== id));
@@ -199,15 +200,15 @@ export default function RegistrationPage() {
     }
   };
 
-  const handleInputChange = (field: keyof FormData) => 
+  const handleInputChange = (field: keyof FormData) =>
     (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      const value = e.target.type === 'checkbox' 
-        ? (e.target as HTMLInputElement).checked 
+      const value = e.target.type === 'checkbox'
+        ? (e.target as HTMLInputElement).checked
         : e.target.value;
-      
-      setFormData(prev => ({ 
-        ...prev, 
-        [field]: value 
+
+      setFormData(prev => ({
+        ...prev,
+        [field]: value
       }));
     };
 
@@ -279,14 +280,14 @@ export default function RegistrationPage() {
           animation: pulse-glow 2s ease-in-out infinite;
         }
       `}</style>
-      
+
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-5xl mt-5 font-semibold text-gray-900 mb-2">CTFL 4.0 Exam Registration</h1>
           <p className=" bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent text-lg">Nepal Software Testing Qualification Body (NSTQB)</p>
         </div>
-        
-        
+
+
 
         <div className="rounded-lg ">
           <div className="p-6 ">
@@ -319,8 +320,8 @@ export default function RegistrationPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Left Column - Payment Details */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-6">Payment Details</h3>
-                
+                <h3 className="text-lg font-semibold text-gray-900 mb-6">Candidate Details</h3>
+
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -362,42 +363,42 @@ export default function RegistrationPage() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div></div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone *
-                  </label>
-                  <input
-                    type="tel"
-                    value={formData.phone}
-                    onChange={handleInputChange('phone')}
-                    className={inputClasses}
-                  />
-                  {errors.phone && <p className={errorClasses}>{errors.phone}</p>}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Phone *
+                    </label>
+                    <input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleInputChange('phone')}
+                      className={inputClasses}
+                    />
+                    {errors.phone && <p className={errorClasses}>{errors.phone}</p>}
                   </div>
                   <div>
-                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Citizenship Number *
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.citizenshipNumber}
-                    onChange={handleInputChange('citizenshipNumber')}
-                    className={inputClasses}
-                  />
-                  {errors.citizenshipNumber && <p className={errorClasses}>{errors.citizenshipNumber}</p>}
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Citizenship Number *
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.citizenshipNumber}
+                      onChange={handleInputChange('citizenshipNumber')}
+                      className={inputClasses}
+                    />
+                    {errors.citizenshipNumber && <p className={errorClasses}>{errors.citizenshipNumber}</p>}
+                  </div>
                 </div>
-                </div>
-                 <div className="mb-4">
+                <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Company Name *
                   </label>
                   <input
                     type="text"
-                    value={formData.citizenshipNumber}
-                    onChange={handleInputChange('citizenshipNumber')}
+                    value={formData.companyName}
+                    onChange={handleInputChange('companyName')}
                     className={inputClasses}
                   />
-                  {errors.citizenshipNumber && <p className={errorClasses}>{errors.citizenshipNumber}</p>}
+                  {errors.companyName && <p className={errorClasses}>{errors.companyName}</p>}
                 </div>
 
                 <div className="mb-6">
@@ -437,17 +438,17 @@ export default function RegistrationPage() {
                 </div>
 
                 {/* QR Payment Section */}
-                <div className="border-t pt-6">
-                    {/* QR Payment Section */}
-{/* <div className="border-t pt-6">
+                {/* <div className="border-t pt-6"> */}
+                {/* QR Payment Section */}
+                {/* <div className="border-t pt-6">
   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
     
     {/* Left: QR Image */}
-    {/* <div className="flex-1 flex justify-center">
+                {/* <div className="flex-1 flex justify-center">
       <img src={'./qr.png'} alt="QR Code" className=" " />
     </div> */}
 
-    {/* Right: Account Details
+                {/* Right: Account Details
     <div className="flex-1 items-center">
       <h4 className="font-semibold text-gray-900 mb-2 text-left md:text-left">Account Details:</h4>
       <div className="text-sm text-gray-700 space-y-1 text-left md:text-left">
@@ -506,59 +507,60 @@ export default function RegistrationPage() {
                   </div>
                 </div>
               </div> */}
+              </div>
 
               {/* Right Column - Your Order */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-6">Your Order</h3>
-                
+                <h3 className="text-lg font-semibold text-gray-900 mb-6">Examination Fee</h3>
+
                 <div className="bg-gray-50 rounded-lg p-6 mb-6">
                   <div className="flex justify-between items-center mb-4 pb-4 border-b border-gray-200">
                     <span className="font-medium text-gray-900">Course</span>
                     <span className="font-medium text-gray-900">Amount</span>
                   </div>
-                  
+
                   <div className="flex justify-between items-center mb-6">
                     <div>
-                      <span className="text-gray-700 block">Certified Tester Foundation Level (CTFL)</span>
+                      <span className="text-gray-700 block">Certified Tester Foundation Level (CTFL 4.0)</span>
                       <span className="text-xs text-gray-500">ISTQB Certification</span>
                     </div>
                     <span className="text-gray-900 font-medium">Rs.21,000</span>
                   </div>
-                  
+
                   <div className="border-t border-gray-200 pt-4">
                     <div className="flex justify-between items-center text-lg font-semibold">
                       <span>Total Amount</span>
                       <span className="">Rs.21,000</span>
                     </div>
                   </div>
-                  
+
                 </div>
 
                 <div>
 
-                    {examInfo?(
-                        <div className='p-3'>
-                             <p className="text-sm font-semibold text-red-700 uppercase tracking-wide">Exam Date & Time</p>
-                             <p className="text-gray-900 text-md font-medium py-2">{formatExamDate(examInfo.examDate)}</p>
+                  {examInfo ? (
+                    <div className='p-3'>
+                      <p className="text-sm font-semibold text-red-700 uppercase tracking-wide">Exam Date & Time</p>
+                      <p className="text-gray-900 text-md font-medium py-2">{formatExamDate(examInfo.examDate)}</p>
 
 
-                        </div>
-                    ):(
-                        <div>
+                    </div>
+                  ) : (
+                    <div>
 
-                            <p>loading exam date...</p>
+                      <p>loading exam date...</p>
 
 
-                        </div>
-                    )}
+                    </div>
+                  )}
 
-                    
+
                 </div>
-                
-                
-                
 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+
+
+
+                {/* <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
                   <h4 className="font-semibold  mb-2">QR Payment</h4>
                   <p className="text-sm  mb-2">
                     Please pay the amount by scanning the QR code.
@@ -566,8 +568,8 @@ export default function RegistrationPage() {
                   <p className="text-sm ">
                     We will manually review your payment and let you know once verified.
                   </p>
-                </div>
-                
+                </div> */}
+
 
 
                 {/* Support Information */}
@@ -575,7 +577,7 @@ export default function RegistrationPage() {
                   <h4 className="font-semibold mb-2">Need Help?</h4>
                   <div className="text-sm space-y-1">
                     <p><strong>Email:</strong> info@nstqb.org</p>
-                    <p><strong>Phone:</strong> +977-9851055879,      +977-9841126820 </p>
+                    <p><strong>Phone:</strong> +977-9851055879</p>
                     <p><strong>Office Hours:</strong> Sun-Fri, 10:00 AM - 5:00 PM</p>
                   </div>
                 </div>

@@ -256,7 +256,7 @@ export default function ContactUs() {
               <ContactInfo 
                 icon={<Phone className="h-5 w-5 text-green-600" />} 
                 title="Phone Numbers" 
-                lines={["+977-9851055879", "+977-9841126820", "+977 9801879216"]}
+                lines={["+977-9851055879"]}
                 bgColor="bg-green-50"
               />
               
