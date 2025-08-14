@@ -282,7 +282,7 @@ export default function RegistrationPage() {
       
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-5xl mt-5 font-semibold text-gray-900 mb-2">CTFL Exam Registration</h1>
+          <h1 className="text-5xl mt-5 font-semibold text-gray-900 mb-2">CTFL 4.0 Exam Registration</h1>
           <p className=" bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent text-lg">Nepal Software Testing Qualification Body (NSTQB)</p>
         </div>
         
@@ -290,24 +290,24 @@ export default function RegistrationPage() {
 
         <div className="rounded-lg ">
           <div className="p-6 ">
-            <h2 className="text-3xl font-semibold text-gray-900 mb-4">How to pay?</h2>
+            <h2 className="text-3xl font-semibold text-gray-900 mb-4">How to register?</h2>
             <div className="space-y-2 text-sm text-gray-700">
               <div className="flex items-start gap-2">
                 <span className="text-red-600 font-semibold ">→</span>
-                <span>Fill out your First name, Last name, Email address, citizenship & Phone fields.</span>
+                <span>Provide your Full name, Email address, Contact number, Citizenship number, Company name and Your Designation.</span>
               </div>
-              <div className="flex items-start gap-2">
+              {/* <div className="flex items-start gap-2">
                 <span className="text-red-600 font-semibold">→</span>
                 <span>Scan the QR code and send the total amount displayed on "Your Order" tab.</span>
-              </div>
-              <div className="flex items-start gap-2">
+              </div> */}
+              {/* <div className="flex items-start gap-2">
                 <span className="text-red-600 font-semibold">→</span>
                 <span>Take a screenshot of the payment & upload it in the file upload field below.</span>
-              </div>
-              <div className="flex items-start gap-2">
+              </div> */}
+              {/* <div className="flex items-start gap-2">
                 <span className="text-red-600 font-semibold">→</span>
                 <span>We will verify your payment within a few hours and after that you will receive the confirmation email.</span>
-              </div>
+              </div> */}
               <div className="flex items-start gap-2">
                 <span className="text-red-600 font-semibold">→</span>
                 <span>In case of any confusions & queries feel free to reach out at: <span className="text-blue-600">info@nstqb.org</span></span>
@@ -361,7 +361,8 @@ export default function RegistrationPage() {
                   {errors.email && <p className={errorClasses}>{errors.email}</p>}
                 </div>
 
-                <div className="mb-4">
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div></div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Phone *
                   </label>
@@ -372,11 +373,23 @@ export default function RegistrationPage() {
                     className={inputClasses}
                   />
                   {errors.phone && <p className={errorClasses}>{errors.phone}</p>}
-                </div>
-
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  </div>
+                  <div>
+                     <label className="block text-sm font-medium text-gray-700 mb-1">
                     Citizenship Number *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.citizenshipNumber}
+                    onChange={handleInputChange('citizenshipNumber')}
+                    className={inputClasses}
+                  />
+                  {errors.citizenshipNumber && <p className={errorClasses}>{errors.citizenshipNumber}</p>}
+                </div>
+                </div>
+                 <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Company Name *
                   </label>
                   <input
                     type="text"
@@ -426,15 +439,15 @@ export default function RegistrationPage() {
                 {/* QR Payment Section */}
                 <div className="border-t pt-6">
                     {/* QR Payment Section */}
-<div className="border-t pt-6">
+{/* <div className="border-t pt-6">
   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
     
     {/* Left: QR Image */}
-    <div className="flex-1 flex justify-center">
+    {/* <div className="flex-1 flex justify-center">
       <img src={'./qr.png'} alt="QR Code" className=" " />
-    </div>
+    </div> */}
 
-    {/* Right: Account Details */}
+    {/* Right: Account Details
     <div className="flex-1 items-center">
       <h4 className="font-semibold text-gray-900 mb-2 text-left md:text-left">Account Details:</h4>
       <div className="text-sm text-gray-700 space-y-1 text-left md:text-left">
@@ -492,7 +505,7 @@ export default function RegistrationPage() {
                     {errors.file && <p className={errorClasses}>{errors.file}</p>}
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Right Column - Your Order */}
               <div>
