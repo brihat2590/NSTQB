@@ -12,6 +12,7 @@ type Registration = {
   lastName: string;
   email: string;
   designation: string;
+  companyName: string;
   status: string;
   citizenshipNumber: string;
   remarks?:string
@@ -38,6 +39,7 @@ export default function RegistrationsPage() {
       reg.firstName.toLowerCase().includes(searchLower) ||
       reg.lastName.toLowerCase().includes(searchLower) ||
       reg.email.toLowerCase().includes(searchLower) ||
+      reg.companyName.toLowerCase().includes(searchLower) ||
       reg.designation.toLowerCase().includes(searchLower) ||
       reg.citizenshipNumber.toLowerCase().includes(searchLower) ||
       reg.status.toLowerCase().includes(searchLower) ||

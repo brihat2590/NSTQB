@@ -12,6 +12,7 @@ interface Registration {
   lastName: string
   email: string
   designation: string
+  companyName: string
   screenShot: string
   phone: string
   citizenshipNumber: string
@@ -278,6 +279,11 @@ export default function AdminRegistrationsPage() {
 
                 {/* Additional Details */}
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div className="flex items-center text-gray-600">
+                    <User className="w-4 h-4 mr-2" />
+                    <span className="font-medium">Company Name:</span>
+                    <span className="ml-1">{registration.companyName}</span>
+                  </div>
                   <div className="flex items-center text-gray-600">
                     <User className="w-4 h-4 mr-2" />
                     <span className="font-medium">Designation:</span>

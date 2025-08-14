@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     designation: formData.get('designation') as string,
     phone: formData.get('phone') as string,
     citizenshipNumber: formData.get('citizenshipNumber') as string,
-    companyName: formData.get('companyName') as string,
+    companyName: (formData.get('companyName') as string) || '',
     screenShot: screenshotUrl,
     
   };
