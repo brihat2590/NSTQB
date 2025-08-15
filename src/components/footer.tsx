@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-50 text-slate-700">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-between">
           {/* Company Info */}
           <div className="flex flex-col items-start">
             <img 
@@ -24,13 +24,13 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-slate-800 mb-3">NSTQB</h4>
             <ul className="space-y-3">
               <li><a href="/" className="text-slate-600 hover:text-blue-700 transition-colors">Home</a></li>
-              <li><a href="#about" className="text-slate-600 hover:text-blue-700 transition-colors">About</a></li>
+              <li><Link href="/mock-test" className="text-slate-600 hover:text-blue-700 transition-colors">Exam</Link></li>
               <li><Link href="/contact" className="text-slate-600 hover:text-blue-700 transition-colors">Contact</Link></li>
             </ul>
           </div>
 
           {/* Static Section */}
-          <div className="flex flex-col items-start">
+          <div className="flex flex-col items-start max-w-xs">
             <h4 className="text-lg font-semibold text-slate-800 mb-3">Our Vision</h4>
             <p className="text-slate-600 leading-relaxed">
               NSTQB aims to empower software professionals in Nepal with globally recognized certifications and to promote software testing excellence nationwide.
@@ -45,7 +45,7 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
+    </footer>   
   );
 };
 

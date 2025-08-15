@@ -28,7 +28,7 @@ export const metadata = {
   icons: {
     icon: '/favicon1.ico',
     apple: '/favicon1.ico',
-    shortcut: '/favicon1.ico',
+    
   },
   openGraph: {
     title: 'NSTQB – Nepal Software Testing Qualitative Body',

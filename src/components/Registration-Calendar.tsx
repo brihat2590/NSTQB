@@ -27,6 +27,9 @@ export default function ExamCalendar() {
       .catch(console.error);
   }, []);
 
+
+  
+
   const isSameDay = (a: Date, b: Date) =>
     a.getDate() === b.getDate() &&
     a.getMonth() === b.getMonth() &&
@@ -131,41 +134,46 @@ export default function ExamCalendar() {
         {/* Cards on the right */}
         <div className="w-full lg:w-[35%] space-y-6">
           <h2 className="text-xl font-semibold mb-4">Upcoming Exams</h2>
-          {exams.map((exam) => (
-            <div
-              key={exam.id}
-              className={`bg-white rounded-lg shadow-md p-5 transition-opacity duration-300 ${
-                isExamCompleted(exam) ? 'opacity-60' : ''
-              }`}
-            >
-              <h3 className={`font-bold text-lg ${isExamCompleted(exam) ? 'text-gray-500' : 'text-gray-900'}`}>
-                {exam.examTitle} {isExamCompleted(exam) && ' (Completed)'}
-              </h3>
-              <p className={`mt-1 ${isExamCompleted(exam) ? 'text-gray-400' : 'text-gray-600'}`}>
-                Exam Date: {format(new Date(exam.examDate), 'MMMM dd, yyyy')}
-              </p>
-              <p className={`mt-1 ${isRegistrationClosed(exam) ? 'text-red-600' : 'text-gray-600'}`}>
-                Registration deadline: {format(new Date(exam.applicationPeriod), 'MMMM dd, yyyy')}
-                {isRegistrationClosed(exam) && ' (Closed)'}
-              </p>
-              <p className={`mt-1 ${isExamCompleted(exam) ? 'text-gray-400' : 'text-gray-600'}`}>
-                Location: {exam.location}
-              </p>
-              <div className="flex gap-2 mt-4">
-                <Button
-                  className="bg-gradient-to-r from-red-600 to-blue-600 text-white font-semibold px-8 py-6 rounded-lg shadow-lg transition-all duration-300 ease-out  hover:shadow-xl hover:from-red-500 hover:to-blue-500  w-full  "
-                  disabled={isRegistrationClosed(exam) || isExamCompleted(exam)}
-                  onClick={() => router.push('/registration')}
-                >
-                  {isExamCompleted(exam)
-                    ? 'Exam Completed'
-                    : isRegistrationClosed(exam)
-                    ? 'Registration Closed'
-                    : 'Register'}
-                </Button>
+
+          {exams.length === 0 ? (
+            <p className="text-gray-500 py-2">No upcoming exams Scheduled for now</p>
+          ) : (
+            exams.map((exam) => (
+              <div
+                key={exam.id}
+                className={`bg-white rounded-lg shadow-md p-5 transition-opacity duration-300 ${
+                  isExamCompleted(exam) ? 'opacity-60' : ''
+                }`}
+              >
+                <h3 className={`font-bold text-lg ${isExamCompleted(exam) ? 'text-gray-500' : 'text-gray-900'}`}>
+                  {exam.examTitle} {isExamCompleted(exam) && ' (Completed)'}
+                </h3>
+                <p className={`mt-1 ${isExamCompleted(exam) ? 'text-gray-400' : 'text-gray-600'}`}>
+                  Exam Date: {format(new Date(exam.examDate), 'MMMM dd, yyyy')}
+                </p>
+                <p className={`mt-1 ${isRegistrationClosed(exam) ? 'text-red-600' : 'text-gray-600'}`}>
+                  Registration deadline: {format(new Date(exam.applicationPeriod), 'MMMM dd, yyyy')}
+                  {isRegistrationClosed(exam) && ' (Closed)'}
+                </p>
+                <p className={`mt-1 ${isExamCompleted(exam) ? 'text-gray-400' : 'text-gray-600'}`}>
+                  Location: {exam.location}
+                </p>
+                <div className="flex gap-2 mt-4">
+                  <Button
+                    className="bg-gradient-to-r from-red-600 to-blue-600 text-white font-semibold px-8 py-6 rounded-lg shadow-lg transition-all duration-300 ease-out  hover:shadow-xl hover:from-red-500 hover:to-blue-500  w-full  "
+                    disabled={isRegistrationClosed(exam) || isExamCompleted(exam)}
+                    onClick={() => router.push('/registration')}
+                  >
+                    {isExamCompleted(exam)
+                      ? 'Exam Completed'
+                      : isRegistrationClosed(exam)
+                      ? 'Registration Closed'
+                      : 'Register'}
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>
