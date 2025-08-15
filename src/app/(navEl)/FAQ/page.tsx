@@ -60,7 +60,7 @@ const faqData = [
       {
         question: "How can I contact NSTQB for support?",
         answer:
-          "You can reach us through our contact form, email us at support@nstqb.org, or call our helpline during business hours",
+          "You can reach us through our contact form, email us at info@nstqb.org, or call our helpline during business hours",
       },
       {
         question: "What if I fail the exam?",
@@ -70,7 +70,7 @@ const faqData = [
       {
         question: "Can I get a refund if I cancel my exam?",
         answer:
-          "Exam fees can be refunded if you cancel at least 48 hours before the scheduled exam time. A processing fee of 10% will be deducted from the refund amount.",
+          "Sorry, we don't offer refunds for exams. However, you can retake the exam after a waiting period of 30 days.",
       },
     ],
   },

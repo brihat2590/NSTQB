@@ -334,14 +334,14 @@ export default function CodeOfConduct() {
           </CardContent>
         </Card>
 
-        {/* COVID Note */}
+        {/* COVID Note
         <Alert className="mb-8 border-yellow-200 bg-yellow-50 shadow-sm">
           <AlertTriangle className="h-5 w-5 text-yellow-600" />
           <AlertDescription className="text-yellow-800 font-medium">
             <strong>Note:</strong> NSTQB holds an authority to change the date of exam if required due to the current
             COVID situation. However, candidates will be pre-notified in such circumstances.
           </AlertDescription>
-        </Alert>
+        </Alert> */}
 
         {/* Cancellation/Rescheduling Policy */}
         <Card className="shadow-sm border-0 hover:shadow-md transition-all duration-300">
