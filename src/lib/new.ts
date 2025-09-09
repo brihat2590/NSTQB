@@ -1,4 +1,4 @@
-export const mockQuestions1=
+
 
 
 
@@ -10,7 +10,9 @@ export const mockQuestions1=
 [
   {
     id: 1,
-    type: "single",
+    "type": "single",
+    setId:6,
+    
     question: "Which one of the following answers describes a test condition?",
     options: [
       "An attribute of a component or system specified or implied by requirements documentation.",
@@ -24,7 +26,8 @@ export const mockQuestions1=
   },
   {
     id: 2,
-    type: "single",
+    "type": "single",
+    setId:6,
     question: "Which of the following statements is a valid objective for testing?",
     options: [
       "The test should start as late as possible so that development had enough time to create a good product.",
@@ -39,6 +42,7 @@ export const mockQuestions1=
   {
     id: 3,
     type: "single",
+    setId:6,
     question: "Which of the following is an example of a failure in a car cruise control system?",
     options: [
       "The developer of the system forgot to rename variables after a cut-and-paste operation.",
@@ -53,6 +57,7 @@ export const mockQuestions1=
   {
     id: 4,
     type: "single",
+    setId:6,
     question: "Which of the following is a defect rather than a root cause in a fitness tracker?",
     options: [
       "Because he was unfamiliar with the domain of fitness training, the author of the requirements wrongly assumed that users wanted heartbeat in beats per hour.",
@@ -67,6 +72,7 @@ export const mockQuestions1=
   {
     id: 5,
     type: "single",
+    setId:6,
     question: "Mr. Test has been testing software applications on mobile devices for a period of 5 years. He has a wealth of experience in testing mobile applications and achieves better results in a shorter time than others. Over several months Mr. Test did not modify the existing automated test cases and did not create any new test cases. This leads to fewer and fewer defects being found by executing the tests. What principle of testing did Mr. Test not observe?",
     options: [
       "Testing depends on the environment.",
@@ -81,6 +87,7 @@ export const mockQuestions1=
   {
     id: 6,
     type: "single",
+    setId:6,
     question: "Given the following test activities and tasks:\n A. Test design \nB. Test implementation \nC. Test execution \nD. Test completion \n\n1. Entering change requests for open defect reports \n2. Identifying test data to support the test cases \n3. Prioritizing test procedures and creating test data \n4. Analyzing discrepancies to determine their cause Which of the following BEST matches the activities with the tasks?",
     options: [
       "A-2, B-3, C-4, D-1",
@@ -95,6 +102,7 @@ export const mockQuestions1=
   {
     id: 7,
     type: "single",
+    setId:6,
     question: "Which of the following activities is part of the main activity \"test analysis\" in the test process?",
     options: [
       "Identifying any required infrastructure and tools.",
@@ -109,6 +117,7 @@ export const mockQuestions1=
   {
     id: 8,
     type: "single",
+    setId:6,
     question: `Match the following test work products (1-4) with the right description (A-D).   \n1. Test suite.\n2. Test case. \n 3. Test script. \n4. Test charter. \n\nA. A group of test scripts with a sequence of instructions. \nB. A set of instructions for the execution of a test. \nC. Contains expected results. \nD. An instruction of test goals and possible test ideas on how to test.`,
     options: [
       "1A, 2C, 3B, 4D",
@@ -123,6 +132,7 @@ export const mockQuestions1=
   {
     id: 9,
     type: "single",
+    setId:6,
     question: "How can white-box testing be applied during acceptance testing?",
     options: [
       "To check if large volumes of data can be transferred between integrated systems.",
@@ -137,6 +147,7 @@ export const mockQuestions1=
   {
     id: 10,
     type: "single",
+    setId:6,
     question: "Which of the following statements comparing component testing and system testing is TRUE?",
     options: [
       "Component testing verifies the functionality of software modules, program objects, and classes that are separately testable, whereas system testing verifies interfaces between components and interactions between different parts of the system.",
@@ -151,6 +162,7 @@ export const mockQuestions1=
   {
     id: 11,
     type: "single",
+    setId:6,
     question: "Which one of the following is TRUE?",
     options: [
       "The purpose of regression testing is to check if the correction has been successfully implemented, while the purpose of confirmation testing is to confirm that the correction has no side effects.",
@@ -165,6 +177,7 @@ export const mockQuestions1=
   {
     id: 12,
     type: "single",
+    setId:6,
     question: "Which one of the following is the BEST definition of an incremental development model?",
     options: [
       "Defining requirements, designing software and testing are done in phases where in each phase a piece of the system is added.",
@@ -179,6 +192,7 @@ export const mockQuestions1=
   {
     id: 13,
     type: "single",
+    setId:6,
     question: "Which of the following should NOT be a trigger for maintenance testing?",
     options: [
       "Decision to test the maintainability of the software.",
@@ -193,6 +207,7 @@ export const mockQuestions1=
   {
     id: 14,
     type: "single",
+    setId:6,
     question: "Which of the following options are roles in a formal review?",
     options: [
       "Developer, Moderator, Review leader, Tester.",
@@ -207,6 +222,7 @@ export const mockQuestions1=
   {
     id: 15,
     type: "single",
+    setId:6,
     question: "Which activities are carried out within the planning of a formal review?",
     options: [
       "Collection of metrics for the evaluation of the effectiveness of the review.",
@@ -221,6 +237,7 @@ export const mockQuestions1=
   {
     id: 16,
     type: "single",
+    setId:6,
     question: "Which of the review types below is the BEST option to choose when the review must follow a formal process based on rules and checklists?",
     options: [
       "Informal Review.",
@@ -230,11 +247,13 @@ export const mockQuestions1=
     ],
     correctAnswer: 2,
     correctAnswers: [],
-    explanation: "Inspections are the most formal review type, using strict rules and checklists."
+    explanation: "Inspections are the most formal review type, using strict rules and checklists.",
+    
   },
   {
     id: 17,
     type: "multiple",
+    setId:6,
     question: "Which TWO of the following statements about static testing are MOST true?",
     options: [
       "Static testing is a cheap way to detect and remove defects.",
@@ -250,6 +269,7 @@ export const mockQuestions1=
   {
     id: 18,
     type: "single",
+    setId:6,
     question: "You will be invited to a review. The work product to be reviewed is a description of the in-house document creation process. The aim of the description is to present the work distribution between the different roles involved in the process in a way that can be clearly understood by everyone. You will be invited to a checklist-based review. The checklist will also be sent to you. It includes the following points: i. Is the person who performs the activity clearly identified for each activity? ii. Is the entry criteria clearly defined for each activity? iii. Is the exit criteria clearly defined for each activity? iv. Are the supporting roles and their scope of work clearly defined for each activity? In the following we show an excerpt of the work result to be reviewed, for which you should use the checklist above: \"After checking the customer documentation for completeness and correctness, the software architect creates the system specification. Once the software architect has completed the system specification, he invites testers and verifiers to the review. A checklist describes the scope of the review. Each invited reviewer creates review comments - if necessary - and concludes the review with an official review done-comment.\" Which of the following statements about your review is correct?",
     options: [
       "Point ii) of the checklist has been violated because it is not clear which condition must be fulfilled in order to invite to the review.",
@@ -264,6 +284,7 @@ export const mockQuestions1=
   {
     id: 19,
     type: "single",
+    setId:6,
     question: "What is checklist-based testing?",
     options: [
       "A test technique in which tests are derived based on the tester's knowledge of past faults, or general knowledge of failures.",
@@ -278,6 +299,7 @@ export const mockQuestions1=
   {
     id: 20,
     type: "single",
+    setId:6,
     question: "Which one of the following options is categorized as a black-box test technique?",
     options: [
       "A technique based on analysis of the architecture.",
@@ -292,6 +314,7 @@ export const mockQuestions1=
   {
     id: 21,
     type: "single",
+    setId:6,
     question: "The following statement refers to decision coverage:\n\n “When the code contains only a single ‘if’ statement and no loops or CASE statements, and its execution is not nested within the test, any single test case we run will result in 50% decision coverage.”\n\n Which of the following statement is correct?",
     options: [
       "The statement is true. Any single test case provides 100% statement coverage and therefore 50% decision coverage.",
@@ -306,6 +329,7 @@ export const mockQuestions1=
   {
     id: 22,
     type: "single",
+    setId:6,
     question: "Which one of the following is the description of statement coverage?",
     options: [
       "It is a metric, which is the percentage of test cases that have been executed.",
@@ -320,6 +344,7 @@ export const mockQuestions1=
   {
     id: 23,
     type: "single",
+    setId:6,
     question: "Which statement about the relationship between statement coverage and decision coverage is true?",
     options: [
       "100% decision coverage also guarantees 100% statement coverage.",
@@ -334,6 +359,7 @@ export const mockQuestions1=
   {
     id: 24,
     type: "single",
+    setId:6,
     question: "For which of the following situations is explorative testing suitable?",
     options: [
       "When time pressure requires speeding up the execution of tests already specified.",
@@ -348,6 +374,7 @@ export const mockQuestions1=
   {
     id: 25,
     type: "single",
+    setId:6,
     question: "An employee’s bonus is to be calculated. It cannot be negative, but it can be calculated down to zero. The bonus is based on the length of employment:\n less than or equal to 2 years, more than 2 years but less than 5 years, 5 to 10 years inclusively or longer than 10 years.\n\n What is the minimum number of test cases required to cover all valid equivalence partitions for calculating the bonus?",
     options: [
       "3.",
@@ -362,6 +389,7 @@ export const mockQuestions1=
   {
     id: 26,
     type: "single",
+    setId:6,
     question: "A speed control and reporting system has the following characteristics:\n If you drive 50 km/h or less, nothing will happen.\n If you drive faster than 50 km/h, but no more than 55 km/h, you will be warned.\n If you drive faster than 55 km/h but not more than 60 km/h, you will be fined.\n If you drive faster than 60 km/h, your driving license will be suspended.\n The speed in km/h is available to the system as an integer value.\n Which would be the most likely set of values (km/h) identified by applying the boundary value analysis, where only the boundary values on the boundaries of the equivalence classes are relevant?",
     options: [
       "0, 49, 50, 54, 59, 60.",
@@ -376,7 +404,8 @@ export const mockQuestions1=
   {
     id:27,
     type:"single",
-    question:"A company's employees are paid bonuses if they work more than a year in the company and achieve a target which is individually agreed before.These facts can be shown in a decision table:",
+
+setId:6,    question:"A company's employees are paid bonuses if they work more than a year in the company and achieve a target which is individually agreed before.These facts can be shown in a decision table:",
     options:["Condition1 = YES, Condition2 = NO, Condition3 = YES, Action= NO","Condition1 = YES, Condition2 = YES, Condition3 = NO, Action= YES","Condition1 = NO, Condition2 = NO, Condition3 = YES, Action= NO","Condition1 = NO, Condition2 = YES, Condition3 = NO, Action= NO"],
     correctAnswer:3,
     correctAnswers: [],
@@ -387,7 +416,8 @@ export const mockQuestions1=
   {
     id:28,
     type:"single",
-    question:"Which of the following statements about the given state transition diagram and table oftest cases is TRUE?",
+
+setId:6,    question:"Which of the following statements about the given state transition diagram and table oftest cases is TRUE?",
     options:["The given test cases cover both valid and invalid transitions in the state transition diagram.","The given test cases represent all possible valid transitions in the state transition diagram.","The given test cases represent some of the valid transitions in the state transition diagram.","The given test cases represent pairs of transitions in the state transition diagram."],
     correctAnswer:2,
     correctAnswers: [],
@@ -398,6 +428,7 @@ export const mockQuestions1=
   {
     id: 29,
     type: "single",
+    setId:6,
     question: "A video application has the following requirement: The application shall allow playing a video on the following display resolution: 1. 640x480. 2. 1280x720. 3. 1600x1200. 4. 1920x1080. Which of the following list of test cases is a result of applying the equivalence partitioning test technique to test this requirement?",
     options: [
       "Verify that the application can play a video on a display of size 1920x1080 (1 test case).",
@@ -412,6 +443,7 @@ export const mockQuestions1=
   {
     id: 30,
     type: "single",
+    setId:6,
     question: "Which of the following statements BEST describes how tasks are divided between the test manager and the tester?",
     options: [
       "The test manager plans testing activities and chooses the standards to be followed, while the tester chooses the tools and set the tools usage guidelines.",
@@ -426,6 +458,7 @@ export const mockQuestions1=
   {
     id: 31,
     type: "single",
+    setId:6,
     question: "Which of the following metrics would be MOST useful to monitor during test execution?",
     options: [
       "Percentage of executed test cases.",
@@ -440,6 +473,7 @@ export const mockQuestions1=
   {
     id: 32,
     type: "multiple",
+    setId:6,
     question: "Which TWO of the following can affect and be part of the (initial) test planning?",
     options: [
       "Budget limitations.",
@@ -455,6 +489,7 @@ export const mockQuestions1=
   {
     id: 33,
     type: "single",
+    setId:6,
     question: "Which of the following lists contains only typical exit criteria from testing?",
     options: [
       "Reliability measures, test coverage, test cost, schedule and status about fixing errors and remaining risks.",
@@ -469,6 +504,7 @@ export const mockQuestions1=
   {
     id: 34,
     type: "single",
+    setId:6,
     question: "Which one of the following is NOT included in a test summary report?",
     options: [
       "Defining pass/fail criteria and objectives of testing.",
@@ -483,6 +519,7 @@ export const mockQuestions1=
   {
     id: 35,
     type: "single",
+    setId:6,
     question: "The project develops a \"smart\" heating thermostat. The control algorithms of the thermostat were modeled as Matlab/Simulink models and run on the internet connected server. The thermostat uses the specifications of the server to trigger the heating valves. The test manager has defined the following test strategy/approach in the test plan:\n\n 1. The acceptance test for the whole system is executed as an experience-based test. \n2. The control algorithms on the server are tested during implementation using continuous integration.\n 3. The functional test of the thermostat is performed as risk-based testing. \n4. The security tests of data / communication via the internet are executed together with external security experts. \n\nWhat four common types of test strategies/approaches did the test manager implement in the test plan?",
     options: [
       "methodical, analytical, reactive and regression-averse.",
@@ -497,6 +534,7 @@ export const mockQuestions1=
   {
     id: 36,
     type: "single",
+    setId:6,
     question: "Which one of the following is the characteristic of a metrics-based approach for test estimation?",
     options: [
       "Budget which was used by a previous similar test project.",
@@ -511,6 +549,7 @@ export const mockQuestions1=
   {
     id: 37,
     type: "single",
+    setId:6,
     question: " As a test manager you are responsible for testing the following requirements:\n\nR1 - Process anomalies\nR2 - Synchronization\nR3 - Approval\nR4 - Problem solvin\nR5 - Financial data\nR6 - Diagram data\nR7 - Changes to the user profile\nNotation: Logical requirement dependencies (A -> B means, that depends on A):",
     options: [
       "R1 -> R3 -> R4 -> R7 -> R2 -> R5 -> R6 .","R1 -> R3 -> R2 -> R4 -> R7 -> R5 -> R6.","R1 -> R3 -> R2 -> R5 -> R6 -> R4 -> R7.","R1 -> R2 -> R5 -> R6 -> R3 -> R4 -> R7."
@@ -524,6 +563,7 @@ export const mockQuestions1=
   {
     id: 38,
     type: "single",
+    setId:6,
     question: "You are testing a new version of software for a coffee machine. The machine can prepare different types of coffee based on four categories. i.e., coffee size, sugar, milk, and syrup. The criteria are as follows:\n\n Coffee size (small, medium, large),\n Sugar (none, 1 unit, 2 units, 3 units, 4 units),\n Milk (yes or no),\n Coffee flavor syrup (no syrup, caramel, hazelnut, vanilla).\n Now you are writing a defect report with the following information:\n Title: Low coffee temperature.\n Short summary: When you select coffee with milk, the time for preparing coffee is too long and the temperature of the beverage is too low (less than 40 °C ) \nExpected result: The temperature of coffee should be standard (about 75 °C). Degree of risk: Medium Priority: Normal\n\n What valuable information was omitted in the above defect report?",
     options: [
       "The actual test result.",
@@ -538,6 +578,7 @@ export const mockQuestions1=
   {
     id: 39,
     type: "single",
+    setId:6,
     question: "Which one of the following is MOST likely to be a benefit of test execution tools?",
     options: [
       "It is easy to create regression tests.",
@@ -552,6 +593,7 @@ export const mockQuestions1=
   {
     id: 40,
     type: "single",
+    setId:6,
     question: "Which test tool (A-D) is characterized by the classification (1-4) below?\n 1. Tool support for management of testing and testware. \n2. Tool support for static testing.\n 3. Tool support for test execution and logging.\n 4. Tool support for performance measurement and dynamic analysis. \n\nA. Coverage tools.\n B. Configuration management tools.\n C. Review tools.\n D. Monitoring tools.",
     options: [
       "1A, 2B, 3D, 4C",

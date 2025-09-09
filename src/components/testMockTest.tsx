@@ -21,13 +21,28 @@ import {
   
 } from "lucide-react"
 import { useState, useEffect } from "react"
-
-import { mockQuestions1, } from "@/lib/mockQuestions1"
-import { useRouter } from "next/navigation"
-import { mockQuestions2 } from "@/lib/mockQuestions2"
-import { mockQuestions3 } from "@/lib/mockQuestions3"
 import ExamGuard from "./ExamGuard"
 import {motion} from "framer-motion"
+
+// Backend-driven types
+type BackendQuestion = {
+  id: number;
+  chapter: string;
+  question: string;
+  options: string[];
+  correctAnswer?: number;
+  correctAnswers: number[];
+  explanation: string;
+  type: 'single' | 'multiple';
+  image?: string;
+};
+
+type BackendQuestionSet = {
+  id: number;
+  title: string;
+  createdAt: string;
+  questions: BackendQuestion[];
+};
 
 // Add question type and update the structure
 type Question = {
@@ -56,24 +71,43 @@ export default function MockTest() {
   const [score, setScore] = useState(0)
   const [showExplanations, setShowExplanations] = useState(false)
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const[selectedSet,setSelectedSet]=useState("set1");
-  type SetKey = "set1" | "set2" | "set3";
-  const[examStarted,setExamStarted]=useState(false);
-  const router=useRouter();
+    const [selectedSetId, setSelectedSetId] = useState<number | null>(null);
+  const [examStarted,setExamStarted]=useState(false);
+  const [availableSets, setAvailableSets] = useState<BackendQuestionSet[]>([]);
+  const [questions, setQuestions] = useState<BackendQuestion[]>([]);
 
-const questionSets: Record<SetKey, Question[]> = {
-  set1: mockQuestions1, 
-  set2: mockQuestions2,
-  set3: mockQuestions3,
-  
-};
+  // Load sets from backend
+  useEffect(() => {
+    const loadSets = async () => {
+      try {
+        const res = await fetch('/api/sets');
+        if (res.ok) {
+          const data: BackendQuestionSet[] = await res.json();
+          setAvailableSets(data);
+        }
+      } catch (e) {
+        console.error('Failed to load sets', e);
+      }
+    };
+    loadSets();
+  }, []);
 
-const questionToRender = questionSets[selectedSet as SetKey] ?? questionSets["set1"];
-const [showModal, setShowModal] = useState(false);
+  // When a set is chosen, populate questions
+  useEffect(() => {
+    if (selectedSetId) {
+      const set = availableSets.find(s => s.id === selectedSetId);
+      if (set) {
+        setQuestions(set.questions || []);
+        setAnswers(new Array(set.questions.length).fill(-1));
+      }
+    }
+  }, [selectedSetId, availableSets]);
 
+  const questionToRender = questions;
+  const [showModal, setShowModal] = useState(false);
 
-
-  
+  // Derived counts
+  const totalQuestions = questionToRender.length;
 
   // Timer effect
   useEffect(() => {
@@ -93,9 +127,10 @@ const [showModal, setShowModal] = useState(false);
   }, [quizState, timeLeft])
 
   const startQuiz = () => {
+    if (!selectedSetId || totalQuestions === 0) return;
     setQuizState("in-progress")
     setCurrentQuestion(0)
-    setAnswers(new Array(40).fill(-1))
+    setAnswers(new Array(totalQuestions).fill(-1))
     setTimeLeft(60 * 60)
     setScore(0)
     setShowExplanations(false)
@@ -124,7 +159,7 @@ const [showModal, setShowModal] = useState(false);
   }
 
   const nextQuestion = () => {
-    if (currentQuestion < 39) {
+    if (currentQuestion < totalQuestions - 1) {
       setCurrentQuestion(currentQuestion + 1)
     }
   }
@@ -140,25 +175,27 @@ const [showModal, setShowModal] = useState(false);
   }
 
   const calculateScore = () => {
-    let correctAnswers = 0
+    let correctAnswersCount = 0
     answers.forEach((answer, index) => {
       const question = questionToRender[index]
 
+      if (!question) return;
+
       if (question.type === "single") {
         if (answer === question.correctAnswer) {
-          correctAnswers++
+          correctAnswersCount++
         }
       } else {
         // For multiple choice, check if arrays match exactly
-        const userAnswers = Array.isArray(answer) ? answer.sort() : []
-        const correctAnswersArray = question.correctAnswers.sort()
+        const userAnswers = Array.isArray(answer) ? [...answer].sort() : []
+        const correctAnswersArray = [...question.correctAnswers].sort()
 
         if (JSON.stringify(userAnswers) === JSON.stringify(correctAnswersArray)) {
-          correctAnswers++
+          correctAnswersCount++
         }
       }
     })
-    setScore(correctAnswers)
+    setScore(correctAnswersCount)
   }
 
   const submitQuiz = () => {
@@ -189,8 +226,9 @@ const [showModal, setShowModal] = useState(false);
   }
 
   const getScoreMessage = (score: number) => {
-    if (score >= 26) return "Congratulations! You passed the exam!"
-    if (score >= 20) return "Close! You need 26 correct answers to pass."
+    const passMark = Math.ceil(totalQuestions * 0.65);
+    if (score >= passMark) return "Congratulations! You passed the exam!"
+    if (score >= Math.ceil(totalQuestions * 0.5)) return `Close! You need ${passMark} correct answers to pass.`
     return "You need more preparation. Keep studying!"
   }
 
@@ -284,19 +322,19 @@ const [showModal, setShowModal] = useState(false);
     >
       <p className="text-gray-800 mb-3">Choose Question Set:</p>
       <div className="flex flex-wrap gap-2">
-        {['set1', 'set2', 'set3', ].map((set) => (
+        {availableSets.map((set) => (
           <motion.button
-            key={set}
+            key={set.id}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => setSelectedSet(set)}
+            onClick={() => setSelectedSetId(set.id)}
             className={`px-4 py-2 font-medium border transition-all duration-300 ${
-              selectedSet === set
+              selectedSetId === set.id
                 ? 'bg-blue-600 text-white border-blue-600'
                 : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
             }`}
           >
-            {set.replace('set', 'Set ')}
+            {set.title}
           </motion.button>
         ))}
       </div>
@@ -366,7 +404,7 @@ const [showModal, setShowModal] = useState(false);
 
   if (quizState === "in-progress") {
     const question = questionToRender[currentQuestion]
-    const progress = ((currentQuestion + 1) / 40) * 100
+    const progress = totalQuestions > 0 ? ((currentQuestion + 1) / totalQuestions) * 100 : 0
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-red-50 py-8 px-4">
@@ -382,7 +420,7 @@ const [showModal, setShowModal] = useState(false);
                   </h1>
 
                 <Badge variant="outline" className="text-blue-600 text-center sm:text-left ">
-                  Question {currentQuestion + 1} of 40
+                  Question {currentQuestion + 1} of {totalQuestions}
                 </Badge>
               </div>
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full sm:w-auto">
@@ -446,7 +484,7 @@ const [showModal, setShowModal] = useState(false);
             {/* <div className="space-y-2">
               <div className="flex justify-between text-sm text-gray-600">
                 <span>Progress: {Math.round(progress)}%</span>
-                <span>Answered: {answeredQuestions}/40</span>
+                <span>Answered: {answeredQuestions}/{totalQuestions}</span>
               </div>
               <Progress value={progress} className="h-2" />
             </div> */}
@@ -509,7 +547,7 @@ const [showModal, setShowModal] = useState(false);
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     
-                    <span className="text-sm text-gray-500">Question {currentQuestion + 1}/40</span>
+                    <span className="text-sm text-gray-500">Question {currentQuestion + 1}/{totalQuestions}</span>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -586,7 +624,7 @@ const [showModal, setShowModal] = useState(false);
                     </Button>
                     <Button
                       onClick={nextQuestion}
-                      disabled={currentQuestion === 39}
+                      disabled={currentQuestion === totalQuestions - 1}
                       className="bg-blue-600 text-white hover:bg-blue-700"
                     >
                       Next
@@ -629,10 +667,10 @@ const [showModal, setShowModal] = useState(false);
           <div className="text-center space-y-6">
             <div className="space-y-4">
               <div className={`text-6xl sm:text-7xl font-extrabold ${getScoreColor(score)} tracking-tight`}>
-                {score}/40
+                {score}/{totalQuestions}
               </div>
               <div className="text-2xl sm:text-3xl text-gray-500 font-medium">
-                {Math.round((score / 40) * 100)}%
+                {Math.round((score / totalQuestions) * 100)}%
               </div>
               <div className={`text-xl sm:text-2xl font-semibold ${getScoreColor(score)} animate-pulse`}>
                 {getScoreMessage(score)}
@@ -644,7 +682,7 @@ const [showModal, setShowModal] = useState(false);
                 <div className="text-gray-500 text-sm sm:text-base">Correct Answers</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-rose-600">{40 - score}</div>
+                <div className="text-3xl sm:text-4xl font-bold text-rose-600">{totalQuestions - score}</div>
                 <div className="text-gray-500 text-sm sm:text-base">Incorrect Answers</div>
               </div>
               <div className="text-center">
