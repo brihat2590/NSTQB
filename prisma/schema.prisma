@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  
 }
 
 model User {
@@ -50,6 +50,14 @@ model boardMembers {
   linkedInUrl String
   imageUrl    String
   order       Int
+}
+model generalMembers{
+  id String @id @default(cuid())
+  name String @unique
+  title String?
+  linkedInUrl String
+  order Int
+  imageUrl String
 }
 
 model Blog {
