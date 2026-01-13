@@ -44,11 +44,11 @@ const CORE_VALUES = [
 /* -------------------------- Components --------------------------- */
 
 const SectionHeader = () => (
-  <div className="relative mb-20 pt-12 text-center">
+  <div className="relative mb-20 pt-8 text-center">
     {/* Top divider */}
-    <div className="absolute top-0 left-1/2 h-px w-32 -translate-x-1/2 bg-slate-300/60" />
+    <div className="absolute top-0 left-1/2 h-px w-32 -translate-x-1/2 bg-red-300/60" />
 
-    <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
+    <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 mb-4">
       About NSTQB
     </h2>
   </div>

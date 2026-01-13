@@ -75,10 +75,11 @@ export default function ExamCalendar() {
       <div className="max-w-[1400px] mx-auto px-6 py-16">
         {/* Header */}
         <div className="mb-14 text-center">
-          <h1 className="text-4xl md:text-5xl font-semibold text-gray-900">
+        <div className="mx-auto mb-6 h-px w-32 bg-blue-400" />
+          <h1 className="text-4xl md:text-5xl font-semibold text-gray-900 md:pt-2">
             NSTQB Exam Calendar
           </h1>
-          <div className="mx-auto mt-4 h-px w-24 bg-gray-300" />
+          
           <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
             View upcoming NSTQB examinations, important dates, and registration
             deadlines at a glance.

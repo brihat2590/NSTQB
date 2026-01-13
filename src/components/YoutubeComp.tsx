@@ -3,7 +3,7 @@
 
 export default function YouTubeVideo() {
   return (
-    <div className="w-full   max-w-[1200px] mx-0 sm:mx-auto  rounded-xl overflow-hidden shadow-lg sm:my-20">
+    <div className="w-full shadow-md shadow-black/30   max-w-[1200px]  sm:mx-auto   overflow-hidden  sm:my-20">
       <div className="relative w-full pt-[56.25%]"> {/* 16:9 Aspect Ratio */}
         <iframe
           className="absolute top-0 left-0 w-full h-full"
