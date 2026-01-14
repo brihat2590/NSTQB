@@ -5,7 +5,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  
 }
 
 model User {
@@ -50,14 +49,6 @@ model boardMembers {
   linkedInUrl String
   imageUrl    String
   order       Int
-}
-model generalMembers{
-  id String @id @default(cuid())
-  name String @unique
-  title String?
-  linkedInUrl String
-  order Int
-  imageUrl String
 }
 
 model Blog {
@@ -129,7 +120,6 @@ model QuestionSet {
 
 model Question {
   id             Int          @id @default(autoincrement())
- 
   question       String
   setId          Int
   createdAt      DateTime     @default(now())
