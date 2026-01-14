@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import {Prisma} from '@prisma/client';
+
 import { error } from 'console';
 
 // GET: List all certified testers (optionally with pagination)

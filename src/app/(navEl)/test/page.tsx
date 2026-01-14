@@ -1,10 +1,105 @@
-import MockTest from "@/components/testMockTest";
+import React from 'react';
+import { Mail, Phone, MapPin, Clock, Facebook, Instagram, Twitter, Menu } from 'lucide-react';
 
-export default function page(){
+const ContactPage = () => {
+  return (
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4 font-sans">
+      {/* Main Container */}
+      <div className="bg-white w-full max-w-6xl flex flex-col md:flex-row shadow-2xl relative overflow-hidden">
+        
+        {/* Decorative Top Left Logo/Icon */}
+        <div className="absolute top-6 left-6">
+            <div className="border-2 border-black w-8 h-8 rotate-45 flex items-center justify-center">
+                <span className="rotate-[-45deg] font-bold text-xs">D</span>
+            </div>
+        </div>
 
+        {/* Hamburger Menu Accent */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 bg-red-400 p-2 hidden md:block">
+            <Menu size={20} className="text-black" />
+        </div>
 
+        {/* LEFT SIDE: Form Section */}
+        <div className="flex-1 p-12 md:p-20">
+          <h1 className="text-5xl font-semibold mb-6 text-gray-900">Contact Us</h1>
+          <p className="text-gray-500 mb-12 max-w-sm leading-relaxed">
+            Feel free to contact us any time. We will get back to you as soon as we can!
+          </p>
 
-  return(
-    <MockTest/>
-  )
-}
+          <form className="space-y-8" >
+            <div className="relative">
+              <input 
+                type="text" 
+                placeholder="Name" 
+                className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black transition-colors placeholder-gray-400"
+              />
+            </div>
+            <div className="relative">
+              <input 
+                type="email" 
+                placeholder="Email" 
+                className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black transition-colors placeholder-gray-400"
+              />
+            </div>
+            <div className="relative">
+              <textarea 
+                rows={4} 
+                placeholder="Message" 
+                className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black transition-colors placeholder-gray-400"
+              />
+            </div>
+            
+            <button className="bg-zinc-900 text-white w-full py-4 mt-8 tracking-[0.2em] font-bold text-sm hover:bg-black transition-colors">
+              SEND
+            </button>
+          </form>
+        </div>
+
+        {/* RIGHT SIDE: Info Section */}
+        <div className="w-full md:w-[40%] relative flex flex-col">
+          {/* Yellow Top Block */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-400 hidden md:block"></div>
+          
+          {/* Black Info Box */}
+          <div className="bg-zinc-900 text-white p-12 md:p-16 mt-0 md:mt-24 mr-0 md:mr-10 flex-grow z-10">
+            <h2 className="text-3xl font-bold mb-10">Info</h2>
+            
+            <div className="space-y-8">
+              <div className="flex items-center gap-4 group cursor-pointer">
+                <Mail size={20} className="text-gray-400" />
+                <span className="text-sm">info@nstqb.org</span>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <Phone size={20} className="text-gray-400" />
+                <span className="text-sm">+24 56 89 146</span>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <MapPin size={20} className="text-gray-400" />
+                <span className="text-sm">14 Greenroad St.</span>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <Clock size={20} className="text-gray-400" />
+                <span className="text-sm">09:00 - 18:00</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Yellow Bottom Social Bar */}
+          <div className="bg-red-400 p-6 flex justify-center md:justify-end gap-6 md:pr-10">
+            <Facebook size={16} className="cursor-pointer hover:opacity-70" />
+            <Instagram size={16} className="cursor-pointer hover:opacity-70" />
+            <Twitter size={16} className="cursor-pointer hover:opacity-70" />
+          </div>
+        </div>
+
+        {/* Small Yellow Square Decor */}
+        <div className="absolute top-20 right-[38%] w-8 h-8  hidden lg:block z-20"></div>
+      </div>
+    </div>
+  );
+};
+
+export default ContactPage;
