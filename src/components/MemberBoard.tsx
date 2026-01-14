@@ -23,7 +23,7 @@ export default function MemberBoards() {
   }, []);
 
   return (
-    <section className="bg-gradient-to-br from-blue-50 to-red-50 py-16 px-4">
+    <section className="bg-gradient-to-tr from-blue-50 to-red-50 py-16 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <h2 className="text-4xl md:text-5xl font-semibold text-center text-gray-800 mb-12">

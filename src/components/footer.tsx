@@ -1,52 +1,82 @@
-import { Phone, Mail, MapPin } from 'lucide-react';
-import Link from 'next/link';
+"use client";
 
-const Footer = () => {
+import {
+  FaGithub,
+  FaXTwitter,
+  FaLinkedin,
+  FaWhatsapp,
+  FaInstagram,
+  FaFacebook,
+} from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
+
+export default function Footer() {
   return (
-    <footer className="bg-gray-50 text-slate-700">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-between">
-          {/* Company Info */}
-          <div className="flex flex-col items-start">
-            <img 
-              src="/whiteImage.png" 
-              alt="NSTQB Logo" 
-              className="h-15 w-auto mb-6"
-            />
-            <div className="flex items-center space-x-2">
-              <MapPin className="text-blue-600 flex-shrink-0" size={16} />
-              <span>Kathmandu, Nepal</span>
-            </div>
-          </div>
+    <footer className="bg-gradient-to-tr from-blue-50 to-red-50 border-t  py-10 px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto flex flex-col gap-8">
+        
+        {/* Social Icons */}
+        <div className="flex gap-6 text-2xl  text-gray-800">
+          <a
+            href="https://github.com/NSTQB"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gray-600 transition"
+          >
+            <FaGithub />
+          </a>
 
-          {/* NSTQB Links */}
-          <div className="flex flex-col items-start">
-            <h4 className="text-lg font-semibold text-slate-800 mb-3">NSTQB</h4>
-            <ul className="space-y-3">
-              <li><a href="/" className="text-slate-600 hover:text-blue-700 transition-colors">Home</a></li>
-              <li><Link href="/mock-test" className="text-slate-600 hover:text-blue-700 transition-colors">Exam</Link></li>
-              <li><Link href="/contact" className="text-slate-600 hover:text-blue-700 transition-colors">Contact</Link></li>
-            </ul>
-          </div>
+          
 
-          {/* Static Section */}
-          <div className="flex flex-col items-start max-w-xs">
-            <h4 className="text-lg font-semibold text-slate-800 mb-3">Our Vision</h4>
-            <p className="text-slate-600 leading-relaxed">
-              NSTQB aims to empower software professionals in Nepal with globally recognized certifications and to promote software testing excellence nationwide.
-            </p>
-          </div>
+          <a
+            href="https://www.linkedin.com/company/nstqb/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-blue-600 transition"
+          >
+            <FaLinkedin />
+          </a>
+
+          <a
+            href="https://chat.whatsapp.com/your-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-green-600 transition"
+          >
+            <FaWhatsapp />
+          </a>
+
+          <a
+            href="https://www.facebook.com/NSTQB"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-blue-600 transition"
+          >
+            <FaFacebook />
+          </a>
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-slate-300 mt-12 pt-8 text-center">
-          <p className="text-slate-500 text-sm">
-            © 2025 NSTQB - Nepal Software Testing Qualifications Body. All rights reserved.
+        {/* Info Section */}
+        <div className="text-sm text-gray-600 space-y-2">
+          <p className="font-medium text-gray-800">
+            © 2025 NSTQB – Nepal Software Testing Qualifications Board
+          </p>
+
+          <p className="flex items-center gap-2">
+            <MdEmail className="text-pink-800" />
+            <a
+              href="mailto:info@nstqb.org"
+              className="hover:text-blue-600 transition"
+            >
+              info@nstqb.org
+            </a>
+          </p>
+
+          <p>
+            NSTQB operates under ISTQB® to promote excellence in software testing.
           </p>
         </div>
       </div>
-    </footer>   
+    </footer>
   );
-};
-
-export default Footer;
+}
