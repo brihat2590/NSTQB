@@ -1,325 +1,205 @@
-"use client";
+"use client"
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, Clock, Facebook, Instagram, Twitter, Menu } from 'lucide-react';
+import { toast } from 'sonner';
+interface contactProps{
+  name:string,
+  email:string,
+  subject:string,
+  message:string
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, Send, Clock, User, MessageSquare } from "lucide-react";
-import { toast } from "sonner";
+}
 
-export default function ContactUs() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+
+const ContactPage = () => {
+
+  const[formData,setFormData]=useState<contactProps>({
+    name:"",
+    email:"",
+    message:"",
+    subject:""
   });
+  const[loading,setLoading]=useState(false);
 
-  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit=async(e:React.FormEvent)=>{
     e.preventDefault();
+    if(!formData.name || !formData.email || !formData.message || !formData.subject){
 
-    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-      toast.error("Please fill out all required fields.");
+      toast.error("Please fill in all fields");
       return;
     }
 
-    setLoading(true);
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-  
-      if (res.ok) {
-        toast.success("Email sent successfully, We will get bacjk to you soon!");
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        toast.error("Failed to send message");
-      }
-  
+    try{
+      setLoading(true);
+
+      const response=await fetch("/api/contact",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(formData)
+      })
       setLoading(false)
-      // Simulate API call
-      
-    } catch (error) {
-      toast.error("Something went wrong. Please try again later.");
-    } finally {
+      if(response.ok){
+        toast.success("Message has been sent successfully");
+        setFormData({
+          name:"",
+          email:"",
+          message:"",
+          subject:""
+        });
+      }
+      else{
+        toast.error("Failed to send message. Please try again later.");
+        setLoading(false);
+      }
+
+    }
+    catch(err:any){
+      console.log(err.message);
+      toast.error("Failed to send message. Please try again later.");
+    }
+    finally{
       setLoading(false);
     }
-  };
 
+  }
   return (
-    <div className="min-h-screen bg-white py-12 px-4 sm:px-6">
-      <style jsx>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4 font-sans">
+      {/* Main Container */}
+      <div className="bg-white w-full max-w-6xl flex flex-col md:flex-row shadow-2xl relative overflow-hidden">
         
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-        
-        @keyframes pulse-glow {
-          0%, 100% {
-            box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
-          }
-          50% {
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
-          }
-        }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-        }
-        
-        .animation-delay-200 {
-          animation-delay: 0.2s;
-          opacity: 0;
-        }
-        
-        .animation-delay-400 {
-          animation-delay: 0.4s;
-          opacity: 0;
-        }
-        
-        .animation-delay-200 {
-          animation-delay: 0.2s;
-        }
-        
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-        
-        .animate-pulse-glow {
-          animation: pulse-glow 2s ease-in-out infinite;
-        }
-      `}</style>
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight animate-fade-in-up animation-delay-200 transition-all duration-300">
-            Contact Us
-          </h1>
-          <div className="flex justify-center my-6">
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
-            <div className="w-4 h-1 bg-gradient-to-r from-purple-600 to-red-500 rounded-full mx-1"></div>
-            <div className="w-24 h-1 bg-gradient-to-r from-red-500 to-blue-600 rounded-full"></div>
+        {/* Decorative Top Left Logo/Icon */}
+        <div className="absolute top-6 left-6">
+            <div className="border-2 border-black w-8 h-8 rotate-45 flex items-center justify-center">
+                <span className="rotate-[-45deg] font-bold text-xs">D</span>
+            </div>
+        </div>
+
+        {/* Hamburger Menu Accent */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 bg-red-400 p-2 hidden md:block">
+            <Menu size={20} className="text-black" />
+        </div>
+
+        {/* LEFT SIDE: Form Section */}
+        <div className="flex-1 p-12 md:p-20">
+          <h1 className="text-5xl font-semibold mb-6 text-gray-900">Contact Us</h1>
+          <p className="text-gray-500 mb-12 max-w-sm leading-relaxed">
+            Feel free to contact us any time. We will get back to you as soon as we can!
+          </p>
+
+          <form className="space-y-8" onSubmit={handleSubmit} >
+            <div className="relative">
+              <input 
+                type="text" 
+                placeholder="Name" 
+                value={formData.name}
+                onChange={(e)=>{
+                  setFormData({...formData,name:e.target.value})
+                }}
+                className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black transition-colors placeholder-gray-400"
+              />
+            </div>
+            <div className="relative">
+              <input 
+                type="email" 
+                placeholder="Email" 
+                value={formData.email}
+                onChange={(e)=>{
+                  setFormData({...formData,email:e.target.value})
+                }}
+                className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black transition-colors placeholder-gray-400"
+              />
+            </div>
+            <div className='relative'>
+
+              <input type='text' placeholder='Subject' 
+              value={formData.subject}
+              onChange={(e)=>{
+                setFormData({...formData,subject:e.target.value})
+              }}
+              
+              className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black transition-colors placeholder-gray-400"/>
+
+            </div>
+            <div className="relative">
+              <textarea 
+                rows={4} 
+                placeholder="Message" 
+                value={formData.message}
+                onChange={(e)=>{
+                  setFormData({...formData,message:e.target.value})
+                }}
+                className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black transition-colors placeholder-gray-400"
+              />
+            </div>
+            
+            <button
+  type="submit"
+  disabled={loading}
+  className="bg-zinc-900 text-white w-full py-4 mt-8
+             flex items-center justify-center gap-2
+             disabled:opacity-60 disabled:cursor-not-allowed
+             hover:bg-black transition"
+>
+  {loading ? (
+    <>
+      <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+      SENDING
+    </>
+  ) : (
+    "SEND"
+  )}
+</button>
+          </form>
+        </div>
+
+        {/* RIGHT SIDE: Info Section */}
+        <div className="w-full md:w-[40%] relative flex flex-col">
+          {/* Yellow Top Block */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-400 hidden md:block"></div>
+          
+          {/* Black Info Box */}
+          <div className="bg-zinc-900 text-white p-12 md:p-16 mt-0 md:mt-24 mr-0 md:mr-10 flex-grow z-10">
+            <h2 className="text-3xl font-bold mb-10">Info</h2>
+            
+            <div className="space-y-8">
+              <div className="flex items-center gap-4 group cursor-pointer">
+                <Mail size={20} className="text-gray-400" />
+                <span className="text-sm">info@nstqb.org</span>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <Phone size={20} className="text-gray-400" />
+                <span className="text-sm">+977-9851055879</span>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <MapPin size={20} className="text-gray-400" />
+                <span className="text-sm">Kathmandu, Nepal</span>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <Clock size={20} className="text-gray-400" />
+                <span className="text-sm">09:00 - 18:00</span>
+              </div>
+            </div>
           </div>
-          <p className="text-xl text-gray-800 font-medium max-w-2xl mx-auto animate-fade-in-up animation-delay-200 transition-all duration-300">
-            Nepal Software Testing Qualifications Body
-          </p>
-          <p className="text-gray-700 mt-4 max-w-3xl mx-auto animate-fade-in-up animation-delay-200 transition-all duration-300">
-            Get in touch with us for any inquiries about software testing certifications and qualifications
-          </p>
+
+          {/* Yellow Bottom Social Bar */}
+          <div className="bg-red-400 p-6 flex justify-center md:justify-end gap-6 md:pr-10">
+            <Facebook size={16} className="cursor-pointer hover:opacity-70" />
+            <Instagram size={16} className="cursor-pointer hover:opacity-70" />
+            <Twitter size={16} className="cursor-pointer hover:opacity-70" />
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 items-stretch animate-fade-in-up animation-delay-200 transition-all duration-300">
-          {/* Contact Form Card */}
-          <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-400 ease-in">
-            <CardHeader className="pb-6">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
-                  <Send className="h-5 w-5 text-blue-600" />
-                </div>
-                <CardTitle className="text-2xl font-semibold text-gray-900">Send us a Message</CardTitle>
-              </div>
-              <CardDescription className="text-gray-600">
-                Fill out the form below and we'll get back to you as soon as possible
-              </CardDescription>
-            </CardHeader>
-            
-            <form onSubmit={handleSubmit}>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-sm font-medium text-gray-700">
-                      Full Name *
-                    </Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Your full name"
-                      required
-                      className="h-11 border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                      Email Address *
-                    </Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="Your email address"
-                      required
-                      className="h-11 border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="subject" className="text-sm font-medium text-gray-700">
-                    Subject *
-                  </Label>
-                  <Input
-                    id="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    placeholder="Subject of your message"
-                    required
-                    className="h-11 border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message" className="text-sm font-medium text-gray-700">
-                    Your Message *
-                  </Label>
-                  <Textarea
-                    id="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Describe your inquiry in detail..."
-                    required
-                    className="min-h-[140px] border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors duration-200"
-                >
-                  {loading ? (
-                    <span className="flex items-center justify-center">
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                      Sending your message...
-                    </span>
-                  ) : (
-                    <span className="flex items-center justify-center">
-                      <Send className="mr-2 h-4 w-4" />
-                      Submit Message
-                    </span>
-                  )}
-                </Button>
-              </CardContent>
-            </form>
-          </Card>
-
-          {/* Contact Information Card */}
-          <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <CardHeader className="pb-6">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
-                  <Phone className="h-5 w-5 text-green-600" />
-                </div>
-                <CardTitle className="text-2xl font-semibold text-gray-900">Contact Information</CardTitle>
-              </div>
-              <CardDescription className="text-gray-600">
-                Reach out to us through any of the following channels
-              </CardDescription>
-            </CardHeader>
-            
-            <CardContent className="space-y-8">
-              <ContactInfo 
-                icon={<Mail className="h-5 w-5 text-blue-600" />} 
-                title="Email Address" 
-                lines={["info@nstqb.org", "support@nstqb.org"]}
-                bgColor="bg-blue-50"
-              />
-              
-              <ContactInfo 
-                icon={<Phone className="h-5 w-5 text-green-600" />} 
-                title="Phone Numbers" 
-                lines={["+977-9851055879"]}
-                bgColor="bg-green-50"
-              />
-              
-              <ContactInfo 
-                icon={<Clock className="h-5 w-5 text-purple-600" />} 
-                title="Working Hours" 
-                lines={["Monday - Friday: 9:00 AM - 6:00 PM"]}
-                bgColor="bg-purple-50"
-              />
-
-              <div className="pt-6 border-t border-gray-100">
-                <div className="bg-gray-50 rounded-lg p-5 border border-gray-200">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Clock className="h-4 w-4 text-orange-600" />
-                    <h3 className="font-semibold text-gray-900">Response Time</h3>
-                  </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    We typically respond within <span className="font-medium text-blue-600">1-2 business days</span>. 
-                    For urgent matters, please call us during working hours.
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        {/* Small Yellow Square Decor */}
+        <div className="absolute top-20 right-[38%] w-8 h-8  hidden lg:block z-20"></div>
       </div>
     </div>
   );
-}
+};
 
-function ContactInfo({ icon, title, lines, bgColor }: { icon: React.ReactNode; title: string; lines: string[]; bgColor: string }) {
-  const isEmail = title.toLowerCase().includes("email");
-  const isPhone = title.toLowerCase().includes("phone");
-
-  return (
-    <div className="flex items-start gap-4">
-      <div className={`w-10 h-10 ${bgColor} rounded-lg flex items-center justify-center flex-shrink-0`}>
-        {icon}
-      </div>
-      <div className="flex-1">
-        <h3 className="font-semibold text-gray-900 text-base mb-2">{title}</h3>
-        <div className="space-y-1">
-          {lines.map((line, index) => {
-            const href = isEmail ? `mailto:${line}` : 
-                        isPhone ? `tel:${line.replace(/[^\d+]/g, "")}` : "#";
-            
-            return (
-              <div key={index}>
-                {isEmail || isPhone ? (
-                  <a
-                    href={href}
-                    className="text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200 hover:underline block"
-                  >
-                    {line}
-                  </a>
-                ) : (
-                  <span className="text-sm text-gray-600 block">{line}</span>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
+export default ContactPage;
