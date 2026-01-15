@@ -167,12 +167,12 @@ const ContactPage = () => {
             <div className="space-y-8">
               <div className="flex items-center gap-4 group cursor-pointer">
                 <Mail size={20} className="text-gray-400" />
-                <span className="text-sm">info@nstqb.org</span>
+                <a href="mailto:info@nstqb.org" className="text-sm">info@nstqb.org</a>
               </div>
               
               <div className="flex items-center gap-4">
                 <Phone size={20} className="text-gray-400" />
-                <span className="text-sm">+977-9851055879</span>
+                <a href='tel:+9779851055879' className="text-sm">+977-9851055879</a>
               </div>
               
               <div className="flex items-center gap-4">
@@ -188,10 +188,8 @@ const ContactPage = () => {
           </div>
 
           {/* Yellow Bottom Social Bar */}
-          <div className="bg-red-400 p-6 flex justify-center md:justify-end gap-6 md:pr-10">
-            <Facebook size={16} className="cursor-pointer hover:opacity-70" />
-            <Instagram size={16} className="cursor-pointer hover:opacity-70" />
-            <Twitter size={16} className="cursor-pointer hover:opacity-70" />
+          <div className="hidden md:flex bg-red-400 p-6  justify-center md:justify-end gap-6 md:pr-10">
+            
           </div>
         </div>
 
