@@ -1,11 +1,14 @@
 # Base image
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Set working directory
 WORKDIR /app
 
 # Copy Prisma schema before npm install
 COPY prisma ./prisma
+COPY prisma.config.ts ./
+COPY .env .env
+COPY tsconfig.json ./
 
 # Copy package files and install dependencies
 COPY package*.json ./
