@@ -69,18 +69,6 @@ const ContactPage = () => {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4 font-sans">
       {/* Main Container */}
       <div className="bg-white w-full max-w-6xl flex flex-col md:flex-row shadow-2xl relative overflow-hidden">
-        
-        {/* Decorative Top Left Logo/Icon */}
-        <div className="absolute top-6 left-6">
-            <div className="border-2 border-black w-8 h-8 rotate-45 flex items-center justify-center">
-                <span className="rotate-[-45deg] font-bold text-xs">D</span>
-            </div>
-        </div>
-
-        {/* Hamburger Menu Accent */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 bg-red-400 p-2 hidden md:block">
-            <Menu size={20} className="text-black" />
-        </div>
 
         {/* LEFT SIDE: Form Section */}
         <div className="flex-1 p-12 md:p-20">

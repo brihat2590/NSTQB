@@ -38,15 +38,6 @@ export default function Footer() {
           </a>
 
           <a
-            href="https://chat.whatsapp.com/your-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-green-600 transition"
-          >
-            <FaWhatsapp />
-          </a>
-
-          <a
             href="https://www.facebook.com/NSTQB"
             target="_blank"
             rel="noopener noreferrer"
