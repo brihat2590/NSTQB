@@ -1,4 +1,5 @@
 import {prisma} from "@/lib/prisma";
+import { stat } from "fs";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -74,7 +75,10 @@ export async function GET(req:NextRequest,{params}:{params:Promise<{slug:string}
             })
         }
 
-    return NextResponse.json(event.registrations, { status: 200 });
+    return NextResponse.json({
+        registrations:event.registrations,
+        status:200
+    });
         
         
 
