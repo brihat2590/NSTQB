@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, Facebook, Instagram, Twitter, Menu } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Facebook, Instagram, Twitter } from 'lucide-react';
 import { toast } from 'sonner';
 interface contactProps{
   name:string,
