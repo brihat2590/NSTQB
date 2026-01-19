@@ -4,9 +4,9 @@ import {
   FaGithub,
   FaXTwitter,
   FaLinkedin,
-  FaWhatsapp,
   FaInstagram,
   FaFacebook,
+  FaWhatsapp,
 } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 
@@ -38,7 +38,7 @@ export default function Footer() {
           </a>
 
           <a
-            href="https://chat.whatsapp.com/your-link"
+            href="https://chat.whatsapp.com/E91hKG6LannBqKtvaCpzl1"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-green-600 transition"

@@ -37,18 +37,18 @@ export default function EventPage() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10  md:pb-32">
       {/* ---------------- HEADER SECTION ---------------- */}
       <div className="mb-10 text-center">
-        <h1 className="text-4xl font-bold text-gray-900">Upcoming Events</h1>
-        <p className="text-gray-600 mt-2">
+        <h1 className="text-4xl font-semibold text-gray-900 p-2">Upcoming Events</h1>
+        <p className="text-gray-600 mt-2 p-2">
           Discover, register, and attend events you care about
         </p>
       </div>
 
       {/* ---------------- LOADING STATE ---------------- */}
       {loading && (
-        <p className="text-center text-gray-500">Loading events...</p>
+        <p className="text-center text-gray-500 min-h-screen">Loading events...</p>
       )}
 
       {/* ---------------- EMPTY STATE ---------------- */}
@@ -90,16 +90,12 @@ export default function EventPage() {
               </p>
 
               <p className="text-sm text-gray-700">
-                📍 {event.venue}
+                {event.venue}
               </p>
 
               {/* Footer */}
               <div className="flex items-center justify-between pt-2">
-                <span className="text-sm font-medium">
-                  {event.eventType === "FREE"
-                    ? "Free"
-                    : `₹${event.ticketPrice}`}
-                </span>
+                
 
                 <span
                   className={`text-xs px-2 py-1 rounded-full ${
