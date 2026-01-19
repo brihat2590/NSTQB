@@ -4,9 +4,9 @@ import {
   FaGithub,
   FaXTwitter,
   FaLinkedin,
-  FaWhatsapp,
   FaInstagram,
   FaFacebook,
+  FaWhatsapp,
 } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 
