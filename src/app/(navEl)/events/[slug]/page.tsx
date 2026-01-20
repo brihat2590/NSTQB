@@ -210,7 +210,7 @@ async function handleRegister(e: React.FormEvent) {
         </div>
 
         {/* ---------------- SPEAKERS ---------------- */}
-        <section className="max-w-6xl mx-auto py-16 px-6">
+        {speakers.length>0&&(<section className="max-w-6xl mx-auto py-16 px-6">
           <h2 className="text-[10px] md:text-sm font-extrabold tracking-[0.35em] text-center uppercase text-gray-500 mb-12">
             Meet the Speakers
           </h2>
@@ -233,7 +233,7 @@ async function handleRegister(e: React.FormEvent) {
               </div>
             ))}
           </div>
-        </section>
+        </section>)}
       </div>
 
       {/* ---------------- ADAPTIVE REGISTRATION BAR ---------------- */}
