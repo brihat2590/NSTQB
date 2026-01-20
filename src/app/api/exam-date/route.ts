@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { NextResponse } from 'next/server';
+import { NextResponse,NextRequest } from 'next/server';
 
 export async function GET() {
   const schedules = await prisma.examSchedule.findMany({
@@ -8,7 +8,7 @@ export async function GET() {
   return NextResponse.json(schedules);
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const body = await req.json();
   const newSchedule = await prisma.examSchedule.create({
     data: {

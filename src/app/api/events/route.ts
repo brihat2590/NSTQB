@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 
-export async function POST(req:NextRequest,res:NextResponse){
+export async function POST(req:NextRequest){
     const{title,slug,description,dateTime,venue,eventType,ticketPrice,registrationOpen,bannerImage,registrationDeadline}=await req.json();
     try{
 
