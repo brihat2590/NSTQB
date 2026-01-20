@@ -18,6 +18,19 @@ type Registration = {
   phone?: string;
 };
 
+type EventForm = {
+  title: string;
+  slug: string;
+  description: string;
+  dateTime: Date;
+  venue: string;
+  eventType: "FREE" 
+  ticketPrice?: number;
+  registrationOpen: boolean;
+  registrationDeadline?: Date;
+  bannerImage?: string;
+}
+
 export default function EventAdminDetail() {
   const { slug } = useParams<{ slug: string }>();
 
@@ -71,6 +84,15 @@ export default function EventAdminDetail() {
     setBio(speaker.bio);
     setPhoto(speaker.photo || "");
     setOpenSpeakerModal(true);
+  }
+
+  const deleteEvent=()=>{
+    try{
+
+    }
+    catch(err){
+      
+    }
   }
 
   async function saveSpeaker() {
