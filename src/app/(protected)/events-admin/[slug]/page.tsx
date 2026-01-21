@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { ChevronLeft,  } from "lucide-react";
+import Link from "next/link";
 
 type Speaker = {
   id: string;
@@ -33,6 +35,7 @@ type EventForm = {
 
 export default function EventAdminDetail() {
   const { slug } = useParams<{ slug: string }>();
+  const router=useRouter();
 
   const [speakers, setSpeakers] = useState<Speaker[]>([]);
   const [registrations, setRegistrations] = useState<Registration[]>([]);
@@ -86,11 +89,27 @@ export default function EventAdminDetail() {
     setOpenSpeakerModal(true);
   }
 
-  const deleteEvent=()=>{
+  const deleteEvent=async()=>{
     try{
+
+      const response=await fetch(`/api/events/${slug}`,{
+        method:'DELETE',
+        headers:{'Content-Type':'application/json'},
+        
+
+      }) 
+      if(response.ok){
+        toast.success("Event deleted successfully");
+        router.push("/events-admin")
+      }
+      else{
+        toast.error("Failed to delete event");
+      }
 
     }
     catch(err){
+      toast.error("An error occurred while deleting the event");
+      console.log(err);
       
     }
   }
@@ -164,10 +183,14 @@ export default function EventAdminDetail() {
       {/* ---------------- HEADER ---------------- */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-8 rounded-2xl shadow-sm border border-zinc-200">
         <div>
+          <div className="flex gap-2 items-center">
+            <Link href="/events-admin"><ChevronLeft/></Link>
           <h1 className="text-3xl font-bold tracking-tight text-zinc-900">
             Event Control Panel
           </h1>
-          <p className="text-zinc-500 mt-1">Manage your event speakers and guest list.</p>
+
+          </div>
+          <p className="text-zinc-500 mt-1 pl-4">Manage your event speakers and guest list.</p>
         </div>
 
         <button
@@ -379,6 +402,8 @@ export default function EventAdminDetail() {
           </div>
         </div>
       )}
+
+      <button onClick={deleteEvent} className="mt-8 px-6 py-2.5 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-all shadow-md shadow-red-100">{`Delete this event`}</button>
     </div>
   );
 }
