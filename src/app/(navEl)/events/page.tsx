@@ -103,9 +103,9 @@ export default function EventPage() {
             </div>
               
 
-              <p className="text-sm text-gray-600 line-clamp-2">
+              {/* <p className="text-sm text-gray-600 line-clamp-2">
                 {event.description}
-              </p>
+              </p> */}
 
               <p className="text-sm text-gray-700">
                 {event.venue}
