@@ -180,7 +180,7 @@ async function handleRegister(e: React.FormEvent) {
           </h1>
           <div className="flex justify-center flex-wrap gap-4 md:gap-6 text-xs md:text-sm text-zinc-500 font-medium">
             <span className="flex items-center gap-1.5">📍 {event.venue}</span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex border-l pl-4 items-center gap-1.5">
               {new Date(event.dateTime).toLocaleDateString(undefined, {
                 month: "long",
                 day: "numeric",
@@ -229,6 +229,20 @@ async function handleRegister(e: React.FormEvent) {
         >
           {line.replace("### ", "")}
         </h3>
+      );
+    }
+    if (line.includes("http://") || line.includes("https://")) {
+      return (
+        <p key={i} className="mt-2">
+          <a
+            href={line.trim()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-indigo-600 hover:text-indigo-800 transition"
+          >
+            {line}
+          </a>
+        </p>
       );
     }
 
