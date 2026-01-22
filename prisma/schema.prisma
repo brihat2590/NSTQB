@@ -86,50 +86,46 @@ model EventRegistration {
   transaction_uuid String?  @unique
   event            Event    @relation(fields: [eventId], references: [id])
 }
-enum EventType{
-  FREE
-  PAID
-}
+
 model Events {
-  id String @id @default(cuid())
-  title String
-  slug String @unique
-  description String 
-  dateTime DateTime
-  venue String
-  eventType EventType
-  ticketPrice Float?
-  
-  registrationOpen Boolean @default(true)
+  id                   String              @id @default(cuid())
+  title                String
+  slug                 String              @unique
+  description          String
+  dateTime             DateTime
+  venue                String
+  eventType            EventType
+  ticketPrice          Float?
+  registrationOpen     Boolean             @default(true)
   registrationDeadline DateTime?
-  bannerImage String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  speakers Speaker[]
-  registrations RegistrationEvent[]
+  bannerImage          String?
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+  registrations        RegistrationEvent[]
+  speakers             Speaker[]
 }
 
-model Speaker{
-  id String @id @default(cuid())
-  name String
-  photo String?
-  bio String
-  
+model Speaker {
+  id        String   @id @default(cuid())
+  name      String
+  photo     String?
+  bio       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  eventId String
-  event Events @relation(fields: [eventId], references: [id],onDelete: Cascade)
+  eventId   String
+  event     Events   @relation(fields: [eventId], references: [id], onDelete: Cascade)
 }
-model RegistrationEvent{
-  id String @id @default(cuid())
-  name String
-  email String
-  phone String?
-  createdAt DateTime @default(now())
-  eventId String
-  event Events @relation(fields: [eventId], references: [id],onDelete: Cascade)
 
-  @@unique([eventId,email])
+model RegistrationEvent {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  createdAt DateTime @default(now())
+  eventId   String
+  event     Events   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, email])
 }
 
 model flowingHeadlines {
@@ -175,6 +171,11 @@ model Question {
   type           QuestionType
   image          String?
   set            QuestionSet  @relation(fields: [setId], references: [id])
+}
+
+enum EventType {
+  FREE
+  PAID
 }
 
 enum QuestionType {

@@ -1,11 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { toast } from "sonner"; // ✅ Sonner toast
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogHeader, DialogFooter } from "@/components/ui/dialog";
-import { Plus, Edit3, Trash2, ExternalLink, Megaphone, Sparkles, Globe } from "lucide-react";
+import { 
+  Dialog, 
+  DialogTrigger, 
+  DialogContent, 
+  DialogTitle, 
+  DialogHeader, 
+  DialogFooter 
+} from "@/components/ui/dialog";
+import { 
+  Plus, 
+  Edit3, 
+  Trash2, 
+  ExternalLink, 
+  Megaphone, 
+  Globe, 
+  X,
+  ChevronRight
+} from "lucide-react";
 
 type Announcement = {
   id: string;
@@ -27,7 +43,6 @@ export default function FlowingAdminPage() {
       setItems(data);
     } catch (error: any) {
       toast.error("Failed to load announcements");
-      console.error("Failed to load announcements:", error.message);
     }
   };
 
@@ -52,7 +67,6 @@ export default function FlowingAdminPage() {
       fetchData();
     } catch (error: any) {
       toast.error("Failed to save announcement");
-      console.error("Failed to save announcement:", error.message);
     }
   };
 
@@ -63,7 +77,6 @@ export default function FlowingAdminPage() {
       fetchData();
     } catch (error: any) {
       toast.error("Failed to delete announcement");
-      console.error("Failed to delete announcement:", error.message);
     }
   };
 
@@ -72,181 +85,166 @@ export default function FlowingAdminPage() {
     setOpen(true);
   };
 
-  const getTypeColor = (type: string) => {
+  const getTypeStyles = (type: string) => {
     switch (type.toLowerCase()) {
-      case 'urgent': return 'bg-red-100 text-red-800 border-red-200';
-      case 'info': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'success': return 'bg-green-100 text-green-800 border-green-200';
-      case 'warning': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'urgent': return 'bg-rose-50 text-rose-600 border-rose-100';
+      case 'info': return 'bg-blue-50 text-blue-600 border-blue-100';
+      case 'success': return 'bg-emerald-50 text-emerald-600 border-emerald-100';
+      case 'warning': return 'bg-amber-50 text-amber-600 border-amber-100';
+      default: return 'bg-zinc-50 text-zinc-600 border-zinc-100';
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mb-6 shadow-xl">
-            <Megaphone className="w-10 h-10 text-white" />
+    <div className="min-h-screen bg-white">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+                <Megaphone className="w-5 h-5 text-indigo-600" />
+                <span className="text-sm font-semibold text-indigo-600 uppercase tracking-wider">Communication</span>
+            </div>
+            <h1 className="text-4xl font-semibold text-zinc-900 tracking-tight">
+              Headlines Control
+            </h1>
+            <p className="text-zinc-500 mt-2 text-lg">
+              Manage your flowing announcements and website alerts.
+            </p>
           </div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-4">
-            Headlines Control Center
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Create, manage, and optimize your flowing announcements with style and precision
-          </p>
-        </div>
 
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-12">
-          <div className="flex items-center space-x-3">
-            <Sparkles className="w-6 h-6 text-purple-500" />
-            <h2 className="text-2xl font-semibold text-gray-800">Active Announcements</h2>
-            <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
-              {items.length} items
-            </span>
-          </div>
-          
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button 
                 onClick={() => setForm({ text: "", type: "", icon: "", href: "", id: "" })}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-6 rounded-2xl shadow-lg shadow-indigo-100 transition-all active:scale-95 flex items-center gap-2"
               >
-                <Plus className="w-5 h-5 mr-2" />
-                Create New Announcement
+                <Plus className="w-5 h-5" />
+                <span className="font-semibold">Add Announcement</span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-lg bg-white/95 backdrop-blur-sm border-0 shadow-2xl">
-              <DialogHeader className="pb-6">
-                <DialogTitle className="text-2xl font-bold text-gray-800 flex items-center">
-                  {form.id ? <Edit3 className="w-6 h-6 mr-2 text-blue-600" /> : <Plus className="w-6 h-6 mr-2 text-green-600" />}
-                  {form.id ? "Edit" : "Create"} Announcement
+            
+            <DialogContent className="sm:max-w-lg bg-white border-zinc-100 rounded-[2rem] p-0 overflow-hidden shadow-2xl">
+              <DialogHeader className="px-8 pt-8 pb-4">
+                <DialogTitle className="text-2xl font-semibold text-zinc-900 flex items-center gap-3">
+                  {form.id ? <Edit3 className="w-6 h-6 text-indigo-600" /> : <Plus className="w-6 h-6 text-indigo-600" />}
+                  {form.id ? "Edit Item" : "New Item"}
                 </DialogTitle>
               </DialogHeader>
-              <div className="grid gap-6 py-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Announcement Text</label>
+
+              <div className="px-8 py-4 space-y-5">
+                <div className="space-y-1.5">
+                  <label className="text-sm font-semibold text-zinc-700 ml-1">Message Content</label>
                   <Input 
-                    placeholder="Enter your announcement text..." 
+                    placeholder="E.g. Registration closes this Friday!" 
                     value={form.text} 
                     onChange={(e) => setForm({ ...form, text: e.target.value })}
-                    className="h-12 text-lg border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    className="rounded-xl border-zinc-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 h-12"
                   />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Type</label>
-                  <Input 
-                    placeholder="urgent, info, success, warning..." 
-                    value={form.type} 
-                    onChange={(e) => setForm({ ...form, type: e.target.value })}
-                    className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
-                  />
+                
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                        <label className="text-sm font-semibold text-zinc-700 ml-1">Type</label>
+                        <Input 
+                            placeholder="urgent, info, success..." 
+                            value={form.type} 
+                            onChange={(e) => setForm({ ...form, type: e.target.value })}
+                            className="rounded-xl border-zinc-200 focus:ring-4 focus:ring-indigo-500/10 h-12"
+                        />
+                    </div>
+                    <div className="space-y-1.5">
+                        <label className="text-sm font-semibold text-zinc-700 ml-1">Icon Name</label>
+                        <Input 
+                            placeholder="Bell, Alert, Info..." 
+                            value={form.icon} 
+                            onChange={(e) => setForm({ ...form, icon: e.target.value })}
+                            className="rounded-xl border-zinc-200 focus:ring-4 focus:ring-indigo-500/10 h-12"
+                        />
+                    </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Icon</label>
+
+                <div className="space-y-1.5 pb-4">
+                  <label className="text-sm font-semibold text-zinc-700 ml-1">Redirect URL</label>
                   <Input 
-                    placeholder="Calendar, BookOpen, Bell, etc..." 
-                    value={form.icon} 
-                    onChange={(e) => setForm({ ...form, icon: e.target.value })}
-                    className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Link (Optional)</label>
-                  <Input 
-                    placeholder="https://example.com or /internal-link" 
+                    placeholder="https://..." 
                     value={form.href} 
                     onChange={(e) => setForm({ ...form, href: e.target.value })}
-                    className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    className="rounded-xl border-zinc-200 focus:ring-4 focus:ring-indigo-500/10 h-12"
                   />
                 </div>
               </div>
-              <DialogFooter className="pt-6">
+
+              <DialogFooter className="bg-zinc-50 px-8 py-6">
                 <Button 
                   onClick={handleSave}
-                  className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-8 py-3 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white h-12 rounded-xl font-semibold shadow-lg shadow-indigo-100 transition-all active:scale-95"
                 >
-                  {form.id ? "Update" : "Create"} Announcement
+                  {form.id ? "Save Changes" : "Publish Announcement"}
                 </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
         </div>
 
-        <div className="grid gap-8">
+        {/* List Section */}
+        <div className="space-y-4">
           {items.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Megaphone className="w-12 h-12 text-gray-400" />
+            <div className="border-2 border-dashed border-zinc-100 rounded-[2rem] py-20 text-center">
+              <div className="w-16 h-16 bg-zinc-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Megaphone className="w-8 h-8 text-zinc-300" />
               </div>
-              <h3 className="text-2xl font-semibold text-gray-600 mb-4">No announcements yet</h3>
-              <p className="text-gray-500 text-lg">Create your first announcement to get started</p>
+              <p className="text-zinc-500 font-medium">No announcements found.</p>
             </div>
           ) : (
-            items.map((item, index) => (
+            items.map((item) => (
               <div 
                 key={item.id} 
-                className="group bg-white/80 backdrop-blur-sm border border-gray-200/50 p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="group bg-white border border-zinc-100 p-6 rounded-[1.5rem] hover:border-transparent hover:shadow-[0_15px_40px_rgba(0,0,0,0.06)] transition-all duration-300"
               >
-                <div className="flex flex-col lg:flex-row justify-between items-start gap-6">
-                  <div className="flex-1 space-y-4">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                        {item.icon ? item.icon.charAt(0) : "📢"}
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-xl font-semibold text-gray-800 leading-relaxed mb-3">
-                          {item.text}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className={`px-4 py-2 rounded-full text-sm font-medium border ${getTypeColor(item.type)}`}>
-                            {item.type || 'general'}
-                          </span>
-                          {item.icon && (
-                            <span className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium border border-gray-200">
-                              {item.icon}
-                            </span>
-                          )}
-                        </div>
-                      </div>
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
+                  <div className="flex items-center gap-5 flex-1 w-full">
+                    <div className="w-12 h-12 bg-zinc-900 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg shadow-zinc-200">
+                      {item.icon ? <span className="text-xs uppercase font-bold">{item.icon.slice(0, 2)}</span> : <Megaphone size={20} />}
                     </div>
                     
-                    {item.href && (
-                      <div className="ml-16">
-                        <a 
-                          href={item.href} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800 font-medium transition-colors group"
-                        >
-                          <Globe className="w-4 h-4" />
-                          <span className="underline decoration-2 underline-offset-2">{item.href}</span>
-                          <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                        </a>
+                    <div className="space-y-1">
+                      <p className="font-semibold text-zinc-900 leading-snug">
+                        {item.text}
+                      </p>
+                      <div className="flex items-center gap-3">
+                        <span className={`text-[10px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-md border ${getTypeStyles(item.type)}`}>
+                          {item.type || 'general'}
+                        </span>
+                        {item.href && (
+                          <div className="flex items-center gap-1.5 text-zinc-400 text-sm italic">
+                            <Globe size={12} />
+                            <span className="truncate max-w-[150px]">{item.href}</span>
+                          </div>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </div>
                   
-                  <div className="flex space-x-3">
-                    <Button 
-                      variant="outline" 
-                      size="lg"
+                  <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
+                    <button 
                       onClick={() => openForEdit(item)}
-                      className="bg-white/80 hover:bg-blue-50 border-gray-200 hover:border-blue-300 text-gray-700 hover:text-blue-700 px-6 py-3 rounded-xl font-medium shadow-sm hover:shadow-md transition-all duration-200"
+                      className="p-3 rounded-xl text-zinc-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all active:scale-90"
+                      title="Edit"
                     >
-                      <Edit3 className="w-4 h-4 mr-2" />
-                      Edit
-                    </Button>
-                    <Button 
-                      variant="outline"
-                      size="lg"
+                      <Edit3 size={18} />
+                    </button>
+                    <button 
                       onClick={() => handleDelete(item.id)}
-                      className="bg-white/80 hover:bg-red-50 border-gray-200 hover:border-red-300 text-gray-700 hover:text-red-700 px-6 py-3 rounded-xl font-medium shadow-sm hover:shadow-md transition-all duration-200"
+                      className="p-3 rounded-xl text-zinc-400 hover:text-rose-600 hover:bg-rose-50 transition-all active:scale-90"
+                      title="Delete"
                     >
-                      <Trash2 className="w-4 h-4 mr-2" />
-                      Delete
-                    </Button>
+                      <Trash2 size={18} />
+                    </button>
+                    <div className="hidden sm:block ml-2 text-zinc-200">
+                        <ChevronRight size={20} />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -254,10 +252,10 @@ export default function FlowingAdminPage() {
           )}
         </div>
 
-        <div className="text-center mt-20 pt-12 border-t border-gray-200/50">
-          <p className="text-gray-500 text-lg">
-            Managing {items.length} announcement{items.length !== 1 ? 's' : ''} with style ✨
-          </p>
+        <div className="mt-12 text-center">
+            <p className="text-zinc-400 text-sm font-medium">
+              You are currently managing {items.length} active headline{items.length !== 1 ? 's' : ''}
+            </p>
         </div>
       </div>
     </div>

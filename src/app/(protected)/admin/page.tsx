@@ -1,5 +1,14 @@
 "use client";
 import { useRouter } from 'next/navigation';
+import { 
+  LayoutDashboard, 
+  LogOut, 
+  FileText, 
+  PenTool, 
+  ShieldCheck, 
+  HelpCircle, 
+  CalendarDays 
+} from 'lucide-react'; // npm install lucide-react
 
 const AdminDashboard = () => {
   const router = useRouter();
@@ -10,29 +19,25 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Enhanced Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center py-4 gap-4">
+    <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <header className="bg-white border-b border-zinc-100 sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-3">
-              <div className="bg-indigo-100 p-2 rounded-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
+              <div className="bg-indigo-600 p-1.5 rounded-lg">
+                <LayoutDashboard className="h-6 w-6 text-white" />
               </div>
-              <h1 className="text-2xl md:text-3xl font-bold text-indigo-600">
-                NSTQB Admin Panel
+              <h1 className="text-xl md:text-2xl font-semibold text-zinc-900 tracking-tight">
+                NSTQB <span className="text-zinc-400 font-normal">Admin</span>
               </h1>
             </div>
+            
             <button
               onClick={handleLogout}
-              className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 flex items-center shadow-md hover:shadow-lg"
+              className="px-4 py-2 text-sm font-semibold text-zinc-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 flex items-center gap-2 active:scale-95"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />
-              </svg>
+              <LogOut className="h-4 w-4" />
               Logout
             </button>
           </div>
@@ -40,88 +45,96 @@ const AdminDashboard = () => {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Page Admin Card */}
+      <main className="max-w-7xl mx-auto px-6 py-12">
+        <div className="mb-10">
+          <h2 className="text-3xl font-semibold text-zinc-900">Dashboard</h2>
+          <p className="text-zinc-500 mt-1">Select a module below to manage your platform content.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Page Admin */}
           <DashboardCard 
             title="Page Admin"
-            description="Manage website's dynamic pages and content"
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            }
+            description="Manage website's dynamic pages, SEO, and static content."
+            icon={<FileText className="h-7 w-7" />}
             onClick={() => router.push('/page-admin')}
-            colorClass="bg-indigo-100 text-indigo-700"
+            accentColor="text-blue-600 bg-blue-50"
           />
 
-          {/* Blog Admin Card */}
+          {/* Blog Admin */}
           <DashboardCard 
             title="Blog Admin"
-            description="Manage blog posts and articles"
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-            }
+            description="Write, edit, and organize articles or news updates."
+            icon={<PenTool className="h-7 w-7" />}
             onClick={() => router.push('/blog-admin')}
-            colorClass="bg-amber-100 text-amber-700"
+            accentColor="text-amber-600 bg-amber-50"
           />
 
-          {/* Exam Registration Admin Card */}
+          {/* Events Admin */}
           <DashboardCard 
-            title="Exam Registration Admin"
-            description="Approve pending registrations and verify payments"
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            }
+            title="Events Admin"
+            description="Schedule conferences, webinars, and live event registrations."
+            icon={<CalendarDays className="h-7 w-7" />}
+            onClick={() => router.push('/events-admin')}
+            accentColor="text-purple-600 bg-purple-50"
+          />
+
+          {/* Exam Registration */}
+          <DashboardCard 
+            title="Exam Registrations"
+            description="Verify student payments and approve pending applications."
+            icon={<ShieldCheck className="h-7 w-7" />}
             onClick={() => router.push('/registration-admin')}
-            colorClass="bg-emerald-100 text-emerald-700"
+            accentColor="text-emerald-600 bg-emerald-50"
           />
-          <DashboardCard 
-            title="Exam Question Admin"
-            description="Manage exam questions and answer choices ,add,update,delete"
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 20h9M16.5 3.5l4 4L7 21H3v-4L16.5 3.5z" />
-              </svg>
 
-            }
+          {/* Exam Question Admin */}
+          <DashboardCard 
+            title="Question Bank"
+            description="Update exam questions, categories, and answer choices."
+            icon={<HelpCircle className="h-7 w-7" />}
             onClick={() => router.push('/exam-admin')}
-            colorClass="bg-emerald-100 text-emerald-700"
+            accentColor="text-rose-600 bg-rose-50"
           />
         </div>
-        
       </main>
     </div>
   );
 };
 
-// Enhanced Card Component
+// Sub-component for Cards
 interface DashboardCardProps {
   title: string;
   description: string;
   icon: React.ReactNode;
   onClick: () => void;
-  colorClass: string;
+  accentColor: string;
 }
 
-const DashboardCard = ({ title, description, icon, onClick, colorClass }: DashboardCardProps) => {
+const DashboardCard = ({ title, description, icon, onClick, accentColor }: DashboardCardProps) => {
   return (
     <div 
       onClick={onClick}
-      className="bg-white rounded-2xl border border-gray-100 overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group"
+      className="group bg-white p-8 rounded-3xl border border-zinc-100 hover:border-transparent hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-300 cursor-pointer relative overflow-hidden"
     >
-      <div className="p-8 flex flex-col items-center">
-        <div className="mb-5 p-4 rounded-xl bg-opacity-20 group-hover:scale-110 transition-transform duration-300">
+      <div className="flex flex-col h-full">
+        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 ${accentColor}`}>
           {icon}
         </div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-3">{title}</h2>
-        <p className="text-gray-600 text-center mb-6">{description}</p>
-        <div className={`px-6 py-2 rounded-full font-medium ${colorClass} group-hover:opacity-90 transition-opacity`}>
-          Go to Panel
+        
+        <h3 className="text-xl font-semibold text-zinc-900 mb-2">
+          {title}
+        </h3>
+        
+        <p className="text-zinc-500 text-sm leading-relaxed mb-8">
+          {description}
+        </p>
+
+        <div className="mt-auto flex items-center text-sm font-semibold text-zinc-900 group-hover:translate-x-1 transition-transform">
+          Manage Section
+          <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
         </div>
       </div>
     </div>

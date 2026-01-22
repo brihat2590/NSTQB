@@ -163,7 +163,7 @@ async function handleRegister(e: React.FormEvent) {
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            <div className="absolute top-4 right-4 md:top-6 md:right-6 bg-white/90 backdrop-blur-md px-3 py-1.5 md:px-4 md:py-2 rounded-full text-[10px] md:text-[11px] font-extrabold tracking-widest text-black shadow-lg">
+            <div className="absolute top-4 right-4 md:top-6 md:right-6 bg-white/90 backdrop-blur-md px-3 py-1.5 md:px-4 md:py-2 rounded-full text-[10px] md:text-[15px] font-extrabold tracking-widest text-black shadow-lg">
               ⏳ {timeLeft}
             </div>
           </div>
@@ -221,7 +221,7 @@ async function handleRegister(e: React.FormEvent) {
                   <img
                     src={s.photo || "https://placehold.co/200x200?text=Speaker"}
                     alt={s.name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition duration-500"
+                    className="w-full h-full object-cover  hover:scale-110 transition duration-500"
                   />
                 </div>
                 <div className="space-y-2">
