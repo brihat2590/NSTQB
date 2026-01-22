@@ -2,6 +2,7 @@
 
 import { useEffect, useState, use } from "react";
 import {toast} from "sonner"
+import ReactMarkdown from "react-markdown"
 
 type EventDetail = {
   id: string;
@@ -204,9 +205,82 @@ async function handleRegister(e: React.FormEvent) {
           <p className="text-indigo-600 text-[10px] md:text-xs font-extrabold tracking-[0.35em] uppercase mb-4">
             Overview
           </p>
-          <p className="text-sm md:text-base  text-zinc-700 leading-relaxed font-light">
-            {event.description}
-          </p>
+          <div className="text-sm md:text-base  text-zinc-700 leading-relaxed font-light">
+          <div className="text-left text-zinc-700 text-sm md:text-base leading-8 space-y-4">
+  {event.description.split("\n").map((line, i) => {
+    // H2
+    if (line.startsWith("## ")) {
+      return (
+        <h2
+          key={i}
+          className="text-xl md:text-2xl font-semibold text-zinc-900 mt-12"
+        >
+          {line.replace("## ", "")}
+        </h2>
+      );
+    }
+
+    // H3
+    if (line.startsWith("### ")) {
+      return (
+        <h3
+          key={i}
+          className="text-lg md:text-xl font-semibold text-zinc-900 mt-10"
+        >
+          {line.replace("### ", "")}
+        </h3>
+      );
+    }
+
+    // H4
+    if (line.startsWith("#### ")) {
+      return (
+        <h4
+          key={i}
+          className="text-base md:text-lg font-semibold text-zinc-900 mt-8"
+        >
+          {line.replace("#### ", "")}
+        </h4>
+      );
+    }
+
+  
+    if (line.startsWith("**") && line.endsWith("**")) {
+      return (
+        <p
+          key={i}
+          className="underline font-semibold  text-zinc-900 mt-2"
+        >
+           {line.replace(/\*\*/g, "")}
+        </p>
+      );
+    }
+
+    // Bullet points
+    if (line.startsWith("- ")) {
+      return (
+        <li
+          key={i}
+          className="ml-6 list-disc text-zinc-700"
+        >
+          {line.replace("- ", "")}
+        </li>
+      );
+    }
+
+    // Empty line → spacing
+    if (line.trim() === "") {
+      return <div key={i} className="h-3" />;
+    }
+
+    // Normal paragraph
+    return <p key={i}>{line}</p>;
+  })}
+</div>
+
+          
+
+          </div>
         </div>
 
         {/* ---------------- SPEAKERS ---------------- */}
