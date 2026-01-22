@@ -83,7 +83,7 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
           <div className="max-w-4xl mx-auto px-8 pb-12">
             {/* Title */}
             <header className="mb-8">
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
+              <h1 className="text-4xl md:text-5xl font-semibold text-gray-900 leading-tight mb-4">
                 {blog.title}
               </h1>
               

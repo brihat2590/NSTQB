@@ -78,7 +78,7 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-2">
-            <NavLink href="/">Home</NavLink>
+            <NavLink href="/events">Events</NavLink>
 
             {/* Exams Dropdown */}
             <div className="relative">
