@@ -57,9 +57,12 @@ export default function EventPage() {
 
       {/* ---------- EMPTY ---------- */}
       {!loading && data.length === 0 && (
+        <div className="min-h-[55vh] flex justify-center items-center ">
         <p className="text-center text-gray-500">
           No events available right now.
         </p>
+      </div>
+      
       )}
 
       {/* ---------- EVENTS GRID ---------- */}
