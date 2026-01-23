@@ -36,6 +36,9 @@ type EventForm = {
 export default function EventAdminDetail() {
   const { slug } = useParams<{ slug: string }>();
   const router=useRouter();
+  const [event, setEvent] = useState<EventForm | null>(null);
+const [editingEvent, setEditingEvent] = useState(false);
+
 
   const [speakers, setSpeakers] = useState<Speaker[]>([]);
   const [registrations, setRegistrations] = useState<Registration[]>([]);
@@ -55,13 +58,24 @@ export default function EventAdminDetail() {
   const [phone, setPhone] = useState("");
 
   async function fetchData() {
-    const [sRes, rRes] = await Promise.all([
+    const [eRes,sRes, rRes] = await Promise.all([
+      fetch(`/api/events/${slug}`),
       fetch(`/api/events/${slug}/speakers`),
       fetch(`/api/events/${slug}/register`)
     ]);
-
+    if (eRes.ok) {
+      const eData = await eRes.json();
+      setEvent({
+        ...eData,
+        dateTime: new Date(eData.dateTime),
+        registrationDeadline: eData.registrationDeadline
+          ? new Date(eData.registrationDeadline)
+          : undefined
+      });
+    }
     const sData = await sRes.json();
     const rData = await rRes.json();
+    
 
     setSpeakers(sData.speakers || []);
     setRegistrations(rData.registrations || []);
@@ -152,6 +166,33 @@ export default function EventAdminDetail() {
     setPhone(reg.phone || "");
     setOpenRegModal(true);
   }
+  async function updateEvent() {
+    if (!event) return;
+    try {
+      const response = await fetch(`/api/events/${slug}`, {
+        method: "PUT",
+        // Ensure the Date object is serialized correctly
+        body: JSON.stringify({
+          ...event,
+          dateTime: event.dateTime.toISOString(),
+          registrationDeadline: event.registrationDeadline?.toISOString()
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        toast.error(errorData.message || "Failed to update event");
+        return;
+      }
+  
+      toast.success("Event updated successfully");
+      setEditingEvent(false);
+      fetchData(); // Refresh data
+    } catch (err: any) {
+      toast.error("Connection error: " + err.message);
+    }
+  }
 
   async function saveRegistration() {
     if (!editingReg) return;
@@ -199,6 +240,9 @@ export default function EventAdminDetail() {
         >
           + Add New Speaker
         </button>
+        <button className="px-6 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-600 transition-all shadow-md " onClick={()=>{
+          setEditingEvent(true)
+        }}>Edit Event</button>
       </div>
 
       <div className="grid lg:grid-cols-1 gap-12">
@@ -404,6 +448,101 @@ export default function EventAdminDetail() {
       )}
 
       <button onClick={deleteEvent} className="mt-8 px-6 py-2.5 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-all shadow-md shadow-red-100">{`Delete this event`}</button>
+
+      {editingEvent && event && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div
+      className="absolute inset-0 bg-black/60"
+      onClick={() => setEditingEvent(false)}
+    />
+    <div className="relative bg-white w-full max-w-xl rounded-2xl p-8 shadow-2xl">
+      <h3 className="text-xl font-bold mb-6">Edit Event</h3>
+
+      <div className="space-y-4">
+      <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event Title</label>
+        <input
+          value={event.title}
+          onChange={(e) => setEvent({ ...event, title: e.target.value })}
+          placeholder="Event title"
+          className="w-full border rounded-lg p-3"
+        />
+        <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event description</label>
+
+        <textarea
+        
+          value={event.description}
+          
+          onChange={(e) => setEvent({ ...event, description: e.target.value })}
+          placeholder="Event description"
+          rows={10}
+          className="w-full border rounded-lg p-3"
+        />
+
+<label className="text-sm font-semibold text-zinc-700 mb-1 block">Registration Date</label>
+
+<input
+  type="datetime-local"
+  // Add a fallback to prevent toISOString() on null/undefined
+  value={event.dateTime instanceof Date && !isNaN(event.dateTime.getTime()) 
+    ? event.dateTime.toISOString().slice(0, 16) 
+    : ""}
+  onChange={(e) => {
+    const val = e.target.value;
+    if (val) {
+      setEvent({ ...event, dateTime: new Date(val) });
+    }
+  }}
+  className="w-full border rounded-lg p-3"
+/>
+<label className="text-sm font-semibold text-zinc-700 mb-1 block">Venue</label>
+
+        <input
+          value={event.venue}
+          onChange={(e) => setEvent({ ...event, venue: e.target.value })}
+          placeholder="Venue"
+          className="w-full border rounded-lg p-3"
+        />
+<label className="text-sm font-semibold text-zinc-700 mb-1 block">Ticket Price</label>
+        <input
+          type="number"
+          value={event.ticketPrice || 0}
+          onChange={(e) =>
+            setEvent({ ...event, ticketPrice: Number(e.target.value) })
+          }
+          placeholder="Ticket price"
+          className="w-full border rounded-lg p-3"
+        />
+
+        <label  className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={event.registrationOpen}
+            onChange={(e) =>
+              setEvent({ ...event, registrationOpen: e.target.checked })
+            }
+          />
+          Registration Open
+        </label>
+      </div>
+
+      <div className="flex justify-end gap-3 mt-6">
+        <button
+          onClick={() => setEditingEvent(false)}
+          className="px-4 py-2 text-zinc-600"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={updateEvent}
+          className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
+        >
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }

@@ -24,6 +24,8 @@ export default function EventAdminPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingEvent, setEditingEvent] = useState<Event | null>(null);
+
 
   const [formData, setFormData] = useState({
     title: "",
