@@ -477,6 +477,9 @@ const [editingEvent, setEditingEvent] = useState(false);
           rows={10}
           className="w-full border rounded-lg p-3"
         />
+        <label className="text-sm font-semibold text-zinc-700 mb-1 block">Banner Image</label>
+
+        <input type="text" onChange={(e) => setEvent({ ...event, bannerImage: e.target.value })} value={event.bannerImage || ""} placeholder="Banner Image URL" className="w-full border rounded-lg p-3"/>
 
 <label className="text-sm font-semibold text-zinc-700 mb-1 block">Registration Date</label>
 
