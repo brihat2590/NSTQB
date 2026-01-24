@@ -226,7 +226,7 @@ const [editingEvent, setEditingEvent] = useState(false);
         <div>
           <div className="flex gap-2 items-center">
             <Link href="/events-admin"><ChevronLeft/></Link>
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-900">
+          <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">
             Event Control Panel
           </h1>
 
@@ -234,15 +234,18 @@ const [editingEvent, setEditingEvent] = useState(false);
           <p className="text-zinc-500 mt-1 pl-4">Manage your event speakers and guest list.</p>
         </div>
 
+        <div className="flex justify-center items-center gap-4">
         <button
           onClick={openAddSpeaker}
-          className="px-6 py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all shadow-md shadow-indigo-100"
+          className="px-6 py-2.5 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-all shadow-md shadow-indigo-100"
         >
           + Add New Speaker
         </button>
-        <button className="px-6 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-600 transition-all shadow-md " onClick={()=>{
+        <button className="px-6 py-2.5 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-all shadow-md " onClick={()=>{
           setEditingEvent(true)
         }}>Edit Event</button>
+
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-1 gap-12">
