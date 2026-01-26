@@ -28,7 +28,7 @@ type EventForm = {
   description: string;
   dateTime: Date;
   venue: string;
-  eventType: "FREE"
+  eventType: "FREE" | "PAID";
   ticketPrice?: number;
   registrationOpen: boolean;
   registrationDeadline?: Date;
@@ -521,9 +521,14 @@ export default function EventAdminDetail() {
               <input
                 type="number"
                 value={event.ticketPrice || 0}
-                onChange={(e) =>
-                  setEvent({ ...event, ticketPrice: Number(e.target.value) })
-                }
+                onChange={(e) => {
+                  const price = Number(e.target.value);
+                  setEvent({
+                    ...event,
+                    ticketPrice: price,
+                    eventType: price > 0 ? "PAID" : "FREE"
+                  });
+                }}
                 placeholder="Ticket price"
                 className="w-full border rounded-lg p-3"
               />
