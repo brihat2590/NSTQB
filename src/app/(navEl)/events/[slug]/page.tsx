@@ -200,6 +200,32 @@ async function handleRegister(e: React.FormEvent) {
           </div>
         </div>
 
+        {/* ---------------- SPEAKERS ---------------- */}
+        {speakers.length>0&&(<section className="max-w-6xl mx-auto py-16 px-6">
+          <h2 className="text-[10px] md:text-sm font-extrabold tracking-[0.35em] text-center uppercase text-gray-500 mb-12">
+            Meet the Speakers
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-12 gap-x-8">
+            {speakers.map((s, i) => (
+              <div key={i} className="flex flex-col items-center text-center group">
+                <div className="w-28 h-28 md:w-32 md:h-32 mb-6 overflow-hidden rounded-full ring-4 ring-gray-50 shadow-md transition-all duration-300 group-hover:ring-indigo-100">
+                  <img
+                    src={s.photo || "https://placehold.co/200x200?text=Speaker"}
+                    alt={s.name}
+                    className="w-full h-full object-cover  hover:scale-110 transition duration-500"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg font-bold text-zinc-900">{s.name}</h3>
+                  <p className="text-xs md:text-sm text-gray-500 leading-relaxed max-w-[200px]">
+                    {s.bio}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>)}
+
         {/* ---------------- DESCRIPTION ---------------- */}
         <div className="max-w-4xl mx-auto text-center mb-10 md:mb-20 px-6">
           <p className="text-indigo-600 text-[10px] md:text-xs font-extrabold tracking-[0.35em] uppercase mb-4">
@@ -297,31 +323,7 @@ async function handleRegister(e: React.FormEvent) {
           </div>
         </div>
 
-        {/* ---------------- SPEAKERS ---------------- */}
-        {speakers.length>0&&(<section className="max-w-6xl mx-auto py-16 px-6">
-          <h2 className="text-[10px] md:text-sm font-extrabold tracking-[0.35em] text-center uppercase text-gray-500 mb-12">
-            Meet the Speakers
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-12 gap-x-8">
-            {speakers.map((s, i) => (
-              <div key={i} className="flex flex-col items-center text-center group">
-                <div className="w-28 h-28 md:w-32 md:h-32 mb-6 overflow-hidden rounded-full ring-4 ring-gray-50 shadow-md transition-all duration-300 group-hover:ring-indigo-100">
-                  <img
-                    src={s.photo || "https://placehold.co/200x200?text=Speaker"}
-                    alt={s.name}
-                    className="w-full h-full object-cover  hover:scale-110 transition duration-500"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-lg font-bold text-zinc-900">{s.name}</h3>
-                  <p className="text-xs md:text-sm text-gray-500 leading-relaxed max-w-[200px]">
-                    {s.bio}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>)}
+
       </div>
 
       {/* ---------------- ADAPTIVE REGISTRATION BAR ---------------- */}
