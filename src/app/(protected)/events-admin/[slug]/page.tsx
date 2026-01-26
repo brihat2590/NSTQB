@@ -471,6 +471,13 @@ export default function EventAdminDetail() {
                 placeholder="Event title"
                 className="w-full border rounded-lg p-3"
               />
+              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event Slug</label>
+              <input
+                value={event.slug}
+                onChange={(e) => setEvent({ ...event, slug: e.target.value })}
+                placeholder="Event slug"
+                className="w-full border rounded-lg p-3"
+              />
               <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event description</label>
 
               <div className="w-full" data-color-mode="light">
@@ -486,7 +493,7 @@ export default function EventAdminDetail() {
 
               <input type="text" onChange={(e) => setEvent({ ...event, bannerImage: e.target.value })} value={event.bannerImage || ""} placeholder="Banner Image URL" className="w-full border rounded-lg p-3" />
 
-              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Registration Date</label>
+              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Date & Time</label>
 
               <input
                 type="datetime-local"
@@ -518,6 +525,21 @@ export default function EventAdminDetail() {
                   setEvent({ ...event, ticketPrice: Number(e.target.value) })
                 }
                 placeholder="Ticket price"
+                className="w-full border rounded-lg p-3"
+              />
+
+              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Registration Deadline</label>
+              <input
+                type="datetime-local"
+                value={event.registrationDeadline instanceof Date && !isNaN(event.registrationDeadline.getTime())
+                  ? event.registrationDeadline.toISOString().slice(0, 16)
+                  : ""}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val) {
+                    setEvent({ ...event, registrationDeadline: new Date(val) });
+                  }
+                }}
                 className="w-full border rounded-lg p-3"
               />
 
