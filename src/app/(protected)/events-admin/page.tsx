@@ -174,12 +174,12 @@ export default function EventAdminPage() {
                     <span className="text-[10px] font-bold uppercase px-2 py-1 rounded bg-emerald-50 text-emerald-600 border border-emerald-100">
                       {event.eventType === "FREE"
                         ? "Free"
-                        : `₹${event.ticketPrice}`}
+                        : `NPR${event.ticketPrice}`}
                     </span>
                     <span
                       className={`text-[10px] font-bold uppercase px-2 py-1 rounded border ${event.registrationOpen
-                          ? "bg-indigo-50 text-indigo-600 border-indigo-100"
-                          : "bg-zinc-100 text-zinc-500 border-zinc-200"
+                        ? "bg-indigo-50 text-indigo-600 border-indigo-100"
+                        : "bg-zinc-100 text-zinc-500 border-zinc-200"
                         }`}
                     >
                       {event.registrationOpen ? "Live" : "Closed"}

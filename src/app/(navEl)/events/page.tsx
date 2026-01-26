@@ -58,11 +58,11 @@ export default function EventPage() {
       {/* ---------- EMPTY ---------- */}
       {!loading && data.length === 0 && (
         <div className="min-h-[55vh] flex justify-center items-center ">
-        <p className="text-center text-gray-500">
-          No events available right now.
-        </p>
-      </div>
-      
+          <p className="text-center text-gray-500">
+            No events available right now.
+          </p>
+        </div>
+
       )}
 
       {/* ---------- EVENTS GRID ---------- */}
@@ -90,21 +90,21 @@ export default function EventPage() {
                 {event.title}
               </h2>
               <p>
-              {new Date(event.dateTime).toLocaleDateString(undefined, {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
+                {new Date(event.dateTime).toLocaleDateString(undefined, {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
               </p>
-            <div className="flex gap-2">
-            {new Date(event.dateTime).toLocaleTimeString(undefined, {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-      }) } 
-      <p>onwards</p>
-            </div>
-              
+              <div className="flex gap-2">
+                {new Date(event.dateTime).toLocaleTimeString(undefined, {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: true
+                })}
+                <p>onwards</p>
+              </div>
+
 
               {/* <p className="text-sm text-gray-600 line-clamp-2">
                 {event.description}
@@ -117,17 +117,16 @@ export default function EventPage() {
               {/* Footer */}
               <div className="mt-3 flex items-center justify-between">
                 <span
-                  className={`text-xs font-medium px-2.5 py-1 rounded-full ${
-                    event.registrationOpen
+                  className={`text-xs font-medium px-2.5 py-1 rounded-full ${event.registrationOpen
                       ? "bg-green-50 text-green-700"
                       : "bg-red-50 text-red-700"
-                  }`}
+                    }`}
                 >
                   {event.registrationOpen ? "Registration Open" : "Closed"}
                 </span>
 
                 <span className="text-sm font-medium text-gray-800">
-                  {event.eventType === "FREE" ? "Free" : `₹${event.ticketPrice}`}
+                  {event.eventType === "FREE" ? "Free" : `NPR ${event.ticketPrice}`}
                 </span>
               </div>
             </div>
