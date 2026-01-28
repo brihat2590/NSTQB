@@ -22,10 +22,10 @@ import {
 } from "lucide-react"
 import { useState, useEffect } from "react"
 
-import { mockQuestions1, } from "@/lib/mockQuestions1"
+import { mockQuestions1, } from "@/lib/questions/mockQuestions1"
 import { useRouter } from "next/navigation"
-import { mockQuestions2 } from "@/lib/mockQuestions2"
-import { mockQuestions3 } from "@/lib/mockQuestions3"
+import { mockQuestions2 } from "@/lib/questions/mockQuestions2"
+import { mockQuestions3 } from "@/lib/questions/mockQuestions3"
 import ExamGuard from "./ExamGuard"
 import {motion} from "framer-motion"
 
