@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState, use } from "react";
-import {toast} from "sonner"
 
+
+import { toast } from "sonner"
 import ReactMarkdown from "react-markdown"
 
 type EventDetail = {
@@ -36,56 +37,56 @@ export default function EventDetailPage({
   const [event, setEvent] = useState<EventDetail | null>(null);
   const [speakers, setSpeakers] = useState<Speaker[]>([]);
   const [loading, setLoading] = useState(true);
-  
+
   const [timeLeft, setTimeLeft] = useState("");
   const [showModal, setShowModal] = useState(false);
-const [submitting, setSubmitting] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-const [form, setForm] = useState({
-  name: "",
-  email: "",
-  phone: "",
-});
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
 
 
 
-async function handleRegister(e: React.FormEvent) {
-  e.preventDefault();
+  async function handleRegister(e: React.FormEvent) {
+    e.preventDefault();
 
-  if (!form.name || !form.email) {
-    toast.error("Name and email are required");
-    return;
-  }
-
-  setSubmitting(true);
-
-  try {
-    const res = await fetch(`/api/events/${slug}/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      toast.error(data.message || "Registration failed");
+    if (!form.name || !form.email) {
+      toast.error("Name and email are required");
       return;
     }
 
-    toast.success("🎉 Thank you for registering. We will contact you soon");
-    setForm({ name: "", email: "", phone: "" });
+    setSubmitting(true);
 
-    // Optional: auto-close modal
-    setTimeout(() => {
-      setShowModal(false);
-    }, 800);
-  } catch {
-    toast.error("Something went wrong. Please try again.");
-  } finally {
-    setSubmitting(false);
+    try {
+      const res = await fetch(`/api/events/${slug}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.message || "Registration failed");
+        return;
+      }
+
+      toast.success("🎉 Thank you for registering. We will contact you soon");
+      setForm({ name: "", email: "", phone: "" });
+
+      // Optional: auto-close modal
+      setTimeout(() => {
+        setShowModal(false);
+      }, 800);
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
-}
 
 
 
@@ -190,117 +191,20 @@ async function handleRegister(e: React.FormEvent) {
               })}
             </span>
             {/* Added Event Time */}
-    <span className="flex items-center gap-1.5 border-l border-zinc-200 pl-4 md:pl-6">
-       {new Date(event.dateTime).toLocaleTimeString(undefined, {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-      }) } 
-      <p>onwards</p>
-    </span>
-            
-          </div>
-        </div>
-
-        {/* ---------------- DESCRIPTION ---------------- */}
-        <div className="max-w-4xl mx-auto text-center mb-10 md:mb-20 px-6">
-          <p className="text-indigo-600 text-[10px] md:text-xs font-extrabold tracking-[0.35em] uppercase mb-4">
-            Overview
-          </p>
-          <div className="text-sm md:text-base  text-zinc-700 leading-relaxed font-light">
-          <div className="text-left text-zinc-700 text-sm md:text-base leading-8 space-y-4">
-  {event.description.split("\n").map((line, i) => {
-    // H2
-    if (line.startsWith("## ")) {
-      return (
-        <h2
-          key={i}
-          className="text-xl md:text-2xl font-semibold text-zinc-900 mt-12"
-        >
-          {line.replace("## ", "")}
-        </h2>
-      );
-    }
-
-    // H3
-    if (line.startsWith("### ")) {
-      return (
-        <h3
-          key={i}
-          className="text-lg md:text-xl font-semibold text-zinc-900 mt-10"
-        >
-          {line.replace("### ", "")}
-        </h3>
-      );
-    }
-    if (line.includes("http://") || line.includes("https://")) {
-      return (
-        <p key={i} className="mt-2">
-          <a
-            href={line.trim()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline text-indigo-600 hover:text-indigo-800 transition"
-          >
-            {line}
-          </a>
-        </p>
-      );
-    }
-
-    // H4
-    if (line.startsWith("#### ")) {
-      return (
-        <h4
-          key={i}
-          className="text-base md:text-lg font-semibold text-zinc-900 mt-8"
-        >
-          {line.replace("#### ", "")}
-        </h4>
-      );
-    }
-
-  
-    if (line.startsWith("**") && line.endsWith("**")) {
-      return (
-        <p
-          key={i}
-          className="underline font-semibold  text-zinc-900 mt-2"
-        >
-           {line.replace(/\*\*/g, "")}
-        </p>
-      );
-    }
-
-    // Bullet points
-    if (line.startsWith("- ")) {
-      return (
-        <li
-          key={i}
-          className="ml-6 list-disc text-zinc-700"
-        >
-          {line.replace("- ", "")}
-        </li>
-      );
-    }
-
-    // Empty line → spacing
-    if (line.trim() === "") {
-      return <div key={i} className="h-3" />;
-    }
-
-    // Normal paragraph
-    return <p key={i}>{line}</p>;
-  })}
-</div>
-
-          
+            <span className="flex items-center gap-1.5 border-l border-zinc-200 pl-4 md:pl-6">
+              {new Date(event.dateTime).toLocaleTimeString(undefined, {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+              })}
+              <p>onwards</p>
+            </span>
 
           </div>
         </div>
 
         {/* ---------------- SPEAKERS ---------------- */}
-        {speakers.length>0&&(<section className="max-w-6xl mx-auto py-16 px-6">
+        {speakers.length > 0 && (<section className="max-w-6xl mx-auto py-16 px-6">
           <h2 className="text-[10px] md:text-sm font-extrabold tracking-[0.35em] text-center uppercase text-gray-500 mb-12">
             Meet the Speakers
           </h2>
@@ -324,6 +228,105 @@ async function handleRegister(e: React.FormEvent) {
             ))}
           </div>
         </section>)}
+
+        {/* ---------------- DESCRIPTION ---------------- */}
+        <div className="max-w-4xl mx-auto text-center mb-10 md:mb-20 px-6">
+          <p className="text-indigo-600 text-[10px] md:text-xs font-extrabold tracking-[0.35em] uppercase mb-4">
+            Overview
+          </p>
+          <div className="text-sm md:text-base  text-zinc-700 leading-relaxed font-light">
+            <div className="text-left text-zinc-700 text-sm md:text-base leading-8 space-y-4">
+              {event.description.split("\n").map((line, i) => {
+                // H2
+                if (line.startsWith("## ")) {
+                  return (
+                    <h2
+                      key={i}
+                      className="text-xl md:text-2xl font-semibold text-zinc-900 mt-12"
+                    >
+                      {line.replace("## ", "")}
+                    </h2>
+                  );
+                }
+
+                // H3
+                if (line.startsWith("### ")) {
+                  return (
+                    <h3
+                      key={i}
+                      className="text-lg md:text-xl font-semibold text-zinc-900 mt-10"
+                    >
+                      {line.replace("### ", "")}
+                    </h3>
+                  );
+                }
+                if (line.includes("http://") || line.includes("https://")) {
+                  return (
+                    <p key={i} className="mt-2">
+                      <a
+                        href={line.trim()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-indigo-600 hover:text-indigo-800 transition"
+                      >
+                        {line}
+                      </a>
+                    </p>
+                  );
+                }
+
+                // H4
+                if (line.startsWith("#### ")) {
+                  return (
+                    <h4
+                      key={i}
+                      className="text-base md:text-lg font-semibold text-zinc-900 mt-8"
+                    >
+                      {line.replace("#### ", "")}
+                    </h4>
+                  );
+                }
+
+
+                if (line.startsWith("**") && line.endsWith("**")) {
+                  return (
+                    <p
+                      key={i}
+                      className="underline font-semibold  text-zinc-900 mt-2"
+                    >
+                      {line.replace(/\*\*/g, "")}
+                    </p>
+                  );
+                }
+
+                // Bullet points
+                if (line.startsWith("- ")) {
+                  return (
+                    <li
+                      key={i}
+                      className="ml-6 list-disc text-zinc-700"
+                    >
+                      {line.replace("- ", "")}
+                    </li>
+                  );
+                }
+
+                // Empty line → spacing
+                if (line.trim() === "") {
+                  return <div key={i} className="h-3" />;
+                }
+
+                // Normal paragraph
+                return <p key={i}>{line}</p>;
+              })}
+            </div>
+
+
+
+          </div>
+        </div>
+
+
       </div>
 
       {/* ---------------- ADAPTIVE REGISTRATION BAR ---------------- */}
@@ -337,111 +340,110 @@ async function handleRegister(e: React.FormEvent) {
               Ticket Price
             </p>
             <p className="text-white font-bold text-base md:text-lg">
-              {event.eventType === "FREE" ? "Free Entry" : `₹${event.ticketPrice}`}
+              {event.eventType === "FREE" ? "Free Entry" : `NPR ${event.ticketPrice}`}
             </p>
           </div>
 
           <button
-  disabled={!event.registrationOpen}
-  onClick={() => setShowModal(true)}
-  className={`px-6 py-2.5 rounded-xl text-xs font-extrabold uppercase ${
-    event.registrationOpen
-      ? "bg-white text-black hover:bg-zinc-200"
-      : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
-  }`}
->
-  {event.registrationOpen ? "Register Now" : "Sold Out"}
-</button>
+            disabled={!event.registrationOpen}
+            onClick={() => setShowModal(true)}
+            className={`px-6 py-2.5 rounded-xl text-xs font-extrabold uppercase ${event.registrationOpen
+                ? "bg-white text-black hover:bg-zinc-200"
+                : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
+              }`}
+          >
+            {event.registrationOpen ? "Register Now" : "Sold Out"}
+          </button>
 
         </div>
       </div>
       {showModal && (
-  <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-    <div className="bg-white/95 rounded-xl w-[92%] max-w-md p-7 shadow-[0_20px_60px_rgba(0,0,0,0.25)] relative animate-in fade-in zoom-in-95">
-      
-      {/* Close */}
-      <button
-        onClick={() => setShowModal(false)}
-        className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-700 transition"
-      >
-        ✕
-      </button>
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white/95 rounded-xl w-[92%] max-w-md p-7 shadow-[0_20px_60px_rgba(0,0,0,0.25)] relative animate-in fade-in zoom-in-95">
 
-      {/* Header */}
-      <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-zinc-900 my-4">
-        Register for the Event
-      </h3>
-      <p className="text-sm text-zinc-500 mb-6">
-        Secure your seat for{" "}
-        <span className="font-medium">{event.title}</span> {" "}
-        happening on{" "}
-        <span className="font-medium">
-          {new Date(event.dateTime).toLocaleDateString(undefined, {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })}</span>
-      </p>
-      <p className="text-sm text-zinc-500 mb-6">
+            {/* Close */}
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-700 transition"
+            >
+              ✕
+            </button>
 
-        Please fill in your details below to complete your registration.
-      </p>
+            {/* Header */}
+            <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-zinc-900 my-4">
+              Register for the Event
+            </h3>
+            <p className="text-sm text-zinc-500 mb-6">
+              Secure your seat for{" "}
+              <span className="font-medium">{event.title}</span> {" "}
+              happening on{" "}
+              <span className="font-medium">
+                {new Date(event.dateTime).toLocaleDateString(undefined, {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}</span>
+            </p>
+            <p className="text-sm text-zinc-500 mb-6">
 
-      {/* Form */}
-      <form onSubmit={handleRegister} className="space-y-4">
-        <div className="space-y-3">
-          <input
-            required
-            placeholder="Full Name"
-            className="w-full border border-zinc-300 px-4 py-3 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition"
-            value={form.name}
-            onChange={(e) =>
-              setForm({ ...form, name: e.target.value })
-            }
-          />
+              Please fill in your details below to complete your registration.
+            </p>
 
-          <input
-            required
-            type="email"
-            placeholder="Email Address"
-            className="w-full border border-zinc-300 px-4 py-3 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition"
-            value={form.email}
-            onChange={(e) =>
-              setForm({ ...form, email: e.target.value })
-            }
-          />
+            {/* Form */}
+            <form onSubmit={handleRegister} className="space-y-4">
+              <div className="space-y-3">
+                <input
+                  required
+                  placeholder="Full Name"
+                  className="w-full border border-zinc-300 px-4 py-3 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition"
+                  value={form.name}
+                  onChange={(e) =>
+                    setForm({ ...form, name: e.target.value })
+                  }
+                />
 
-          <input
-            placeholder="Phone (optional)"
-            className="w-full border border-zinc-300 px-4 py-3 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition"
-            value={form.phone}
-            onChange={(e) =>
-              setForm({ ...form, phone: e.target.value })
-            }
-          />
+                <input
+                  required
+                  type="email"
+                  placeholder="Email Address"
+                  className="w-full border border-zinc-300 px-4 py-3 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition"
+                  value={form.email}
+                  onChange={(e) =>
+                    setForm({ ...form, email: e.target.value })
+                  }
+                />
+
+                <input
+                  placeholder="Phone (optional)"
+                  className="w-full border border-zinc-300 px-4 py-3 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition"
+                  value={form.phone}
+                  onChange={(e) =>
+                    setForm({ ...form, phone: e.target.value })
+                  }
+                />
+              </div>
+
+
+
+
+              <div className="h-px bg-zinc-200" />
+
+              {/* CTA */}
+              <button
+                disabled={submitting}
+                className="w-full bg-zinc-900 hover:bg-black text-white py-3 rounded-md text-sm font-semibold tracking-wide transition active:scale-[0.98] disabled:opacity-60"
+              >
+                {submitting ? "Submitting..." : "Confirm Registration"}
+              </button>
+
+              {/* Trust note */}
+              <p className="text-[11px] text-zinc-400 text-center">
+                You’ll receive a confirmation email after registering.
+              </p>
+            </form>
+          </div>
         </div>
-
-        
-        
-
-        <div className="h-px bg-zinc-200" />
-
-        {/* CTA */}
-        <button
-          disabled={submitting}
-          className="w-full bg-zinc-900 hover:bg-black text-white py-3 rounded-md text-sm font-semibold tracking-wide transition active:scale-[0.98] disabled:opacity-60"
-        >
-          {submitting ? "Submitting..." : "Confirm Registration"}
-        </button>
-
-        {/* Trust note */}
-        <p className="text-[11px] text-zinc-400 text-center">
-          You’ll receive a confirmation email after registering.
-        </p>
-      </form>
-    </div>
-  </div>
-)}
+      )}
 
 
 

@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { ChevronLeft,  } from "lucide-react";
+import { ChevronLeft, } from "lucide-react";
 import Link from "next/link";
 import * as XLSX from 'xlsx';
 import { saveAs } from "file-saver";
+import dynamic from "next/dynamic";
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 type Speaker = {
   id: string;
@@ -28,7 +30,7 @@ type EventForm = {
   description: string;
   dateTime: Date;
   venue: string;
-  eventType: "FREE" 
+  eventType: "FREE" | "PAID";
   ticketPrice?: number;
   registrationOpen: boolean;
   registrationDeadline?: Date;
@@ -37,9 +39,9 @@ type EventForm = {
 
 export default function EventAdminDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const router=useRouter();
+  const router = useRouter();
   const [event, setEvent] = useState<EventForm | null>(null);
-const [editingEvent, setEditingEvent] = useState(false);
+  const [editingEvent, setEditingEvent] = useState(false);
 const[isDownloading,setIsDownloading]=useState(false);
 
 
@@ -100,7 +102,7 @@ const downloadExcel = async () => {
   // Modals & Forms
   const [openSpeakerModal, setOpenSpeakerModal] = useState(false);
   const [openRegModal, setOpenRegModal] = useState(false);
-  
+
   const [editingSpeaker, setEditingSpeaker] = useState<Speaker | null>(null);
   const [editingReg, setEditingReg] = useState<Registration | null>(null);
 
@@ -112,7 +114,7 @@ const downloadExcel = async () => {
   const [phone, setPhone] = useState("");
 
   async function fetchData() {
-    const [eRes,sRes, rRes] = await Promise.all([
+    const [eRes, sRes, rRes] = await Promise.all([
       fetch(`/api/events/${slug}`),
       fetch(`/api/events/${slug}/speakers`),
       fetch(`/api/events/${slug}/register`)
@@ -129,7 +131,7 @@ const downloadExcel = async () => {
     }
     const sData = await sRes.json();
     const rData = await rRes.json();
-    
+
 
     setSpeakers(sData.speakers || []);
     setRegistrations(rData.registrations || []);
@@ -157,28 +159,28 @@ const downloadExcel = async () => {
     setOpenSpeakerModal(true);
   }
 
-  const deleteEvent=async()=>{
-    try{
+  const deleteEvent = async () => {
+    try {
 
-      const response=await fetch(`/api/events/${slug}`,{
-        method:'DELETE',
-        headers:{'Content-Type':'application/json'},
-        
+      const response = await fetch(`/api/events/${slug}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
 
-      }) 
-      if(response.ok){
+
+      })
+      if (response.ok) {
         toast.success("Event deleted successfully");
         router.push("/events-admin")
       }
-      else{
+      else {
         toast.error("Failed to delete event");
       }
 
     }
-    catch(err){
+    catch (err) {
       toast.error("An error occurred while deleting the event");
       console.log(err);
-      
+
     }
   }
 
@@ -233,13 +235,13 @@ const downloadExcel = async () => {
         }),
         headers: { "Content-Type": "application/json" },
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         toast.error(errorData.message || "Failed to update event");
         return;
       }
-  
+
       toast.success("Event updated successfully");
       setEditingEvent(false);
       fetchData(); // Refresh data
@@ -279,25 +281,25 @@ const downloadExcel = async () => {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-8 rounded-2xl shadow-sm border border-zinc-200">
         <div>
           <div className="flex gap-2 items-center">
-            <Link href="/events-admin"><ChevronLeft/></Link>
-          <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">
-            Event Control Panel
-          </h1>
+            <Link href="/events-admin"><ChevronLeft /></Link>
+            <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">
+              Event Control Panel
+            </h1>
 
           </div>
           <p className="text-zinc-500 mt-1 pl-4">Manage your event speakers and guest list.</p>
         </div>
 
         <div className="flex justify-center items-center gap-4">
-        <button
-          onClick={openAddSpeaker}
-          className="px-6 py-2.5 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-all shadow-md shadow-indigo-100"
-        >
-          + Add New Speaker
-        </button>
-        <button className="px-6 py-2.5 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-all shadow-md " onClick={()=>{
-          setEditingEvent(true)
-        }}>Edit Event</button>
+          <button
+            onClick={openAddSpeaker}
+            className="px-6 py-2.5 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-all shadow-md shadow-indigo-100"
+          >
+            + Add New Speaker
+          </button>
+          <button className="px-6 py-2.5 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-all shadow-md " onClick={() => {
+            setEditingEvent(true)
+          }}>Edit Event</button>
 
         </div>
       </div>
@@ -528,101 +530,128 @@ const downloadExcel = async () => {
       <button onClick={deleteEvent} className="mt-8 px-6 py-2.5 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-all shadow-md shadow-red-100">{`Delete this event`}</button>
 
       {editingEvent && event && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-    <div
-      className="absolute inset-0 bg-black/60"
-      onClick={() => setEditingEvent(false)}
-    />
-    <div className="relative bg-white w-full max-w-xl rounded-2xl p-8 shadow-2xl">
-      <h3 className="text-xl font-bold mb-6">Edit Event</h3>
-
-      <div className="space-y-4">
-      <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event Title</label>
-        <input
-          value={event.title}
-          onChange={(e) => setEvent({ ...event, title: e.target.value })}
-          placeholder="Event title"
-          className="w-full border rounded-lg p-3"
-        />
-        <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event description</label>
-
-        <textarea
-        
-          value={event.description}
-          
-          onChange={(e) => setEvent({ ...event, description: e.target.value })}
-          placeholder="Event description"
-          rows={10}
-          className="w-full border rounded-lg p-3"
-        />
-        <label className="text-sm font-semibold text-zinc-700 mb-1 block">Banner Image</label>
-
-        <input type="text" onChange={(e) => setEvent({ ...event, bannerImage: e.target.value })} value={event.bannerImage || ""} placeholder="Banner Image URL" className="w-full border rounded-lg p-3"/>
-
-<label className="text-sm font-semibold text-zinc-700 mb-1 block">Registration Date</label>
-
-<input
-  type="datetime-local"
-  // Add a fallback to prevent toISOString() on null/undefined
-  value={event.dateTime instanceof Date && !isNaN(event.dateTime.getTime()) 
-    ? event.dateTime.toISOString().slice(0, 16) 
-    : ""}
-  onChange={(e) => {
-    const val = e.target.value;
-    if (val) {
-      setEvent({ ...event, dateTime: new Date(val) });
-    }
-  }}
-  className="w-full border rounded-lg p-3"
-/>
-<label className="text-sm font-semibold text-zinc-700 mb-1 block">Venue</label>
-
-        <input
-          value={event.venue}
-          onChange={(e) => setEvent({ ...event, venue: e.target.value })}
-          placeholder="Venue"
-          className="w-full border rounded-lg p-3"
-        />
-<label className="text-sm font-semibold text-zinc-700 mb-1 block">Ticket Price</label>
-        <input
-          type="number"
-          value={event.ticketPrice || 0}
-          onChange={(e) =>
-            setEvent({ ...event, ticketPrice: Number(e.target.value) })
-          }
-          placeholder="Ticket price"
-          className="w-full border rounded-lg p-3"
-        />
-
-        <label  className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked={event.registrationOpen}
-            onChange={(e) =>
-              setEvent({ ...event, registrationOpen: e.target.checked })
-            }
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black/60"
+            onClick={() => setEditingEvent(false)}
           />
-          Registration Open
-        </label>
-      </div>
+          <div className="relative bg-white w-full max-w-xl rounded-2xl p-8 shadow-2xl">
+            <h3 className="text-xl font-bold mb-6">Edit Event</h3>
 
-      <div className="flex justify-end gap-3 mt-6">
-        <button
-          onClick={() => setEditingEvent(false)}
-          className="px-4 py-2 text-zinc-600"
-        >
-          Cancel
-        </button>
-        <button
-          onClick={updateEvent}
-          className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
-        >
-          Save Changes
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+            <div className="space-y-4">
+              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event Title</label>
+              <input
+                value={event.title}
+                onChange={(e) => setEvent({ ...event, title: e.target.value })}
+                placeholder="Event title"
+                className="w-full border rounded-lg p-3"
+              />
+              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event Slug</label>
+              <input
+                value={event.slug}
+                onChange={(e) => setEvent({ ...event, slug: e.target.value })}
+                placeholder="Event slug"
+                className="w-full border rounded-lg p-3"
+              />
+              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event description</label>
+
+              <div className="w-full" data-color-mode="light">
+                <MDEditor
+                  value={event.description}
+                  onChange={(value) => setEvent({ ...event, description: value || "" })}
+                  preview="edit"
+                  height={400}
+                  style={{ borderRadius: 8, overflow: "hidden" }}
+                />
+              </div>
+              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Banner Image</label>
+
+              <input type="text" onChange={(e) => setEvent({ ...event, bannerImage: e.target.value })} value={event.bannerImage || ""} placeholder="Banner Image URL" className="w-full border rounded-lg p-3" />
+
+              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Date & Time</label>
+
+              <input
+                type="datetime-local"
+                // Add a fallback to prevent toISOString() on null/undefined
+                value={event.dateTime instanceof Date && !isNaN(event.dateTime.getTime())
+                  ? event.dateTime.toISOString().slice(0, 16)
+                  : ""}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val) {
+                    setEvent({ ...event, dateTime: new Date(val) });
+                  }
+                }}
+                className="w-full border rounded-lg p-3"
+              />
+              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Venue</label>
+
+              <input
+                value={event.venue}
+                onChange={(e) => setEvent({ ...event, venue: e.target.value })}
+                placeholder="Venue"
+                className="w-full border rounded-lg p-3"
+              />
+              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Ticket Price</label>
+              <input
+                type="number"
+                value={event.ticketPrice || 0}
+                onChange={(e) => {
+                  const price = Number(e.target.value);
+                  setEvent({
+                    ...event,
+                    ticketPrice: price,
+                    eventType: price > 0 ? "PAID" : "FREE"
+                  });
+                }}
+                placeholder="Ticket price"
+                className="w-full border rounded-lg p-3"
+              />
+
+              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Registration Deadline</label>
+              <input
+                type="datetime-local"
+                value={event.registrationDeadline instanceof Date && !isNaN(event.registrationDeadline.getTime())
+                  ? event.registrationDeadline.toISOString().slice(0, 16)
+                  : ""}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val) {
+                    setEvent({ ...event, registrationDeadline: new Date(val) });
+                  }
+                }}
+                className="w-full border rounded-lg p-3"
+              />
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={event.registrationOpen}
+                  onChange={(e) =>
+                    setEvent({ ...event, registrationOpen: e.target.checked })
+                  }
+                />
+                Registration Open
+              </label>
+            </div>
+
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                onClick={() => setEditingEvent(false)}
+                className="px-4 py-2 text-zinc-600"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={updateEvent}
+                className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
