@@ -167,6 +167,12 @@ const downloadExcel = async () => {
         headers: { 'Content-Type': 'application/json' },
 
 
+
+      const response = await fetch(`/api/events/${slug}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+
+
       })
       if (response.ok) {
         toast.success("Event deleted successfully");
