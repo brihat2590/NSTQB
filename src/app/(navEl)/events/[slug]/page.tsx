@@ -2,6 +2,7 @@
 
 import { useEffect, useState, use } from "react";
 import {toast} from "sonner"
+
 import ReactMarkdown from "react-markdown"
 
 type EventDetail = {
@@ -23,6 +24,7 @@ interface Speaker {
   bio: string;
   photo?: string;
 }
+
 
 export default function EventDetailPage({
   params,
