@@ -414,7 +414,7 @@ export default function EventDetailPage({
                 />
 
                 <input
-                  placeholder="Phone (optional)"
+                  placeholder="Phone "
                   className="w-full border border-zinc-300 px-4 py-3 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition"
                   value={form.phone}
                   onChange={(e) =>
