@@ -10,6 +10,7 @@ export async function POST(req:Request,{params}:{params:Promise<{slug:string}>})
     if(!name||!email||!phone){
         return NextResponse.json({message:"Name, Email and Phone are required"}, {status:400});
     }
+    
     try{
 
         const event=await prisma.events.findUnique({
@@ -23,6 +24,18 @@ export async function POST(req:Request,{params}:{params:Promise<{slug:string}>})
         }
         if(!event.registrationOpen){
             return NextResponse.json({message:"Registration is closed for this event"}, {status:400});
+        }
+
+        const existingUser=await prisma.registrationEvent.findFirst({
+            where:{
+                email:email,
+            }
+        })
+        if(existingUser){
+            return NextResponse.json(
+              { message: "User with this email is already registered" },
+              { status: 400 }
+            );
         }
         if (
             event.registrationDeadline &&
