@@ -12,7 +12,7 @@ import { MdEmail } from "react-icons/md";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-tr from-blue-50 to-red-50 border-t  py-10 px-6 lg:px-12">
+    <footer className=" border-t  py-10 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto flex flex-col gap-8">
         
         {/* Social Icons */}
@@ -59,11 +59,11 @@ export default function Footer() {
         {/* Info Section */}
         <div className="text-sm text-gray-600 space-y-2">
           <p className="font-medium text-gray-800">
-            © 2025 NSTQB – Nepal Software Testing Qualifications Board
+               Nepal Software Testing Qualifications Board
           </p>
 
           <p className="flex items-center gap-2">
-            <MdEmail className="text-pink-800" />
+            <MdEmail className="text-black hover:text-pink-800" />
             <a
               href="mailto:info@nstqb.org"
               className="hover:text-blue-600 transition"
