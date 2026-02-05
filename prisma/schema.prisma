@@ -126,6 +126,11 @@ model RegistrationEvent {
   phone     String?
   createdAt DateTime @default(now())
   eventId   String
+  status           String   @default("PENDING")
+  pidx             String?  @unique
+  amount           Int      @default(0)
+  purchaseOrderId  String?
+  transaction_uuid String?
   event     Events   @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   @@unique([eventId, email])

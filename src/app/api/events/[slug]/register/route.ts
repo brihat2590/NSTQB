@@ -65,16 +65,66 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
                 name: name,
                 email: email,
                 phone: phone,
-                eventId: event.id
-
-
+                eventId: event.id,
+                amount: event.ticketPrice ? event.ticketPrice * 100 : 0, // Store in paisa
+                status: event.eventType === "PAID" ? "PENDING" : "COMPLETED"
             }
         })
+
+        if (event.eventType === "PAID" && event.ticketPrice) {
+            // Initiate Khalti Payment
+            try {
+                const { initiatePayment } = await import("@/lib/khalti"); // Dynamic import to avoid build issues if lib missing
+
+                const purchase_order_id = `txn_${registration.id}_${Date.now()}`;
+
+                // Update with PO ID
+                await prisma.registrationEvent.update({
+                    where: { id: registration.id },
+                    data: { purchaseOrderId: purchase_order_id }
+                });
+
+                const paymentResponse = await initiatePayment({
+                    return_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment/success`,
+                    website_url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+                    amount: event.ticketPrice * 100, // Rs to Paisa
+                    purchase_order_id: purchase_order_id,
+                    purchase_order_name: `Registration for ${event.title}`,
+                    customer_info: {
+                        name: name,
+                        email: email,
+                        phone: phone || "9800000000"
+                    }
+                });
+
+                // Update pidx
+                await prisma.registrationEvent.update({
+                    where: { id: registration.id },
+                    data: { pidx: paymentResponse.pidx }
+                });
+
+                return NextResponse.json(
+                    {
+                        message: "Payment Initiated",
+                        paymentUrl: paymentResponse.payment_url,
+                        pidx: paymentResponse.pidx
+                    },
+                    { status: 200 }
+                );
+
+            } catch (err: any) {
+                console.error("Khalti Init Error:", err);
+                return NextResponse.json(
+                    { message: "Failed to initiate payment. Please try again." },
+                    { status: 500 }
+                );
+            }
+        }
+
         return NextResponse.json(
             { message: "Registration successful", registration },
             { status: 201 }
         );
-
     }
     catch (error) {
         console.log(error);

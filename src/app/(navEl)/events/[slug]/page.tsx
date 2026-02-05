@@ -76,6 +76,12 @@ export default function EventDetailPage({
         return;
       }
 
+      if (data.paymentUrl) {
+        toast.info("Redirecting to Khalti for payment...");
+        window.location.href = data.paymentUrl;
+        return;
+      }
+
       toast.success("🎉 Thank you for registering. We will contact you soon");
       setForm({ name: "", email: "", phone: "" });
 
