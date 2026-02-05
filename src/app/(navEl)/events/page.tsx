@@ -25,10 +25,18 @@ export default function EventPage() {
     async function getData() {
       try {
         const response = await fetch("/api/events");
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
         const resData = await response.json();
-        setData(resData);
+        if (Array.isArray(resData)) {
+          setData(resData);
+        } else {
+          console.error("API did not return an array", resData);
+          setData([]);
+        }
       } catch (error) {
-        console.error(error);
+        console.error("Failed to fetch events:", error);
       } finally {
         setLoading(false);
       }
@@ -118,8 +126,8 @@ export default function EventPage() {
               <div className="mt-3 flex items-center justify-between">
                 <span
                   className={`text-xs font-medium px-2.5 py-1 rounded-full ${event.registrationOpen
-                      ? "bg-green-50 text-green-700"
-                      : "bg-red-50 text-red-700"
+                    ? "bg-green-50 text-green-700"
+                    : "bg-red-50 text-red-700"
                     }`}
                 >
                   {event.registrationOpen ? "Registration Open" : "Closed"}

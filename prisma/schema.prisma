@@ -94,6 +94,7 @@ model Events {
   description          String
   dateTime             DateTime
   venue                String
+  venueUrl             String?
   eventType            EventType
   ticketPrice          Float?
   registrationOpen     Boolean             @default(true)

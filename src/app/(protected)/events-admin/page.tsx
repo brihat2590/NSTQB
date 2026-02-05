@@ -13,6 +13,7 @@ type Event = {
   slug: string;
   description: string;
   venue: string;
+  venueUrl?: string;
   dateTime: string;
   eventType: "FREE" | "PAID";
   ticketPrice: number | null;
@@ -35,6 +36,7 @@ export default function EventAdminPage() {
     description: "",
     dateTime: "",
     venue: "",
+    venueUrl: "",
     ticketPrice: "",
 
     bannerImage: "",
@@ -79,6 +81,7 @@ export default function EventAdminPage() {
           slug: formData.slug,
           description: formData.description,
           venue: formData.venue,
+          venueUrl: formData.venueUrl,
           dateTime: isoDateTime,
           eventType,
           ticketPrice: price === 0 ? 0 : price,
@@ -101,6 +104,7 @@ export default function EventAdminPage() {
         description: "",
         dateTime: "",
         venue: "",
+        venueUrl: "",
         ticketPrice: "",
         bannerImage: "",
         registrationOpen: true,
@@ -307,6 +311,16 @@ export default function EventAdminPage() {
                     className="w-full px-4 py-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
                     value={formData.venue}
                     onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-semibold text-zinc-700 ml-1">Venue URL</label>
+                  <input
+                    placeholder="https://maps.google.com/..."
+                    className="w-full px-4 py-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
+                    value={formData.venueUrl}
+                    onChange={(e) => setFormData({ ...formData, venueUrl: e.target.value })}
                   />
                 </div>
 
