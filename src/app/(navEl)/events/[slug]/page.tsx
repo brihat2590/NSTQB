@@ -19,6 +19,7 @@ type EventDetail = {
   registrationOpen: boolean;
   registrationDeadline: string;
   bannerImage?: string;
+  sponsors?: { name: string; logo: string; url: string; category: string }[];
 };
 
 interface Speaker {
@@ -242,6 +243,57 @@ export default function EventDetailPage({
             ))}
           </div>
         </section>)}
+
+        {/* ---------------- SPONSORS ---------------- */}
+        {event.sponsors && event.sponsors.length > 0 && (
+          <section className="max-w-6xl mx-auto py-12 px-6 border-t border-gray-100">
+            <h2 className="text-[10px] md:text-sm font-extrabold tracking-[0.35em] text-center uppercase text-gray-500 mb-12">
+              Partners & Sponsors
+            </h2>
+
+            {/* Group by Category logic */}
+            {(() => {
+              const grouped = event.sponsors.reduce((acc: any, sponsor) => {
+                const cat = sponsor.category || "Sponsor";
+                if (!acc[cat]) acc[cat] = [];
+                acc[cat].push(sponsor);
+                return acc;
+              }, {});
+
+              return Object.entries(grouped).map(([category, items]: [string, any]) => (
+                <div key={category} className="mb-12 last:mb-0">
+                  <h3 className="text-center text-zinc-400 text-xs font-semibold uppercase tracking-wider mb-8">
+                    {category}
+                  </h3>
+                  <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+                    {items.map((sponsor: any, i: number) => (
+                      <a
+                        key={i}
+                        href={sponsor.url || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex flex-col items-center gap-3 grayscale hover:grayscale-0 transition duration-300 opacity-70 hover:opacity-100"
+                      >
+                        {sponsor.logo ? (
+                          <img
+                            src={sponsor.logo}
+                            alt={sponsor.name}
+                            className="h-12 md:h-16 object-contain max-w-[150px]"
+                          />
+                        ) : (
+                          <div className="h-12 md:h-16 w-32 bg-gray-100 rounded flex items-center justify-center text-[10px] text-gray-400">
+                            Logo
+                          </div>
+                        )}
+                        <span className="text-[10px] font-medium text-zinc-500 group-hover:text-zinc-900">{sponsor.name}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ));
+            })()}
+          </section>
+        )}
 
         {/* ---------------- DESCRIPTION ---------------- */}
         <div className="max-w-4xl mx-auto text-center mb-10 md:mb-20 px-6">

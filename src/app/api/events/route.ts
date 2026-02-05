@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 export async function POST(req: NextRequest) {
-    const { title, slug, description, dateTime, venue, venueUrl, eventType, ticketPrice, registrationOpen, bannerImage, registrationDeadline } = await req.json();
+    const { title, slug, description, dateTime, venue, venueUrl, eventType, ticketPrice, registrationOpen, bannerImage, registrationDeadline, totalSeats, sponsors } = await req.json();
     try {
 
         const event = await prisma.events.create({
@@ -18,7 +18,9 @@ export async function POST(req: NextRequest) {
                 ticketPrice,
                 registrationOpen,
                 registrationDeadline,
-                bannerImage
+                bannerImage,
+                totalSeats,
+                sponsors
 
             }
         })

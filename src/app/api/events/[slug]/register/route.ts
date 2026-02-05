@@ -1,57 +1,71 @@
-import {prisma} from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 import { NextRequest, NextResponse } from "next/server";
 
 
-export async function POST(req:Request,{params}:{params:Promise<{slug:string}>}){
+export async function POST(req: Request, { params }: { params: Promise<{ slug: string }> }) {
 
-    const{slug}=await params;
-    const{name,phone,email}=await req.json();
-    if(!name||!email||!phone){
-        return NextResponse.json({message:"Name, Email and Phone are required"}, {status:400});
+    const { slug } = await params;
+    const { name, phone, email } = await req.json();
+    if (!name || !email || !phone) {
+        return NextResponse.json({ message: "Name, Email and Phone are required" }, { status: 400 });
     }
-    
-    try{
 
-        const event=await prisma.events.findUnique({
-            where:{
-                slug:slug
+    try {
+
+        const event = await prisma.events.findUnique({
+            where: {
+                slug: slug
             }
         });
-        if(!event){
-            return new Response(JSON.stringify({message:"Event not found"}), {status:404});
-            
+        if (!event) {
+            return new Response(JSON.stringify({ message: "Event not found" }), { status: 404 });
+
         }
-        if(!event.registrationOpen){
-            return NextResponse.json({message:"Registration is closed for this event"}, {status:400});
+        if (!event.registrationOpen) {
+            return NextResponse.json({ message: "Registration is closed for this event" }, { status: 400 });
         }
 
-        const existingUser=await prisma.registrationEvent.findFirst({
-            where:{
-                email:email,
+        const existingUser = await prisma.registrationEvent.findFirst({
+            where: {
+                email: email,
             }
         })
-        if(existingUser){
+        if (existingUser) {
             return NextResponse.json(
-              { message: "User with this email is already registered" },
-              { status: 400 }
+                { message: "User with this email is already registered" },
+                { status: 400 }
             );
         }
         if (
             event.registrationDeadline &&
             new Date() > event.registrationDeadline
-          ) {
+        ) {
             return NextResponse.json(
-              { message: "Registration deadline has passed" },
-              { status: 400 }
+                { message: "Registration deadline has passed" },
+                { status: 400 }
             );
-          }
-        const registration=await prisma.registrationEvent.create({
-            data:{
-                name:name,
-                email:email,
-                phone:phone,
-                eventId:event.id
+        }
+
+        // Check for total seats capacity
+        if (event.totalSeats) {
+            const registrationCount = await prisma.registrationEvent.count({
+                where: { eventId: event.id }
+            });
+
+            if (registrationCount >= event.totalSeats) {
+                return NextResponse.json(
+                    { message: "Registration Full" },
+                    { status: 400 }
+                );
+            }
+        }
+        const registration = await prisma.registrationEvent.create({
+            data: {
+                name: name,
+                email: email,
+                phone: phone,
+                eventId: event.id
 
 
             }
@@ -59,48 +73,48 @@ export async function POST(req:Request,{params}:{params:Promise<{slug:string}>})
         return NextResponse.json(
             { message: "Registration successful", registration },
             { status: 201 }
-          );
+        );
 
     }
-    catch(error){
+    catch (error) {
         console.log(error);
-        return new Response(JSON.stringify({message:"Internal Server Error"}), {status:500});
+        return new Response(JSON.stringify({ message: "Internal Server Error" }), { status: 500 });
     }
 
 }
 
-export async function GET(req:NextRequest,{params}:{params:Promise<{slug:string}>}){
-    const{slug}=await params;
+export async function GET(req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
 
-    try{
+    try {
 
-        const event=await prisma.events.findUnique({
-            where:{
-                slug:slug
+        const event = await prisma.events.findUnique({
+            where: {
+                slug: slug
             },
-            include:{
-                registrations:true
+            include: {
+                registrations: true
             }
         })
-        if(!event){
+        if (!event) {
             return NextResponse.json({
-                message:"Event not found"
+                message: "Event not found"
             })
         }
 
-    return NextResponse.json({
-        registrations:event.registrations,
-        status:200
-    });
-        
-        
+        return NextResponse.json({
+            registrations: event.registrations,
+            status: 200
+        });
+
+
 
     }
-    catch(err){
+    catch (err) {
         console.log(err);
 
         return NextResponse.json({
-            message:"Internal Server Error"
+            message: "Internal Server Error"
         })
     }
 

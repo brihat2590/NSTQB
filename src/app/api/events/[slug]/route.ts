@@ -53,6 +53,8 @@ export async function PUT(
           ? new Date(body.registrationDeadline)
           : undefined,
         bannerImage: body.bannerImage,
+        totalSeats: body.totalSeats !== undefined ? body.totalSeats : undefined,
+        sponsors: body.sponsors,
       },
     });
 
