@@ -22,6 +22,7 @@ type Registration = {
   name: string;
   email: string;
   phone?: string;
+  status: string;
 };
 
 type EventForm = {
@@ -43,58 +44,58 @@ export default function EventAdminDetail() {
   const router = useRouter();
   const [event, setEvent] = useState<EventForm | null>(null);
   const [editingEvent, setEditingEvent] = useState(false);
-const[isDownloading,setIsDownloading]=useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
 
-const downloadExcel = async () => {
-  setIsDownloading(true);
-  try {
-    const response = await fetch(`/api/events/${slug}/register`);
-    
-    if (!response.ok) {
-      toast.error("Failed to fetch registration data");
-      return;
+  const downloadExcel = async () => {
+    setIsDownloading(true);
+    try {
+      const response = await fetch(`/api/events/${slug}/register`);
+
+      if (!response.ok) {
+        toast.error("Failed to fetch registration data");
+        return;
+      }
+
+      const result = await response.json();
+
+      // Check if data is nested under 'registrations' key (based on your fetchData logic)
+      const rawRegistrations: Registration[] = result.registrations || result;
+
+      if (!rawRegistrations || rawRegistrations.length === 0) {
+        toast.error("No registrations found to download");
+        return;
+      }
+
+      // 1. Map to clean Excel format
+      const worksheetData = rawRegistrations.map((user) => ({
+        "Full Name": user.name || "N/A",
+        "Email Address": user.email || "N/A",
+        "Phone Number": user.phone || "Not Provided",
+      }));
+
+      // 2. Create workbook and sheet
+      const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Registrations");
+
+      // 3. Generate buffer and trigger download
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const dataBlob = new Blob([excelBuffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+      });
+
+      // File name: slug_Registrations_Date.xlsx
+      saveAs(dataBlob, `${slug}_Registrations_${new Date().toLocaleDateString().replace(/\//g, '-')}.xlsx`);
+
+      toast.success("Excel file generated!");
+    } catch (err) {
+      console.error("Excel Export Error:", err);
+      toast.error("An error occurred during download");
+    } finally {
+      setIsDownloading(false);
     }
-
-    const result = await response.json();
-    
-    // Check if data is nested under 'registrations' key (based on your fetchData logic)
-    const rawRegistrations: Registration[] = result.registrations || result;
-
-    if (!rawRegistrations || rawRegistrations.length === 0) {
-      toast.error("No registrations found to download");
-      return;
-    }
-
-    // 1. Map to clean Excel format
-    const worksheetData = rawRegistrations.map((user) => ({
-      "Full Name": user.name || "N/A",
-      "Email Address": user.email || "N/A",
-      "Phone Number": user.phone || "Not Provided",
-    }));
-
-    // 2. Create workbook and sheet
-    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Registrations");
-
-    // 3. Generate buffer and trigger download
-    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    const dataBlob = new Blob([excelBuffer], { 
-      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' 
-    });
-    
-    // File name: slug_Registrations_Date.xlsx
-    saveAs(dataBlob, `${slug}_Registrations_${new Date().toLocaleDateString().replace(/\//g, '-')}.xlsx`);
-    
-    toast.success("Excel file generated!");
-  } catch (err) {
-    console.error("Excel Export Error:", err);
-    toast.error("An error occurred during download");
-  } finally {
-    setIsDownloading(false);
-  }
-};
+  };
 
 
   const [speakers, setSpeakers] = useState<Speaker[]>([]);
@@ -354,28 +355,28 @@ const downloadExcel = async () => {
         <section>
           <div className="flex items-center justify-between gap-2 mb-6">
             <div>
-            <h2 className="text-xl font-bold text-zinc-800">Registrations</h2>
-            <span className="bg-zinc-200 text-zinc-700 text-xs px-2 py-0.5 rounded-full">{registrations.length}</span>
+              <h2 className="text-xl font-bold text-zinc-800">Registrations</h2>
+              <span className="bg-zinc-200 text-zinc-700 text-xs px-2 py-0.5 rounded-full">{registrations.length}</span>
 
             </div>
             <button
-      onClick={downloadExcel}
-      disabled={isDownloading}
-      className="px-6 py-2.5 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-all shadow-md shadow-indigo-100 flex gap-2"
-    >
-      {isDownloading ? (
-        "Processing..."
-      ) : (
-        <>
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
-          Download Registrations
-        </>
-      )}
-    </button>
+              onClick={downloadExcel}
+              disabled={isDownloading}
+              className="px-6 py-2.5 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-all shadow-md shadow-indigo-100 flex gap-2"
+            >
+              {isDownloading ? (
+                "Processing..."
+              ) : (
+                <>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Download Registrations
+                </>
+              )}
+            </button>
 
-            
+
           </div>
 
           <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
@@ -384,6 +385,7 @@ const downloadExcel = async () => {
                 <tr className="bg-zinc-50/50 border-b border-zinc-200">
                   <th className="p-4 font-semibold text-zinc-700 text-sm">Attendee</th>
                   <th className="p-4 font-semibold text-zinc-700 text-sm">Contact Information</th>
+                  <th className="p-4 font-semibold text-zinc-700 text-sm">Status</th>
                   <th className="p-4 font-semibold text-zinc-700 text-sm text-right">Actions</th>
                 </tr>
               </thead>
@@ -396,6 +398,14 @@ const downloadExcel = async () => {
                     <td className="p-4">
                       <div className="text-zinc-600">{r.email}</div>
                       <div className="text-xs text-zinc-400">{r.phone || "No phone provided"}</div>
+                    </td>
+                    <td className="p-4">
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${r.status === 'COMPLETED'
+                        ? 'bg-green-100 text-green-800'
+                        : 'bg-yellow-100 text-yellow-800'
+                        }`}>
+                        {r.status}
+                      </span>
                     </td>
                     <td className="p-4 text-right">
                       <div className="flex justify-end gap-3">

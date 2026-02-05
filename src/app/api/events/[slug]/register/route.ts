@@ -28,15 +28,18 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
 
         const existingUser = await prisma.registrationEvent.findFirst({
             where: {
+                eventId: event.id,
                 email: email,
             }
         })
-        if (existingUser) {
+
+        if (existingUser && existingUser.status === "COMPLETED") {
             return NextResponse.json(
-                { message: "User with this email is already registered" },
+                { message: "User with this email is already registered and paid" },
                 { status: 400 }
             );
         }
+
         if (
             event.registrationDeadline &&
             new Date() > event.registrationDeadline
@@ -50,7 +53,10 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
         // Check for total seats capacity
         if (event.totalSeats) {
             const registrationCount = await prisma.registrationEvent.count({
-                where: { eventId: event.id }
+                where: {
+                    eventId: event.id,
+                    status: "COMPLETED"
+                }
             });
 
             if (registrationCount >= event.totalSeats) {
@@ -60,16 +66,37 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
                 );
             }
         }
-        const registration = await prisma.registrationEvent.create({
-            data: {
-                name: name,
-                email: email,
-                phone: phone,
-                eventId: event.id,
-                amount: event.ticketPrice ? event.ticketPrice * 100 : 0, // Store in paisa
-                status: event.eventType === "PAID" ? "PENDING" : "COMPLETED"
-            }
-        })
+
+        let registration;
+
+        if (existingUser) {
+            // Update existing pending registration
+            registration = await prisma.registrationEvent.update({
+                where: { id: existingUser.id },
+                data: {
+                    name: name,
+                    phone: phone,
+                    amount: event.ticketPrice ? event.ticketPrice * 100 : 0,
+                    status: event.eventType === "PAID" ? "PENDING" : "COMPLETED",
+                    // Reset these payment fields for new attempt
+                    pidx: null,
+                    purchaseOrderId: null,
+                    transaction_uuid: null
+                }
+            });
+        } else {
+            // Create new registration
+            registration = await prisma.registrationEvent.create({
+                data: {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    eventId: event.id,
+                    amount: event.ticketPrice ? event.ticketPrice * 100 : 0, // Store in paisa
+                    status: event.eventType === "PAID" ? "PENDING" : "COMPLETED"
+                }
+            });
+        }
 
         if (event.eventType === "PAID" && event.ticketPrice) {
             // Initiate Khalti Payment
