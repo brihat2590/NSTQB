@@ -7,29 +7,31 @@ import MemberBoards from "@/components/MemberBoard";
 import Navbar from "@/components/Navbar";
 import ExamCalendar from "@/components/Registration-Calendar";
 import UnderConstruction from "@/components/UnderConstruction";
+import UpcomingEvents from "@/components/UpcomingEvents";
 
-export default function Home(){
-    const dburl=process.env.DATABASE_URL;
+export default function Home() {
+    const dburl = process.env.DATABASE_URL;
     console.log(dburl)
-    return(
+    return (
         <>
-        <Navbar/>
-        
-        <FlowingHeadline/>
-        <LandingPage/>
-        <ExamCalendar/>
-        
+            <Navbar />
 
-        <AboutSection/>
-        <MemberBoards/>
-        
-        <Footer/>
+            <FlowingHeadline />
+            <LandingPage />
+            <UpcomingEvents />
+            <ExamCalendar />
+
+
+            <AboutSection />
+            <MemberBoards />
+
+            <Footer />
         </>
 
-        
 
-        
-        
-        
-    )   
+
+
+
+
+    )
 }
