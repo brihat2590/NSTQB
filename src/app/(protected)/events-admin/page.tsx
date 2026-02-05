@@ -353,153 +353,153 @@ export default function EventAdminPage() {
                     onChange={(e) => setFormData({ ...formData, registrationDeadline: e.target.value })}
                   />
                 </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-semibold text-zinc-700 ml-1">Total Seats (Optional)</label>
+                  <input
+                    type="number"
+                    placeholder="e.g. 50"
+                    className="w-full px-4 py-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
+                    value={formData.totalSeats || ""}
+                    onChange={(e) => setFormData({ ...formData, totalSeats: e.target.value })}
+                  />
+                  <p className="text-xs text-zinc-500 ml-1">Registration will auto-close when this limit is reached.</p>
+                </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-zinc-700 ml-1">Total Seats (Optional)</label>
-                <input
-                  type="number"
-                  placeholder="e.g. 50"
-                  className="w-full px-4 py-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
-                  value={formData.totalSeats || ""}
-                  onChange={(e) => setFormData({ ...formData, totalSeats: e.target.value })}
-                />
-                <p className="text-xs text-zinc-500 ml-1">Registration will auto-close when this limit is reached.</p>
-              </div>
-          </div>
-
-          {/* Sponsors Section */}
-          <div className="space-y-4 pt-4 border-t border-zinc-100">
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-zinc-700 ml-1">Sponsors & Partners</label>
-              <button
-                type="button"
-                onClick={() => setFormData({
-                  ...formData,
-                  sponsors: [...(formData.sponsors || []), { name: "", logo: "", url: "", category: "Sponsor" }]
-                })}
-                className="text-xs font-semibold text-indigo-600 hover:text-indigo-700"
-              >
-                + Add Entity
-              </button>
-            </div>
-
-            <div className="space-y-3">
-              {(formData.sponsors || []).map((sponsor: any, index: number) => (
-                <div key={index} className="flex flex-col gap-2 p-3 bg-zinc-50 rounded-xl border border-zinc-200">
-                  <div className="grid grid-cols-2 gap-2 w-full">
-                    <input
-                      placeholder="Name"
-                      className="px-3 py-2 rounded-lg bg-white border border-zinc-200 text-sm"
-                      value={sponsor.name}
-                      onChange={(e) => {
-                        const newSponsors = [...(formData.sponsors || [])];
-                        newSponsors[index].name = e.target.value;
-                        setFormData({ ...formData, sponsors: newSponsors });
-                      }}
-                    />
-                    <select
-                      className="px-3 py-2 rounded-lg bg-white border border-zinc-200 text-sm"
-                      value={sponsor.category || "Sponsor"}
-                      onChange={(e) => {
-                        const newSponsors = [...(formData.sponsors || [])];
-                        newSponsors[index].category = e.target.value;
-                        setFormData({ ...formData, sponsors: newSponsors });
-                      }}
-                    >
-                      <option value="Sponsor">Sponsor</option>
-                      <option value="Venue Partner">Venue Partner</option>
-                      <option value="Community Partner">Community Partner</option>
-                      <option value="Knowledge Partner">Knowledge Partner</option>
-                    </select>
-                    <input
-                      placeholder="Logo URL"
-                      className="px-3 py-2 rounded-lg bg-white border border-zinc-200 text-sm col-span-2"
-                      value={sponsor.logo}
-                      onChange={(e) => {
-                        const newSponsors = [...(formData.sponsors || [])];
-                        newSponsors[index].logo = e.target.value;
-                        setFormData({ ...formData, sponsors: newSponsors });
-                      }}
-                    />
-                    <input
-                      placeholder="Website URL"
-                      className="px-3 py-2 rounded-lg bg-white border border-zinc-200 text-sm col-span-2"
-                      value={sponsor.url}
-                      onChange={(e) => {
-                        const newSponsors = [...(formData.sponsors || [])];
-                        newSponsors[index].url = e.target.value;
-                        setFormData({ ...formData, sponsors: newSponsors });
-                      }}
-                    />
-                  </div>
+              {/* Sponsors Section */}
+              <div className="space-y-4 pt-4 border-t border-zinc-100">
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-semibold text-zinc-700 ml-1">Sponsors & Partners</label>
                   <button
                     type="button"
-                    onClick={() => {
-                      const newSponsors = formData.sponsors.filter((_: any, i: number) => i !== index);
-                      setFormData({ ...formData, sponsors: newSponsors });
-                    }}
-                    className="text-xs text-red-500 hover:text-red-700 self-end"
+                    onClick={() => setFormData({
+                      ...formData,
+                      sponsors: [...(formData.sponsors || []), { name: "", logo: "", url: "", category: "Sponsor" }]
+                    })}
+                    className="text-xs font-semibold text-indigo-600 hover:text-indigo-700"
                   >
-                    Remove
+                    + Add Entity
                   </button>
                 </div>
-              ))}
-              {(!formData.sponsors || formData.sponsors.length === 0) && (
-                <p className="text-xs text-zinc-400 italic ml-1">No sponsors added yet.</p>
-              )}
-            </div>
 
-            {/* Banner */}
-            <div className="space-y-2">
-              <label className="text-sm font-semibold text-zinc-700 ml-1">Banner Image URL(hosted)</label>
-              <input
-                type="url"
-                placeholder="https://..."
-                className="w-full px-4 py-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
-                value={formData.bannerImage}
-                onChange={(e) => setFormData({ ...formData, bannerImage: e.target.value })}
-              />
-            </div>
+                <div className="space-y-3">
+                  {(formData.sponsors || []).map((sponsor: any, index: number) => (
+                    <div key={index} className="flex flex-col gap-2 p-3 bg-zinc-50 rounded-xl border border-zinc-200">
+                      <div className="grid grid-cols-2 gap-2 w-full">
+                        <input
+                          placeholder="Name"
+                          className="px-3 py-2 rounded-lg bg-white border border-zinc-200 text-sm"
+                          value={sponsor.name}
+                          onChange={(e) => {
+                            const newSponsors = [...(formData.sponsors || [])];
+                            newSponsors[index].name = e.target.value;
+                            setFormData({ ...formData, sponsors: newSponsors });
+                          }}
+                        />
+                        <select
+                          className="px-3 py-2 rounded-lg bg-white border border-zinc-200 text-sm"
+                          value={sponsor.category || "Sponsor"}
+                          onChange={(e) => {
+                            const newSponsors = [...(formData.sponsors || [])];
+                            newSponsors[index].category = e.target.value;
+                            setFormData({ ...formData, sponsors: newSponsors });
+                          }}
+                        >
+                          <option value="Sponsor">Sponsor</option>
+                          <option value="Venue Partner">Venue Partner</option>
+                          <option value="Community Partner">Community Partner</option>
+                          <option value="Knowledge Partner">Knowledge Partner</option>
+                        </select>
+                        <input
+                          placeholder="Logo URL"
+                          className="px-3 py-2 rounded-lg bg-white border border-zinc-200 text-sm col-span-2"
+                          value={sponsor.logo}
+                          onChange={(e) => {
+                            const newSponsors = [...(formData.sponsors || [])];
+                            newSponsors[index].logo = e.target.value;
+                            setFormData({ ...formData, sponsors: newSponsors });
+                          }}
+                        />
+                        <input
+                          placeholder="Website URL"
+                          className="px-3 py-2 rounded-lg bg-white border border-zinc-200 text-sm col-span-2"
+                          value={sponsor.url}
+                          onChange={(e) => {
+                            const newSponsors = [...(formData.sponsors || [])];
+                            newSponsors[index].url = e.target.value;
+                            setFormData({ ...formData, sponsors: newSponsors });
+                          }}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newSponsors = formData.sponsors.filter((_: any, i: number) => i !== index);
+                          setFormData({ ...formData, sponsors: newSponsors });
+                        }}
+                        className="text-xs text-red-500 hover:text-red-700 self-end"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                  {(!formData.sponsors || formData.sponsors.length === 0) && (
+                    <p className="text-xs text-zinc-400 italic ml-1">No sponsors added yet.</p>
+                  )}
+                </div>
 
-            {/* Toggle */}
-            <label className="flex items-center group cursor-pointer w-fit">
-              <div className="relative flex items-center">
-                <input
-                  type="checkbox"
-                  checked={formData.registrationOpen}
-                  onChange={(e) => setFormData({ ...formData, registrationOpen: e.target.checked })}
-                  className="peer sr-only"
-                />
-                <div className="w-10 h-6 bg-zinc-200 peer-checked:bg-indigo-600 rounded-full transition-colors duration-200"></div>
-                <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 peer-checked:translate-x-4"></div>
+                {/* Banner */}
+                <div className="space-y-2">
+                  <label className="text-sm font-semibold text-zinc-700 ml-1">Banner Image URL(hosted)</label>
+                  <input
+                    type="url"
+                    placeholder="https://..."
+                    className="w-full px-4 py-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
+                    value={formData.bannerImage}
+                    onChange={(e) => setFormData({ ...formData, bannerImage: e.target.value })}
+                  />
+                </div>
+
+                {/* Toggle */}
+                <label className="flex items-center group cursor-pointer w-fit">
+                  <div className="relative flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={formData.registrationOpen}
+                      onChange={(e) => setFormData({ ...formData, registrationOpen: e.target.checked })}
+                      className="peer sr-only"
+                    />
+                    <div className="w-10 h-6 bg-zinc-200 peer-checked:bg-indigo-600 rounded-full transition-colors duration-200"></div>
+                    <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 peer-checked:translate-x-4"></div>
+                  </div>
+                  <span className="ml-3 text-sm font-medium text-zinc-600 group-hover:text-zinc-900 transition-colors">
+                    Open registrations immediately
+                  </span>
+                </label>
+
+                {/* Actions */}
+                <div className="flex gap-4 pt-4 sticky bottom-0 bg-white/80 backdrop-blur-md mt-4">
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="flex-1 py-4 rounded-2xl text-zinc-600 font-bold hover:bg-zinc-100 active:scale-[0.98] transition-all"
+                  >
+                    Discard
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-[2] py-4 rounded-2xl bg-gray-800 text-white font-bold shadow-lg shadow-indigo-200 hover:bg-gray-900 active:scale-[0.98] transition-all"
+                  >
+                    Publish Event
+                  </button>
+                </div>
               </div>
-              <span className="ml-3 text-sm font-medium text-zinc-600 group-hover:text-zinc-900 transition-colors">
-                Open registrations immediately
-              </span>
-            </label>
-
-            {/* Actions */}
-            <div className="flex gap-4 pt-4 sticky bottom-0 bg-white/80 backdrop-blur-md mt-4">
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(false)}
-                className="flex-1 py-4 rounded-2xl text-zinc-600 font-bold hover:bg-zinc-100 active:scale-[0.98] transition-all"
-              >
-                Discard
-              </button>
-              <button
-                type="submit"
-                className="flex-[2] py-4 rounded-2xl bg-gray-800 text-white font-bold shadow-lg shadow-indigo-200 hover:bg-gray-900 active:scale-[0.98] transition-all"
-              >
-                Publish Event
-              </button>
-            </div>
-          </form>
-        </div>
-        </div>
-  )
-}
+            </form>
+          </div>
+        </div >
+      )
+      }
     </div >
   );
 }
