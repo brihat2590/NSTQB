@@ -30,6 +30,7 @@ type EventForm = {
   description: string;
   dateTime: Date;
   venue: string;
+  venueUrl?: string;
   eventType: "FREE" | "PAID";
   ticketPrice?: number;
   registrationOpen: boolean;
@@ -591,6 +592,14 @@ const downloadExcel = async () => {
                 value={event.venue}
                 onChange={(e) => setEvent({ ...event, venue: e.target.value })}
                 placeholder="Venue"
+                className="w-full border rounded-lg p-3"
+              />
+              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Venue URL</label>
+
+              <input
+                value={event.venueUrl || ""}
+                onChange={(e) => setEvent({ ...event, venueUrl: e.target.value })}
+                placeholder="Venue URL"
                 className="w-full border rounded-lg p-3"
               />
               <label className="text-sm font-semibold text-zinc-700 mb-1 block">Ticket Price</label>

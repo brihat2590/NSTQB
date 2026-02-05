@@ -12,6 +12,7 @@ type EventDetail = {
   slug: string;
   description: string;
   venue: string;
+  venueUrl?: string;
   dateTime: string;
   eventType: "FREE" | "PAID";
   ticketPrice: number;
@@ -182,7 +183,20 @@ export default function EventDetailPage({
             {event.title}
           </h1>
           <div className="flex justify-center flex-wrap gap-4 md:gap-6 text-xs md:text-sm text-zinc-500 font-medium">
-            <span className="flex items-center gap-1.5">📍 {event.venue}</span>
+            <span className="flex items-center gap-1.5">
+              📍 {event.venueUrl ? (
+                <a
+                  href={event.venueUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-indigo-600 transition-colors"
+                >
+                  {event.venue}
+                </a>
+              ) : (
+                event.venue
+              )}
+            </span>
             <span className="flex border-l pl-4 items-center gap-1.5">
               {new Date(event.dateTime).toLocaleDateString(undefined, {
                 month: "long",
@@ -348,8 +362,8 @@ export default function EventDetailPage({
             disabled={!event.registrationOpen}
             onClick={() => setShowModal(true)}
             className={`px-6 py-2.5 rounded-xl text-xs font-extrabold uppercase ${event.registrationOpen
-                ? "bg-white text-black hover:bg-zinc-200"
-                : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
+              ? "bg-white text-black hover:bg-zinc-200"
+              : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
               }`}
           >
             {event.registrationOpen ? "Register Now" : "Sold Out"}

@@ -4,9 +4,9 @@ import { NextRequest, NextResponse } from "next/server";
 /* ---------------- GET EVENT BY SLUG ---------------- */
 export async function GET(
   req: NextRequest,
-  { params }: { params:Promise< { slug: string }> }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
-    const{slug}=await params;
+  const { slug } = await params;
   try {
     const event = await prisma.events.findUnique({
       where: { slug: slug },
@@ -32,9 +32,9 @@ export async function GET(
 /* ---------------- UPDATE EVENT ---------------- */
 export async function PUT(
   req: NextRequest,
-  { params }: { params:Promise< { slug: string }> }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
-    const{slug}=await params;
+  const { slug } = await params;
   try {
     const body = await req.json();
 
@@ -45,6 +45,7 @@ export async function PUT(
         description: body.description,
         dateTime: body.dateTime ? new Date(body.dateTime) : undefined,
         venue: body.venue,
+        venueUrl: body.venueUrl,
         eventType: body.eventType,
         ticketPrice: body.ticketPrice,
         registrationOpen: body.registrationOpen,
@@ -79,9 +80,9 @@ export async function PUT(
 /* ---------------- DELETE EVENT ---------------- */
 export async function DELETE(
   req: NextRequest,
-  { params }: { params:Promise< { slug: string }> }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
-    const {slug}=await params;
+  const { slug } = await params;
   try {
     await prisma.events.delete({
       where: { slug: slug },
