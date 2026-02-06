@@ -136,8 +136,11 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       {isMenuOpen && (
         <div className="md:hidden bg-gray-50 border-t border-gray-200">
-          <div className="px-4 pt-4 pb-4 space-y-2">
+          <div className="px-2 pt-2 pb-4 space-y-1">
             <MobileNavLink href="/" onClick={closeAllMenus}>Home</MobileNavLink>
+
+            {/* Events Link - Mobile */}
+            <MobileNavLink href="/events" onClick={closeAllMenus}>Events</MobileNavLink>
 
             {/* Exams Dropdown - Mobile */}
             <div className="space-y-1">
@@ -150,8 +153,6 @@ const Navbar = () => {
                 <MobileDropdownMenu>
                   <MobileDropdownItem href="/CTFL" onClick={closeAllMenus}>CTFL</MobileDropdownItem>
                   <MobileDropdownItem href='/mock-test' onClick={closeAllMenus}>Mock Exam</MobileDropdownItem>
-                  {/* <MobileDropdownItem href="/take-exam" onClick={closeAllMenus}>Take Exam</MobileDropdownItem> */}
-                  {/* <MobileDropdownItem href="/exam-schedule" onClick={closeAllMenus}>Exam Schedule</MobileDropdownItem> */}
                   <MobileDropdownItem href="/certified-testers" onClick={closeAllMenus}>Certified Testers</MobileDropdownItem>
                   <MobileDropdownItem href="/registration" onClick={closeAllMenus}>Registration</MobileDropdownItem>
                 </MobileDropdownMenu>
@@ -168,13 +169,15 @@ const Navbar = () => {
               {isResourcesOpen && (
                 <MobileDropdownMenu>
                   <MobileDropdownItem href="/FAQ" onClick={closeAllMenus}>FAQs</MobileDropdownItem>
-                  {/* <MobileDropdownItem href="/blogs" onClick={closeAllMenus}>blogs</MobileDropdownItem> */}
                   <MobileDropdownItem href="/code-of-conduct" onClick={closeAllMenus}>Code of Conduct</MobileDropdownItem>
                 </MobileDropdownMenu>
               )}
             </div>
-            <NavLink href='/blogs' onClick={closeAllMenus}>Blogs</NavLink>
 
+            {/* Blogs Link - Mobile */}
+            <MobileNavLink href='/blogs' onClick={closeAllMenus}>Blogs</MobileNavLink>
+
+            {/* Contact Link - Mobile */}
             <MobileNavLink href="/contact" onClick={closeAllMenus}>Contact Us</MobileNavLink>
           </div>
         </div>
@@ -214,7 +217,7 @@ const MobileNavLink = ({
   <Link
     href={href}
     onClick={onClick}
-    className="text-gray-800 hover:text-gray-600 block px-4 py-3 rounded-md text-base font-medium hover:bg-gray-100"
+    className="text-gray-800 hover:text-gray-600 block px-4 py-2.5 rounded-md text-base font-medium hover:bg-gray-100 transition-colors duration-200"
   >
     {children}
   </Link>
@@ -237,9 +240,8 @@ const DropdownButton = ({
   >
     {label}
     <ChevronDown
-      className={`ml-1 h-4 w-4 transition-transform duration-200 ${
-        isOpen ? 'rotate-180' : ''
-      }`}
+      className={`ml-1 h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
+        }`}
     />
   </button>
 );
@@ -255,15 +257,14 @@ const MobileDropdownButton = ({
 }) => (
   <button
     onClick={onClick}
-    className="flex items-center justify-between w-full text-gray-800 hover:text-gray-600 px-4 py-3 rounded-md text-base font-medium hover:bg-gray-100"
+    className="flex items-center justify-between w-full text-gray-800 hover:text-gray-600 px-4 py-2.5 rounded-md text-base font-medium hover:bg-gray-100 transition-colors duration-200"
     aria-expanded={isOpen}
     aria-haspopup="true"
   >
     {label}
     <ChevronDown
-      className={`h-4 w-4 transition-transform duration-200 ${
-        isOpen ? 'rotate-180' : ''
-      }`}
+      className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
+        }`}
     />
   </button>
 );
@@ -275,7 +276,7 @@ const DropdownMenu = ({ children }: { children: React.ReactNode }) => (
 );
 
 const MobileDropdownMenu = ({ children }: { children: React.ReactNode }) => (
-  <div className="pl-6 space-y-1">{children}</div>
+  <div className="pl-4 pr-2 py-1 space-y-0.5 bg-gray-100/50 rounded-md ml-2 mr-2 mt-1">{children}</div>
 );
 
 const DropdownItem = ({
@@ -308,7 +309,7 @@ const MobileDropdownItem = ({
   <Link
     href={href}
     onClick={onClick}
-    className="text-gray-700 hover:text-gray-900 block px-3 py-2 text-sm font-medium hover:bg-gray-100"
+    className="text-gray-700 hover:text-gray-900 block px-3 py-2 text-sm font-medium hover:bg-white rounded transition-colors duration-150"
   >
     {children}
   </Link>
