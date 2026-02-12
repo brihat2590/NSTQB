@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { buildCheckoutParams, createSession, getCheckoutGatewayUrl } from "@/lib/payments/hamropay";
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -99,51 +100,75 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
         }
 
         if (event.eventType === "PAID" && event.ticketPrice) {
-            // Initiate Khalti Payment
             try {
-                const { initiatePayment } = await import("@/lib/khalti"); // Dynamic import to avoid build issues if lib missing
+                const merchantTxnId = `mr_${Date.now()}_${registration.id.slice(-8)}`;
+                const transactionAmount = Math.round(event.ticketPrice * 100);
+                const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
-                const purchase_order_id = `txn_${registration.id}_${Date.now()}`;
-
-                // Update with PO ID
                 await prisma.registrationEvent.update({
                     where: { id: registration.id },
-                    data: { purchaseOrderId: purchase_order_id }
+                    data: {
+                        purchaseOrderId: merchantTxnId,
+                        pidx: null,
+                        transaction_uuid: null,
+                        status: "PENDING",
+                    },
                 });
 
-                const paymentResponse = await initiatePayment({
-                    return_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment/success`,
-                    website_url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
-                    amount: event.ticketPrice * 100, // Rs to Paisa
-                    purchase_order_id: purchase_order_id,
-                    purchase_order_name: `Registration for ${event.title}`,
-                    customer_info: {
-                        name: name,
-                        email: email,
-                        phone: phone || "9800000000"
-                    }
+                const session = await createSession({
+                    merchantTxnId,
+                    transactionAmount,
+                    successRedirectionUrl: `${appUrl}/payment/success`,
+                    failedRedirectionUrl: `${appUrl}/payment/success`,
+                    metadata: {
+                        eventId: String(event.id),
+                        registrationId: registration.id,
+                        email,
+                    },
+                    productList: [
+                        {
+                            name: event.title,
+                            imageUrl: event.bannerImage || `${appUrl}/favicon.ico`,
+                            description: `Registration for ${event.title}`,
+                            price: event.ticketPrice,
+                            quantity: 1,
+                        },
+                    ],
                 });
 
-                // Update pidx
-                await prisma.registrationEvent.update({
-                    where: { id: registration.id },
-                    data: { pidx: paymentResponse.pidx }
+                const params = buildCheckoutParams({
+                    sessionId: session.sessionId,
+                    merchantTransactionId: merchantTxnId,
+                    transactionAmount,
+                    remarks: `Registration for ${event.title}`,
                 });
 
                 return NextResponse.json(
                     {
                         message: "Payment Initiated",
-                        paymentUrl: paymentResponse.payment_url,
-                        pidx: paymentResponse.pidx
+                        paymentUrl: getCheckoutGatewayUrl(),
+                        params,
                     },
                     { status: 200 }
                 );
-
             } catch (err: any) {
-                console.error("Khalti Init Error:", err);
+                console.error("HamroPay Init Error:", err);
+                const message = String(err?.message || "");
+                const isGatewayUnavailable =
+                    message.includes("failed (502)") ||
+                    message.includes("failed (503)") ||
+                    message.includes("failed (504)") ||
+                    message.includes("HamroPay network error") ||
+                    message.includes("terminated") ||
+                    message.includes("UND_ERR_SOCKET") ||
+                    String(err?.cause?.code || "").includes("UND_ERR");
                 return NextResponse.json(
-                    { message: "Failed to initiate payment. Please try again." },
-                    { status: 500 }
+                    {
+                        message: isGatewayUnavailable
+                            ? "Payment gateway is temporarily unavailable. Please try again in a few minutes."
+                            : err?.message || "Failed to initiate HamroPay payment. Please try again."
+                    },
+                    { status: isGatewayUnavailable ? 503 : 500 }
                 );
             }
         }

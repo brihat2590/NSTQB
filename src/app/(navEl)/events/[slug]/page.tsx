@@ -50,6 +50,24 @@ export default function EventDetailPage({
     phone: "",
   });
 
+  function submitHamroPayForm(path: string, params: Record<string, string>) {
+    const formElement = document.createElement("form");
+    formElement.method = "POST";
+    formElement.action = path;
+    formElement.enctype = "application/x-www-form-urlencoded";
+
+    Object.entries(params).forEach(([key, value]) => {
+      const hiddenField = document.createElement("input");
+      hiddenField.type = "hidden";
+      hiddenField.name = key;
+      hiddenField.value = value;
+      formElement.appendChild(hiddenField);
+    });
+
+    document.body.appendChild(formElement);
+    formElement.submit();
+  }
+
 
 
   async function handleRegister(e: React.FormEvent) {
@@ -76,8 +94,14 @@ export default function EventDetailPage({
         return;
       }
 
+      if (data.paymentUrl && data.params) {
+        toast.info("Redirecting to HamroPay for payment...");
+        submitHamroPayForm(data.paymentUrl, data.params);
+        return;
+      }
+
       if (data.paymentUrl) {
-        toast.info("Redirecting to Khalti for payment...");
+        toast.info("Redirecting to payment...");
         window.location.href = data.paymentUrl;
         return;
       }

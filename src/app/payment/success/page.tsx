@@ -9,21 +9,22 @@ function PaymentSuccessContent() {
     const router = useRouter();
     const [status, setStatus] = useState<"loading" | "success" | "failed">("loading");
 
-    // Khalti returns vars like pidx, transaction_id, amount, mobile, purchase_order_id, purchase_order_name
-    const pidx = searchParams.get("pidx");
+    const merchantTxnId =
+        searchParams.get("MerchantTxnId") ||
+        searchParams.get("merchantTxnId");
 
     useEffect(() => {
-        if (!pidx) {
+        if (!merchantTxnId) {
             setStatus("failed");
             return;
         }
 
         async function verify() {
             try {
-                const res = await fetch(`/api/payment/verify?pidx=${pidx}`);
+                const res = await fetch(`/api/payment/verify?merchantTxnId=${merchantTxnId}`);
                 const data = await res.json();
 
-                if (data.status === "Completed") {
+                if (data.status === "COMPLETED") {
                     setStatus("success");
                 } else {
                     setStatus("failed");
@@ -35,7 +36,7 @@ function PaymentSuccessContent() {
         }
 
         verify();
-    }, [pidx]);
+    }, [merchantTxnId]);
 
     return (
         <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
