@@ -48,7 +48,7 @@ export default function EventDetailPage({
     name: "",
     email: "",
     phone: "",
-    paymentMethod: "HAMROPAY" as "HAMROPAY" | "QR",
+    paymentMethod: "QR" as "HAMROPAY" | "QR",
   });
 
   function submitHamroPayForm(path: string, params: Record<string, string>) {
@@ -108,7 +108,7 @@ export default function EventDetailPage({
       }
 
       toast.success("🎉 Thank you for registering. We will contact you soon");
-      setForm({ name: "", email: "", phone: "", paymentMethod: "HAMROPAY" });
+      setForm({ name: "", email: "", phone: "", paymentMethod: "QR" });
 
       // Optional: auto-close modal
       setTimeout(() => {
