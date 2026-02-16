@@ -7,7 +7,8 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: Request, { params }: { params: Promise<{ slug: string }> }) {
 
     const { slug } = await params;
-    const { name, phone, email } = await req.json();
+    const { name, phone, email, remarks, paymentMethod } = await req.json();
+    const selectedPaymentMethod = paymentMethod === "QR" ? "QR" : "HAMROPAY";
     if (!name || !email || !phone) {
         return NextResponse.json({ message: "Name, Email and Phone are required" }, { status: 400 });
     }
@@ -100,6 +101,17 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
         }
 
         if (event.eventType === "PAID" && event.ticketPrice) {
+            if (selectedPaymentMethod === "QR") {
+                return NextResponse.json(
+                    {
+                        message: "Registration submitted. Please pay using QR and send the payment screenshot for verification at info@nstqb.org.",
+                        registration,
+                        paymentMethod: "QR",
+                    },
+                    { status: 200 }
+                );
+            }
+
             try {
                 const merchantTxnId = `mr_${Date.now()}_${registration.id.slice(-8)}`;
                 const transactionAmount = Math.round(event.ticketPrice * 100);
@@ -140,7 +152,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
                     sessionId: session.sessionId,
                     merchantTransactionId: merchantTxnId,
                     transactionAmount,
-                    remarks: `Registration for ${event.title}`,
+                    remarks: `${event.title}-${name}`,
                 });
 
                 return NextResponse.json(

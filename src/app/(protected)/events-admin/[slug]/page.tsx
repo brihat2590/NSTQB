@@ -23,6 +23,8 @@ type Registration = {
   email: string;
   phone?: string;
   status: string;
+  createdAt: string;
+  transaction_uuid?: string | null;
 };
 
 type EventForm = {
@@ -45,6 +47,13 @@ export default function EventAdminDetail() {
   const [event, setEvent] = useState<EventForm | null>(null);
   const [editingEvent, setEditingEvent] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+
+  const formatRegisteredAt = (value?: string) => {
+    if (!value) return "N/A";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "N/A";
+    return date.toLocaleString();
+  };
 
 
   const downloadExcel = async () => {
@@ -72,6 +81,7 @@ export default function EventAdminDetail() {
         "Full Name": user.name || "N/A",
         "Email Address": user.email || "N/A",
         "Phone Number": user.phone || "Not Provided",
+        "Registered At": formatRegisteredAt(user.createdAt),
       }));
 
       // 2. Create workbook and sheet
@@ -114,6 +124,9 @@ export default function EventAdminDetail() {
   const [photo, setPhoto] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [status, setStatus] = useState("PENDING");
+  const [reference, setReference] = useState("");
+  const [originalStatus, setOriginalStatus] = useState("PENDING");
 
   async function fetchData() {
     const [eRes, sRes, rRes] = await Promise.all([
@@ -223,6 +236,9 @@ export default function EventAdminDetail() {
     setName(reg.name);
     setEmail(reg.email);
     setPhone(reg.phone || "");
+    setStatus(reg.status || "PENDING");
+    setOriginalStatus(reg.status || "PENDING");
+    setReference(reg.transaction_uuid || "");
     setOpenRegModal(true);
   }
   async function updateEvent() {
@@ -255,11 +271,15 @@ export default function EventAdminDetail() {
 
   async function saveRegistration() {
     if (!editingReg) return;
+    if (status !== originalStatus && !reference.trim()) {
+      toast.error("Reference is required when changing status");
+      return;
+    }
 
     const res = await fetch(`/api/events/${slug}/register/${editingReg.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, phone })
+      body: JSON.stringify({ name, email, phone, status, reference })
     });
 
     if (!res.ok) {
@@ -385,6 +405,7 @@ export default function EventAdminDetail() {
                 <tr className="bg-zinc-50/50 border-b border-zinc-200">
                   <th className="p-4 font-semibold text-zinc-700 text-sm">Attendee</th>
                   <th className="p-4 font-semibold text-zinc-700 text-sm">Contact Information</th>
+                  <th className="p-4 font-semibold text-zinc-700 text-sm">Registered At</th>
                   <th className="p-4 font-semibold text-zinc-700 text-sm">Status</th>
                   <th className="p-4 font-semibold text-zinc-700 text-sm text-right">Actions</th>
                 </tr>
@@ -398,6 +419,9 @@ export default function EventAdminDetail() {
                     <td className="p-4">
                       <div className="text-zinc-600">{r.email}</div>
                       <div className="text-xs text-zinc-400">{r.phone || "No phone provided"}</div>
+                    </td>
+                    <td className="p-4 text-sm text-zinc-600">
+                      {formatRegisteredAt(r.createdAt)}
                     </td>
                     <td className="p-4">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${r.status === 'COMPLETED'
@@ -518,6 +542,32 @@ export default function EventAdminDetail() {
                   onChange={e => setPhone(e.target.value)}
                   className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Status</label>
+                <select
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white"
+                >
+                  <option value="PENDING">PENDING</option>
+                  <option value="COMPLETED">COMPLETED</option>
+                  <option value="FAILED">FAILED</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Reference</label>
+                <input
+                  value={reference}
+                  onChange={e => setReference(e.target.value)}
+                  placeholder="Enter payment/reference id"
+                  className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                />
+                {status !== originalStatus && (
+                  <p className="mt-1 text-xs text-red-500">Reference is required when changing status.</p>
+                )}
               </div>
             </div>
 

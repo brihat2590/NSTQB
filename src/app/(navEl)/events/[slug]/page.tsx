@@ -48,6 +48,7 @@ export default function EventDetailPage({
     name: "",
     email: "",
     phone: "",
+    paymentMethod: "HAMROPAY" as "HAMROPAY" | "QR",
   });
 
   function submitHamroPayForm(path: string, params: Record<string, string>) {
@@ -107,7 +108,7 @@ export default function EventDetailPage({
       }
 
       toast.success("🎉 Thank you for registering. We will contact you soon");
-      setForm({ name: "", email: "", phone: "" });
+      setForm({ name: "", email: "", phone: "", paymentMethod: "HAMROPAY" });
 
       // Optional: auto-close modal
       setTimeout(() => {
@@ -517,6 +518,58 @@ export default function EventDetailPage({
                     setForm({ ...form, phone: e.target.value })
                   }
                 />
+
+                {event.eventType === "PAID" && (
+                  <div className="rounded-lg border border-zinc-200 bg-white p-4">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-zinc-700 mb-3">
+                      Payment Method
+                    </p>
+                    <div className="grid grid-cols-2 gap-3">
+                      <label className={`cursor-pointer rounded-md border px-3 py-2 text-sm transition ${form.paymentMethod === "QR" ? "border-zinc-900 bg-zinc-100 text-zinc-900" : "border-zinc-200 text-zinc-600"}`}>
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="QR"
+                          className="sr-only"
+                          checked={form.paymentMethod === "QR"}
+                          onChange={() => setForm({ ...form, paymentMethod: "QR" })}
+                        />
+                        QR Code
+                      </label>
+                      <label className={`cursor-pointer rounded-md border px-3 py-2 text-sm transition ${form.paymentMethod === "HAMROPAY" ? "border-zinc-900 bg-zinc-100 text-zinc-900" : "border-zinc-200 text-zinc-600"}`}>
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="HAMROPAY"
+                          className="sr-only"
+                          checked={form.paymentMethod === "HAMROPAY"}
+                          onChange={() => setForm({ ...form, paymentMethod: "HAMROPAY" })}
+                        />
+                        HamroPay
+                      </label>
+                    </div>
+                  </div>
+                )}
+
+                {event.eventType === "PAID" && form.paymentMethod === "QR" && (
+                  <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-zinc-700 mb-2">
+                      QR Payment Option
+                    </p>
+                      <img
+                        src="/hamropay-qr.jpeg"
+                        alt="Event payment QR code (new)"
+                        className="mx-auto h-32 w-32 object-contain"
+                      />
+                    <p className="mt-3 text-xs text-zinc-600">
+                      Please pay using this QR and send the payment screenshot for verification at info@nstqb.org.
+                    </p>
+                    <p className="mt-1 text-xs text-zinc-500">
+                      Remarks example: {event.slug}-[Your Full Name]
+                    </p>
+                  </div>
+                )}
+
               </div>
 
 
