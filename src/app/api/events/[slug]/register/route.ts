@@ -113,7 +113,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
             }
 
             try {
-                const merchantTxnId = `mr_${Date.now()}_${registration.id.slice(-8)}`;
+                const merchantTxnId = `mr_${Date.now()}_${registration.id.slice(-6)}`;
                 const transactionAmount = Math.round(event.ticketPrice * 100);
                 const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 

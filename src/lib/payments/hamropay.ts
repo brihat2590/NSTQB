@@ -25,7 +25,9 @@ type CreateSessionResponse = {
 
 type GetTransactionResponse = {
   merchantTransactionId: string;
+  orderId?: string;
   trackingId?: string;
+  transactionUuid?: string;
   status: "PENDING" | "PROCESSING" | "FAILED" | "COMPLETED" | "NOT_INITIATED" | string;
   amount: number;
   remarks: string;

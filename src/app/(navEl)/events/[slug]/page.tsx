@@ -455,8 +455,8 @@ export default function EventDetailPage({
         </div>
       </div>
       {showModal && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white/95 rounded-xl w-[92%] max-w-md p-7 shadow-[0_20px_60px_rgba(0,0,0,0.25)] relative animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white/95 rounded-xl w-full max-w-md p-7 shadow-[0_20px_60px_rgba(0,0,0,0.25)] relative animate-in fade-in zoom-in-95 max-h-[90vh] overflow-y-auto">
 
             {/* Close */}
             <button
@@ -556,11 +556,11 @@ export default function EventDetailPage({
                     <p className="text-xs font-semibold uppercase tracking-wide text-zinc-700 mb-2">
                       QR Payment Option
                     </p>
-                      <img
-                        src="/hamropay-qr.jpeg"
-                        alt="Event payment QR code (new)"
-                        className="mx-auto h-32 w-32 object-contain"
-                      />
+                    <img
+                      src="/hamropay-qr.jpeg"
+                      alt="Event payment QR code (new)"
+                      className="mx-auto h-32 w-32 object-contain"
+                    />
                     <p className="mt-3 text-xs text-zinc-600">
                       Please pay using this QR and send the payment screenshot for verification at info@nstqb.org.
                     </p>

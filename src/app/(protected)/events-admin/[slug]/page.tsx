@@ -24,6 +24,8 @@ type Registration = {
   phone?: string;
   status: string;
   createdAt: string;
+  purchaseOrderId?: string | null;
+  pidx?: string | null;
   transaction_uuid?: string | null;
 };
 
@@ -82,6 +84,9 @@ export default function EventAdminDetail() {
         "Email Address": user.email || "N/A",
         "Phone Number": user.phone || "Not Provided",
         "Registered At": formatRegisteredAt(user.createdAt),
+        "Merchant Order ID": user.purchaseOrderId || "N/A",
+        "Gateway Order ID": user.pidx || "N/A",
+        "Reference UUID": user.transaction_uuid || "N/A",
       }));
 
       // 2. Create workbook and sheet

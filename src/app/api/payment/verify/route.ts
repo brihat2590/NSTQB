@@ -30,13 +30,33 @@ export async function GET(req: NextRequest) {
 
         const paymentInfo = await getTransaction(merchantTxnId);
         const normalizedStatus = String(paymentInfo.status || "UNKNOWN").toUpperCase();
+        const paymentMeta = paymentInfo as Record<string, unknown>;
+        const gatewayOrderId =
+            typeof paymentInfo.orderId === "string"
+                ? paymentInfo.orderId
+                : typeof paymentMeta.orderID === "string"
+                    ? paymentMeta.orderID
+                    : typeof paymentMeta.order_id === "string"
+                        ? paymentMeta.order_id
+                        : null;
+        const trackingReference =
+            typeof paymentInfo.trackingId === "string"
+                ? paymentInfo.trackingId
+                : typeof paymentInfo.transactionUuid === "string"
+                    ? paymentInfo.transactionUuid
+                    : typeof paymentMeta.transaction_uuid === "string"
+                        ? paymentMeta.transaction_uuid
+                        : merchantTxnId;
 
         await prisma.registrationEvent.update({
             where: { id: registration.id },
             data: {
                 status: normalizedStatus,
+                pidx: normalizedStatus === "COMPLETED"
+                    ? gatewayOrderId || registration.pidx
+                    : registration.pidx,
                 transaction_uuid: normalizedStatus === "COMPLETED"
-                    ? paymentInfo.trackingId || merchantTxnId
+                    ? trackingReference
                     : registration.transaction_uuid,
             },
         });
