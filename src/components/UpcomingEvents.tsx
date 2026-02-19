@@ -32,9 +32,13 @@ export default function UpcomingEvents() {
                 // Filter for future events and sort by date
                 const now = new Date();
                 const upcoming = data
-                    .filter((event) => new Date(event.dateTime) > now)
+                    .filter((event) => {
+                        const eventDate = new Date(event.dateTime);
+                        // Show if it's in the future OR if it started within the last 6 hours
+                        return eventDate > now || (now.getTime() - eventDate.getTime()) < (6 * 60 * 60 * 1000);
+                    })
                     .sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime())
-                    .slice(0, 3); // Take only top 3
+                    .slice(0, 3);
 
                 setEvents(upcoming);
             } catch (error) {
@@ -124,7 +128,19 @@ export default function UpcomingEvents() {
 
                                             {/* Status Badge */}
                                             {(() => {
+                                                const eventDate = new Date(event.dateTime);
+                                                const isLive = new Date() >= eventDate;
                                                 const isOpen = event.registrationOpen && (!event.registrationDeadline || new Date() <= new Date(event.registrationDeadline));
+
+                                                if (isLive) {
+                                                    return (
+                                                        <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-red-600 text-white animate-pulse shadow-lg flex items-center gap-1">
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+                                                            LIVE
+                                                        </div>
+                                                    );
+                                                }
+
                                                 return (
                                                     <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm ${isOpen
                                                         ? "bg-green-500/90 text-white"
@@ -205,7 +221,19 @@ export default function UpcomingEvents() {
 
                                         {/* Status Badge */}
                                         {(() => {
+                                            const eventDate = new Date(event.dateTime);
+                                            const isLive = new Date() >= eventDate;
                                             const isOpen = event.registrationOpen && (!event.registrationDeadline || new Date() <= new Date(event.registrationDeadline));
+
+                                            if (isLive) {
+                                                return (
+                                                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-red-600 text-white animate-pulse shadow-lg flex items-center gap-1">
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+                                                        LIVE
+                                                    </div>
+                                                );
+                                            }
+
                                             return (
                                                 <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm ${isOpen
                                                     ? "bg-green-500/90 text-white"

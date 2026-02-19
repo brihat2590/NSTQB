@@ -75,76 +75,96 @@ export default function EventPage() {
 
       {/* ---------- EVENTS GRID ---------- */}
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {data.map((event) => (
-          <Link
-            key={event.id}
-            href={`/events/${event.slug}`}
-            className="group rounded-xl border border-gray-200 bg-white overflow-hidden transition-shadow hover:shadow-md"
-          >
-            {/* Image */}
-            {event.bannerImage && (
-              <div className="overflow-hidden">
-                <img
-                  src={event.bannerImage}
-                  alt={event.title}
-                  className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                />
-              </div>
-            )}
+        {data
+          .filter((event) => {
+            const eventDate = new Date(event.dateTime);
+            const now = new Date();
+            // Show if future OR started within last 6 hours
+            return eventDate > now || (now.getTime() - eventDate.getTime()) < (6 * 60 * 60 * 1000);
+          })
+          .sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime())
+          .map((event) => (
+            <Link
+              key={event.id}
+              href={`/events/${event.slug}`}
+              className="group rounded-xl border border-gray-200 bg-white overflow-hidden transition-shadow hover:shadow-md"
+            >
+              {/* Image */}
+              {event.bannerImage && (
+                <div className="overflow-hidden">
+                  <img
+                    src={event.bannerImage}
+                    alt={event.title}
+                    className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  />
+                </div>
+              )}
 
-            {/* Card Content */}
-            <div className="p-5 flex flex-col gap-3">
-              <h2 className="text-lg font-semibold text-gray-900 leading-snug">
-                {event.title}
-              </h2>
-              <p>
-                {new Date(event.dateTime).toLocaleDateString(undefined, {
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </p>
-              <div className="flex gap-2">
-                {new Date(event.dateTime).toLocaleTimeString(undefined, {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  hour12: true
-                })}
-                <p>onwards</p>
-              </div>
+              {/* Card Content */}
+              <div className="p-5 flex flex-col gap-3">
+                <h2 className="text-lg font-semibold text-gray-900 leading-snug">
+                  {event.title}
+                </h2>
+                <p>
+                  {new Date(event.dateTime).toLocaleDateString(undefined, {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </p>
+                <div className="flex gap-2">
+                  {new Date(event.dateTime).toLocaleTimeString(undefined, {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                  })}
+                  <p>onwards</p>
+                </div>
 
 
-              {/* <p className="text-sm text-gray-600 line-clamp-2">
+                {/* <p className="text-sm text-gray-600 line-clamp-2">
                 {event.description}
               </p> */}
 
-              <p className="text-sm text-gray-700">
-                {event.venue}
-              </p>
+                <p className="text-sm text-gray-700">
+                  {event.venue}
+                </p>
 
-              {/* Footer */}
-              <div className="mt-3 flex items-center justify-between">
-                {(() => {
-                  const isOpen = event.registrationOpen && (!event.registrationDeadline || new Date() <= new Date(event.registrationDeadline));
-                  return (
-                    <span
-                      className={`text-xs font-medium px-2.5 py-1 rounded-full ${isOpen
-                        ? "bg-green-50 text-green-700"
-                        : "bg-red-50 text-red-700"
-                        }`}
-                    >
-                      {isOpen ? "Registration Open" : "Closed"}
-                    </span>
-                  );
-                })()}
+                {/* Footer */}
+                <div className="mt-3 flex items-center justify-between">
+                  {(() => {
+                    const eventDate = new Date(event.dateTime);
+                    const isLive = new Date() >= eventDate;
+                    const isOpen = event.registrationOpen && (!event.registrationDeadline || new Date() <= new Date(event.registrationDeadline));
 
-                <span className="text-sm font-medium text-gray-800">
-                  {event.eventType === "FREE" ? "Free" : `NPR ${event.ticketPrice}`}
-                </span>
+                    if (isLive) {
+                      return (
+                        <span className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full bg-red-600 text-white animate-pulse">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+                          LIVE
+                        </span>
+                      );
+                    }
+
+                    return (
+                      <span
+                        className={`text-xs font-medium px-2.5 py-1 rounded-full ${isOpen
+                          ? "bg-green-50 text-green-700"
+                          : "bg-red-50 text-red-700"
+                          }`}
+                      >
+                        {isOpen ? "Registration Open" : "Closed"}
+                      </span>
+                    );
+                  })()}
+
+                  <span className="text-sm font-medium text-gray-800">
+                    {event.eventType === "FREE" ? "Free" : `NPR ${event.ticketPrice}`}
+                  </span>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))}
       </div>
     </section>
   );

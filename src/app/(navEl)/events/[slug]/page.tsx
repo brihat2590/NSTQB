@@ -154,21 +154,24 @@ export default function EventDetailPage({
   useEffect(() => {
     if (!event) return;
 
-    const timer = setInterval(() => {
-      const diff =
-        new Date(event.dateTime).getTime() - new Date().getTime();
-
+    const updateTimer = () => {
+      const diff = new Date(event.dateTime).getTime() - new Date().getTime();
       if (diff <= 0) {
         setTimeLeft("Live Now");
-        clearInterval(timer);
-        return;
+        return true; // Should clear interval
       }
-
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
       const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const m = Math.floor((diff / (1000 * 60)) % 60);
-
       setTimeLeft(`${d}d ${h}h ${m}m`);
+      return false;
+    };
+
+    const isLive = updateTimer();
+    if (isLive) return;
+
+    const timer = setInterval(() => {
+      if (updateTimer()) clearInterval(timer);
     }, 1000);
 
     return () => clearInterval(timer);
