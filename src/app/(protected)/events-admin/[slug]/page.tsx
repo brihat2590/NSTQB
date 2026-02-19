@@ -84,6 +84,7 @@ export default function EventAdminDetail() {
         "Email Address": user.email || "N/A",
         "Phone Number": user.phone || "Not Provided",
         "Registered At": formatRegisteredAt(user.createdAt),
+        "Status": user.status || "PENDING",
         "Merchant Order ID": user.purchaseOrderId || "N/A",
         "Gateway Order ID": user.pidx || "N/A",
         "Reference UUID": user.transaction_uuid || "N/A",

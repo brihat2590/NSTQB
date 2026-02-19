@@ -123,12 +123,17 @@ export default function UpcomingEvents() {
                                             </div>
 
                                             {/* Status Badge */}
-                                            <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm ${event.registrationOpen
-                                                ? "bg-green-500/90 text-white"
-                                                : "bg-red-500/90 text-white"
-                                                }`}>
-                                                {event.registrationOpen ? "Open" : "Closed"}
-                                            </div>
+                                            {(() => {
+                                                const isOpen = event.registrationOpen && (!event.registrationDeadline || new Date() <= new Date(event.registrationDeadline));
+                                                return (
+                                                    <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm ${isOpen
+                                                        ? "bg-green-500/90 text-white"
+                                                        : "bg-red-500/90 text-white"
+                                                        }`}>
+                                                        {isOpen ? "Open" : "Closed"}
+                                                    </div>
+                                                );
+                                            })()}
                                         </div>
 
                                         {/* Content */}
@@ -199,12 +204,17 @@ export default function UpcomingEvents() {
                                         </div>
 
                                         {/* Status Badge */}
-                                        <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm ${event.registrationOpen
-                                            ? "bg-green-500/90 text-white"
-                                            : "bg-red-500/90 text-white"
-                                            }`}>
-                                            {event.registrationOpen ? "Open" : "Closed"}
-                                        </div>
+                                        {(() => {
+                                            const isOpen = event.registrationOpen && (!event.registrationDeadline || new Date() <= new Date(event.registrationDeadline));
+                                            return (
+                                                <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm ${isOpen
+                                                    ? "bg-green-500/90 text-white"
+                                                    : "bg-red-500/90 text-white"
+                                                    }`}>
+                                                    {isOpen ? "Open" : "Closed"}
+                                                </div>
+                                            );
+                                        })()}
                                     </div>
 
                                     {/* Content */}

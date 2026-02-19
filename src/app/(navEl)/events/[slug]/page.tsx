@@ -442,14 +442,16 @@ export default function EventDetailPage({
           </div>
 
           <button
-            disabled={!event.registrationOpen}
+            disabled={!event.registrationOpen || !!(event.registrationDeadline && new Date() > new Date(event.registrationDeadline))}
             onClick={() => setShowModal(true)}
-            className={`px-6 py-2.5 rounded-xl text-xs font-extrabold uppercase ${event.registrationOpen
+            className={`px-6 py-2.5 rounded-xl text-xs font-extrabold uppercase ${(event.registrationOpen && (!event.registrationDeadline || new Date() <= new Date(event.registrationDeadline)))
               ? "bg-white text-black hover:bg-zinc-200"
               : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
               }`}
           >
-            {event.registrationOpen ? "Register Now" : "Sold Out"}
+            {event.registrationOpen && (!event.registrationDeadline || new Date() <= new Date(event.registrationDeadline))
+              ? "Register Now"
+              : !event.registrationOpen ? "Sold Out" : "Registration Closed"}
           </button>
 
         </div>

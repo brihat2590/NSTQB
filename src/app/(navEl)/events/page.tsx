@@ -124,14 +124,19 @@ export default function EventPage() {
 
               {/* Footer */}
               <div className="mt-3 flex items-center justify-between">
-                <span
-                  className={`text-xs font-medium px-2.5 py-1 rounded-full ${event.registrationOpen
-                    ? "bg-green-50 text-green-700"
-                    : "bg-red-50 text-red-700"
-                    }`}
-                >
-                  {event.registrationOpen ? "Registration Open" : "Closed"}
-                </span>
+                {(() => {
+                  const isOpen = event.registrationOpen && (!event.registrationDeadline || new Date() <= new Date(event.registrationDeadline));
+                  return (
+                    <span
+                      className={`text-xs font-medium px-2.5 py-1 rounded-full ${isOpen
+                        ? "bg-green-50 text-green-700"
+                        : "bg-red-50 text-red-700"
+                        }`}
+                    >
+                      {isOpen ? "Registration Open" : "Closed"}
+                    </span>
+                  );
+                })()}
 
                 <span className="text-sm font-medium text-gray-800">
                   {event.eventType === "FREE" ? "Free" : `NPR ${event.ticketPrice}`}
