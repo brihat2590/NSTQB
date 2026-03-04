@@ -1,400 +1,285 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Badge } from "@/components/ui/badge"
-import {
-  Shield,
-  Monitor,
-  BadgeIcon as IdCard,
-  AlertTriangle,
-  Ban,
-  Calendar,
-  Mail,
-  ExternalLink,
-  CheckCircle,
-  XCircle,
-} from "lucide-react"
+import { MessageCircle, ExternalLink } from "lucide-react";
+
+const sections = [
+  {
+    id: "01",
+    title: "Examination Room for e-Exam",
+    items: [
+      { type: "allow", text: "The examinee's position should be clearly visible to the proctor. The proctor will monitor the examinees at all times." },
+      { type: "allow", text: "During the exam, the candidate should have a full set up of devices — camera, power back up and internet bandwidth." },
+      { type: "allow", text: "Candidate should not have anything on their table except, if required, a dictionary, a calculator and an extra mobile." },
+      { type: "deny",  text: "The examinee appearing e-exam cannot print the exam or access the internet." },
+    ],
+  },
+  {
+    id: "02",
+    title: "Examinees' Identification",
+    items: [
+      { type: "allow", text: "The proctor will identify each examinee by the pre-notified identification card used in the respective country where the examination takes place." },
+      { type: "allow", text: "The identification must contain the photo of the examinee." },
+    ],
+  },
+  {
+    id: "03",
+    title: "Before the Exam",
+    items: [
+      { type: "allow", text: "Each examinee shall be informed by the proctor before the exam about the examination rules." },
+      { type: "allow", text: "Each examinee should fill out the personal details and sign a statement saying they will keep the integrity of the examination." },
+      { type: "allow", text: "The proctor shall explain the integrity rules including the penalty for being caught cheating." },
+      { type: "allow", text: "All forms and documents submitted by the candidate should be valid." },
+      { type: "deny",  text: "Examination papers are strictly prohibited from broadcasting, recording, or posting on any website, mails, or otherwise disseminated via any means known or which may become known in the future." },
+    ],
+  },
+  {
+    id: "04",
+    title: "Integrity Rules",
+    description: "Breach of the following rules may cause disqualification and penalties as defined by the Examination Board.",
+    columns: [
+      {
+        heading: "Prohibited Actions",
+        items: [
+          "Copying from another examinee",
+          "Communication with other examinees during the exam",
+          "Using unauthorized material and all electronic devices",
+          "Using the Internet to get answers",
+          "Using portable media",
+          "Making screenshots or photocopies of examination questions",
+        ],
+      },
+      {
+        heading: "Penalties for Cheating",
+        items: [
+          "The exam of this person will be disqualified",
+          "No refund will be provided",
+          "The person will be disqualified from taking the exam in the territory of the Member Board for at least 6 months",
+        ],
+      },
+    ],
+  },
+  {
+    id: "05",
+    title: "Disclaimer",
+    prose: [
+      <>
+        You agree to allow NSTQB to include your name in the Successful Candidate Registry (SCR) database and directory
+        of certified persons unless you have indicated otherwise. Please visit{" "}
+        <a
+          href="http://scr.istqb.org/"
+          className="underline underline-offset-2 text-gray-700 hover:text-gray-900 transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          scr.istqb.org
+        </a>{" "}
+        for relevant details.
+      </>,
+      "All candidates are deemed to have read and to agree to abide by these and other examination regulations as determined by NSTQB from time to time. Any infringement of these regulations may have serious consequences and may be referred to a Board of Enquiry.",
+    ],
+  },
+  {
+    id: "06",
+    title: "Cancellation / Re-scheduling Policy",
+    policy: {
+      cancellation:
+        "Due to current circumstances, we are unable to offer any cancellations. However, candidates have the option to reschedule the exam.",
+      rescheduling: (
+        <>
+          If you wish to reschedule your exam, you must contact NSTQB at{" "}
+          <a
+            href="mailto:info@nstqb.org"
+            className="underline underline-offset-2 text-gray-700 hover:text-gray-900 transition-colors"
+          >
+            info@nstqb.org
+          </a>{" "}
+          with a written request at least <span className="font-medium text-gray-900">14 days prior</span> to your
+          scheduled exam date. Failure to reschedule within the required timeframe may result in forfeiting exam fees.
+        </>
+      ),
+    },
+  },
+];
 
 export default function CodeOfConduct() {
   return (
-    <div className="min-h-screen bg-white py-16 px-4 animate-fade-in-up animation-delay-200 transition-all duration-300">
+    <div className="min-h-screen bg-white">
       <style jsx>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
-        
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
+        .fade-up   { animation: fadeUp 0.6s ease-out both; }
+        .fade-up-1 { animation-delay: 0.05s; }
+        .fade-up-2 { animation-delay: 0.15s; }
+        .fade-up-3 { animation-delay: 0.25s; }
+
+        @keyframes imageFade {
+          from { opacity: 0; transform: scale(1.03); }
+          to   { opacity: 1; transform: scale(1); }
         }
-        
-        @keyframes pulse-glow {
-          0%, 100% {
-            box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
-          }
-          50% {
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
-          }
-        }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-        }
-        
-        .animation-delay-200 {
-          animation-delay: 0.2s;
-          opacity: 0;
-        }
-        
-        .animation-delay-400 {
-          animation-delay: 0.4s;
-          opacity: 0;
-        }
-        
-        .animation-delay-200 {
-          animation-delay: 0.2s;
-        }
-        
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-        
-        .animate-pulse-glow {
-          animation: pulse-glow 2s ease-in-out infinite;
-        }
+        .image-fade { animation: imageFade 0.9s ease-out both; }
       `}</style>
-      <div className="max-w-5xl mx-auto">
-        {/* Header Section */}
-        <div className="text-center mb-16">
-          
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-            Code of Conduct [e-Exam]
+
+      {/* ── Hero Image ── */}
+      <div className="w-full image-fade">
+        <div className="relative w-full h-56 md:h-72 overflow-hidden">
+          <img
+            src="https://plus.unsplash.com/premium_photo-1661594739160-b26f505a09b4?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Code of Conduct hero"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30" />
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-6 py-16">
+
+        {/* ── Header ── */}
+        <div className="mb-14 fade-up fade-up-1">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="h-px w-8 bg-gray-300" />
+            <span className="text-xs font-medium tracking-widest text-gray-400 uppercase">
+              e-Exam
+            </span>
+          </div>
+
+          <h1 className="text-5xl md:text-6xl font-semibold text-center text-gray-900 tracking-tight leading-none mb-5">
+            Code of Conduct
           </h1>
-          <p className="text-xl bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent max-w-2xl mx-auto leading-relaxed font-semibold">
-            Nepal Software Testing Qualifications Body
-          </p>
-          <p className="text-gray-500 mt-2">
-            Rules and regulations governing all online examinations approved by ISTQB
-          </p>
+
+          
         </div>
 
-        {/* Introduction */}
-        <Card className="shadow-sm border-0 mb-8 hover:shadow-md transition-all duration-300">
-          <CardContent className="pt-6">
-            <div className="bg-blue-50 rounded-xl p-6 border-l-4 border-blue-500">
-              <p className="text-gray-700 leading-relaxed">
-                The following rules and regulations govern all online examinations held within Nepal Testing
-                Qualifications Body (NSTQB) and have been approved by International Software Testing Qualifications Board
-                (ISTQB):
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+        {/* ── Sections ── */}
+        <div className="space-y-14 fade-up fade-up-2">
+          {sections.map((section) => (
+            <div key={section.id}>
 
-        {/* Examination Room Section */}
-        <Card className="shadow-sm border-0 mb-8 hover:shadow-md transition-all duration-300">
-          <CardHeader className="pb-4">
-            <CardTitle className="flex items-center gap-4 text-2xl text-gray-900">
-              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl text-white shadow-sm">
-                <Monitor className="h-6 w-6" />
-              </div>
-              <span className="font-semibold">Examination Room for e-Exam</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="space-y-4">
-              <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
-                <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">
-                  The examinees position should be clearly visible to the proctor. The proctor will monitor the
-                  examinees at all times.
+              {/* Section heading row */}
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-xs font-mono text-gray-300 select-none w-6 shrink-0">
+                  {section.id}
                 </span>
+                <h2 className="text-sm font-semibold text-gray-900 tracking-wide uppercase">
+                  {section.title}
+                </h2>
+                <div className="flex-1 h-px bg-gray-100" />
               </div>
-              <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
-                <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">
-                  During the exam, the candidate should have a full set up of devices camera, power back up and internet
-                  bandwidth.
-                </span>
-              </div>
-              <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
-                <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">
-                  Candidate should not have anything on their table except and if required, a dictionary and a
-                  calculator and an extra mobile.
-                </span>
-              </div>
-              <div className="flex items-start gap-4 p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
-                <XCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">
-                  The examinee appearing e-exam cannot print the exam or access the internet.
-                </span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
 
-        {/* Identification Section */}
-        <Card className="shadow-sm border-0 mb-8 hover:shadow-md transition-all duration-300">
-          <CardHeader className="pb-4">
-            <CardTitle className="flex items-center gap-4 text-2xl text-gray-900">
-              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl text-white shadow-sm">
-                <IdCard className="h-6 w-6" />
-              </div>
-              <span className="font-semibold">Examinees' Identification</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="space-y-4">
-              <div className="flex items-start gap-4 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-                <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">
-                  The proctor will identify each examinee by the pre-notified identification card that is used in the
-                  respective country where the examination takes place.
-                </span>
-              </div>
-              <div className="flex items-start gap-4 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-                <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">The identification must contain the photo of the examinee.</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+              <div className="ml-10 space-y-5">
 
-        {/* Before the Exam Section */}
-        <Card className="shadow-sm border-0 mb-8 hover:shadow-md transition-all duration-300">
-          <CardHeader className="pb-4">
-            <CardTitle className="flex items-center gap-4 text-2xl text-gray-900">
-              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl text-white shadow-sm">
-                <Shield className="h-6 w-6" />
-              </div>
-              <span className="font-semibold">Before the Exam</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="space-y-4">
-              <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
-                <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">
-                  Each examinee shall be informed by the proctor before the exam about the examination rules.
-                </span>
-              </div>
-              <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
-                <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">
-                  Each examinee should fill out the personal details and sign a statement saying they will keep the
-                  integrity of the examination.
-                </span>
-              </div>
-              <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
-                <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">
-                  The proctor shall explain the integrity rules including the penalty for being caught cheating.
-                </span>
-              </div>
-              <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
-                <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">
-                  All the form and documents submitted by the candidate should be valid.
-                </span>
-              </div>
-              <div className="flex items-start gap-4 p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
-                <XCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">
-                  Examination papers are strictly prohibited from broadcasting, recording or posting on any website,
-                  mails, publish or otherwise disseminate via any mean known or which in the future may become known.
-                </span>
+                {/* Description note */}
+                {section.description && (
+                  <p className="text-sm text-gray-400 italic">{section.description}</p>
+                )}
+
+                {/* Allow / Deny list */}
+                {section.items && (
+                  <div className="divide-y divide-gray-100">
+                    {section.items.map((item, i) => (
+                      <div key={i} className="flex items-start gap-4 py-3.5">
+                        {/* dot indicator */}
+                        <span
+                          className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 ${
+                            item.type === "deny" ? "bg-gray-400" : "bg-gray-300"
+                          }`}
+                        />
+                        <p
+                          className={`text-sm leading-relaxed ${
+                            item.type === "deny"
+                              ? "text-gray-500 line-through decoration-gray-300"
+                              : "text-gray-600"
+                          }`}
+                        >
+                          {item.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Two-column grid (Integrity Rules) */}
+                {section.columns && (
+                  <div className="grid md:grid-cols-2 gap-8">
+                    {section.columns.map((col) => (
+                      <div key={col.heading}>
+                        <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-4">
+                          {col.heading}
+                        </p>
+                        <div className="divide-y divide-gray-100">
+                          {col.items.map((item, i) => (
+                            <div key={i} className="flex items-start gap-3 py-3">
+                              <span className="mt-2 h-1 w-1 rounded-full bg-gray-300 shrink-0" />
+                              <p className="text-sm text-gray-600 leading-relaxed">{item}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Prose (Disclaimer) */}
+                {section.prose && (
+                  <div className="space-y-4">
+                    {section.prose.map((para, i) => (
+                      <p key={i} className="text-sm text-gray-500 leading-relaxed">
+                        {para}
+                      </p>
+                    ))}
+                  </div>
+                )}
+
+                {/* Policy (Cancellation) */}
+                {section.policy && (
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div>
+                      <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-4">
+                        Cancellation
+                      </p>
+                      <p className="text-sm text-gray-500 leading-relaxed">
+                        {section.policy.cancellation}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-4">
+                        Re-scheduling
+                      </p>
+                      <p className="text-sm text-gray-500 leading-relaxed">
+                        {section.policy.rescheduling}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
               </div>
             </div>
-          </CardContent>
-        </Card>
+          ))}
+        </div>
 
-        {/* Integrity Rules Section */}
-        <Card className="shadow-sm border-0 mb-8 hover:shadow-md transition-all duration-300 border-red-100">
-          <CardHeader className="pb-4 bg-red-50 rounded-t-lg">
-            <CardTitle className="flex items-center gap-4 text-2xl text-red-800">
-              <div className="flex items-center justify-center w-12 h-12 bg-red-600 rounded-xl text-white shadow-sm">
-                <AlertTriangle className="h-6 w-6" />
+        {/* ── Contact CTA ── */}
+        <div className="mt-16 fade-up fade-up-3">
+          <div className="rounded-2xl border border-gray-100 bg-gray-50 px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="mt-0.5 flex items-center justify-center w-9 h-9 rounded-full bg-white border border-gray-100 shadow-sm text-gray-500 shrink-0">
+                <MessageCircle className="h-4 w-4" />
               </div>
-              <span className="font-semibold">Integrity Rules</span>
-            </CardTitle>
-            <CardDescription className="text-red-700 ml-16">
-              Breach of the following rules may cause disqualification and penalties as defined by the Examination
-              board.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-red-50 rounded-xl p-6 border border-red-100">
-                <h4 className="font-semibold text-red-800 mb-4 flex items-center gap-2">
-                  <Ban className="h-5 w-5 text-red-600" />
-                  Prohibited Actions
-                </h4>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border-l-4 border-red-500">
-                    <Ban className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Copying from another examinee</span>
-                  </div>
-                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border-l-4 border-red-500">
-                    <Ban className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Communication with other examinees during the exam</span>
-                  </div>
-                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border-l-4 border-red-500">
-                    <Ban className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Using unauthorized material and all electronic devices</span>
-                  </div>
-                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border-l-4 border-red-500">
-                    <Ban className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Using the Internet to get answers</span>
-                  </div>
-                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border-l-4 border-red-500">
-                    <Ban className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Using portable media</span>
-                  </div>
-                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border-l-4 border-red-500">
-                    <Ban className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Making screenshots or photocopies of examination questions</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-red-50 rounded-xl p-6 border border-red-100">
-                <h4 className="font-semibold text-red-800 mb-4 flex items-center gap-2">
-                  <XCircle className="h-5 w-5 text-red-600" />
-                  Penalties for Cheating
-                </h4>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border-l-4 border-red-500">
-                    <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">The exam of this person will be disqualified</span>
-                  </div>
-                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border-l-4 border-red-500">
-                    <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">No refund will be provided</span>
-                  </div>
-                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border-l-4 border-red-500">
-                    <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">
-                      The person will be disqualified from taking the exam in the territory of Member Board for at least
-                      6 months
-                    </span>
-                  </div>
-                </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-900">Have a question about these rules?</p>
+                <p className="text-sm text-gray-400 mt-0.5">Our team is happy to clarify.</p>
               </div>
             </div>
-          </CardContent>
-        </Card>
+            <a
+              href="mailto:info@nstqb.org"
+              className="shrink-0 inline-flex items-center gap-2 rounded-lg bg-gray-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-700 transition-colors duration-200"
+            >
+              Contact Support
+            </a>
+          </div>
+        </div>
 
-        {/* Disclaimer Section */}
-        <Card className="shadow-sm border-0 mb-8 hover:shadow-md transition-all duration-300">
-          <CardHeader className="pb-4">
-            <CardTitle className="flex items-center gap-4 text-2xl text-gray-900">
-              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl text-white shadow-sm">
-                <ExternalLink className="h-6 w-6" />
-              </div>
-              <span className="font-semibold">Disclaimer</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="space-y-4">
-              <div className="bg-blue-50 rounded-xl p-6 border-l-4 border-blue-500">
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  You agree to allow NSTQB to include your name in successful candidate registry(SCR) database, posting to
-                  directory of certified person unless you have further indicated. Please visit{" "}
-                  <a
-                    href="http://scr.istqb.org/"
-                    className="text-blue-600 hover:text-blue-800 underline font-medium"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    http://scr.istqb.org/
-                  </a>{" "}
-                  for relevant details.
-                </p>
-                <p className="text-gray-700 leading-relaxed">
-                  All candidates are deemed to have read and to agree to abide by these and other examination regulations
-                  as determined by the NSTQB from time to time. Any infringement of these regulations may have serious
-                  consequences and may be referred to a Board of Enquiry. It is in the interests of all examination
-                  candidates to co-operate to ensure that the examinations are conducted in a proper and orderly manner.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* COVID Note
-        <Alert className="mb-8 border-yellow-200 bg-yellow-50 shadow-sm">
-          <AlertTriangle className="h-5 w-5 text-yellow-600" />
-          <AlertDescription className="text-yellow-800 font-medium">
-            <strong>Note:</strong> NSTQB holds an authority to change the date of exam if required due to the current
-            COVID situation. However, candidates will be pre-notified in such circumstances.
-          </AlertDescription>
-        </Alert> */}
-
-        {/* Cancellation/Rescheduling Policy */}
-        <Card className="shadow-sm border-0 hover:shadow-md transition-all duration-300">
-          <CardHeader className="pb-4">
-            <CardTitle className="flex items-center gap-4 text-2xl text-gray-900">
-              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl text-white shadow-sm">
-                <Calendar className="h-6 w-6" />
-              </div>
-              <span className="font-semibold">Cancellation/Re-scheduling Policy</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-red-50 rounded-xl p-6 border border-red-100">
-                <h4 className="font-semibold text-red-800 mb-4 flex items-center gap-2">
-                  <XCircle className="h-5 w-5 text-red-600" />
-                  Cancellation
-                </h4>
-                <div className="bg-white rounded-lg p-4 border-l-4 border-red-500">
-                  <p className="text-gray-700 text-sm leading-relaxed">
-                    Due to the current circumstances, we are unable to offer any cancellations for now. However,
-                    candidates have an option to reschedule the exam. Please refer the rescheduling policy below.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
-                <h4 className="font-semibold text-blue-800 mb-4 flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-blue-600" />
-                  Re-scheduling
-                </h4>
-                <div className="bg-white rounded-lg p-4 border-l-4 border-blue-500 mb-4">
-                  <p className="text-gray-700 text-sm leading-relaxed">
-                    If you wish to reschedule your exam, you must contact NSTQB at{" "}
-                    <a
-                      href="mailto:info@nstqb.org"
-                      className="text-blue-600 hover:text-blue-800 underline inline-flex items-center gap-1 font-medium"
-                    >
-                      <Mail className="h-3 w-3" />
-                      info@nstqb.org
-                    </a>{" "}
-                    with a written request at least 14 days prior to your scheduled exam date.
-                  </p>
-                </div>
-                <div className="bg-red-100 text-red-800 text-xs px-4 py-2 rounded inline-block max-w-full leading-snug">
-  Failure to cancel or re-schedule within required time frame may<br />
-  result in forfeiting exam fees
-</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
-  )
+  );
 }
