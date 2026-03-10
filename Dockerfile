@@ -7,7 +7,6 @@ WORKDIR /app
 # Copy Prisma schema before npm install
 COPY prisma ./prisma
 COPY prisma.config.ts ./
-COPY .env .env
 COPY tsconfig.json ./
 
 # Copy package files and install dependencies
@@ -26,5 +25,5 @@ RUN npm run build
 # Expose Next.js port
 EXPOSE 3000
 
-# Push schema to DB and start app
-CMD ["sh", "-c", "npx prisma db push && npm start"]
+# Apply existing migrations only (non-destructive) and start app
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
