@@ -125,7 +125,7 @@ export default function CodeOfConduct() {
       <div className="w-full image-fade">
         <div className="relative w-full h-56 md:h-72 overflow-hidden">
           <img
-            src="https://plus.unsplash.com/premium_photo-1661594739160-b26f505a09b4?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="https://images.pexels.com/photos/3064079/pexels-photo-3064079.jpeg"
             alt="Code of Conduct hero"
             className="w-full h-full object-cover object-center"
           />
