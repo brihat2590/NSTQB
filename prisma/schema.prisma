@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  
 }
 
 model User {
@@ -120,18 +120,35 @@ model Speaker {
   event     Events   @relation(fields: [eventId], references: [id], onDelete: Cascade)
 }
 
+// model RegistrationEvent {
+//   id        String   @id @default(cuid())
+//   name      String
+//   email     String
+//   phone     String?
+//   createdAt DateTime @default(now())
+//   eventId   String
+//   event     Events   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+//   @@unique([eventId, email])
+// }
 model RegistrationEvent {
-  id        String   @id @default(cuid())
-  name      String
-  email     String
-  phone     String?
-  createdAt DateTime @default(now())
-  eventId   String
-  event     Events   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  id               String   @id @default(cuid())
+  name             String
+  email            String
+  phone            String?
+  createdAt        DateTime @default(now())
+
+  eventId          String
+  event            Events   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  amount           Int?
+  pidx             String?
+  purchaseOrderId  String?
+  status           String?
+  transaction_uuid String?
 
   @@unique([eventId, email])
 }
-
 model flowingHeadlines {
   id        String   @id @default(cuid())
   text      String
