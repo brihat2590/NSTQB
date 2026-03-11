@@ -5,7 +5,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  
 }
 
 model User {
@@ -95,16 +94,16 @@ model Events {
   description          String
   dateTime             DateTime
   venue                String
-  venueUrl             String?
   eventType            EventType
   ticketPrice          Float?
   registrationOpen     Boolean             @default(true)
   registrationDeadline DateTime?
   bannerImage          String?
-  totalSeats           Int?
-  sponsors             Json?
   createdAt            DateTime            @default(now())
   updatedAt            DateTime            @updatedAt
+  venueUrl             String?
+  sponsors             Json?
+  totalSeats           Int?
   registrations        RegistrationEvent[]
   speakers             Speaker[]
 }
@@ -120,35 +119,23 @@ model Speaker {
   event     Events   @relation(fields: [eventId], references: [id], onDelete: Cascade)
 }
 
-// model RegistrationEvent {
-//   id        String   @id @default(cuid())
-//   name      String
-//   email     String
-//   phone     String?
-//   createdAt DateTime @default(now())
-//   eventId   String
-//   event     Events   @relation(fields: [eventId], references: [id], onDelete: Cascade)
-
-//   @@unique([eventId, email])
-// }
 model RegistrationEvent {
   id               String   @id @default(cuid())
   name             String
   email            String
   phone            String?
   createdAt        DateTime @default(now())
-
   eventId          String
-  event            Events   @relation(fields: [eventId], references: [id], onDelete: Cascade)
-
   amount           Int?
   pidx             String?
   purchaseOrderId  String?
   status           String?
   transaction_uuid String?
+  event            Events   @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   @@unique([eventId, email])
 }
+
 model flowingHeadlines {
   id        String   @id @default(cuid())
   text      String
