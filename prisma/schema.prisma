@@ -94,16 +94,16 @@ model Events {
   description          String
   dateTime             DateTime
   venue                String
-  venueUrl             String?
   eventType            EventType
   ticketPrice          Float?
   registrationOpen     Boolean             @default(true)
   registrationDeadline DateTime?
   bannerImage          String?
-  totalSeats           Int?
-  sponsors             Json?
   createdAt            DateTime            @default(now())
   updatedAt            DateTime            @updatedAt
+  venueUrl             String?
+  sponsors             Json?
+  totalSeats           Int?
   registrations        RegistrationEvent[]
   speakers             Speaker[]
 }

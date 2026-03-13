@@ -4,27 +4,27 @@ FROM node:20-alpine
 # Set working directory
 WORKDIR /app
 
-# Copy Prisma schema before npm install
+# Copy prisma files
 COPY prisma ./prisma
 COPY prisma.config.ts ./
-COPY .env .env
 COPY tsconfig.json ./
 
-# Copy package files and install dependencies
+# Copy package files
 COPY package*.json ./
-RUN npm install
 
-# Copy the rest of your app
+# Install dependencies
+RUN npm install --ignore-scripts
+
+# Copy project
 COPY . .
 
-# Generate Prisma client
 RUN npx prisma generate
 
-# Build Next.js app
+# Build Next.js
 RUN npm run build
 
-# Expose Next.js port
+# Expose port
 EXPOSE 3000
 
-# Push schema to DB and start app
-CMD ["sh", "-c", "npx prisma db push && npm start"]
+# Run migrations and start
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
