@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { ChevronLeft, } from "lucide-react";
+import { ChevronLeft, Search, ArrowUpDown, SortAsc, SortDesc } from "lucide-react";
 import Link from "next/link";
 import * as XLSX from 'xlsx';
 import { saveAs } from "file-saver";
@@ -133,6 +133,10 @@ export default function EventAdminDetail() {
   const [status, setStatus] = useState("PENDING");
   const [reference, setReference] = useState("");
   const [originalStatus, setOriginalStatus] = useState("PENDING");
+
+  // Search and Sort State
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc"); // Default to newest first (desc)
 
   async function fetchData() {
     const [eRes, sRes, rRes] = await Promise.all([
@@ -304,6 +308,22 @@ export default function EventAdminDetail() {
     fetchData();
   }
 
+  const filteredRegistrations = registrations
+    .filter((reg) => {
+      const searchStr = searchTerm.toLowerCase();
+      return (
+        reg.name.toLowerCase().includes(searchStr) ||
+        reg.email.toLowerCase().includes(searchStr) ||
+        (reg.phone && reg.phone.toLowerCase().includes(searchStr)) ||
+        (reg.status && reg.status.toLowerCase().includes(searchStr))
+      );
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+      return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+    });
+
   return (
     <div className="max-w-6xl mx-auto p-6 md:p-12 space-y-12 bg-zinc-50 min-h-screen">
       {/* ---------------- HEADER ---------------- */}
@@ -379,30 +399,52 @@ export default function EventAdminDetail() {
 
         {/* ---------------- REGISTRATIONS ---------------- */}
         <section>
-          <div className="flex items-center justify-between gap-2 mb-6">
-            <div>
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+            <div className="flex items-center gap-2">
               <h2 className="text-xl font-bold text-zinc-800">Registrations</h2>
-              <span className="bg-zinc-200 text-zinc-700 text-xs px-2 py-0.5 rounded-full">{registrations.length}</span>
-
+              <span className="bg-zinc-200 text-zinc-700 text-xs px-2 py-0.5 rounded-full">{filteredRegistrations.length}</span>
             </div>
-            <button
-              onClick={downloadExcel}
-              disabled={isDownloading}
-              className="px-6 py-2.5 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-all shadow-md shadow-indigo-100 flex gap-2"
-            >
-              {isDownloading ? (
-                "Processing..."
-              ) : (
-                <>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  Download Registrations
-                </>
-              )}
-            </button>
 
+            <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+              {/* Search Box */}
+              <div className="relative flex-1 md:w-64">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                <input
+                  type="text"
+                  placeholder="Search attendee..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 bg-white border border-zinc-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                />
+              </div>
 
+              {/* Sort Toggle */}
+              <button
+                onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+                className="flex items-center gap-2 px-4 py-2 bg-white border border-zinc-200 rounded-lg text-sm font-medium text-zinc-600 hover:bg-zinc-50 transition-colors"
+              >
+                {sortOrder === "asc" ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />}
+                {sortOrder === "asc" ? "Oldest First" : "Newest First"}
+              </button>
+
+              {/* Download Button */}
+              <button
+                onClick={downloadExcel}
+                disabled={isDownloading}
+                className="px-6 py-2 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-all shadow-md flex gap-2 items-center text-sm"
+              >
+                {isDownloading ? (
+                  "Processing..."
+                ) : (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Download Excel
+                  </>
+                )}
+              </button>
+            </div>
           </div>
 
           <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
@@ -417,7 +459,7 @@ export default function EventAdminDetail() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100">
-                {registrations.map(r => (
+                {filteredRegistrations.map(r => (
                   <tr key={r.id} className="hover:bg-zinc-50/80 transition-colors">
                     <td className="p-4">
                       <div className="font-medium text-zinc-900">{r.name}</div>
@@ -456,279 +498,285 @@ export default function EventAdminDetail() {
       </div>
 
       {/* ---------------- SPEAKER MODAL ---------------- */}
-      {openSpeakerModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-zinc-900/60 backdrop-blur-sm" onClick={() => setOpenSpeakerModal(false)} />
-          <div className="relative bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 animate-in fade-in zoom-in duration-200">
-            <h3 className="text-xl font-bold text-zinc-900 mb-6">
-              {editingSpeaker ? "Update Speaker Profile" : "Add New Speaker"}
-            </h3>
+      {
+        openSpeakerModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-zinc-900/60 backdrop-blur-sm" onClick={() => setOpenSpeakerModal(false)} />
+            <div className="relative bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 animate-in fade-in zoom-in duration-200">
+              <h3 className="text-xl font-bold text-zinc-900 mb-6">
+                {editingSpeaker ? "Update Speaker Profile" : "Add New Speaker"}
+              </h3>
 
-            <div className="space-y-4">
-              <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Full Name</label>
-                <input
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                  placeholder="e.g. Jane Doe"
-                  className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                />
+              <div className="space-y-4">
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Full Name</label>
+                  <input
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    placeholder="e.g. Jane Doe"
+                    className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Photo URL</label>
+                  <input
+                    value={photo}
+                    onChange={e => setPhoto(e.target.value)}
+                    placeholder="https://example.com/photo.jpg"
+                    className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Biography</label>
+                  <textarea
+                    value={bio}
+                    onChange={e => setBio(e.target.value)}
+                    placeholder="Tell us about the speaker..."
+                    rows={4}
+                    className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
+                  />
+                </div>
               </div>
 
-              <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Photo URL</label>
-                <input
-                  value={photo}
-                  onChange={e => setPhoto(e.target.value)}
-                  placeholder="https://example.com/photo.jpg"
-                  className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                />
+              <div className="flex justify-end gap-3 mt-8">
+                <button
+                  onClick={() => setOpenSpeakerModal(false)}
+                  className="px-5 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={saveSpeaker}
+                  className="px-5 py-2 text-sm font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition-all"
+                >
+                  {editingSpeaker ? "Save Changes" : "Add Speaker"}
+                </button>
               </div>
-
-              <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Biography</label>
-                <textarea
-                  value={bio}
-                  onChange={e => setBio(e.target.value)}
-                  placeholder="Tell us about the speaker..."
-                  rows={4}
-                  className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                />
-              </div>
-            </div>
-
-            <div className="flex justify-end gap-3 mt-8">
-              <button
-                onClick={() => setOpenSpeakerModal(false)}
-                className="px-5 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={saveSpeaker}
-                className="px-5 py-2 text-sm font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition-all"
-              >
-                {editingSpeaker ? "Save Changes" : "Add Speaker"}
-              </button>
             </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
       {/* ---------------- REGISTRATION MODAL ---------------- */}
-      {openRegModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-zinc-900/60 backdrop-blur-sm" onClick={() => setOpenRegModal(false)} />
-          <div className="relative bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 animate-in fade-in zoom-in duration-200">
-            <h3 className="text-xl font-bold text-zinc-900 mb-6">Edit Registration</h3>
+      {
+        openRegModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-zinc-900/60 backdrop-blur-sm" onClick={() => setOpenRegModal(false)} />
+            <div className="relative bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 animate-in fade-in zoom-in duration-200">
+              <h3 className="text-xl font-bold text-zinc-900 mb-6">Edit Registration</h3>
 
-            <div className="space-y-4">
-              <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Name</label>
-                <input
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                  className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                />
+              <div className="space-y-4">
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Name</label>
+                  <input
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Email Address</label>
+                  <input
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Phone Number</label>
+                  <input
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                    className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Status</label>
+                  <select
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                    className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white"
+                  >
+                    <option value="PENDING">PENDING</option>
+                    <option value="COMPLETED">COMPLETED</option>
+                    <option value="FAILED">FAILED</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Reference</label>
+                  <input
+                    value={reference}
+                    onChange={e => setReference(e.target.value)}
+                    placeholder="Enter payment/reference id"
+                    className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                  />
+                  {status !== originalStatus && (
+                    <p className="mt-1 text-xs text-red-500">Reference is required when changing status.</p>
+                  )}
+                </div>
               </div>
 
-              <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Email Address</label>
-                <input
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Phone Number</label>
-                <input
-                  value={phone}
-                  onChange={e => setPhone(e.target.value)}
-                  className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Status</label>
-                <select
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                  className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white"
+              <div className="flex justify-end gap-3 mt-8">
+                <button
+                  onClick={() => setOpenRegModal(false)}
+                  className="px-5 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors"
                 >
-                  <option value="PENDING">PENDING</option>
-                  <option value="COMPLETED">COMPLETED</option>
-                  <option value="FAILED">FAILED</option>
-                </select>
+                  Cancel
+                </button>
+                <button
+                  onClick={saveRegistration}
+                  className="px-5 py-2 text-sm font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition-all"
+                >
+                  Update Registration
+                </button>
               </div>
-
-              <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1 block">Reference</label>
-                <input
-                  value={reference}
-                  onChange={e => setReference(e.target.value)}
-                  placeholder="Enter payment/reference id"
-                  className="w-full border border-zinc-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                />
-                {status !== originalStatus && (
-                  <p className="mt-1 text-xs text-red-500">Reference is required when changing status.</p>
-                )}
-              </div>
-            </div>
-
-            <div className="flex justify-end gap-3 mt-8">
-              <button
-                onClick={() => setOpenRegModal(false)}
-                className="px-5 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={saveRegistration}
-                className="px-5 py-2 text-sm font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition-all"
-              >
-                Update Registration
-              </button>
             </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
       <button onClick={deleteEvent} className="mt-8 px-6 py-2.5 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-all shadow-md shadow-red-100">{`Delete this event`}</button>
 
-      {editingEvent && event && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            className="absolute inset-0 bg-black/60"
-            onClick={() => setEditingEvent(false)}
-          />
-          <div className="relative bg-white w-full max-w-xl rounded-2xl p-8 shadow-2xl">
-            <h3 className="text-xl font-bold mb-6">Edit Event</h3>
+      {
+        editingEvent && event && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div
+              className="absolute inset-0 bg-black/60"
+              onClick={() => setEditingEvent(false)}
+            />
+            <div className="relative bg-white w-full max-w-xl rounded-2xl p-8 shadow-2xl">
+              <h3 className="text-xl font-bold mb-6">Edit Event</h3>
 
-            <div className="space-y-4">
-              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event Title</label>
-              <input
-                value={event.title}
-                onChange={(e) => setEvent({ ...event, title: e.target.value })}
-                placeholder="Event title"
-                className="w-full border rounded-lg p-3"
-              />
-              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event Slug</label>
-              <input
-                value={event.slug}
-                onChange={(e) => setEvent({ ...event, slug: e.target.value })}
-                placeholder="Event slug"
-                className="w-full border rounded-lg p-3"
-              />
-              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event description</label>
-
-              <div className="w-full" data-color-mode="light">
-                <MDEditor
-                  value={event.description}
-                  onChange={(value) => setEvent({ ...event, description: value || "" })}
-                  preview="edit"
-                  height={400}
-                  style={{ borderRadius: 8, overflow: "hidden" }}
-                />
-              </div>
-              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Banner Image</label>
-
-              <input type="text" onChange={(e) => setEvent({ ...event, bannerImage: e.target.value })} value={event.bannerImage || ""} placeholder="Banner Image URL" className="w-full border rounded-lg p-3" />
-
-              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Date & Time</label>
-
-              <input
-                type="datetime-local"
-                // Add a fallback to prevent toISOString() on null/undefined
-                value={event.dateTime instanceof Date && !isNaN(event.dateTime.getTime())
-                  ? event.dateTime.toISOString().slice(0, 16)
-                  : ""}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  if (val) {
-                    setEvent({ ...event, dateTime: new Date(val) });
-                  }
-                }}
-                className="w-full border rounded-lg p-3"
-              />
-              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Venue</label>
-
-              <input
-                value={event.venue}
-                onChange={(e) => setEvent({ ...event, venue: e.target.value })}
-                placeholder="Venue"
-                className="w-full border rounded-lg p-3"
-              />
-              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Venue URL</label>
-
-              <input
-                value={event.venueUrl || ""}
-                onChange={(e) => setEvent({ ...event, venueUrl: e.target.value })}
-                placeholder="Venue URL"
-                className="w-full border rounded-lg p-3"
-              />
-              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Ticket Price</label>
-              <input
-                type="number"
-                value={event.ticketPrice || 0}
-                onChange={(e) => {
-                  const price = Number(e.target.value);
-                  setEvent({
-                    ...event,
-                    ticketPrice: price,
-                    eventType: price > 0 ? "PAID" : "FREE"
-                  });
-                }}
-                placeholder="Ticket price"
-                className="w-full border rounded-lg p-3"
-              />
-
-              <label className="text-sm font-semibold text-zinc-700 mb-1 block">Registration Deadline</label>
-              <input
-                type="datetime-local"
-                value={event.registrationDeadline instanceof Date && !isNaN(event.registrationDeadline.getTime())
-                  ? event.registrationDeadline.toISOString().slice(0, 16)
-                  : ""}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  if (val) {
-                    setEvent({ ...event, registrationDeadline: new Date(val) });
-                  }
-                }}
-                className="w-full border rounded-lg p-3"
-              />
-
-              <label className="flex items-center gap-2">
+              <div className="space-y-4">
+                <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event Title</label>
                 <input
-                  type="checkbox"
-                  checked={event.registrationOpen}
-                  onChange={(e) =>
-                    setEvent({ ...event, registrationOpen: e.target.checked })
-                  }
+                  value={event.title}
+                  onChange={(e) => setEvent({ ...event, title: e.target.value })}
+                  placeholder="Event title"
+                  className="w-full border rounded-lg p-3"
                 />
-                Registration Open
-              </label>
-            </div>
+                <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event Slug</label>
+                <input
+                  value={event.slug}
+                  onChange={(e) => setEvent({ ...event, slug: e.target.value })}
+                  placeholder="Event slug"
+                  className="w-full border rounded-lg p-3"
+                />
+                <label className="text-sm font-semibold text-zinc-700 mb-1 block">Event description</label>
 
-            <div className="flex justify-end gap-3 mt-6">
-              <button
-                onClick={() => setEditingEvent(false)}
-                className="px-4 py-2 text-zinc-600"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={updateEvent}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
-              >
-                Save Changes
-              </button>
+                <div className="w-full" data-color-mode="light">
+                  <MDEditor
+                    value={event.description}
+                    onChange={(value) => setEvent({ ...event, description: value || "" })}
+                    preview="edit"
+                    height={400}
+                    style={{ borderRadius: 8, overflow: "hidden" }}
+                  />
+                </div>
+                <label className="text-sm font-semibold text-zinc-700 mb-1 block">Banner Image</label>
+
+                <input type="text" onChange={(e) => setEvent({ ...event, bannerImage: e.target.value })} value={event.bannerImage || ""} placeholder="Banner Image URL" className="w-full border rounded-lg p-3" />
+
+                <label className="text-sm font-semibold text-zinc-700 mb-1 block">Date & Time</label>
+
+                <input
+                  type="datetime-local"
+                  // Add a fallback to prevent toISOString() on null/undefined
+                  value={event.dateTime instanceof Date && !isNaN(event.dateTime.getTime())
+                    ? event.dateTime.toISOString().slice(0, 16)
+                    : ""}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val) {
+                      setEvent({ ...event, dateTime: new Date(val) });
+                    }
+                  }}
+                  className="w-full border rounded-lg p-3"
+                />
+                <label className="text-sm font-semibold text-zinc-700 mb-1 block">Venue</label>
+
+                <input
+                  value={event.venue}
+                  onChange={(e) => setEvent({ ...event, venue: e.target.value })}
+                  placeholder="Venue"
+                  className="w-full border rounded-lg p-3"
+                />
+                <label className="text-sm font-semibold text-zinc-700 mb-1 block">Venue URL</label>
+
+                <input
+                  value={event.venueUrl || ""}
+                  onChange={(e) => setEvent({ ...event, venueUrl: e.target.value })}
+                  placeholder="Venue URL"
+                  className="w-full border rounded-lg p-3"
+                />
+                <label className="text-sm font-semibold text-zinc-700 mb-1 block">Ticket Price</label>
+                <input
+                  type="number"
+                  value={event.ticketPrice || 0}
+                  onChange={(e) => {
+                    const price = Number(e.target.value);
+                    setEvent({
+                      ...event,
+                      ticketPrice: price,
+                      eventType: price > 0 ? "PAID" : "FREE"
+                    });
+                  }}
+                  placeholder="Ticket price"
+                  className="w-full border rounded-lg p-3"
+                />
+
+                <label className="text-sm font-semibold text-zinc-700 mb-1 block">Registration Deadline</label>
+                <input
+                  type="datetime-local"
+                  value={event.registrationDeadline instanceof Date && !isNaN(event.registrationDeadline.getTime())
+                    ? event.registrationDeadline.toISOString().slice(0, 16)
+                    : ""}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val) {
+                      setEvent({ ...event, registrationDeadline: new Date(val) });
+                    }
+                  }}
+                  className="w-full border rounded-lg p-3"
+                />
+
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={event.registrationOpen}
+                    onChange={(e) =>
+                      setEvent({ ...event, registrationOpen: e.target.checked })
+                    }
+                  />
+                  Registration Open
+                </label>
+              </div>
+
+              <div className="flex justify-end gap-3 mt-6">
+                <button
+                  onClick={() => setEditingEvent(false)}
+                  className="px-4 py-2 text-zinc-600"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={updateEvent}
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
+                >
+                  Save Changes
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
-    </div>
+    </div >
   );
 }
