@@ -334,95 +334,43 @@ export default function EventDetailPage({
           <p className="text-indigo-600 text-[10px] md:text-xs font-extrabold tracking-[0.35em] uppercase mb-4">
             Overview
           </p>
-          <div className="text-sm md:text-base  text-zinc-700 leading-relaxed font-light">
-            <div className="text-left text-zinc-700 text-sm md:text-base leading-8 space-y-4">
-              {event.description.split("\n").map((line, i) => {
-                // H2
-                if (line.startsWith("## ")) {
-                  return (
-                    <h2
-                      key={i}
-                      className="text-xl md:text-2xl font-semibold text-zinc-900 mt-12"
-                    >
-                      {line.replace("## ", "")}
-                    </h2>
-                  );
-                }
-
-                // H3
-                if (line.startsWith("### ")) {
-                  return (
-                    <h3
-                      key={i}
-                      className="text-lg md:text-xl font-semibold text-zinc-900 mt-10"
-                    >
-                      {line.replace("### ", "")}
-                    </h3>
-                  );
-                }
-                if (line.includes("http://") || line.includes("https://")) {
-                  return (
-                    <p key={i} className="mt-2">
-                      <a
-                        href={line.trim()}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="underline text-indigo-600 hover:text-indigo-800 transition"
-                      >
-                        {line}
-                      </a>
-                    </p>
-                  );
-                }
-
-                // H4
-                if (line.startsWith("#### ")) {
-                  return (
-                    <h4
-                      key={i}
-                      className="text-base md:text-lg font-semibold text-zinc-900 mt-8"
-                    >
-                      {line.replace("#### ", "")}
-                    </h4>
-                  );
-                }
-
-
-                if (line.startsWith("**") && line.endsWith("**")) {
-                  return (
-                    <p
-                      key={i}
-                      className="underline font-semibold  text-zinc-900 mt-2"
-                    >
-                      {line.replace(/\*\*/g, "")}
-                    </p>
-                  );
-                }
-
-                // Bullet points
-                if (line.startsWith("- ")) {
-                  return (
-                    <li
-                      key={i}
-                      className="ml-6 list-disc text-zinc-700"
-                    >
-                      {line.replace("- ", "")}
-                    </li>
-                  );
-                }
-
-                // Empty line → spacing
-                if (line.trim() === "") {
-                  return <div key={i} className="h-3" />;
-                }
-
-                // Normal paragraph
-                return <p key={i}>{line}</p>;
-              })}
-            </div>
-
-
-
+          <div className="text-left text-zinc-700 text-sm md:text-base leading-8">
+            <ReactMarkdown
+              components={{
+                h2: ({ children }) => (
+                  <h2 className="text-xl md:text-2xl font-semibold text-zinc-900 mt-12 mb-4">
+                    {children}
+                  </h2>
+                ),
+                h3: ({ children }) => (
+                  <h3 className="text-lg md:text-xl font-semibold text-zinc-900 mt-10 mb-3">
+                    {children}
+                  </h3>
+                ),
+                h4: ({ children }) => (
+                  <h4 className="text-base md:text-lg font-semibold text-zinc-900 mt-8 mb-2">
+                    {children}
+                  </h4>
+                ),
+                p: ({ children }) => <p className="mb-4 text-zinc-700">{children}</p>,
+                ul: ({ children }) => <ul className="mb-4 ml-6 list-disc space-y-1">{children}</ul>,
+                ol: ({ children }) => <ol className="mb-4 ml-6 list-decimal space-y-1">{children}</ol>,
+                li: ({ children }) => <li className="text-zinc-700">{children}</li>,
+                a: ({ href, children }) => (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-indigo-600 hover:text-indigo-800 transition"
+                  >
+                    {children}
+                  </a>
+                ),
+                strong: ({ children }) => <strong className="font-semibold text-zinc-900">{children}</strong>,
+              }}
+            >
+              {event.description}
+            </ReactMarkdown>
           </div>
         </div>
 
