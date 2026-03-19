@@ -79,6 +79,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-2">
             <NavLink href="/events">Events</NavLink>
+            <NavLink href="/gallery">Gallery</NavLink>
 
             {/* Exams Dropdown */}
             <div className="relative">
@@ -141,6 +142,8 @@ const Navbar = () => {
 
             {/* Events Link - Mobile */}
             <MobileNavLink href="/events" onClick={closeAllMenus}>Events</MobileNavLink>
+
+            <MobileNavLink href="/gallery" onClick={closeAllMenus}>Gallery</MobileNavLink>
 
             {/* Exams Dropdown - Mobile */}
             <div className="space-y-1">
