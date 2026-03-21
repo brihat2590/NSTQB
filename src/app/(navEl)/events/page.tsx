@@ -17,7 +17,9 @@ type EventDataProps = {
   bannerImage?: string;
 };
 
+
 export default function EventPage() {
+  
   const [data, setData] = useState<EventDataProps[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -44,35 +46,51 @@ export default function EventPage() {
     getData();
   }, []);
 
+  const filteredEvents = data
+  .filter((event) => {
+    const eventDate = new Date(event.dateTime);
+    const now = new Date();
+    return eventDate > now || (now.getTime() - eventDate.getTime()) < (6 * 60 * 60 * 1000);
+  })
+  .sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
+
   return (
     <section className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-12 md:py-16">
       {/* ---------- HEADER ---------- */}
-      <header className="max-w-2xl mx-auto text-center mb-14">
-        <h1 className="text-3xl sm:text-5xl font-semibold  text-gray-900 py-2">
-          Upcoming Events
-        </h1>
-        <p className="mt-3 md:mt-5 text-gray-600 leading-relaxed">
-          Browse upcoming sessions, meetups, and workshops you can register for.
-        </p>
-      </header>
+      {/* ---------- HEADER ---------- */}
+<header className="max-w-2xl mx-auto px-6 py-16 text-center border-b border-black/5">
+  <h1 className="text-4xl sm:text-6xl font-semibold tracking-tighter text-black">
+    Upcoming Events
+  </h1>
+  <p className="mt-6 text-base text-black/60 leading-relaxed max-w-lg mx-auto uppercase tracking-widest text-[10px] sm:text-xs">
+    Sessions / Meetups / Workshops
+  </p>
+</header>
 
-      {/* ---------- LOADING ---------- */}
-      {loading && (
-        <div className="flex items-center justify-center min-h-[40vh]">
-          <p className="text-gray-500">Loading events…</p>
-        </div>
-      )}
+{/* ---------- LOADING ---------- */}
+{loading && (
+  <div className="flex flex-col items-center justify-center min-h-[40vh]">
+    <div className="w-6 h-6 border border-black border-t-transparent rounded-full animate-spin"></div>
+    <p className="mt-4 text-xs uppercase tracking-[0.2em] text-black/40">
+      Loading
+    </p>
+  </div>
+)}
 
-      {/* ---------- EMPTY ---------- */}
-      {!loading && data.length === 0 && (
-        <div className="min-h-[55vh] flex justify-center items-center ">
-          <p className="text-center text-gray-500">
-            No events available right now.
-          </p>
-        </div>
-
-      )}
-
+{/* ---------- EMPTY ---------- */}
+{!loading && filteredEvents.length === 0 && (
+  <div className="flex flex-col items-center justify-center py-24 px-4">
+    <div className="w-full max-w-xs border-t border-black mb-8"></div>
+    <h2 className="text-sm uppercase tracking-widest text-black font-medium">
+      No events scheduled
+    </h2>
+    <p className="mt-2 text-xs text-black/50 italic">
+      Please check back at a later date.
+    </p>
+  </div>
+)}
+      
+      
       {/* ---------- EVENTS GRID ---------- */}
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {data
