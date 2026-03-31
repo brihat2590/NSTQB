@@ -20,9 +20,9 @@ export async function PUT(req:Request,{params}:{params:Promise<{id:string}>}){
 
         const nextStatus = typeof status === "string" && status.trim()
             ? status.trim().toUpperCase()
-            : registration.status;
-        const allowedStatus = ["PENDING", "COMPLETED", "FAILED"];
-        if (!allowedStatus.includes(nextStatus)) {
+            : registration.status?.trim().toUpperCase() ?? "PENDING";
+        const allowedStatus = ["PENDING", "COMPLETED", "FAILED"] as const;
+        if (!(allowedStatus as readonly string[]).includes(nextStatus)) {
             return NextResponse.json({ message: "Invalid status value" }, { status: 400 });
         }
 
