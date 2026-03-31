@@ -113,7 +113,7 @@ export default function CertifiedTestersPage() {
         .header-title {
           font-family: ;
           font-size: 36px;
-          font-weight: 400;
+          font-weight: 500;
           
           color: var(--text-primary);
           line-height: 1.1;
@@ -408,7 +408,7 @@ export default function CertifiedTestersPage() {
         @media (max-width: 640px) {
           .page-wrapper { padding: 24px 16px; }
           .header { flex-direction: column; align-items: flex-start; gap: 16px; }
-          .header-title { font-size: 28px; }
+          .header-title { font-size: 40px; }
           .search-row { flex-direction: column; }
         }
       `}</style>
@@ -418,7 +418,7 @@ export default function CertifiedTestersPage() {
         <div className="header">
           <div className="header-left">
             <p className="header-eyebrow">ISTQB® Registry</p>
-            <h1 className="header-title font-semibold">Certified Testers</h1>
+            <h1 className="header-title font-bold ">Certified Testers</h1>
             <p className="header-subtitle">
               Verified professionals with internationally recognised software testing certifications
             </p>

@@ -147,7 +147,7 @@
 }
 
 *{
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-geist-sans), sans-serif;
 }
 .navbar {
   @apply bg-[oklch(0.145_0_0)] dark:bg-[oklch(0.12_0_0)];
