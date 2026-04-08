@@ -560,7 +560,7 @@ export default function RegistrationPage() {
                   ) : (
                     <div className="rounded-xl border border-[#EBEBEB] bg-white p-5 shadow-sm">
 
-                      <p className="text-sm text-[#5A5A5A]">Loading exam date...</p>
+                      <p className="text-sm text-[#5A5A5A]">No exams scheduled.</p>
 
 
                     </div>
