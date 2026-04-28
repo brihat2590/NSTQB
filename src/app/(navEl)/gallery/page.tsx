@@ -114,7 +114,7 @@ const Gallery = () => {
     <div className="hidden md:grid lg:hidden grid-cols-2 gap-4">
       {images.slice(startIndex, startIndex + 10).map((img, i) => (
         <div key={i} className="aspect-square relative">
-          <Image src={img.src} alt="" fill className="object-cover rounded-xl" />
+          <Image src={img.src} alt="" fill sizes="50vw" className="object-cover rounded-xl" />
         </div>
       ))}
     </div>
@@ -124,7 +124,7 @@ const Gallery = () => {
     <div className="grid md:hidden grid-cols-1 gap-4">
       {images.slice(startIndex, startIndex + 10).map((img, i) => (
         <div key={i} className="aspect-square relative">
-          <Image src={img.src} alt="" fill className="object-cover rounded-xl" />
+          <Image src={img.src} alt="" fill sizes="100vw" className="object-cover rounded-xl" />
         </div>
       ))}
     </div>

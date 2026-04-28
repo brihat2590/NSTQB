@@ -45,6 +45,7 @@ export default function MemberBoards() {
                     src={member.imageUrl || '/placeholder.svg'}
                     alt={member.name}
                     fill
+                    sizes="(max-width: 1023px) 260px, 25vw"
                     className="object-cover"
                   />
 
@@ -96,6 +97,7 @@ export default function MemberBoards() {
                   src={member.imageUrl || '/placeholder.svg'}
                   alt={member.name}
                   fill
+                  sizes="(max-width: 1023px) 260px, 25vw"
                   className="object-cover transition-transform duration-200 group-hover:scale-105"
                 />
 
