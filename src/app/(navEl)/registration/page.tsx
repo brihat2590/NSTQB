@@ -119,6 +119,7 @@ export default function RegistrationPage() {
       setLoading(true);
 
       try {
+        
         // Prepare FormData to send text fields + file
         const payload = new FormData();
         payload.append('firstName', formData.firstName);
@@ -137,15 +138,19 @@ export default function RegistrationPage() {
           method: 'POST',
           body: payload,
         });
-
+       
+         let errorMessage = 'Failed to register';
         if (!response.ok) {
           const errorData = await response.json();
+          errorMessage=errorData.message;
           throw new Error(errorData.message || 'Failed to register');
         }
 
         setLoading(false);
         showToast('Registration successful! Your payment is under review.', 'success');
-        router.push('/CTFL/thanks')
+        setTimeout(()=>{
+          router.push("/CTFL/thanks")
+        })
 
 
         // Reset form
@@ -161,9 +166,11 @@ export default function RegistrationPage() {
         });
         setUploadedFile(null);
         if (fileInputRef.current) fileInputRef.current.value = '';
-      } catch (error: any) {
+      } catch (error: unknown) {
+        
         setLoading(false);
-        showToast(error.message || 'Something went wrong', 'error');
+
+        showToast((error as Error).message || 'Something went wrong', 'error');
       }
     }
   };
@@ -214,6 +221,10 @@ export default function RegistrationPage() {
 
   const inputClasses = "w-full rounded-lg border border-[#EBEBEB] bg-white px-4 py-3 text-[#141414] shadow-sm transition-colors placeholder:text-[#9A9A9A] focus:border-[#8B1A1A] focus:outline-none focus:ring-2 focus:ring-[#8B1A1A]/10";
   const errorClasses = "mt-1 text-sm text-[#8B1A1A]";
+
+  if(loading){
+    return;
+  }
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] px-5 py-10 text-[#141414] transition-all duration-300 sm:px-8 lg:px-8 animate-fade-in-up animate-delay-200">
