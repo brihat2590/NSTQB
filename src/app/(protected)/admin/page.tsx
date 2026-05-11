@@ -6,8 +6,9 @@ import {
   FileText, 
   PenTool, 
   ShieldCheck, 
-  HelpCircle, 
-  CalendarDays 
+  HelpCircle,
+  CalendarDays,
+  Megaphone
 } from 'lucide-react'; // npm install lucide-react
 
 const AdminDashboard = () => {
@@ -88,8 +89,17 @@ const AdminDashboard = () => {
             accentColor="text-emerald-600 bg-emerald-50"
           />
 
+          {/* Notice Admin */}
+          <DashboardCard
+            title="Notices"
+            description="Publish notices with attachments and set when they expire from the site."
+            icon={<Megaphone className="h-7 w-7" />}
+            onClick={() => router.push('/notice-admin')}
+            accentColor="text-orange-600 bg-orange-50"
+          />
+
           {/* Exam Question Admin */}
-          <DashboardCard 
+          <DashboardCard
             title="Question Bank"
             description="Update exam questions, categories, and answer choices."
             icon={<HelpCircle className="h-7 w-7" />}

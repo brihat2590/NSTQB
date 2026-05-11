@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 
 import { Toaster } from "sonner";
+import NoticePopup from "@/components/NoticePopup";
 
 
 
@@ -71,6 +72,7 @@ export default function RootLayout({
         
         
         {children}
+        <NoticePopup />
         <Toaster position="bottom-right" />
         
         
