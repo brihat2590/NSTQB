@@ -22,22 +22,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
 
   try {
-    const event = await prisma.events.findUnique({
+    const blog = await prisma.blog.findUnique({
       where: { slug },
       select: {
         title: true,
-        description: true,
-        bannerImage: true,
-        slug: true,
-        dateTime: true,
+        summary: true,
+        content: true,
+        imageUrl: true,
+        createdAt: true,
         updatedAt: true,
+        slug: true,
       },
     });
 
-    if (!event) {
+    if (!blog) {
       return {
-        title: "Event Not Found | NSTQB",
-        description: "The requested NSTQB event could not be found.",
+        title: "Blog Not Found | NSTQB",
+        description: "The requested NSTQB blog article could not be found.",
         robots: {
           index: false,
           follow: false,
@@ -45,12 +46,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       };
     }
 
-    const description = truncateText(event.description.replace(/\s+/g, " ").trim(), 160);
-    const imageUrl = normalizeImageUrl(event.bannerImage);
-    const canonicalUrl = `/events/${event.slug}`;
+    const description = truncateText(
+      blog.summary?.trim() || blog.content.replace(/\s+/g, " ").trim(),
+      160,
+    );
+
+    const imageUrl = normalizeImageUrl(blog.imageUrl);
+    const canonicalUrl = `/blogs/${blog.slug}`;
 
     return {
-      title: event.title,
+      title: blog.title,
       description,
       alternates: {
         canonical: canonicalUrl,
@@ -60,37 +65,37 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         follow: true,
       },
       openGraph: {
-        title: event.title,
+        title: blog.title,
         description,
         url: canonicalUrl,
         type: "article",
         siteName: "NSTQB",
-        publishedTime: event.dateTime.toISOString(),
-        modifiedTime: event.updatedAt.toISOString(),
+        publishedTime: blog.createdAt.toISOString(),
+        modifiedTime: blog.updatedAt.toISOString(),
         images: [
           {
             url: imageUrl,
             width: 1200,
             height: 630,
-            alt: event.title,
+            alt: blog.title,
           },
         ],
       },
       twitter: {
         card: "summary_large_image",
-        title: event.title,
+        title: blog.title,
         description,
         images: [imageUrl],
       },
     };
   } catch {
     return {
-      title: "NSTQB Events",
-      description: "Explore upcoming software testing events, workshops, and meetups from NSTQB.",
+      title: "NSTQB Blog",
+      description: "Read the latest software testing updates and insights from NSTQB.",
     };
   }
 }
 
-export default function EventLayout({ children }: Props) {
-  return <>{children}</>;
+export default function BlogSlugLayout({ children }: Props) {
+  return children;
 }

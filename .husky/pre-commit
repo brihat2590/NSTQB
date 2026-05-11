@@ -1,0 +1,4 @@
+echo "Running build check.."
+npm run build
+
+echo "Build passed . Proceeding with commit"

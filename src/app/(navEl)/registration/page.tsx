@@ -119,6 +119,7 @@ export default function RegistrationPage() {
       setLoading(true);
 
       try {
+        
         // Prepare FormData to send text fields + file
         const payload = new FormData();
         payload.append('firstName', formData.firstName);
@@ -137,15 +138,19 @@ export default function RegistrationPage() {
           method: 'POST',
           body: payload,
         });
-
+       
+         let errorMessage = 'Failed to register';
         if (!response.ok) {
           const errorData = await response.json();
+          errorMessage=errorData.message;
           throw new Error(errorData.message || 'Failed to register');
         }
 
         setLoading(false);
         showToast('Registration successful! Your payment is under review.', 'success');
-        router.push('/CTFL/thanks')
+        setTimeout(()=>{
+          router.push("/CTFL/thanks")
+        })
 
 
         // Reset form
@@ -161,9 +166,11 @@ export default function RegistrationPage() {
         });
         setUploadedFile(null);
         if (fileInputRef.current) fileInputRef.current.value = '';
-      } catch (error: any) {
+      } catch (error: unknown) {
+        
         setLoading(false);
-        showToast(error.message || 'Something went wrong', 'error');
+
+        showToast((error as Error).message || 'Something went wrong', 'error');
       }
     }
   };
@@ -212,11 +219,15 @@ export default function RegistrationPage() {
       }));
     };
 
-  const inputClasses = "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent";
-  const errorClasses = "text-red-500 text-sm mt-1";
+  const inputClasses = "w-full rounded-lg border border-[#EBEBEB] bg-white px-4 py-3 text-[#141414] shadow-sm transition-colors placeholder:text-[#9A9A9A] focus:border-[#8B1A1A] focus:outline-none focus:ring-2 focus:ring-[#8B1A1A]/10";
+  const errorClasses = "mt-1 text-sm text-[#8B1A1A]";
+
+  if(loading){
+    return;
+  }
 
   return (
-    <div className="min-h-screen bg-white p-6 transistion-all duration-300 animate-fade-in-up animate-delay-200 ">
+    <div className="min-h-screen bg-[#FAFAFA] px-5 py-10 text-[#141414] transition-all duration-300 sm:px-8 lg:px-8 animate-fade-in-up animate-delay-200">
       {toasts.map(toast => (
         <Toast
           key={toast.id}
@@ -281,20 +292,26 @@ export default function RegistrationPage() {
         }
       `}</style>
 
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-5xl mt-5 font-semibold text-gray-900 mb-2">CTFL 4.0 Exam Registration</h1>
-          <p className=" bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent text-lg">Nepal Software Testing Qualification Body (NSTQB)</p>
-        </div>
+      <div className="mx-auto max-w-6xl">
+        <section className="mb-10 text-center sm:mb-12 lg:mb-14">
+          <h1 className="mx-auto mb-4 max-w-4xl text-5xl font-medium leading-none tracking-tight sm:text-6xl lg:text-7xl">
+            CTFL <em className="font-medium italic text-[#8B1A1A]">4.0 Exam Registration</em>
+          </h1>
+          <p className="mx-auto max-w-2xl text-base leading-7 text-[#5A5A5A] sm:text-lg">
+            Nepal Software Testing Qualification Body (NSTQB)
+          </p>
+        </section>
 
 
 
-        <div className="rounded-lg ">
-          <div className="p-6 ">
-            <h2 className="text-3xl font-semibold text-gray-900 mb-4">How to register?</h2>
-            <div className="space-y-2 text-sm text-gray-700">
+        <div className="overflow-hidden rounded-2xl border border-[#EBEBEB] bg-white shadow-sm">
+          <div className="h-1 bg-[#8B1A1A]" />
+          <div className="p-7 sm:p-8">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#8B1A1A]">Registration</p>
+            <h2 className="mb-5 text-3xl font-normal tracking-tight text-[#141414] sm:text-[2rem]">How to register?</h2>
+            <div className="space-y-3 text-[15px] leading-7 text-[#5A5A5A]">
               <div className="flex items-start gap-2">
-                <span className="text-red-600 font-semibold ">→</span>
+                <span className="font-semibold text-[#8B1A1A]">→</span>
                 <span>Provide your Full name, Email address, Contact number, Citizenship number, Company name and Your Designation.</span>
               </div>
               {/* <div className="flex items-start gap-2">
@@ -302,29 +319,32 @@ export default function RegistrationPage() {
                 <span>Scan the QR code and send the total amount displayed on "Your Order" tab.</span>
               </div> */}
               {/* <div className="flex items-start gap-2">
-                <span className="text-red-600 font-semibold">→</span>
+                <span className="font-semibold text-[#8B1A1A]">→</span>
                 <span>Take a screenshot of the payment & upload it in the file upload field below.</span>
               </div> */}
               {/* <div className="flex items-start gap-2">
-                <span className="text-red-600 font-semibold">→</span>
+                <span className="font-semibold text-[#8B1A1A]">→</span>
                 <span>We will verify your payment within a few hours and after that you will receive the confirmation email.</span>
               </div> */}
               <div className="flex items-start gap-2">
-                <span className="text-red-600 font-semibold">→</span>
-                <span>In case of any confusions & queries feel free to reach out at: <span className="text-blue-600">info@nstqb.org</span></span>
+                <span className="font-semibold text-[#8B1A1A]">→</span>
+                <span>In case of any confusions & queries feel free to reach out at: <span className="text-[#8B1A1A]">info@nstqb.org</span></span>
               </div>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <form onSubmit={handleSubmit} className="border-t border-[#EBEBEB] p-7 sm:p-8">
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start">
               {/* Left Column - Payment Details */}
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-6">Candidate Details</h3>
+              <div className="space-y-6">
+                <div>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#8B1A1A]">Candidate Details</p>
+                  <h3 className="text-2xl font-normal tracking-tight text-[#141414]">Personal information</h3>
+                </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="mb-1 block text-sm font-medium text-[#141414]">
                       First Name *
                     </label>
                     <input
@@ -336,7 +356,7 @@ export default function RegistrationPage() {
                     {errors.firstName && <p className={errorClasses}>{errors.firstName}</p>}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="mb-1 block text-sm font-medium text-[#141414]">
                       Last Name *
                     </label>
                     <input
@@ -350,7 +370,7 @@ export default function RegistrationPage() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="mb-1 block text-sm font-medium text-[#141414]">
                     Email Address *
                   </label>
                   <input
@@ -364,7 +384,7 @@ export default function RegistrationPage() {
 
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="mb-1 block text-sm font-medium text-[#141414]">
                       Phone *
                     </label>
                     <input
@@ -376,7 +396,7 @@ export default function RegistrationPage() {
                     {errors.phone && <p className={errorClasses}>{errors.phone}</p>}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="mb-1 block text-sm font-medium text-[#141414]">
                       Citizenship Number *
                     </label>
                     <input
@@ -389,7 +409,7 @@ export default function RegistrationPage() {
                   </div>
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="mb-1 block text-sm font-medium text-[#141414]">
                     Company Name *
                   </label>
                   <input
@@ -402,7 +422,7 @@ export default function RegistrationPage() {
                 </div>
 
                 <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="mb-1 block text-sm font-medium text-[#141414]">
                     Designation *
                   </label>
                   <select
@@ -428,9 +448,9 @@ export default function RegistrationPage() {
                       type="checkbox"
                       checked={formData.languageConfirmed}
                       onChange={handleInputChange('languageConfirmed')}
-                      className="mt-1 h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                      className="mt-1 h-4 w-4 rounded border-[#D8D8D8] text-[#8B1A1A] focus:ring-[#8B1A1A]"
                     />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm leading-6 text-[#5A5A5A]">
                       This exam will be conducted in <strong>English only</strong>. I confirm I am comfortable with this.
                     </span>
                   </label>
@@ -510,24 +530,27 @@ export default function RegistrationPage() {
               </div>
 
               {/* Right Column - Your Order */}
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-6">Examination Fee</h3>
+              <div className="space-y-6">
+                <div>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#8B1A1A]">Payment</p>
+                  <h3 className="text-2xl font-normal tracking-tight text-[#141414]">Examination fee</h3>
+                </div>
 
-                <div className="bg-gray-50 rounded-lg p-6 mb-6">
-                  <div className="flex justify-between items-center mb-4 pb-4 border-b border-gray-200">
-                    <span className="font-medium text-gray-900">Course</span>
-                    <span className="font-medium text-gray-900">Amount</span>
+                <div className="rounded-xl border border-[#EBEBEB] bg-white p-6 shadow-sm">
+                  <div className="mb-4 flex justify-between items-center pb-4 border-b border-[#EBEBEB]">
+                    <span className="font-medium text-[#141414]">Course</span>
+                    <span className="font-medium text-[#141414]">Amount</span>
                   </div>
 
-                  <div className="flex justify-between items-center mb-6">
+                  <div className="mb-6 flex justify-between items-center">
                     <div>
-                      <span className="text-gray-700 block">Certified Tester Foundation Level (CTFL 4.0)</span>
-                      <span className="text-xs text-gray-500">ISTQB Certification</span>
+                      <span className="block text-[#141414]">Certified Tester Foundation Level (CTFL 4.0)</span>
+                      <span className="text-xs font-medium text-[#9A9A9A]">ISTQB Certification</span>
                     </div>
-                    <span className="text-gray-900 font-medium">Rs.21,000</span>
+                    <span className="font-medium text-[#141414]">Rs.21,000</span>
                   </div>
 
-                  <div className="border-t border-gray-200 pt-4">
+                  <div className="border-t border-[#EBEBEB] pt-4">
                     <div className="flex justify-between items-center text-lg font-semibold">
                       <span>Total Amount</span>
                       <span className="">Rs.21,000</span>
@@ -539,16 +562,16 @@ export default function RegistrationPage() {
                 <div>
 
                   {examInfo ? (
-                    <div className='p-3'>
-                      <p className="text-sm font-semibold text-red-700 uppercase tracking-wide">Exam Date & Time</p>
-                      <p className="text-gray-900 text-md font-medium py-2">{formatExamDate(examInfo.examDate)}</p>
+                    <div className="rounded-xl border border-[#EBEBEB] bg-white p-5 shadow-sm">
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#8B1A1A]">Exam Date & Time</p>
+                      <p className="py-2 text-base font-medium text-[#141414]">{formatExamDate(examInfo.examDate)}</p>
 
 
                     </div>
                   ) : (
-                    <div>
+                    <div className="rounded-xl border border-[#EBEBEB] bg-white p-5 shadow-sm">
 
-                      <p>loading exam date...</p>
+                      <p className="text-sm text-[#5A5A5A]">No exams scheduled.</p>
 
 
                     </div>
@@ -573,9 +596,9 @@ export default function RegistrationPage() {
 
 
                 {/* Support Information */}
-                <div className=" border   p-6 mb-6">
-                  <h4 className="font-semibold mb-2">Need Help?</h4>
-                  <div className="text-sm space-y-1">
+                <div className="rounded-xl border border-[#EBEBEB] bg-white p-6 shadow-sm">
+                  <h4 className="mb-2 font-semibold text-[#141414]">Need Help?</h4>
+                  <div className="space-y-1 text-sm text-[#5A5A5A]">
                     <p><strong>Email:</strong> info@nstqb.org</p>
                     <p><strong>Phone:</strong> +977-9851055879</p>
                     <p><strong>Office Hours:</strong> Sun-Fri, 10:00 AM - 5:00 PM</p>
@@ -585,7 +608,7 @@ export default function RegistrationPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-red-800 hover:bg-red-900 disabled:bg-red-400 text-white font-medium py-3 px-6 rounded-md transition duration-200 flex items-center justify-center gap-2"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#8B1A1A] bg-[#8B1A1A] px-6 py-3 font-semibold text-white transition-colors duration-150 hover:bg-[#6B1414] disabled:cursor-not-allowed disabled:bg-[#C8A3A3]"
                 >
                   {loading ? (
                     <>

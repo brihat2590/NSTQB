@@ -1,323 +1,196 @@
-"use client"
 import React from 'react';
-import { Download, FileText, BookOpen, Clock, Users, Award, ChevronRight, Target, Zap, Shield, Sparkles, Infinity, MoveLeft } from 'lucide-react';
+import { Download, FileText, Clock, Users, Shield, Target, Zap, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
-
-export default function page(){
+export default function CTFlPage() {
   const downloadItems = [
     {
       title: 'CTFL Syllabus',
       description: 'Complete foundation level testing syllabus',
       icon: Target,
       fileType: 'PDF',
-      color: 'text-blue-500',
-      bgColor: 'bg-blue-50',
-      hoverColor: 'hover:bg-blue-100'
+      href: '/istqbSyllabus.pdf',
     },
     {
       title: 'Glossary of Terms',
       description: 'Standard testing terminology and definitions',
       icon: Sparkles,
       fileType: 'PDF',
-      color: 'text-red-500',
-      bgColor: 'bg-red-50',
-      hoverColor: 'hover:bg-red-100'
+      href: '/istqbGlossary.pdf',
     },
     {
       title: 'Past Papers',
       description: 'Previous examination papers with solutions',
       icon: Zap,
       fileType: 'PDF',
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50',
-      hoverColor: 'hover:bg-blue-100'
-    }
+      href: '/istqbSampleQ.pdf',
+    },
   ];
 
   const examDetails = [
-    {
-      label: 'Duration',
-      value: '60 minutes',
-      icon: Clock,
-      color: 'text-red-500',
-      delay: '0s'
-    },
-    {
-      label: 'Questions',
-      value: '40 multiple choice',
-      icon: FileText,
-      color: 'text-blue-500',
-      delay: '0.2s'
-    },
-    {
-      label: 'Pass Score',
-      value: '65% (26/40)',
-      icon: Shield,
-      color: 'text-red-500',
-      delay: '0.4s'
-    },
-    {
-      label: 'Prerequisites',
-      value: 'None required',
-      icon: Users,
-      color: 'text-blue-500',
-      delay: '0.6s'
-    },
-    {
-      label: 'Validity',
-      value: 'Lifetime',
-      icon: '∞',
-      color: 'text-purple-600',
-      delay: '0.8s'
-    }
+    { label: 'Duration', value: '60 minutes', icon: Clock },
+    { label: 'Questions', value: '40 MCQ', icon: FileText },
+    { label: 'Pass Score', value: '65% (26/40)', icon: Shield },
+    { label: 'Prerequisites', value: 'None', icon: Users },
+    { label: 'Validity', value: 'Lifetime', icon: null },
+  ];
+
+  const topics = [
+    'Fundamentals of Testing',
+    'Testing Throughout the SDLC',
+    'Static Testing',
+    'Test Techniques',
+    'Test Management',
+    'Tool Support for Testing',
   ];
 
   return (
-    <div className="min-h-screen bg-white transition-all duration-300">
-      <style jsx>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-        
-        @keyframes pulse-glow {
-          0%, 100% {
-            box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
-          }
-          50% {
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
-          }
-        }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-        }
-        
-        .animation-delay-200 {
-          animation-delay: 0.2s;
-          opacity: 0;
-        }
-        
-        .animation-delay-400 {
-          animation-delay: 0.4s;
-          opacity: 0;
-        }
-        
-        .animation-delay-200 {
-          animation-delay: 0.2s;
-        }
-        
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-        
-        .animate-pulse-glow {
-          animation: pulse-glow 2s ease-in-out infinite;
-        }
-      `}</style>
-      {/* Header */}
-      {/* Removed header section */}
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-12 transition-all duration-300">
-        {/* Hero Section */}
-        <div className="text-center mb-16 transition-all duration-300">
-          <h1 className="text-6xl font-semibold text-gray-900 mb-4 animate-fade-in-up transition-all duration-300">
-            CTFL Certification
+    <div className="min-h-screen bg-[#FAFAFA] text-[#141414]">
+      <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8 lg:px-8 lg:py-16">
+        <section className="mb-20 text-center">
+          <h1 className="mx-auto mb-5 max-w-4xl text-5xl font-medium leading-none tracking-tight sm:text-6xl lg:text-7xl">
+            CTFL <em className="font-medium italic text-[#8B1A1A]">Certification</em>
           </h1>
-          <p className="text-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-red-500 mb-2 animate-fade-in-up animation-delay-200 transition-all duration-300">
-            Certified Tester Foundation Level
+          <p className="mx-auto max-w-2xl text-base leading-7 text-[#5A5A5A] sm:text-lg">
+            The internationally recognised entry-level qualification in software testing -
+            building the fundamental skills for effective QA practice.
           </p>
-          <p className="text-gray-500 max-w-2xl mx-auto animate-fade-in-up animation-delay-400 transition-all duration-300">
-            The CTFL certification is the entry-level qualification in software testing, providing 
-            fundamental knowledge and skills required for effective software testing practices.
-          </p>
-        </div>
+        </section>
 
-        {/* About CTFL */}
-        <section className="mb-16 animate-fade-in-up transition-all duration-300">
-          <div className=''>
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 transition-colors duration-300 ">{"->"}About CTFL Exam</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-300">
-            <div className="space-y-6 transition-all duration-300">
-              <p className="text-gray-700 leading-relaxed transition-colors duration-300 mt-3">
-                The Certified Tester Foundation Level (CTFL) is an internationally recognized 
-                certification that validates your understanding of software testing fundamentals. 
-                This certification covers essential testing concepts, techniques, and practices 
-                used in the software development lifecycle.
+        <section className="mb-20 grid gap-10 lg:grid-cols-2 lg:items-start">
+          <div>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#8B1A1A]">
+              About the Exam
+            </p>
+            <h2 className="mb-7 text-3xl font-normal tracking-tight text-[#141414] sm:text-[2rem]">
+              What is CTFL?
+            </h2>
+            <div className="space-y-4 text-[15px] leading-8 text-[#5A5A5A]">
+              <p>
+                The Certified Tester Foundation Level (CTFL) validates your understanding of
+                software testing fundamentals. It covers essential concepts, techniques, and
+                practices used throughout the software development lifecycle.
               </p>
-              <p className="text-gray-700 leading-relaxed transition-colors duration-300">
-                Whether you're starting your career in testing or looking to formalize your 
-                existing knowledge, CTFL provides the solid foundation needed to excel in 
-                software quality assurance.
+              <p>
+                Whether starting your career in testing or formalising existing knowledge, CTFL
+                gives you the solid foundation needed to excel in software quality assurance.
               </p>
-            </div>
-            <div className="bg-gray-50 p-6 transition-all duration-300 grid items-center justify-center ">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 transition-colors duration-300 ">Key Topics Covered</h3>
-              <ul className="space-y-2 text-gray-700 transition-colors duration-300">
-                <li className="flex items-start group transition-transform duration-300">
-                  <ChevronRight className="w-4 h-4 text-blue-500 mt-1 mr-2 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
-                  Fundamentals of Testing
-                </li>
-                <li className="flex items-start group transition-transform duration-300">
-                  <ChevronRight className="w-4 h-4 text-red-500 mt-1 mr-2 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
-                  Testing Throughout the SDLC
-                </li>
-                <li className="flex items-start group transition-transform duration-300">
-                  <ChevronRight className="w-4 h-4 text-blue-500 mt-1 mr-2 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
-                  Static Testing
-                </li>
-                <li className="flex items-start group transition-transform duration-300">
-                  <ChevronRight className="w-4 h-4 text-red-500 mt-1 mr-2 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
-                  Test Techniques
-                </li>
-                <li className="flex items-start group transition-transform duration-300">
-                  <ChevronRight className="w-4 h-4 text-blue-500 mt-1 mr-2 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
-                  Test Management
-                </li>
-                <li className="flex items-start group transition-transform duration-300">
-                  <ChevronRight className="w-4 h-4 text-red-500 mt-1 mr-2 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
-                  Tool Support for Testing
-                </li>
-              </ul>
             </div>
           </div>
+
+          <div className="rounded-xl border border-[#EBEBEB] bg-white p-7 shadow-sm">
+            <h3 className="mb-5 text-xs font-semibold uppercase tracking-[0.12em] text-[#9A9A9A]">
+              Key Topics Covered
+            </h3>
+            <div className="divide-y divide-[#EBEBEB]">
+              {topics.map((topic) => (
+                <div key={topic} className="flex items-center gap-3 py-3 text-sm font-medium text-[#141414]">
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#8B1A1A]" />
+                  {topic}
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* Exam Details */}
-        <section className="mb-16 transition-all duration-300">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 transition-colors duration-300">Exam Details</h2>
-          <div className="flex flex-wrap justify-center gap-8 bg-gradient-to-r from-blue-50 via-white to-red-50 p-8 border border-gray-100 transition-all duration-300">
-            {examDetails.map((detail, index) => {
-              const IconComponent = detail.icon;
-              const isInfinity = detail.icon === '∞';
-              return (
-                <div 
-                  key={index} 
-                  className="flex items-center space-x-3 group animate-float transition-all duration-500"
-                  style={{ animationDelay: detail.delay }}
-                >
-                  {isInfinity ? (
-                    <div className="relative w-8 h-8 flex items-center justify-center transition-all duration-300">
-                      <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-red-500 animate-pulse-glow transition-all duration-300">
-                        ∞
-                      </span>
+        <div className="mb-16 h-px bg-[#EBEBEB]" />
+
+        <section className="mb-20">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#8B1A1A]">
+            Exam Details
+          </p>
+          <h2 className="mb-7 text-3xl font-normal tracking-tight text-[#141414] sm:text-[2rem]">
+            What to expect
+          </h2>
+          <div className="overflow-hidden rounded-xl border border-[#EBEBEB] bg-white shadow-sm">
+            <div className="flex flex-wrap">
+              {examDetails.map((detail, index) => {
+                const Icon = detail.icon;
+
+                return (
+                  <div
+                    key={detail.label}
+                    className={`min-w-[160px] flex-1 p-7 ${index === examDetails.length - 1 ? '' : 'border-b border-[#EBEBEB] lg:border-b-0 lg:border-r'}`}
+                  >
+                    <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-[#F5EDED] text-[#8B1A1A]">
+                      {Icon ? <Icon size={18} /> : <span className="text-lg font-bold leading-none">∞</span>}
                     </div>
-                  ) : (
-                    <div className="relative transition-all duration-300">
-                      <IconComponent className={`w-7 h-7 ${detail.color} group-hover:scale-125 transition-transform duration-500 drop-shadow-sm`} />
-                      <div className={`absolute inset-0 ${detail.color} opacity-20 blur-sm group-hover:opacity-40 transition-opacity duration-500`}></div>
-                    </div>
-                  )}
-                  <div className="text-center transition-all duration-300">
-                    <h3 className="font-semibold text-gray-900 text-sm group-hover:text-gray-700 transition-colors duration-300">{detail.label}</h3>
-                    <p className={`text-gray-600 text-sm transition-all duration-300 ${isInfinity ? 'font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-red-500' : 'group-hover:font-medium'}`}>
-                      {detail.value}
-                    </p>
+                    <div className="mb-1 text-lg font-semibold text-[#141414]">{detail.value}</div>
+                    <div className="text-xs font-medium text-[#9A9A9A]">{detail.label}</div>
                   </div>
-                </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <div className="mb-16 h-px bg-[#EBEBEB]" />
+
+        <section className="mb-20">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#8B1A1A]">
+            Resources
+          </p>
+          <h2 className="mb-7 text-3xl font-normal tracking-tight text-[#141414] sm:text-[2rem]">
+            Download Study Materials
+          </h2>
+          <div className="grid gap-5 md:grid-cols-3">
+            {downloadItems.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <article
+                  key={item.title}
+                  className="group rounded-xl border border-[#EBEBEB] bg-white p-7 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-[#d9b8b8] hover:shadow-[0_8px_32px_rgba(139,26,26,0.07)]"
+                >
+                  <div className="mb-5 flex items-start justify-between gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#F5EDED] text-[#8B1A1A]">
+                      <Icon size={22} />
+                    </div>
+                    <span className="rounded border border-[#EBEBEB] bg-[#FAFAFA] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#9A9A9A]">
+                      {item.fileType}
+                    </span>
+                  </div>
+                  <h3 className="mb-2 text-base font-semibold text-[#141414]">{item.title}</h3>
+                  <p className="mb-6 text-sm leading-6 text-[#5A5A5A]">{item.description}</p>
+                  <a
+                    href={item.href}
+                    download
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#d9b8b8] bg-[#F5EDED] px-4 py-2.5 text-sm font-semibold text-[#8B1A1A] transition-colors duration-150 hover:bg-[#8B1A1A] hover:text-white"
+                  >
+                    <Download size={14} />
+                    Download Free
+                  </a>
+                </article>
               );
             })}
           </div>
         </section>
 
-        {/* Download Section */}
-        <section className="mb-16 transition-all duration-300">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center transition-colors duration-300">Download Resources</h2>
-          <div className="flex flex-wrap justify-center gap-8 max-w-5xl mx-auto transition-all duration-300">
-            {downloadItems.map((item, index) => {
-              const IconComponent = item.icon;
-              let href = '';
-  if (item.title === 'CTFL Syllabus') href = '/istqbSyllabus.pdf';
-  else if (item.title === 'Glossary of Terms') href = '/istqbGlossary.pdf';
-  else if (item.title === 'Past Papers') href = '/istqbSampleQ.pdf';
-              return (
-                <div 
-                  key={index} 
-                  className={`relative bg-white border-2 border-gray-200 p-8 ${item.hoverColor} hover:border-gradient-to-r hover:from-blue-300 hover:to-red-300 hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 cursor-pointer group flex-shrink-0 w-80 overflow-hidden`}
-                >
-                  {/* Animated background gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-red-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
-                  {/* Floating particles effect */}
-                  <div className="absolute top-2 right-2 w-2 h-2 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-300"></div>
-                  <div className="absolute bottom-4 left-4 w-1 h-1 bg-red-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping animation-delay-200 transition-opacity duration-300"></div>
-                  
-                  <div className="relative z-10 transition-all duration-300">
-                    <div className="flex items-center justify-between mb-6 transition-all duration-300">
-                      <div className={`w-16 h-16 ${item.bgColor} flex items-center justify-center relative group-hover:scale-125 transition-transform duration-500`}>
-                        <IconComponent className={`w-8 h-8 ${item.color} group-hover:rotate-12 transition-transform duration-500`} />
-                        <div className={`absolute inset-0 bg-gradient-to-br ${item.color === 'text-blue-500' ? 'from-blue-500' : item.color === 'text-red-500' ? 'from-red-500' : 'from-blue-500'} to-transparent opacity-0 group-hover:opacity-20 blur transition-opacity duration-500`}></div>
-                      </div>
-                      <div className="flex flex-col items-end transition-all duration-300">
-                        <span className="bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 text-xs px-3 py-1 font-bold tracking-wider group-hover:from-blue-100 group-hover:to-red-100 transition-all duration-300">
-                          {item.fileType}
-                        </span>
-                        <div className="text-xs text-gray-400 mt-1 group-hover:text-gray-600 transition-colors duration-300">
-                          Free Download
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-red-600 transition-all duration-300">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-6 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
-                      {item.description}
-                    </p>
-                    
-                    <button className="flex items-center justify-center w-full py-3 px-6 bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 hover:text-gray-800 transition-all duration-300 border border-gray-200 hover:border-gray-300">
-                    <a
-        href={href}
-        download
-        className="flex items-center justify-center w-full py-3 px-6 bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 hover:text-gray-800 transition-all duration-300 border border-gray-200 hover:border-gray-300"
-      >
-        <Download className="w-4 h-4 mr-2 group-hover:animate-bounce transition-transform duration-300" />
-        <span className="text-sm transition-all duration-300">Download</span>
-      </a>
-                      
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* Registration CTA */}
-        <section className="text-center bg-gradient-to-br from-blue-50 to-red-50 p-12 animate-fade-in-up transition-all duration-300">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 transition-colors duration-300">Ready to Get Certified?</h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto transition-colors duration-300">
-            Join thousands of professionals who have advanced their careers with CTFL certification. 
+        <section className="relative overflow-hidden rounded-2xl border border-[#EBEBEB] bg-white px-6 py-12 text-center shadow-sm sm:px-10 lg:px-12">
+          <div className="absolute inset-x-0 top-0 h-1 bg-[#8B1A1A]" />
+          <h2 className="mb-3 text-3xl font-normal tracking-tight text-[#141414] sm:text-[2rem]">
+            Ready to Get Certified?
+          </h2>
+          <p className="mx-auto mb-8 max-w-2xl text-[15px] leading-7 text-[#5A5A5A]">
+            Join thousands of professionals who have advanced their careers with CTFL certification.
             Register for the next available exam session.
           </p>
-          <div className="space-x-4 transition-all duration-300 flex items-center justify-center">
-            <Link href={'/registration'} className="bg-gradient-to-r from-red-700 to-blue-700 text-transparent bg-clip-text transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl border md:px-8 md:py-3 border-blue-400 hover:border-blue-500 hover:bg-white hover:text-blue-700 font-semibold px-5 py-1">
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href="/registration"
+              className="inline-flex items-center justify-center rounded-lg border border-[#8B1A1A] bg-[#8B1A1A] px-7 py-3 text-sm font-semibold text-white transition-colors duration-150 hover:bg-[#6B1414]"
+            >
               Register for Exam
             </Link>
-            <Link href={'/mock-test'} className="border border-red-300 text-gray-700 md:px-8 md:py-3 font-semibold hover:shadow-2xl  hover:border-red-400 transition-all duration-300 ease-in-out px-5 py-1 hover:scale-105 ">
+            <Link
+              href="/mock-test"
+              className="inline-flex items-center justify-center rounded-lg border border-[#EBEBEB] bg-white px-7 py-3 text-sm font-semibold text-[#141414] transition-colors duration-150 hover:border-[#8B1A1A] hover:text-[#8B1A1A]"
+            >
               Give Mock Exam
             </Link>
           </div>
         </section>
-      </main>
+      </div>
     </div>
   );
-};
+}

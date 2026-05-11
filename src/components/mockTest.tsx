@@ -213,7 +213,7 @@ const [showModal, setShowModal] = useState(false);
       className="text-center mb-12"
     >
       <h1 className="text-5xl font-semibold text-gray-800 mb-3">ISTQB CTFL Mock Exam</h1>
-      <p className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent max-w-2xl mx-auto mt-5 mb-2" >
+      <p className=" max-w-2xl mx-auto mt-5 mb-2" >
         Test your knowledge with our comprehensive Foundation Level practice exam
       </p>
     </motion.div>
@@ -226,30 +226,30 @@ const [showModal, setShowModal] = useState(false);
       className="border-b pb-6 mb-8"
     >
       <div className="flex items-center gap-3 mb-4 md:mb-6 mt-2">
-        <BookOpen className="h-5 w-5 text-blue-600" />
+        <BookOpen className="h-5 w-5 text-red-800" />
         <h2 className="text-xl  font-semibold text-gray-800">Exam Instructions</h2>
       </div>
       
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-4">
           <div className="flex items-start gap-3">
-            <Clock className="h-5 w-5 text-cyan-800 mt-0.5" />
+            <Clock className="h-5 w-5 text-red-800 mt-0.5" />
             <div>
               <p className="font-medium text-gray-800">Duration</p>
-              <p className="text-gray-600">60 minutes</p>
+              <p className="">60 minutes</p>
             </div>
           </div>
           
           <div className="flex items-start gap-3">
-            <CheckCircle className="h-5 w-5 text-green-700 mt-0.5" />
-            <div>
+            <CheckCircle className="h-5 w-5 text-red-800 mt-0.5" />
+            <div> 
               <p className="font-medium text-gray-800">Questions</p>
               <p className="text-gray-600">40 multiple choice</p>
             </div>
           </div>
           
           <div className="flex items-start gap-3">
-            <Award className="h-5 w-5 text-yellow-600 mt-0.5" />
+            <Award className="h-5 w-5 text-red-800 mt-0.5" />
             <div>
               <p className="font-medium text-gray-800">Pass Mark</p>
               <p className="text-gray-600">26 out of 40 (65%)</p>
@@ -292,7 +292,7 @@ const [showModal, setShowModal] = useState(false);
             onClick={() => setSelectedSet(set)}
             className={`px-4 py-2 font-medium border transition-all duration-300 ${
               selectedSet === set
-                ? 'bg-blue-600 text-white border-blue-600'
+                ? 'bg-[#8B1A1A] text-white border-red-600'
                 : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
             }`}
           >
@@ -316,7 +316,7 @@ const [showModal, setShowModal] = useState(false);
           setShowModal(true);
           ;
         }}
-        className="bg-blue-600 text-white px-8 py-3 font-medium"
+        className="bg-[#8B1A1A] text-white px-8 py-3 font-medium"
       >
         Start Exam
       </motion.button>
@@ -344,7 +344,7 @@ const [showModal, setShowModal] = useState(false);
         </button>
         <button
           onClick={startQuiz}
-          className="px-6 py-2.5 text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 font-medium shadow-md hover:shadow-lg"
+          className="px-6 py-2.5 text-white bg-[#8B1A1A] rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 font-medium shadow-md hover:shadow-lg"
         >
           Commence Examination
         </button>

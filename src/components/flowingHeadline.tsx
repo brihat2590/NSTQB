@@ -63,10 +63,10 @@ export default function FlowingHeadline() {
         <div className="absolute right-0 top-0 w-12 sm:w-16 h-full bg-gradient-to-l from-red-900 to-transparent z-10" />
 
         {/* Header Label */}
-        <div className="absolute left-0 top-0 bg-gradient-to-r from-red-600 to-red-700 px-3 sm:px-4 py-2 z-20">
-          <div className="flex items-center space-x-2">
-            <Bell className="h-4 w-4 sm:h-5 sm:w-5 animate-pulse" />
-            <span className="font-bold text-xs sm:text-sm uppercase tracking-wide">
+        <div className="absolute left-0 top-0 bg-gradient-to-r from-red-600 to-red-700 px-2 sm:px-4 py-2 z-20">
+          <div className="flex items-center sm:space-x-2">
+            <Bell className="h-3 w-2 sm:h-5 sm:w-5 animate-pulse" />
+            <span className=" font-semibold sm:font-bold text-xs sm:text-sm uppercase sm:tracking-wide">
               Latest Updates
             </span>
           </div>
