@@ -77,10 +77,6 @@ export default function NoticePopup() {
               {notice.fileName || 'View attachment'}
             </a>
           )}
-
-          <p className="mt-5 text-xs text-gray-400">
-            Available until {new Date(notice.endDate).toLocaleDateString()}
-          </p>
         </div>
 
         {hasMany && (

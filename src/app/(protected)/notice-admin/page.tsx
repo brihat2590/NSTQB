@@ -185,8 +185,10 @@ export default function NoticeAdminPage() {
                   value={form.title}
                   onChange={handleChange}
                   required
+                  maxLength={200}
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
                 />
+                <p className="text-xs text-gray-400 mt-1">{form.title.length}/200</p>
               </div>
 
               <div>
