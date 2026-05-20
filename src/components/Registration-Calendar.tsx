@@ -23,7 +23,15 @@ export default function ExamCalendar() {
   useEffect(() => {
     fetch('/api/exam-date')
       .then((res) => res.json())
-      .then(setExams)
+      .then((data: Exam[]) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const upcomingExams = Array.isArray(data)
+          ? data.filter((exam) => new Date(exam.examDate) >= today)
+          : [];
+
+        setExams(upcomingExams);
+      })
       .catch(console.error);
   }, []);
 
@@ -36,9 +44,6 @@ export default function ExamCalendar() {
     if (!date) return false;
     return exams.some((exam) => isSameDay(date, new Date(exam.examDate)));
   };
-
-  const isExamCompleted = (exam: Exam) =>
-    currentDate > new Date(exam.examDate);
 
   const isRegistrationClosed = (exam: Exam) =>
     currentDate > new Date(exam.applicationPeriod);
@@ -177,13 +182,10 @@ export default function ExamCalendar() {
                 {exams.map((exam) => (
                   <div
                     key={exam.id}
-                    className={`bg-white p-5 shadow-sm shadow-black/30 transition ${
-                      isExamCompleted(exam) ? 'opacity-60' : ''
-                    }`}
+                    className="bg-white p-5 shadow-sm shadow-black/30 transition"
                   >
                     <h3 className="font-semibold text-lg text-gray-900">
                       {exam.examTitle}
-                      {isExamCompleted(exam) && ' (Completed)'}
                     </h3>
 
                     <div className="mt-2 space-y-1 text-sm text-gray-600">
@@ -224,14 +226,10 @@ export default function ExamCalendar() {
                         transition-colors
                       
                       "
-                      disabled={
-                        isExamCompleted(exam) || isRegistrationClosed(exam)
-                      }
+                      disabled={isRegistrationClosed(exam)}
                       onClick={() => router.push('/registration')}
                     >
-                      {isExamCompleted(exam)
-                        ? 'Exam Completed'
-                        : isRegistrationClosed(exam)
+                      {isRegistrationClosed(exam)
                         ? 'Registration Closed'
                         : 'Register Now'}
                     </Button>

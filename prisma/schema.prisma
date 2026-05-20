@@ -40,6 +40,7 @@ model examSchedule {
   examDate          DateTime
   applicationPeriod DateTime
   location          String
+  registrations     ExamRegistration[]
 }
 
 model boardMembers {
@@ -158,6 +159,8 @@ model ExamRegistration {
   createdAt         DateTime @default(now())
   remarks           String?
   companyName       String?
+  examScheduleId    String?
+  examSchedule      examSchedule? @relation(fields: [examScheduleId], references: [id])
 }
 
 model QuestionSet {

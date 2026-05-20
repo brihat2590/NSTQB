@@ -18,7 +18,15 @@ export default function Schedule() {
   useEffect(() => {
     fetch("/api/exam-date")
       .then((res) => res.json())
-      .then(setExams)
+      .then((data: Exam[]) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const upcomingExams = Array.isArray(data)
+          ? data.filter((exam) => new Date(exam.examDate) >= today)
+          : [];
+
+        setExams(upcomingExams);
+      })
       .catch(console.error);
   }, []);
 
@@ -48,7 +56,7 @@ export default function Schedule() {
         <Card className="shadow-lg">
           <CardHeader className="bg-gradient-to-r from-red-50 to-blue-50">
             <CardTitle className="text-2xl text-gray-900 text-center">
-              2025 Examination Schedule
+              Upcoming Examination Schedule
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">

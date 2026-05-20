@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { markAsComplete, rejectRegistration } from '../../../lib/actions/RegistrationAction'
-import { CheckCircle, XCircle, FileImage, User, Phone, Mail, Calendar, MapPin, MoveLeft, ArrowLeft } from 'lucide-react'
+import { CheckCircle, XCircle, FileImage, User, Phone, Mail, Calendar, MapPin, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
 
@@ -19,6 +19,16 @@ interface Registration {
   status: string
   createdAt: string
   remarks?: string | null
+  examScheduleId?: string | null
+  examSchedule?: ExamSchedule | null
+}
+
+interface ExamSchedule {
+  id: string
+  examTitle: string
+  examDate: string
+  applicationPeriod: string
+  location: string
 }
 
 interface ConfirmationModalProps {
@@ -103,6 +113,8 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
 export default function AdminRegistrationsPage() {
   const [registrations, setRegistrations] = useState<Registration[]>([])
+  const [examSchedules, setExamSchedules] = useState<ExamSchedule[]>([])
+  const [selectedExamScheduleId, setSelectedExamScheduleId] = useState('all')
   const [loading, setLoading] = useState(false)
   const [isPending, setIsPending] = useState(false)
   const [confirmModal, setConfirmModal] = useState<{
@@ -117,21 +129,52 @@ export default function AdminRegistrationsPage() {
     remarks: ''
   })
 
+  const fetchRegistrations = useCallback(async (examScheduleId: string) => {
+    setLoading(true)
+    try {
+      const query = examScheduleId !== 'all' ? `?examScheduleId=${examScheduleId}` : ''
+      const res = await fetch(`/api/exam-registration${query}`)
+      const data: Registration[] = await res.json()
+      setRegistrations(data)
+    } catch (error) {
+      console.error('Failed to fetch registrations:', error)
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
   useEffect(() => {
-    async function fetchRegistrations() {
-      setLoading(true)
+    async function fetchInitialData() {
       try {
-        const res = await fetch('/api/exam-registration')
-        const data: Registration[] = await res.json()
-        setRegistrations(data)
+        const res = await fetch('/api/exam-date')
+        const data: ExamSchedule[] = await res.json()
+        setExamSchedules(Array.isArray(data) ? data : [])
       } catch (error) {
-        console.error('Failed to fetch registrations:', error)
-      } finally {
-        setLoading(false)
+        console.error('Failed to fetch exam schedules:', error)
       }
     }
-    fetchRegistrations()
-  }, [])
+
+    fetchInitialData()
+    fetchRegistrations('all')
+  }, [fetchRegistrations])
+
+  const handleExamScheduleFilter = (examScheduleId: string) => {
+    setSelectedExamScheduleId(examScheduleId)
+    fetchRegistrations(examScheduleId)
+  }
+
+  const formatExamDate = (dateStr: string) => {
+    try {
+      return new Date(dateStr).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+    } catch {
+      return dateStr
+    }
+  }
 
   const handleApprove = (registration: Registration) => {
     setConfirmModal({
@@ -228,6 +271,25 @@ export default function AdminRegistrationsPage() {
           </p>
         </div>
 
+        <div className="mb-8 rounded-2xl border border-gray-200 bg-gray-50 p-5">
+          <label htmlFor="examScheduleFilter" className="mb-2 block text-sm font-medium text-gray-700">
+            List registrations by exam date
+          </label>
+          <select
+            id="examScheduleFilter"
+            value={selectedExamScheduleId}
+            onChange={(e) => handleExamScheduleFilter(e.target.value)}
+            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 md:max-w-xl"
+          >
+            <option value="all">All exam dates</option>
+            {examSchedules.map((exam) => (
+              <option key={exam.id} value={exam.id}>
+                {formatExamDate(exam.examDate)} - {exam.location}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {/* Registrations */}
         {registrations.length === 0 ? (
           <div className="text-center py-16">
@@ -293,6 +355,15 @@ export default function AdminRegistrationsPage() {
                     <MapPin className="w-4 h-4 mr-2" />
                     <span className="font-medium">Citizenship:</span>
                     <span className="ml-1">{registration.citizenshipNumber}</span>
+                  </div>
+                  <div className="flex items-center text-gray-600">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    <span className="font-medium">Exam Date:</span>
+                    <span className="ml-1">
+                      {registration.examSchedule
+                        ? `${formatExamDate(registration.examSchedule.examDate)} - ${registration.examSchedule.location}`
+                        : 'Not selected'}
+                    </span>
                   </div>
                   <div className="flex items-center text-gray-600">
                     <Calendar className="w-4 h-4 mr-2" />

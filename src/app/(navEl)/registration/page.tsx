@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useRef, ChangeEvent, FormEvent, useEffect } from 'react';
-import { Upload, X, CheckCircle, AlertCircle, Eye, Edit3, Trash2, Users, Clock, CheckSquare, Calendar, Router } from 'lucide-react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import { X, CheckCircle, AlertCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 // Types
@@ -14,10 +14,19 @@ interface FormData {
   citizenshipNumber: string;
   designation: string;
   languageConfirmed: boolean;
+  examScheduleId: string;
 }
 
 interface FormErrors {
   [key: string]: string;
+}
+
+interface ExamSchedule {
+  id: string;
+  examTitle: string;
+  examDate: string;
+  applicationPeriod: string;
+  location: string;
 }
 
 interface ToastProps {
@@ -25,12 +34,6 @@ interface ToastProps {
   type: 'success' | 'error' | 'info';
   onClose: () => void;
 }
-
-interface QRCodeProps {
-  size?: number;
-}
-
-
 
 // Toast Component
 const Toast: React.FC<ToastProps> = ({ message, type, onClose }) => (
@@ -55,26 +58,29 @@ export default function RegistrationPage() {
     companyName: '',
     citizenshipNumber: '',
     designation: '',
-    languageConfirmed: false
+    languageConfirmed: false,
+    examScheduleId: ''
   });
   const router = useRouter();
 
   const [errors, setErrors] = useState<FormErrors>({});
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
   const [toasts, setToasts] = useState<{ id: number, message: string, type: 'success' | 'error' | 'info' }[]>([]);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [examInfo, setExamInfo] = useState<{ examDate: string; location: string } | null>(null);
+  const [examSchedules, setExamSchedules] = useState<ExamSchedule[]>([]);
 
 
   useEffect(() => {
     async function fetchData() {
       const res = await fetch('/api/exam-date');
-      const data = await res.json();
-      if (data?.length > 0) {
-        setExamInfo({ examDate: data[0].examDate, location: data[0].location });
-      }
+      const data: ExamSchedule[] = await res.json();
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const upcomingSchedules = Array.isArray(data)
+        ? data.filter((exam) => new Date(exam.examDate) >= today)
+        : [];
+
+      setExamSchedules(upcomingSchedules);
     }
     fetchData()
 
@@ -109,6 +115,7 @@ export default function RegistrationPage() {
     if (!formData.companyName.trim()) newErrors.companyName = 'Company name is required';
     if (!formData.designation.trim()) newErrors.designation = 'Designation is required';
     if (!formData.languageConfirmed) newErrors.languageConfirmed = 'You must confirm language requirement';
+    if (!formData.examScheduleId) newErrors.examScheduleId = 'Please select an exam date';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -130,19 +137,15 @@ export default function RegistrationPage() {
         payload.append('citizenshipNumber', formData.citizenshipNumber);
         payload.append('designation', formData.designation);
         payload.append('languageConfirmed', formData.languageConfirmed ? 'true' : 'false');
-        if (uploadedFile) {
-          payload.append('screenShot', uploadedFile);
-        }
+        payload.append('examScheduleId', formData.examScheduleId);
 
         const response = await fetch('/api/cloudinary', {
           method: 'POST',
           body: payload,
         });
        
-         let errorMessage = 'Failed to register';
         if (!response.ok) {
           const errorData = await response.json();
-          errorMessage=errorData.message;
           throw new Error(errorData.message || 'Failed to register');
         }
 
@@ -163,9 +166,8 @@ export default function RegistrationPage() {
           citizenshipNumber: '',
           designation: '',
           languageConfirmed: false,
+          examScheduleId: '',
         });
-        setUploadedFile(null);
-        if (fileInputRef.current) fileInputRef.current.value = '';
       } catch (error: unknown) {
         
         setLoading(false);
@@ -186,25 +188,6 @@ export default function RegistrationPage() {
     setTimeout(() => {
       setToasts(prev => prev.filter(toast => toast.id !== id));
     }, 7000);
-  };
-
-  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>): void => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (file.type.startsWith('image/') || file.type === 'application/pdf') {
-        setUploadedFile(file);
-        setErrors(prev => ({ ...prev, file: '' }));
-      } else {
-        setErrors(prev => ({ ...prev, file: 'Only images and PDF files are allowed' }));
-      }
-    }
-  };
-
-  const removeFile = (): void => {
-    setUploadedFile(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
   };
 
   const handleInputChange = (field: keyof FormData) =>
@@ -556,7 +539,16 @@ export default function RegistrationPage() {
                       <span className="">€135</span>
                     </div>
                     <p className="mt-2 text-sm leading-6 text-[#5A5A5A]">
-                      Candidates can pay the equivalent amount in NPR based on today&apos;s conversion rate.
+                      Candidates can pay the equivalent amount in NPR based on today&apos;s conversion rate from{' '}
+                      <a
+                        href="https://www.nrb.org.np/forex/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-[#8B1A1A] underline underline-offset-2"
+                      >
+                        Nepal Rastra Bank
+                      </a>
+                      .
                     </p>
                   </div>
 
@@ -564,17 +556,33 @@ export default function RegistrationPage() {
 
                 <div>
 
-                  {examInfo ? (
+                  {examSchedules.length > 0 ? (
                     <div className="rounded-xl border border-[#EBEBEB] bg-white p-5 shadow-sm">
-                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#8B1A1A]">Exam Date & Time</p>
-                      <p className="py-2 text-base font-medium text-[#141414]">{formatExamDate(examInfo.examDate)}</p>
-
-
+                      <label
+                        htmlFor="examScheduleId"
+                        className="text-xs font-semibold uppercase tracking-[0.14em] text-[#8B1A1A]"
+                      >
+                        Select Exam Date
+                      </label>
+                      <select
+                        id="examScheduleId"
+                        value={formData.examScheduleId}
+                        onChange={handleInputChange('examScheduleId')}
+                        className={`${inputClasses} mt-3`}
+                      >
+                        <option value="">Choose an available exam date</option>
+                        {examSchedules.map((exam) => (
+                          <option key={exam.id} value={exam.id}>
+                            {formatExamDate(exam.examDate)} - {exam.location}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.examScheduleId && <p className={errorClasses}>{errors.examScheduleId}</p>}
                     </div>
                   ) : (
                     <div className="rounded-xl border border-[#EBEBEB] bg-white p-5 shadow-sm">
 
-                      <p className="text-sm text-[#5A5A5A]">No exams scheduled.</p>
+                      <p className="text-sm text-[#5A5A5A]">No upcoming exams scheduled.</p>
 
 
                     </div>
