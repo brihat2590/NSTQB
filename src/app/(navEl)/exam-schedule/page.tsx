@@ -92,7 +92,7 @@ export default function Schedule() {
                         Till {formatDate(exam.applicationPeriod, "MMMM dd, yyyy")}
                       </td>
                       <td className="py-4 px-6 text-green-600 font-semibold">
-                        21000 NPR
+                        €135
                       </td>
                     </tr>
                   ))}

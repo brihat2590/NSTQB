@@ -547,14 +547,17 @@ export default function RegistrationPage() {
                       <span className="block text-[#141414]">Certified Tester Foundation Level (CTFL 4.0)</span>
                       <span className="text-xs font-medium text-[#9A9A9A]">ISTQB Certification</span>
                     </div>
-                    <span className="font-medium text-[#141414]">Rs.21,000</span>
+                    <span className="font-medium text-[#141414]">€135</span>
                   </div>
 
                   <div className="border-t border-[#EBEBEB] pt-4">
                     <div className="flex justify-between items-center text-lg font-semibold">
                       <span>Total Amount</span>
-                      <span className="">Rs.21,000</span>
+                      <span className="">€135</span>
                     </div>
+                    <p className="mt-2 text-sm leading-6 text-[#5A5A5A]">
+                      Candidates can pay the equivalent amount in NPR based on today&apos;s conversion rate.
+                    </p>
                   </div>
 
                 </div>
