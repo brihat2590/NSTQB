@@ -1,7 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { buildCheckoutParams, createSession, getCheckoutGatewayUrl } from "@/lib/payments/hamropay";
+import { sendEventRegistrationConfirmation } from "@/lib/mailer";
 
 import { NextRequest, NextResponse } from "next/server";
+
 
 
 export async function POST(req: Request, { params }: { params: Promise<{ slug: string }> }) {
@@ -102,6 +104,21 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
 
         if (event.eventType === "PAID" && event.ticketPrice) {
             if (selectedPaymentMethod === "QR") {
+                try {
+                    await sendEventRegistrationConfirmation(
+                        email,
+                        name,
+                        event.title,
+                        event.dateTime,
+                        event.venue,
+                        "QR"
+                    )
+
+                }
+                catch (err) {
+                    console.log("failed to send qr registration event confirmation")
+                }
+
                 return NextResponse.json(
                     {
                         message: "Registration submitted. Please pay using QR and send the payment screenshot for verification at info@nstqb.org.",
@@ -126,6 +143,19 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
                         status: "PENDING",
                     },
                 });
+
+                try {
+                    await sendEventRegistrationConfirmation(
+                        email,
+                        name,
+                        event.title,
+                        event.dateTime,
+                        event.venue,
+                        'HAMROPAY'
+                    );
+                } catch (error) {
+                    console.error("Failed to send HAMROPAY event registration confirmation email:", error);
+                }
 
                 const session = await createSession({
                     merchantTxnId,
@@ -184,6 +214,14 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
                 );
             }
         }
+
+        try {
+            await sendEventRegistrationConfirmation(email, name, event.title, event.dateTime, event.venue, 'FREE')
+        } catch (error) {
+            console.error("Failed to send free registration confirmation email:", error);
+        }
+
+
 
         return NextResponse.json(
             { message: "Registration successful", registration },
