@@ -16,8 +16,13 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(notices);
 }
 
+const MAX_TITLE_LENGTH = 200;
+
 export async function POST(request: NextRequest) {
   const { title, content, fileUrl, fileName, published, endDate } = await request.json();
+  if (!title || title.length > MAX_TITLE_LENGTH) {
+    return NextResponse.json({ error: `Title must be between 1 and ${MAX_TITLE_LENGTH} characters` }, { status: 400 });
+  }
   try {
     const notice = await prisma.notice.create({
       data: {
