@@ -116,7 +116,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
 
                 }
                 catch (err) {
-                    console.log("failed to send qr registration event confirmation")
+                    console.error("[register] Failed to send QR registration confirmation email:", err);
                 }
 
                 return NextResponse.json(
@@ -144,19 +144,6 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
                     },
                 });
 
-                try {
-                    await sendEventRegistrationConfirmation(
-                        email,
-                        name,
-                        event.title,
-                        event.dateTime,
-                        event.venue,
-                        'HAMROPAY'
-                    );
-                } catch (error) {
-                    console.error("Failed to send HAMROPAY event registration confirmation email:", error);
-                }
-
                 const session = await createSession({
                     merchantTxnId,
                     transactionAmount,
@@ -178,6 +165,20 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
                     ],
                 });
 
+                // Send pending-payment email only after the session was created successfully
+                try {
+                    await sendEventRegistrationConfirmation(
+                        email,
+                        name,
+                        event.title,
+                        event.dateTime,
+                        event.venue,
+                        'HAMROPAY'
+                    );
+                } catch (emailErr) {
+                    console.error("[register] Failed to send HAMROPAY pending email:", emailErr);
+                }
+
                 const params = buildCheckoutParams({
                     sessionId: session.sessionId,
                     merchantTransactionId: merchantTxnId,
@@ -193,9 +194,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
                     },
                     { status: 200 }
                 );
-            } catch (err: any) {
-                console.error("HamroPay Init Error:", err);
-                const message = String(err?.message || "");
+            } catch (err) {
+                console.error("[register] HamroPay Init Error:", err);
+                const message = String((err as Error)?.message || "");
                 const isGatewayUnavailable =
                     message.includes("failed (502)") ||
                     message.includes("failed (503)") ||
@@ -203,12 +204,12 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
                     message.includes("HamroPay network error") ||
                     message.includes("terminated") ||
                     message.includes("UND_ERR_SOCKET") ||
-                    String(err?.cause?.code || "").includes("UND_ERR");
+                    String((err as any)?.cause?.code || "").includes("UND_ERR");
                 return NextResponse.json(
                     {
                         message: isGatewayUnavailable
                             ? "Payment gateway is temporarily unavailable. Please try again in a few minutes."
-                            : err?.message || "Failed to initiate HamroPay payment. Please try again."
+                            : (err as Error)?.message || "Failed to initiate HamroPay payment. Please try again."
                     },
                     { status: isGatewayUnavailable ? 503 : 500 }
                 );
@@ -229,7 +230,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
         );
     }
     catch (error) {
-        console.log(error);
+        console.error("[register] Internal Server Error:", error);
         return new Response(JSON.stringify({ message: "Internal Server Error" }), { status: 500 });
     }
 
@@ -263,7 +264,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ slug
 
     }
     catch (err) {
-        console.log(err);
+        console.error("[register] GET Internal Server Error:", err);
 
         return NextResponse.json({
             message: "Internal Server Error"

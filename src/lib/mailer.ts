@@ -7,6 +7,14 @@ export const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+function escapeHtml(text: string = ''): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 
 // ✅ Convert ISO date to human-readable string using native JS
 function formatDateToDay(isoDate: string): string {
@@ -30,6 +38,9 @@ export async function sendExamRegistrationSuccessEmail(
   firstName: string,
   lastName: string
 ) {
+
+  const safeFirstName = escapeHtml(firstName)
+  const safeLastName = escapeHtml(lastName)
   const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
   const res = await fetch(`${BASE_URL}/api/exam-date`, {
@@ -47,11 +58,11 @@ export async function sendExamRegistrationSuccessEmail(
   await transporter.sendMail({
     from: `"NSTQB" <${process.env.EMAIL_USER}>`,
     to: email,
-    subject: '✅ Your ISTQB Exam Registration is Complete',
+    subject: 'Your ISTQB Exam Registration is Complete',
     html: `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
         <h2 style="color: #1E90FF;">ISTQB Exam Registration Confirmed</h2>
-        <p>Dear ${firstName} ${lastName},</p>
+        <p>Dear ${safeFirstName} ${safeLastName},</p>
         <p>Your registration for the ISTQB CTFL exam has been successfully completed.</p>
         <p><strong>Exam Date:</strong> ${formattedDate}</p>
         <p><strong>Location:</strong> ${examLocation}</p>
@@ -67,6 +78,8 @@ export async function sendExamRegistrationAcknowledgement(
   firstName: string,
   lastName: string
 ) {
+  const safeFirstName = escapeHtml(firstName)
+  const safeLastName = escapeHtml(lastName)
   await transporter.sendMail({
     from: `"NSTQB" <${process.env.EMAIL_USER}>`,
     to: email,
@@ -74,7 +87,7 @@ export async function sendExamRegistrationAcknowledgement(
     html: `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
         <h2 style="color: #1E90FF;">Exam Registration Received</h2>
-        <p>Dear ${firstName} ${lastName},</p>
+        <p>Dear ${safeFirstName} ${safeLastName},</p>
         <p>Thank you for registering for the ISTQB exam. We have successfully received your submission.</p>
         <p>Our administrators will review your registration and supporting documents shortly. You will receive another email once your registration has been approved and completed.</p>
         <br />
@@ -94,12 +107,20 @@ export async function sendExamRegistrationAdminNotification(
 ) {
   const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
   const adminUrl = `${BASE_URL}/registration-admin`;
+  if (!process.env.ADMIN_USER) {
+    console.warn('[mailer] ADMIN_USER env var is not set; falling back to info@nstqb.org');
+  }
   const adminUser = process.env.ADMIN_USER || 'info@nstqb.org';
+  const safeFirstName = escapeHtml(firstName);
+  const safeLastName = escapeHtml(lastName);
+  const safeEmail = escapeHtml(email);
+  const safePhone = escapeHtml(phone);
+  const safeCompanyName = escapeHtml(companyName || 'N/A');
 
   await transporter.sendMail({
     from: `"NSTQB System" <${process.env.EMAIL_USER}>`,
     to: adminUser,
-    subject: `New ISTQB Exam Registration — ${firstName} ${lastName}`,
+    subject: `New ISTQB Exam Registration — ${safeFirstName} ${safeLastName}`,
     html: `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
         <h2 style="color: #FF8C00;">New Exam Registration Submitted</h2>
@@ -107,19 +128,19 @@ export async function sendExamRegistrationAdminNotification(
         <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
           <tr>
             <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Name</td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${firstName} ${lastName}</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${safeFirstName} ${safeLastName}</td>
           </tr>
           <tr>
             <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Email</td>
-            <td style="padding: 8px; border: 1px solid #ddd;"><a href="mailto:${email}">${email}</a></td>
+            <td style="padding: 8px; border: 1px solid #ddd;"><a href="mailto:${safeEmail}">${safeEmail}</a></td>
           </tr>
           <tr>
             <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Phone</td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${phone}</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${safePhone}</td>
           </tr>
           <tr>
             <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Company</td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${companyName || 'N/A'}</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${safeCompanyName}</td>
           </tr>
         </table>
         <br />
@@ -135,6 +156,10 @@ export async function sendExamRejectionEmail(
   lastName: string,
   remarks: string
 ) {
+  const safeFirstName = escapeHtml(firstName);
+  const safeLastName = escapeHtml(lastName);
+  const safeRemarks = escapeHtml(remarks);
+
   await transporter.sendMail({
     from: `"NSTQB" <${process.env.EMAIL_USER}>`,
     to: email,
@@ -142,11 +167,11 @@ export async function sendExamRejectionEmail(
     html: `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
         <h2 style="color: #DC3545;">Exam Registration Update</h2>
-        <p>Dear ${firstName} ${lastName},</p>
+        <p>Dear ${safeFirstName} ${safeLastName},</p>
         <p>Thank you for your interest in registering for the ISTQB exam. Unfortunately, your registration could not be approved at this time.</p>
         <p><strong>Admin Remarks:</strong></p>
         <blockquote style="border-left: 4px solid #DC3545; padding-left: 15px; margin: 15px 0; color: #555; font-style: italic;">
-          ${remarks}
+          ${safeRemarks}
         </blockquote>
         <p>If you have any questions or need to correct your registration details, please reply to this email or contact us at <a href="mailto:info@nstqb.org">info@nstqb.org</a>.</p>
         <br />
