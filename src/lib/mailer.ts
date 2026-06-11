@@ -159,6 +159,7 @@ export async function sendExamRejectionEmail(
   const safeFirstName = escapeHtml(firstName);
   const safeLastName = escapeHtml(lastName);
   const safeRemarks = escapeHtml(remarks);
+  
 
   await transporter.sendMail({
     from: `"NSTQB" <${process.env.EMAIL_USER}>`,
@@ -189,6 +190,8 @@ export async function sendEventRegistrationConfirmation(
   eventLocation: string,
   paymentMethod: 'FREE' | 'QR' | 'HAMROPAY' = 'FREE'
 ) {
+  const safeEventTitle = escapeHtml(eventTitle);
+  const safeName = escapeHtml(name);
   let formattedDate = 'To Be Announced';
   if (eventDate) {
     try {
@@ -199,7 +202,7 @@ export async function sendEventRegistrationConfirmation(
   }
 
   let paymentInstructions = '';
-  let subject = `Registration Confirmed — ${eventTitle}`;
+  let subject = `Registration Confirmed — ${safeEventTitle}`;
 
   if (paymentMethod === 'QR') {
     paymentInstructions = `
@@ -209,7 +212,7 @@ export async function sendEventRegistrationConfirmation(
       </div>
     `;
   } else if (paymentMethod === 'HAMROPAY') {
-    subject = `Registration Pending Payment — ${eventTitle}`;
+    subject = `Registration Pending Payment — ${safeEventTitle}`;
     paymentInstructions = `
       <div style="background-color: #D1ECF1; border: 1px solid #BEE5EB; padding: 15px; border-radius: 5px; margin-top: 15px; color: #0C5460;">
         <strong>Payment Status:</strong> Pending<br />
@@ -231,11 +234,11 @@ export async function sendEventRegistrationConfirmation(
     html: `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
         <h2 style="color: #1E90FF;">Event Registration</h2>
-        <p>Dear ${name},</p>
-        <p>We are pleased to inform you that your registration request for the event <strong>${eventTitle}</strong> has been received.</p>
+        <p>Dear ${safeName},</p>
+        <p>We are pleased to inform you that your registration request for the event <strong>${safeEventTitle}</strong> has been received.</p>
         <p><strong>Event Details:</strong></p>
         <ul>
-          <li><strong>Event:</strong> ${eventTitle}</li>
+          <li><strong>Event:</strong> ${safeEventTitle}</li>
           <li><strong>Date:</strong> ${formattedDate}</li>
           <li><strong>Location:</strong> ${eventLocation}</li>
         </ul>
