@@ -19,13 +19,25 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { toast } from 'sonner';
 
+type MemberCategory = 'BOARD' | 'GENERAL' | 'ACTIVE';
+
 type BoardMember = {
   id: string;
   name: string;
   title: string;
   linkedInUrl: string;
   imageUrl: string;
+  category: MemberCategory;
 };
+
+const CATEGORY_OPTIONS: { value: MemberCategory; label: string }[] = [
+  { value: 'BOARD', label: 'Board Members' },
+  { value: 'GENERAL', label: 'General Members' },
+  { value: 'ACTIVE', label: 'Active Members' },
+];
+
+const categoryLabel = (value: MemberCategory) =>
+  CATEGORY_OPTIONS.find((c) => c.value === value)?.label ?? value;
 
 function SortableItem({
   member,
@@ -86,6 +98,9 @@ function SortableItem({
       <div className="flex-1 space-y-1 w-full">
         <h3 className="text-xl font-bold">{member.name}</h3>
         <p className="text-gray-600">{member.title}</p>
+        <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700">
+          {categoryLabel(member.category ?? 'BOARD')}
+        </span>
         <a
           href={member.linkedInUrl}
           target="_blank"
@@ -130,6 +145,7 @@ export default function BoardMemberAdminPage() {
     title: '',
     linkedInUrl: '',
     imageUrl: '',
+    category: 'BOARD' as MemberCategory,
   });
 
   // State for currently editing member
@@ -155,7 +171,7 @@ export default function BoardMemberAdminPage() {
 
     try {
       await axios.post('/api/board-members', newMember);
-      setNewMember({ name: '', title: '', linkedInUrl: '', imageUrl: '' });
+      setNewMember({ name: '', title: '', linkedInUrl: '', imageUrl: '', category: 'BOARD' });
       toast.success('Member added');
       fetchMembers();
     } catch {
@@ -244,6 +260,19 @@ export default function BoardMemberAdminPage() {
               onChange={(e) => setNewMember({ ...newMember, imageUrl: e.target.value })}
               className="w-full px-4 py-2 border border-gray-300 rounded-xl"
             />
+            <select
+              value={newMember.category}
+              onChange={(e) =>
+                setNewMember({ ...newMember, category: e.target.value as MemberCategory })
+              }
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl bg-white"
+            >
+              {CATEGORY_OPTIONS.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
           </div>
           <button
             onClick={handleAdd}
@@ -346,6 +375,17 @@ function EditPanel({
           className="w-full px-3 py-2 border rounded"
           placeholder="Image URL"
         />
+        <select
+          value={editData.category ?? 'BOARD'}
+          onChange={(e) => handleChange('category', e.target.value as MemberCategory)}
+          className="w-full px-3 py-2 border rounded bg-white"
+        >
+          {CATEGORY_OPTIONS.map((c) => (
+            <option key={c.value} value={c.value}>
+              {c.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="mt-6 flex justify-between">
