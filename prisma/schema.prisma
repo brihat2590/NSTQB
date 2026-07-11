@@ -44,12 +44,13 @@ model examSchedule {
 }
 
 model boardMembers {
-  id          String @id @default(cuid())
-  name        String @unique
+  id          String         @id @default(cuid())
+  name        String         @unique
   title       String
   linkedInUrl String
   imageUrl    String
   order       Int
+  category    MemberCategory @default(BOARD)
 }
 
 model Blog {
@@ -194,6 +195,12 @@ model Notice {
   endDate     DateTime
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+enum MemberCategory {
+  BOARD
+  GENERAL
+  ACTIVE
 }
 
 enum EventType {

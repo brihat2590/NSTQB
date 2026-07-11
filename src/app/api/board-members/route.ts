@@ -20,7 +20,8 @@ export async function POST(req: Request) {
       title: body.title,
       linkedInUrl: body.linkedInUrl,
       imageUrl: body.imageUrl,
-      order: count, 
+      category: body.category ?? 'BOARD',
+      order: count,
     },
   });
 

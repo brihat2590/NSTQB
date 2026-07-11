@@ -8,9 +8,14 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
   return NextResponse.json(notice);
 }
 
+const MAX_TITLE_LENGTH = 200;
+
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { title, content, fileUrl, fileName, published, endDate } = await request.json();
+  if (!title || title.length > MAX_TITLE_LENGTH) {
+    return NextResponse.json({ error: `Title must be between 1 and ${MAX_TITLE_LENGTH} characters` }, { status: 400 });
+  }
   try {
     const updated = await prisma.notice.update({
       where: { id },

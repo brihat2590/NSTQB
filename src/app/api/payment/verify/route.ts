@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getTransaction } from "@/lib/payments/hamropay";
+import { sendEventRegistrationConfirmation } from "@/lib/mailer";
 
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams;
@@ -48,7 +49,7 @@ export async function GET(req: NextRequest) {
                         ? paymentMeta.transaction_uuid
                         : merchantTxnId;
 
-        await prisma.registrationEvent.update({
+        const updatedRegistration = await prisma.registrationEvent.update({
             where: { id: registration.id },
             data: {
                 status: normalizedStatus,
@@ -59,16 +60,33 @@ export async function GET(req: NextRequest) {
                     ? trackingReference
                     : registration.transaction_uuid,
             },
+            include: { event: true },
         });
+
+        if (normalizedStatus === "COMPLETED") {
+            try {
+                const evt = updatedRegistration.event;
+                await sendEventRegistrationConfirmation(
+                    updatedRegistration.email,
+                    updatedRegistration.name,
+                    evt?.title ?? "the event",
+                    evt?.dateTime ?? null,
+                    evt?.venue ?? "",
+                    "FREE" // payment already confirmed — send a plain confirmation
+                );
+            } catch (emailErr) {
+                console.error("[payment/verify] Failed to send confirmation email:", emailErr);
+            }
+        }
 
         return NextResponse.json({
             status: normalizedStatus,
             message: paymentInfo.message || "Transaction status fetched successfully",
         });
-    } catch (err: any) {
-        console.error("Payment Verification Error:", err);
+    } catch (err) {
+        console.error("[payment/verify] Payment Verification Error:", err);
         return NextResponse.json(
-            { message: "Verification failed", error: err.message },
+            { message: "Verification failed" },
             { status: 500 }
         );
     }

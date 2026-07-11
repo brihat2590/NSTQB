@@ -1,7 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { buildCheckoutParams, createSession, getCheckoutGatewayUrl } from "@/lib/payments/hamropay";
+import { sendEventRegistrationConfirmation } from "@/lib/mailer";
 
 import { NextRequest, NextResponse } from "next/server";
+
 
 
 export async function POST(req: Request, { params }: { params: Promise<{ slug: string }> }) {
@@ -102,6 +104,21 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
 
         if (event.eventType === "PAID" && event.ticketPrice) {
             if (selectedPaymentMethod === "QR") {
+                try {
+                    await sendEventRegistrationConfirmation(
+                        email,
+                        name,
+                        event.title,
+                        event.dateTime,
+                        event.venue,
+                        "QR"
+                    )
+
+                }
+                catch (err) {
+                    console.error("[register] Failed to send QR registration confirmation email:", err);
+                }
+
                 return NextResponse.json(
                     {
                         message: "Registration submitted. Please pay using QR and send the payment screenshot for verification at info@nstqb.org.",
@@ -148,6 +165,20 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
                     ],
                 });
 
+                // Send pending-payment email only after the session was created successfully
+                try {
+                    await sendEventRegistrationConfirmation(
+                        email,
+                        name,
+                        event.title,
+                        event.dateTime,
+                        event.venue,
+                        'HAMROPAY'
+                    );
+                } catch (emailErr) {
+                    console.error("[register] Failed to send HAMROPAY pending email:", emailErr);
+                }
+
                 const params = buildCheckoutParams({
                     sessionId: session.sessionId,
                     merchantTransactionId: merchantTxnId,
@@ -163,9 +194,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
                     },
                     { status: 200 }
                 );
-            } catch (err: any) {
-                console.error("HamroPay Init Error:", err);
-                const message = String(err?.message || "");
+            } catch (err) {
+                console.error("[register] HamroPay Init Error:", err);
+                const message = String((err as Error)?.message || "");
                 const isGatewayUnavailable =
                     message.includes("failed (502)") ||
                     message.includes("failed (503)") ||
@@ -173,17 +204,25 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
                     message.includes("HamroPay network error") ||
                     message.includes("terminated") ||
                     message.includes("UND_ERR_SOCKET") ||
-                    String(err?.cause?.code || "").includes("UND_ERR");
+                    String((err as any)?.cause?.code || "").includes("UND_ERR");
                 return NextResponse.json(
                     {
                         message: isGatewayUnavailable
                             ? "Payment gateway is temporarily unavailable. Please try again in a few minutes."
-                            : err?.message || "Failed to initiate HamroPay payment. Please try again."
+                            : (err as Error)?.message || "Failed to initiate HamroPay payment. Please try again."
                     },
                     { status: isGatewayUnavailable ? 503 : 500 }
                 );
             }
         }
+
+        try {
+            await sendEventRegistrationConfirmation(email, name, event.title, event.dateTime, event.venue, 'FREE')
+        } catch (error) {
+            console.error("Failed to send free registration confirmation email:", error);
+        }
+
+
 
         return NextResponse.json(
             { message: "Registration successful", registration },
@@ -191,7 +230,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
         );
     }
     catch (error) {
-        console.log(error);
+        console.error("[register] Internal Server Error:", error);
         return new Response(JSON.stringify({ message: "Internal Server Error" }), { status: 500 });
     }
 
@@ -225,7 +264,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ slug
 
     }
     catch (err) {
-        console.log(err);
+        console.error("[register] GET Internal Server Error:", err);
 
         return NextResponse.json({
             message: "Internal Server Error"

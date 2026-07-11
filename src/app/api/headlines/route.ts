@@ -2,12 +2,15 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 
-export  async function GET(){
-    const headlines=await prisma.flowingHeadlines.findMany({
-       
-    })
+export async function GET() {
+  try {
+    const headlines = await prisma.flowingHeadlines.findMany();
     return NextResponse.json(headlines, { status: 200 });
-};
+  } catch (error) {
+    console.error('Failed to fetch headlines:', error);
+    return NextResponse.json({ error: 'Failed to fetch headlines' }, { status: 500 });
+  }
+}
 
 export  async function POST(req:Request){
     const{text,icon,href,type}=await req.json();

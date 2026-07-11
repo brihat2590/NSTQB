@@ -4,13 +4,166 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Linkedin } from 'lucide-react';
 
+type MemberCategory = 'BOARD' | 'GENERAL' | 'ACTIVE';
+
 type BoardMember = {
   id: string;
   name: string;
   title: string;
   linkedInUrl: string;
   imageUrl: string;
+  category: MemberCategory;
 };
+
+const CATEGORY_SECTIONS: { key: MemberCategory; label: string }[] = [
+  { key: 'BOARD', label: 'Board Members' },
+  { key: 'GENERAL', label: 'General Members' },
+  { key: 'ACTIVE', label: 'Active Members' },
+];
+
+function MemberCard({
+  member,
+  hovered,
+  onHover,
+  onLeave,
+}: {
+  member: BoardMember;
+  hovered: boolean;
+  onHover: () => void;
+  onLeave: () => void;
+}) {
+  return (
+    <div
+      className="group relative"
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+    >
+      <div className="relative aspect-[4/5] overflow-hidden transition-all duration-200">
+        <Image
+          src={member.imageUrl || '/placeholder.svg'}
+          alt={member.name}
+          fill
+          sizes="(max-width: 1023px) 260px, 25vw"
+          className="object-cover transition-transform duration-200 group-hover:scale-105"
+        />
+
+        {/* Hover Overlay */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-200 ${
+            hovered ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+
+        {/* Hover Content */}
+        <div
+          className={`absolute bottom-0 left-0 right-0 p-4 text-white transform transition-all duration-200 ${
+            hovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+          }`}
+        >
+          <h3 className="text-lg font-semibold mb-1">{member.name}</h3>
+          <p className="text-sm text-white/90 mb-3">{member.title}</p>
+
+          {member.linkedInUrl && (
+            <a
+              href={member.linkedInUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 transition p-2"
+            >
+              <Linkedin className="h-4 w-4 text-white" />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CategorySection({
+  label,
+  members,
+  hoveredMember,
+  setHoveredMember,
+}: {
+  label: string;
+  members: BoardMember[];
+  hoveredMember: string | null;
+  setHoveredMember: (id: string | null) => void;
+}) {
+  if (members.length === 0) return null;
+
+  return (
+    <div className="mb-16 last:mb-0">
+      <h3 className="text-2xl md:text-3xl font-semibold text-center text-gray-800 mb-8">
+        {label}
+      </h3>
+
+      {/* ===================== */}
+      {/* 📱 MOBILE VIEW */}
+      {/* ===================== */}
+      <div className="lg:hidden">
+        <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+          {members.map((member) => (
+            <div
+              key={member.id}
+              className="min-w-[260px] snap-start flex-shrink-0"
+            >
+              <div className="relative aspect-[4/5] overflow-hidden">
+                <Image
+                  src={member.imageUrl || '/placeholder.svg'}
+                  alt={member.name}
+                  fill
+                  sizes="(max-width: 1023px) 260px, 25vw"
+                  className="object-cover"
+                />
+
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+
+                {/* Info */}
+                <div className="absolute bottom-0 p-4 text-white">
+                  <h3 className="text-lg font-semibold">{member.name}</h3>
+                  <p className="text-sm text-white/90 mb-2">{member.title}</p>
+
+                  {member.linkedInUrl && (
+                    <a
+                      href={member.linkedInUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 transition p-2"
+                    >
+                      <Linkedin className="h-4 w-4 text-white" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Swipe hint */}
+        <p className="mt-3 text-sm text-gray-500 text-center">
+          Swipe to explore team members →
+        </p>
+      </div>
+
+      {/* ===================== */}
+      {/* 💻 DESKTOP VIEW */}
+      {/* ===================== */}
+      <div className="hidden lg:grid grid-cols-4 gap-6">
+        {members.map((member) => (
+          <MemberCard
+            key={member.id}
+            member={member}
+            hovered={hoveredMember === member.id}
+            onHover={() => setHoveredMember(member.id)}
+            onLeave={() => setHoveredMember(null)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function MemberBoards() {
   const [boardMembers, setBoardMembers] = useState<BoardMember[]>([]);
@@ -30,116 +183,17 @@ export default function MemberBoards() {
           Meet Our Team
         </h2>
 
-        {/* ===================== */}
-        {/* 📱 MOBILE VIEW */}
-        {/* ===================== */}
-        <div className="lg:hidden">
-          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
-            {boardMembers.map((member) => (
-              <div
-                key={member.id}
-                className="min-w-[260px] snap-start flex-shrink-0"
-              >
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  <Image
-                    src={member.imageUrl || '/placeholder.svg'}
-                    alt={member.name}
-                    fill
-                    sizes="(max-width: 1023px) 260px, 25vw"
-                    className="object-cover"
-                  />
-
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-
-                  {/* Info */}
-                  <div className="absolute bottom-0 p-4 text-white">
-                    <h3 className="text-lg font-semibold">{member.name}</h3>
-                    <p className="text-sm text-white/90 mb-2">
-                      {member.title}
-                    </p>
-
-                    {member.linkedInUrl && (
-                      <a
-                        href={member.linkedInUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 transition p-2"
-                      >
-                        <Linkedin className="h-4 w-4 text-white" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Swipe hint */}
-          <p className="mt-3 text-sm text-gray-500 text-center">
-            Swipe to explore team members →
-          </p>
-        </div>
-
-        {/* ===================== */}
-        {/* 💻 DESKTOP VIEW */}
-        {/* ===================== */}
-        <div className="hidden lg:grid grid-cols-4 gap-6">
-          {boardMembers.map((member) => (
-            <div
-              key={member.id}
-              className="group relative"
-              onMouseEnter={() => setHoveredMember(member.id)}
-              onMouseLeave={() => setHoveredMember(null)}
-            >
-              <div className="relative aspect-[4/5] overflow-hidden transition-all duration-200">
-                <Image
-                  src={member.imageUrl || '/placeholder.svg'}
-                  alt={member.name}
-                  fill
-                  sizes="(max-width: 1023px) 260px, 25vw"
-                  className="object-cover transition-transform duration-200 group-hover:scale-105"
-                />
-
-                {/* Hover Overlay */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-200 ${
-                    hoveredMember === member.id
-                      ? 'opacity-100'
-                      : 'opacity-0'
-                  }`}
-                />
-
-                {/* Hover Content */}
-                <div
-                  className={`absolute bottom-0 left-0 right-0 p-4 text-white transform transition-all duration-200 ${
-                    hoveredMember === member.id
-                      ? 'translate-y-0 opacity-100'
-                      : 'translate-y-4 opacity-0'
-                  }`}
-                >
-                  <h3 className="text-lg font-semibold mb-1">
-                    {member.name}
-                  </h3>
-                  <p className="text-sm text-white/90 mb-3">
-                    {member.title}
-                  </p>
-
-                  {member.linkedInUrl && (
-                    <a
-                      href={member.linkedInUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 transition p-2"
-                    >
-                      <Linkedin className="h-4 w-4 text-white" />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        {CATEGORY_SECTIONS.map(({ key, label }) => (
+          <CategorySection
+            key={key}
+            label={label}
+            members={boardMembers.filter(
+              (m) => (m.category ?? 'BOARD') === key
+            )}
+            hoveredMember={hoveredMember}
+            setHoveredMember={setHoveredMember}
+          />
+        ))}
       </div>
     </section>
   );
