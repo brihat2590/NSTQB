@@ -36,3 +36,10 @@ yarn dev
 pnpm dev
 # or
 bun dev
+```
+
+### Prefer Docker?
+
+If you don't want to install Node.js or Postgres locally, you can run the
+whole project (app + database) with one command using Docker Compose. See
+[README.Docker.md](./README.Docker.md) for a full beginner walkthrough.
