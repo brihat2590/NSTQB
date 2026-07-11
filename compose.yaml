@@ -1,20 +1,35 @@
-version: "3.9"
-
 services:
+  db:
+    image: postgres:16-alpine
+    container_name: nstqb_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-myuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mypassword123}
+      POSTGRES_DB: ${POSTGRES_DB:-mydatabase}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-myuser} -d ${POSTGRES_DB:-mydatabase}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   web:
     build: .
-    container_name: nextjs_app1
+    container_name: nstqb_web
     restart: always
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     environment:
-      DATABASE_URL: "postgresql://neondb_owner:npg_7fpsKvw4RWAO@ep-lively-thunder-a8emdvbl-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require"
-    command: >
-      sh -c "
-      npx prisma generate &&
-      npx prisma db push --accept-data-loss &&
-      npm run start
-      "
-    volumes:
-      - .:/app
-      - /app/node_modules
+      DATABASE_URL: "postgresql://${POSTGRES_USER:-myuser}:${POSTGRES_PASSWORD:-mypassword123}@db:5432/${POSTGRES_DB:-mydatabase}?schema=public"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
