@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { cloudinary } from '@/lib/cloudinary';
 import { NextResponse } from 'next/server';
+import { sendExamRegistrationAcknowledgement, sendExamRegistrationAdminNotification } from '@/lib/mailer';
 
 export async function POST(req: Request) {
 
@@ -58,10 +59,26 @@ export async function POST(req: Request) {
     companyName: (formData.get('companyName') as string) || '',
     screenShot: screenshotUrl,
     examScheduleId,
-    
+
   };
 
-  const created = await prisma.examRegistration.create({ data });
 
-  return NextResponse.json({ success: true, created });
+
+
+
+  try {
+    const created = await prisma.examRegistration.create({ data });
+    try {
+      await sendExamRegistrationAcknowledgement(created.email, created.firstName, created.lastName);
+      await sendExamRegistrationAdminNotification(created.firstName, created.lastName, created.email, created.phone, created.companyName || '');
+    }
+    catch (err: any) {
+      console.log("email error", err.message)
+
+    }
+    return NextResponse.json({ success: true, created });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ success: false, message: 'Internal Server Error' });
+  }
 }
